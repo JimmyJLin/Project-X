@@ -1,6 +1,9 @@
 'use strict'
 
 // require('dotenv').config();
+const bcrypt = require('bcrypt');
+const salt   = bcrypt.genSaltSync(10);
+
 const pgp = require('pg-promise')({
     // Initialization Options
 });
@@ -10,6 +13,83 @@ const cn = 'postgres://eminekoc:1297@localhost/apex'
 
 const db = pgp(cn);
 
+// User Auth Queries
+function createSecure(email, password, callback) {
+  //hashing the password given by the user at signup
+  bcrypt.genSalt(function(err, salt) {
+    bcrypt.hash(password, salt, function(err, hash) {
+      //this callback saves the user to our databoard
+      //with the hashed password
+      callback(email,hash);
+    })
+  })
+}
+
+function createUser(req, res, next) {
+  createSecure(req.body.email, req.body.password, saveUser);
+
+  function saveUser(email, hash) {
+    db.none("INSERT INTO Users (email, password, name, last_name, type ) VALUES($1, $2, $3, $4, $5);", [email, hash, req.body.name, req.body.last_name, req.body.type ])
+    .then(function (data) {
+      // success;
+      next();
+    })
+    .catch(function () {
+      // error;
+      console.error('error signing up');
+    });
+  }
+}
+
+function loginUser(req, res, next) {
+  var email = req.body.email
+  var password = req.body.password
+
+  db.one("SELECT * FROM Users WHERE email LIKE $1;", [email])
+    .then((data) => {
+      if (bcrypt.compareSync(password, data.password)) {
+        res.rows = data
+        next()
+      } else {
+        res.status(401).json({data:"Fool this no workie"})
+        next()
+      }
+    })
+    .catch(() => {
+      console.error('error finding users')
+    })
+}
+
+
+function editUser(req,res,next) {
+
+  db.one("UPDATE Users SET name = $1, email = $2, password = $3, zipcode = $4 where user_id = $5)",
+  [ req.body.name, req.body.email, req.body.password, req.body.zipcode, req.params.uID])
+  .then(function(data) {
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function deleteUser(req,res,next) {
+
+  db.none("delete from Users where id=$1)",
+  [req.params.uID])
+  .then(function() {
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+
+
+
+
+// JOB queries
 
 function showAllJobs(req,res,next){
   db.any('select * from Jobs;')
@@ -35,8 +115,6 @@ function showOneJob(req,res,next){
   })
 };
 
-
-
 function postAJob(req,res,next){
   db.one(`INSERT INTO Jobs  (employer_id,title,description,location,type,industry,salary,experience_level,education_level,starting_date, status)
   VALUES ($1, $2, $3, $4, $5,$6,$7,$8,$9,$10,$11) RETURNING *;`,
@@ -50,6 +128,11 @@ function postAJob(req,res,next){
     console.error(error);
   })
 };
+
+module.exports.createUser = createUser;
+module.exports.loginUser = loginUser;
+module.exports.editUser = editUser;
+module.exports.deleteUser = deleteUser;
 
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;
