@@ -36,6 +36,7 @@
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^3.10.1",
     "normalizr": "^1.0.0",
+    "pg-promise": "^5.3.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-redux": "^2.1.2",
