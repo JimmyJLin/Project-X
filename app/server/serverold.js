@@ -36,24 +36,10 @@ if ( process.env.NODE_ENV === 'production' ) {
   styleSrc = '/main.css';
 }
 
-
-// *********************** API ROUTES ****************** //
-const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
-const userRoutes = require(path.join(__dirname, '/api/auth'));
-
-server.use('/api/jobs', jobsRoutes);
-server.use('/api/accounts', userRoutes)
-
-
-// *********************** API ROUTES ****************** //
-
-
-
 server.use(compression());
 server.use(Express.static(path.join(__dirname, '../..', 'dist')));
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
-
 
 // mock apis
 server.get('/api/questions', (req, res)=> {
@@ -69,9 +55,6 @@ server.get('/api/questions/:id', (req, res)=> {
   let { getQuestion } = require('./mock_api')
   res.send(getQuestion(req.params.id))
 })
-
-
-
 
 server.get('*', (req, res, next)=> {
   let history = useRouterHistory(useQueries(createMemoryHistory))();
