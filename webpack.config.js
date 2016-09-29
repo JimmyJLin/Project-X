@@ -50,7 +50,7 @@ var config = {
 
 if (DEBUG) {
   config.entry.dev = [
-    'webpack-dev-server/client?http://localhost:3001',
+    'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
   ];
 
@@ -61,7 +61,7 @@ if (DEBUG) {
       filname: 'vendor.js'
     })
   ]);
-  config.output.publicPath = 'http://localhost:3001/static/';
+  config.output.publicPath = 'http://localhost:3000/static/';
   config.module.loaders[0].query = {
     "env": {
       "development": {

@@ -29,9 +29,9 @@ if ( process.env.NODE_ENV === 'production' ) {
   styleSrc = `/${refManifest['main.css']}`;
 } else {
   scriptSrcs = [
-    'http://localhost:3001/static/vendor.js',
-    'http://localhost:3001/static/dev.js',
-    'http://localhost:3001/static/app.js'
+    // 'http://localhost:3000/static/vendor.js',
+    // 'http://localhost:3000/static/dev.js',
+    // 'http://localhost:3000/static/app.js'
   ];
   styleSrc = '/main.css';
 }

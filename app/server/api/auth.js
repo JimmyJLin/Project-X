@@ -23,7 +23,7 @@ auth.route('/')
 //     res.send(res.rows);
 //   })
 
-auth.post('/login', db.loginUser, ( req, res ) => {
+auth.post('/signin', db.loginUser, ( req, res ) => {
   var token = jwt.sign( res.rows, secret );
 
   res.json( { agent: res.rows, token: token } );
