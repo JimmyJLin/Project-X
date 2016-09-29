@@ -13,7 +13,7 @@ const cn = 'postgres://eminekoc:1297@localhost/apex'
 
 const db = pgp(cn);
 
-// User Auth Queries
+// User Auth Queries -  CREATE AN ACCOUNT
 function createSecure(email, password, callback) {
   //hashing the password given by the user at signup
   bcrypt.genSalt(function(err, salt) {
@@ -40,6 +40,7 @@ function createUser(req, res, next) {
     });
   }
 }
+// User Auth Queries -  LOGIN AN ACCOUNT
 
 function loginUser(req, res, next) {
   var email = req.body.email
@@ -60,11 +61,10 @@ function loginUser(req, res, next) {
     })
 }
 
+function userProfile(req,res,next) {
 
-function editUser(req,res,next) {
-
-  db.one("UPDATE Users SET name = $1, email = $2, password = $3, zipcode = $4 where user_id = $5)",
-  [ req.body.name, req.body.email, req.body.password, req.body.zipcode, req.params.uID])
+  db.one("select * from Users where id = $1)",
+  [ req.params.id ])
   .then(function(data) {
     next();
   })
@@ -72,6 +72,23 @@ function editUser(req,res,next) {
     console.error(error);
   })
 };
+
+
+// User Auth Queries -  UPDATE A USER ACCOUNT
+
+function editUser(req,res,next) {
+
+  db.one("UPDATE Users SET name = $1, email = $2, password = $3, last_name = $4, type = $5 where id = $5)",
+  [ req.body.name, req.body.email, req.body.password, req.body.last_name,req.body.type, req.params.uID])
+  .then(function(data) {
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+// User Auth Queries -  UPDATE A USER ACCOUNT
 
 function deleteUser(req,res,next) {
 

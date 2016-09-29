@@ -19,8 +19,14 @@ auth.route('/')
     res.status(201).json( { data: 'success' } );
   });
 
+// auth.get('/:id', db.userProfile,  (req, res) => {
+//     res.send(res.rows);
+//   })
+
 auth.post('/login', db.loginUser, ( req, res ) => {
   var token = jwt.sign( res.rows, secret );
 
   res.json( { agent: res.rows, token: token } );
 })
+
+module.exports = auth;
