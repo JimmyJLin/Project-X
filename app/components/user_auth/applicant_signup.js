@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 
-export default class Employer_login extends Component {
+export default class Applicant_signup extends Component {
 
   render(){
     return(
 
-      <div>
-
-        <div className="ui small modal employer login">
+        <div className="ui small modal applicant signup">
           <i className="close icon"></i>
           <div className="header">
-            Employer Login
+            Applicant Signup
           </div>
 
           <div id="loginForm">
@@ -25,22 +23,12 @@ export default class Employer_login extends Component {
                 <label>Password</label>
                 <input type="password" name="password" placeholder="password"/>
               </div>
-
-              <p>Forget password <a id="reset_password_button" href="/#">Reset</a> </p>
-
-              <button className="ui button" type="submit">Sign In</button>
+              <button className="ui button" type="submit">Sign Up</button>
             </form>
-
-            <br/>
-
-            <p>Not a member yet ... <a id="employer_signup_button">Sign Up</a> </p>
 
           </div>
 
         </div>
-
-
-      </div>
 
     )
   }

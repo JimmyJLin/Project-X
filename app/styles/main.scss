@@ -20,7 +20,7 @@ body {
   padding-bottom: 50px;
 }
 
-#main_display_text{
+#about_us_div{
   padding-top: 25px;
   padding-left: 250px;
   padding-right: 250px;
@@ -31,4 +31,9 @@ body {
 #main_display_links{
   padding-top: 50px;
   padding-bottom: 150px;
+}
+
+#applicant_signup_button, #employer_signup_button{
+  cursor: pointer;
+  cursor: hand;
 }
