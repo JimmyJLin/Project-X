@@ -26,8 +26,6 @@ export default class Employer_login extends Component {
                 <input type="password" name="password" placeholder="password"/>
               </div>
 
-              <p>Forget password <a id="reset_password_button" href="/#">Reset</a> </p>
-
               <button className="ui button" type="submit">Sign In</button>
             </form>
 
