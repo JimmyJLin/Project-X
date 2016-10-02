@@ -1,41 +1,121 @@
 $(function(){
   console.log('script file loaded')
 
-  // sign in / sign out / forget password Modal
-  $('#applicant_login_button').on('click', function(){
-    console.log("applicant_login_button clicked")
-    $('.ui.small.modal.applicant.login').modal('show')
+  // Yelp Star Rating
+  $('.ui.rating').rating()
+
+  // Social media on hover change color
+  $('#socialfacebook').hover(
+    function(){
+      $(this).removeClass("grey").addClass("blue")
+    },
+    function(){
+      $(this).removeClass("blue").addClass("grey")
+    }
+  )
+
+  $('#socialfoursquare').hover(
+    function(){
+      $(this).removeClass("grey").addClass("pink")
+    },
+    function(){
+      $(this).removeClass("pink").addClass("grey")
+    }
+  )
+
+  $('#socialwechat').hover(
+    function(){
+      $(this).removeClass("grey").addClass("green")
+    },
+    function(){
+      $(this).removeClass("green").addClass("grey")
+    }
+  )
+
+  $('#socialinstagram').hover(
+    function(){
+      $(this).removeClass("grey").addClass("orange")
+    },
+    function(){
+      $(this).removeClass("orange").addClass("grey")
+    }
+  )
+
+  $('#socialyelp').hover(
+    function(){
+      $(this).removeClass("grey").addClass("red")
+    },
+    function(){
+      $(this).removeClass("red").addClass("grey")
+    }
+  )
+
+  // Menu button on hover
+  $('#buttonhome').hover(
+    function(){
+      $(this).css({"background-color":"#666", "color":"white"})
+    },
+    function(){
+      $(this).css({"background-color":"transparent", "color":"black"})
+    }
+  )
+
+  $('#buttonservice').hover(
+    function(){
+      $(this).css({"background-color":"#666", "color":"white"})
+    },
+    function(){
+      $(this).css({"background-color":"transparent", "color":"black"})
+    }
+  )
+
+  $('#buttoncontact').hover(
+    function(){
+      $(this).css({"background-color":"#666", "color":"white"})
+    },
+    function(){
+      $(this).css({"background-color":"transparent", "color":"black"})
+    }
+  )
+
+  // flexslider
+  // $('.flexslider').flexslider({
+  //   touch: true
+  // })
+
+  // sticky menu
+  $('.main.menu').visibility({
+    type: 'fixed'
+  });
+
+  $('#stickycolor').on('click', function(){
+    $('body, html').animate({
+      scrollTop: $('#color').offset().top
+    }, 'slow')
   })
 
-  $('#employer_login_button').on('click', function(){
-    console.log("employer_login_button clicked")
-    $('.ui.small.modal.employer.login').modal('show')
+  $('#stickycut').on('click', function(){
+    $('body, html').animate({
+      scrollTop: $('#cut').offset().top
+    }, 'slow')
   })
 
-  $('#applicant_signup_button').on('click', function(){
-    console.log("signup_button clicked")
-    $('.ui.small.modal.applicant.signup').modal('show')
+  $('#stickytreatment').on('click', function(){
+    $('body, html').animate({
+      scrollTop: $('#treatment').offset().top
+    }, 'slow')
   })
 
-  $('#employer_signup_button').on('click', function(){
-    console.log("signup_button clicked")
-    $('.ui.small.modal.employer.signup').modal('show')
+  $('#stickyspecial').on('click', function(){
+    $('body, html').animate({
+      scrollTop: $('#special').offset().top
+    }, 'slow')
   })
 
-  $('#reset_password_button').on('click', function(){
-    console.log("signup_button clicked")
-    $('.ui.small.modal.reset_password').modal('show')
+  $('#backtotopa').on('click', function(){
+    $('body, html').animate({
+      scrollTop: $('#header').offset().top
+    }, 'slow')
   })
-
-  // navigate to about us div
-  $('#about_us_button').click(function(){
-    $('html,body').animate({
-      scrollTop: $('#about_us_div').offset().top
-    }, 'slow');
-  })
-
-
-
-
 
 })
