@@ -44,11 +44,11 @@ class Signup extends Component {
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="ui form">
               <div className="field">
                 <label>Email</label>
-                <input type="text"  {...email} placeholder="email"/>
+                <input type="email"  {...email} />
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="password" {...password} name="password" placeholder="password"/>
+                <input type="text" {...password}/>
               </div>
               <button className="ui button" action="submit">Sign Up</button>
             </form>
