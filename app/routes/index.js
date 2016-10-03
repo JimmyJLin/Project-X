@@ -13,7 +13,6 @@ import Employer_profile_form from 'components/forms/employer_profile_form';
 import Applicant_profile from 'components/profiles/applicant/applicant_profile';
 import Employer_profile from 'components/profiles/employer/employer_profile';
 
-
 export default function(history) {
   return (
     <Router history={history}>
@@ -30,8 +29,6 @@ export default function(history) {
         {/* Applicant & Employer Profile*/}
         <Route path="/applicant_profile" component={Applicant_profile} />
         <Route path="/employer_profile" component={Employer_profile} />
-
-
 
 
         <IndexRoute component={Main} />
