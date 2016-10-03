@@ -3,12 +3,6 @@ import { auth } from './auth_helpers';
 const $ = require('jquery');
 
 
-// // import { Link } from 'react-router';
-// import { reduxForm } from 'redux-form';
-// import { connect } from 'react-redux';
-// import * as actions from '../../actions';
-//
-//
 const SignUp = React.createClass({
 
   handleSubmit: function(e){
@@ -25,30 +19,8 @@ const SignUp = React.createClass({
   this.refs.createUserForm.reset();
 },
 
-//    //  const signupInfo = {
-//    //       email: this.refs.email.value,
-//    //       password: this.refs.password.value,
-//    //     }
-//    // Call action creator to sign up the user
-//    this.props.signupUser(formProps);
-//  }
-//
-//   renderAlert() {
-//    if (this.props.errorMessage) {
-//      return (
-//        <div className="alert alert-danger">
-//          <strong>Oops!</strong> {this.props.errorMessage}
-//        </div>
-//      );
-//    }
-//  }
-//
 render: function(){
-//     const {
-//       handleSubmit,
-//       fields: { email, password }
-//     } = this.props;
-//     console.log('this.props', this.props)
+
     return(
 
         <div className="ui small modal applicant signup">
@@ -81,11 +53,6 @@ render: function(){
 });
 
 function signUpRequest(signupInfo) {
-// signupInfo = {
-//   email: this.refs.email.value,
-//   password: this.refs.password.value,
-//   type: "applicant"
-// }
 
   const d = signupInfo
   console.log('signup Request fired', signupInfo)
@@ -97,11 +64,6 @@ function signUpRequest(signupInfo) {
    .error((error) => {
      console.error(error);
    })
-}
 
-// function mapStateToProps(state) {
-//   return {};
-// }
-//
-// export default connect(mapStateToProps)(Signup);
+}
 module.exports = SignUp;

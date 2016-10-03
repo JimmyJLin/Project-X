@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { auth } from './auth_helpers';
+const $ = require('jquery');
 
-export default class Employer_Signup extends Component {
 
-  render(){
+const SignUp = React.createClass({
+
+  handleSubmit: function(e){
+    e.preventDefault();
+
+    const signupInfo = {
+    email: this.refs.email.value,
+    password: this.refs.password.value,
+    type: "employer"
+    }
+
+  signUpRequest(signupInfo);
+
+  this.refs.createUserForm.reset();
+},
+
+render: function(){
+
     return(
 
       <div>
@@ -32,11 +49,23 @@ export default class Employer_Signup extends Component {
 
         </div>
 
-
-
       </div>
-
     )
   }
+});
+
+function signUpRequest(signupInfo) {
+
+  const d = signupInfo
+  console.log('signup Request fired employer', signupInfo)
+
+ $.post('/api/auth/signup', signupInfo)
+   .done((data) => {
+     console.log('success')
+   })
+   .error((error) => {
+     console.error(error);
+   })
 
 }
+module.exports = SignUp;

@@ -33,7 +33,7 @@ function showallusers(req, res, next) {
 };
 
 // User Auth Queries -  CREATE AN ACCOUNT
-function createSecure(email, password, type, callback) {
+function createSecure(email, password,callback) {
   console.log('create secure fired')
   //hashing the password given by the user at signup
   bcrypt.genSalt(function(err, salt) {
@@ -49,10 +49,10 @@ function createSecure(email, password, type, callback) {
 function createUser(req, res, next) {
   console.log('req.body from post request', req.body)
 
-  createSecure(req.body.email, req.body.password, req.body.type, saveUser);
+  createSecure(req.body.email, req.body.password, saveUser);
 
-  function saveUser(email, hash, type ) {
-    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, type])
+  function saveUser(email, hash) {
+    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
     .then(function (data) {
       // success;
       console.log('New User added')

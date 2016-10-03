@@ -2,6 +2,7 @@ const $ = require('jquery');
 
 module.exports = {
  login: function(email, pass, cb) {
+   console.log('login inside the auth is fired')
    cb = arguments[arguments.length - 1]
    if (localStorage.token) {
      if (cb) cb(true)
@@ -45,7 +46,7 @@ function loginRequest(email, pass, cb) {
    password: pass
  }
 
- $.post('/users/login', loginInfo)
+ $.post('/api/auth/login', loginInfo)
    .done((data) => {
      console.log("login post : ", data);
      cb({
