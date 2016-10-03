@@ -8,7 +8,7 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-const cn = 'postgres://eminekoc:1297@localhost/apex';
+const cn = 'postgres://eminekoc:1297@localhost/apex'
 
 // const cn = {
 //   host: 'localhost',
@@ -19,6 +19,18 @@ const cn = 'postgres://eminekoc:1297@localhost/apex';
 // };
 
 const db = pgp(cn);
+
+function showallusers(req, res, next) {
+  db.any('select * from Users;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show all Users;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
 
 // User Auth Queries -  CREATE AN ACCOUNT
 function createSecure(email, password, callback) {
@@ -33,12 +45,15 @@ function createSecure(email, password, callback) {
 }
 
 function createUser(req, res, next) {
-  createSecure(req.body.email, req.body.password, saveUser);
+  console.log('req.body', req.body)
 
-  function saveUser(email, hash) {
-    db.none("INSERT INTO Users (email, password) VALUES($1, $2);", [email, hash])
+  createSecure(req.body.email, req.body.password, req.body.type, saveUser);
+
+  function saveUser(email, hash, type ) {
+    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, type])
     .then(function (data) {
       // success;
+      console.log('New User added')
       next();
     })
     .catch(function () {
@@ -157,6 +172,8 @@ module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
 module.exports.editUser = editUser;
 module.exports.deleteUser = deleteUser;
+module.exports.showallusers = showallusers;
+
 
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;

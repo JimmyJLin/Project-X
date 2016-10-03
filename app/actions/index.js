@@ -31,6 +31,7 @@ export function signinUser({ email, password }) {
 }
 
 export function signupUser({ email, password }) {
+  console.log('this is coming from signupUser function inside the action/index.js', email, password)
   return function(dispatch) {
     axios.post(`${ROOT_URL}/auth/signup`, { email, password })
       .then(response => {

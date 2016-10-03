@@ -42,7 +42,7 @@ const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
 const userRoutes = require(path.join(__dirname, '/api/auth'));
 
 server.use('/api/jobs', jobsRoutes);
-server.use('/api/users', userRoutes);
+server.use('/api/auth', userRoutes);
 
 
 

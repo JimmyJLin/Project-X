@@ -11,12 +11,14 @@ const jwt         = require('jsonwebtoken');
 const bodyParser  = require('body-parser');
 const secret      = 'sosecret';
 
+// route http://localhost:3000/api/auth/signup
 auth.route('/signup')
-  .get( (req, res) => {
-    res.json( { data: 'success' } )
+  .get( db.showallusers, (req, res) => {
+    res.send(res.rows);
   })
-  .post(db.createUser, ( req, res ) => {
-    res.status(201).json( { data: 'success' } );
+  .post( db.createUser, ( req, res ) => {
+    console.log(req.body, 'req.body')
+    res.status( 201 ).json( { data: 'success' } );
   });
 
 // auth.get('/:id', db.userProfile,  (req, res) => {
