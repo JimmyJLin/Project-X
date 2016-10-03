@@ -4,14 +4,14 @@ const express = require('express');
 const expressJWT  = require('express-jwt');
 const auth = express.Router();
 // const bodyParser = require('body-parser');
-
+// this is the route localhost:3000/api/auth
 const db = require('../../db/db_apex');
 
 const jwt         = require('jsonwebtoken');
 const bodyParser  = require('body-parser');
 const secret      = 'sosecret';
 
-auth.route('/')
+auth.route('/signup')
   .get( (req, res) => {
     res.json( { data: 'success' } )
   })

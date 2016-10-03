@@ -8,7 +8,7 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-const cn = 'postgres://jimmylin:desertprince69@localhost/apex';
+const cn = 'postgres://eminekoc:1297@localhost/apex';
 
 // const cn = {
 //   host: 'localhost',
@@ -36,7 +36,7 @@ function createUser(req, res, next) {
   createSecure(req.body.email, req.body.password, saveUser);
 
   function saveUser(email, hash) {
-    db.none("INSERT INTO Users (email, password, name, last_name, type ) VALUES($1, $2, $3, $4, $5);", [email, hash, req.body.name, req.body.last_name, req.body.type ])
+    db.none("INSERT INTO Users (email, password) VALUES($1, $2);", [email, hash])
     .then(function (data) {
       // success;
       next();
