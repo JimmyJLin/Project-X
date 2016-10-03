@@ -1,4 +1,4 @@
-#applicant_profile{
+#applicant_profile, #employer_profile{
   padding-top: 50px;
   .ui.grid{
     padding-left: 25px;
@@ -6,7 +6,24 @@
     padding-bottom: 50px;
   }
 
-  .fluid.ui.button{
-    margin-bottom: 5px;
+  .ui.equal.width.grid{
+    .ui.label.details{
+      margin-bottom: 5px;
+    }
+  }
+
+  .ui.middle.aligned.divided.list{
+    .item{
+      margin: 5px;
+    }
+  }
+
+  .twelve.wide.column{
+    h2{
+      text-align: center;
+    }
+    .ui.label.details{
+      width: 100%;
+    }
   }
 }

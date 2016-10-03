@@ -8,7 +8,7 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-const cn = 'postgres://jimmylin:desertprince69@localhost/apex';
+const cn = 'postgres://eminekoc:1297@localhost/apex'
 
 // const cn = {
 //   host: 'localhost',
@@ -20,11 +20,25 @@ const cn = 'postgres://jimmylin:desertprince69@localhost/apex';
 
 const db = pgp(cn);
 
+function showallusers(req, res, next) {
+  db.any('select * from Users;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show all Users;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
 // User Auth Queries -  CREATE AN ACCOUNT
-function createSecure(email, password, callback) {
+function createSecure(email, password,callback) {
+  console.log('create secure fired')
   //hashing the password given by the user at signup
   bcrypt.genSalt(function(err, salt) {
     bcrypt.hash(password, salt, function(err, hash) {
+      console.log(hash)
       //this callback saves the user to our databoard
       //with the hashed password
       callback(email,hash);
@@ -33,12 +47,15 @@ function createSecure(email, password, callback) {
 }
 
 function createUser(req, res, next) {
+  console.log('req.body from post request', req.body)
+
   createSecure(req.body.email, req.body.password, saveUser);
 
   function saveUser(email, hash) {
-    db.none("INSERT INTO Users (email, password, name, last_name, type ) VALUES($1, $2, $3, $4, $5);", [email, hash, req.body.name, req.body.last_name, req.body.type ])
+    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
     .then(function (data) {
       // success;
+      console.log('New User added')
       next();
     })
     .catch(function () {
@@ -157,6 +174,8 @@ module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
 module.exports.editUser = editUser;
 module.exports.deleteUser = deleteUser;
+module.exports.showallusers = showallusers;
+
 
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;
