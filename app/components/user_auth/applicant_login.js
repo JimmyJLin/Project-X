@@ -61,9 +61,6 @@ const Applicant_login = React.createClass({
                   <input ref="pass" type="password" name="password" placeholder="password"/>
                 </div>
 
-                <a href="/applicant_profile">
-                  <button className="ui button" type="submit">Sign In</button>
-                </a>
                 {/*<a href="/applicant_profile">
                   <button className="ui button" type="submit">Sign In</button>
                 </a>*/}
