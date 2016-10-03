@@ -8,13 +8,13 @@ import * as actions from '../../actions';
 class Signup extends Component {
 
   // need to set this variables outside the render()
-  // const renderField = ({input, label, type, meta: { touche,}}) => (
-  //   <div className="field input-row">
-  //     <label>{label}</label>
-  //     <input {...input} placeholder={label} type={type}/>
-  //     {touched}
-  //   </div>
-  // )
+  const renderField = ({input, label, type, meta: { touche}}) => (
+    <div className="field input-row">
+      <label>{label}</label>
+      <input {...input} placeholder={label} type={type}/>
+      {touched}
+    </div>
+  )
 
   renderAlert() {
    if (this.props.errorMessage) {
@@ -58,10 +58,10 @@ class Signup extends Component {
 
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="ui form">
 
-              {/*<Field name="email" type="text" component={renderField} label="email"/>
-              <Field name="email" type="text" component={renderField} label="email"/>*/}
+              <Field name="email" type="text" component={renderField} label="email"/>
+              <Field name="email" type="text" component={renderField} label="email"/>
 
-              <div className="field">
+              {/*<div className="field">
                 <label>Email</label>
                 <input type="email" {...email} />
                 {email.touched}
@@ -70,7 +70,7 @@ class Signup extends Component {
                 <label>Password</label>
                 <input type="text" {...password}/>
                 {password.touched}
-              </div>
+              </div>*/}
 
               <button className="ui button" action="submit">Sign Up</button>
 
@@ -113,6 +113,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'passwordConfirm'],
+  fields: ['email', 'password'],
   validate
 }, mapStateToProps, actions)(Signup);
