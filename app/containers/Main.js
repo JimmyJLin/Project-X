@@ -22,11 +22,15 @@ class Main extends Component {
         <div id="main_display_links" className="ui grid">
           <div className="eight wide column">
             <h3>Applying?</h3>
-            <button className="ui button">Begin Your Free Profile Today</button>
+            <a href="/applicant_profile_form">
+              <button className="ui button">Begin Your Free Profile Today</button>
+            </a>
           </div>
           <div className="eight wide column">
             <h3>Posting?</h3>
-            <button className="ui button">Register & Post Today</button>
+            <a href="/employer_profile_form">
+              <button className="ui button">Register & Post Today</button>
+            </a>
           </div>
         </div>
 
