@@ -53,7 +53,7 @@ class Employer_profile extends Component {
                 <div className="column">
                   <div className="ui label details">
                     Company Website:
-                    <div className="detail"><a href="www.ubs.com" _target="blank">www.ubs.com</a></div>
+                    <div className="detail"><a href="www.ubs.com" target="_blank">www.ubs.com</a></div>
                   </div>
                 </div>
               </div>
