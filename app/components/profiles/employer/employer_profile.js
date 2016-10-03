@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../headermenu';
-import Footer from '../footer';
+import HeaderMenu from '../../headermenu';
+import Footer from '../../footer';
 
 
 class Employer_profile extends Component {
