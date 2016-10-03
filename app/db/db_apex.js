@@ -33,10 +33,12 @@ function showallusers(req, res, next) {
 };
 
 // User Auth Queries -  CREATE AN ACCOUNT
-function createSecure(email, password, callback) {
+function createSecure(email, password, type, callback) {
+  console.log('create secure fired')
   //hashing the password given by the user at signup
   bcrypt.genSalt(function(err, salt) {
     bcrypt.hash(password, salt, function(err, hash) {
+      console.log(hash)
       //this callback saves the user to our databoard
       //with the hashed password
       callback(email,hash);
@@ -45,7 +47,7 @@ function createSecure(email, password, callback) {
 }
 
 function createUser(req, res, next) {
-  console.log('req.body', req.body)
+  console.log('req.body from post request', req.body)
 
   createSecure(req.body.email, req.body.password, req.body.type, saveUser);
 

@@ -17,7 +17,7 @@ auth.route('/signup')
     res.send(res.rows);
   })
   .post( db.createUser, ( req, res ) => {
-    console.log(req.body, 'req.body')
+    console.log('request us receieved', req )
     res.status( 201 ).json( { data: 'success' } );
   });
 
