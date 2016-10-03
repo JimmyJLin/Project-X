@@ -16,7 +16,7 @@ const SignUp = React.createClass({
 
   signUpRequest(signupInfo);
 
-  this.refs.createUserForm.reset();
+  this.refs.employersignup.reset();
 },
 
 render: function(){
@@ -33,14 +33,16 @@ render: function(){
 
           <div id="loginForm">
 
-            <form className="ui form">
+            <form className="ui form"
+            ref="employersignup"
+            onSubmit={this.handleSubmit}>
               <div className="field">
                 <label>Email</label>
-                <input type="text" name="email" placeholder="email"/>
+                <input ref="email" type="email" name="em" placeholder="email"/>
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="password"/>
+                <input ref="password" type="password" name="password" placeholder="password"/>
               </div>
               <button className="ui button" type="submit">Sign Up</button>
             </form>
