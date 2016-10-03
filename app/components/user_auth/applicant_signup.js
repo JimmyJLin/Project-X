@@ -55,7 +55,7 @@ render: function(){
 function signUpRequest(signupInfo) {
 
   const d = signupInfo
-  console.log('signup Request fired', signupInfo)
+  console.log('signup Request fired here', signupInfo)
 
  $.post('/api/auth/signup', signupInfo)
    .done((data) => {
