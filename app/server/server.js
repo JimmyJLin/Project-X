@@ -1,5 +1,6 @@
 import Express from 'express';
 import path from 'path';
+const bodyParser = require('body-parser');
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -37,23 +38,25 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 
 
+
+// *********************** API ROUTES ****************** //
+
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(compression());
+server.use(Express.static(path.join(__dirname, '../..', 'dist')));
+server.set('views', path.join(__dirname, 'views'));
+server.set('view engine', 'ejs');
+
+
+
+
+
 // *********************** API ROUTES ****************** //
 const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
 const userRoutes = require(path.join(__dirname, '/api/auth'));
 
 server.use('/api/jobs', jobsRoutes);
-server.use('/api/users', userRoutes);
-
-
-
-// *********************** API ROUTES ****************** //
-
-
-
-server.use(compression());
-server.use(Express.static(path.join(__dirname, '../..', 'dist')));
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'ejs');
+server.use('/api/auth', userRoutes);
 
 
 // mock apis

@@ -1,10 +1,47 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+const auth = require('./auth_helpers');
 
-export default class Applicant_login extends Component {
 
-  render(){
-    return(
+const Applicant_login = React.createClass({
+
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      error: false
+    }
+  },
+
+  handleSubmit: function(event) {
+   event.preventDefault()
+
+   const email = this.refs.email.value
+   const pass = this.refs.pass.value
+
+   console.log('handle submit is fired', email,pass)
+
+   auth.login(email, pass, (loggedIn) => {
+     if (!loggedIn)
+       return this.setState({ error: true })
+
+     const { location } = this.props
+
+     if (location.state && location.state.nextPathname) {
+       this.context.router.replace(location.state.nextPathname)
+     } else {
+       this.context.router.replace('/')
+     }
+   })
+ },
+
+
+
+ render: function() {
+   return (
+
         <div>
           <div className="ui small modal applicant login">
             <i className="close icon"></i>
@@ -14,22 +51,25 @@ export default class Applicant_login extends Component {
 
             <div id="loginForm">
 
-              <form className="ui form">
+              <form onSubmit={this.handleSubmit} className="ui form">
                 <div className="field">
                   <label>Email</label>
-                  <input type="text" name="email" placeholder="email"/>
+                  <input ref="email" type="text" name="email" placeholder="email"/>
                 </div>
                 <div className="field">
                   <label>Password</label>
-                  <input type="password" name="password" placeholder="password"/>
+                  <input ref="pass" type="password" name="password" placeholder="password"/>
                 </div>
 
+                <a href="/applicant_profile">
+                  <button className="ui button" type="submit">Sign In</button>
+                </a>
                 {/*<a href="/applicant_profile">
                   <button className="ui button" type="submit">Sign In</button>
                 </a>*/}
 
               </form>
-              
+
               <br/>
               <a href="/applicant_profile">
                 <button className="ui button" type="submit">Sign In</button>
@@ -46,5 +86,6 @@ export default class Applicant_login extends Component {
 
     )
   }
+});
 
-}
+module.exports = Applicant_login;

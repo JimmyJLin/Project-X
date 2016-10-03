@@ -22,6 +22,7 @@ class UserDataPage extends Component {
     );
   }
 }
+
 UserDataPage.contextTypes = {
   history: PropTypes.object
 };

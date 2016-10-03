@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { auth } from './auth_helpers';
+const $ = require('jquery');
 
-export default class Employer_Signup extends Component {
 
-  render(){
+const SignUp = React.createClass({
+
+  handleSubmit: function(e){
+    e.preventDefault();
+
+    const signupInfo = {
+    email: this.refs.email.value,
+    password: this.refs.password.value,
+    type: "employer"
+    }
+
+  signUpRequest(signupInfo);
+
+  this.refs.employersignup.reset();
+},
+
+render: function(){
+
     return(
 
       <div>
@@ -16,14 +33,16 @@ export default class Employer_Signup extends Component {
 
           <div id="loginForm">
 
-            <form className="ui form">
+            <form className="ui form"
+            ref="employersignup"
+            onSubmit={this.handleSubmit}>
               <div className="field">
                 <label>Email</label>
-                <input type="text" name="email" placeholder="email"/>
+                <input ref="email" type="email" name="em" placeholder="email"/>
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="password"/>
+                <input ref="password" type="password" name="password" placeholder="password"/>
               </div>
               <button className="ui button" type="submit">Sign Up</button>
             </form>
@@ -32,11 +51,23 @@ export default class Employer_Signup extends Component {
 
         </div>
 
-
-
       </div>
-
     )
   }
+});
+
+function signUpRequest(signupInfo) {
+
+  const d = signupInfo
+  console.log('signup Request fired employer', signupInfo)
+
+ $.post('/api/auth/signup', signupInfo)
+   .done((data) => {
+     console.log('success')
+   })
+   .error((error) => {
+     console.error(error);
+   })
 
 }
+module.exports = SignUp;
