@@ -64,18 +64,10 @@ server.use('/api/auth', userRoutes);
 //   let { questions } = require('./mock_api');
 //   res.send(questions);
 // });
-
 // server.get('/api/users/:id', (req, res)=> {
 //   let { getUser } = require('./mock_api')
 //   res.send(getUser(req.params.id))
 // })
-
-// server.get('/api/questions/:id', (req, res)=> {
-//   let { getQuestion } = require('./mock_api')
-//   res.send(getQuestion(req.params.id))
-// })
-
-
 
 
 server.get('*', (req, res, next)=> {

@@ -64,8 +64,16 @@ const Applicant_login = React.createClass({
                 <a href="/applicant_profile">
                   <button className="ui button" type="submit">Sign In</button>
                 </a>
+                {/*<a href="/applicant_profile">
+                  <button className="ui button" type="submit">Sign In</button>
+                </a>*/}
 
               </form>
+
+              <br/>
+              <a href="/applicant_profile">
+                <button className="ui button" type="submit">Sign In</button>
+              </a>
 
               <br/>
 
