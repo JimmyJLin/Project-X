@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 
 class Signup extends Component {
+
+  // need to set this variables outside the render()
+  // const renderField = ({input, label, type, meta: { touche,}}) => (
+  //   <div className="field input-row">
+  //     <label>{label}</label>
+  //     <input {...input} placeholder={label} type={type}/>
+  //     {touched}
+  //   </div>
+  // )
 
   renderAlert() {
    if (this.props.errorMessage) {
@@ -28,8 +37,14 @@ class Signup extends Component {
 
 }
 
+
+
   render(){
-    const { handleSubmit, fields: { email, password } } = this.props;
+
+    const {
+      fields: { email, password },
+      handleSubmit
+    } = this.props;
 
     return(
 
@@ -42,15 +57,23 @@ class Signup extends Component {
           <div id="loginForm">
 
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="ui form">
+
+              {/*<Field name="email" type="text" component={renderField} label="email"/>
+              <Field name="email" type="text" component={renderField} label="email"/>*/}
+
               <div className="field">
                 <label>Email</label>
-                <input type="email"  {...email} />
+                <input type="email" {...email} />
+                {email.touched}
               </div>
               <div className="field">
                 <label>Password</label>
                 <input type="text" {...password}/>
+                {password.touched}
               </div>
+
               <button className="ui button" action="submit">Sign Up</button>
+
             </form>
 
           </div>
