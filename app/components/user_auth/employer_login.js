@@ -26,8 +26,15 @@ export default class Employer_login extends Component {
                 <input type="password" name="password" placeholder="password"/>
               </div>
 
-              <button className="ui button" type="submit">Sign In</button>
+              {/*<a href="/employer_profile">
+                <button className="ui button" type="submit">Sign In</button>
+              </a>*/}
             </form>
+
+            <br/>
+            <a href="/employer_profile">
+              <button className="ui button" type="submit">Sign In</button>
+            </a>
 
             <br/>
 
