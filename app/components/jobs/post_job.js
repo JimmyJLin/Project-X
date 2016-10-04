@@ -93,8 +93,6 @@ class Post_job extends Component {
     return(
         <div id="post_job">
 
-        <HeaderMenu />
-
         <div className="posting_job">
           <h2>Post New Job!</h2>
           <form className="ui form job" onSubmit={this.handleSubmit.bind(this)}>
@@ -184,7 +182,6 @@ class Post_job extends Component {
           </form>
 
         </div>
-        <Footer />
 
       </div>
 

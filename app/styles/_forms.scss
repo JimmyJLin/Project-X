@@ -15,3 +15,21 @@ $job_primary_background_color: #f2f2f2;
     background-color: $job_primary_background_color;
   }
 }
+
+
+#employer_profile_form{
+  h1, h4, p{
+    text-align: center;
+  }
+
+  .ui.form.employer_profile_form{
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    background-color: $job_primary_background_color;
+  }
+
+}

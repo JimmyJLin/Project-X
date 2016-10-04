@@ -11,13 +11,11 @@ class Applicant_profile_form extends Component {
     return(
         <div id="applicant_profile_form">
 
-        <HeaderMenu />
 
         <div>
           <h1>Applicant Profile Form</h1>
         </div>
 
-        <Footer />
 
         </div>
 
