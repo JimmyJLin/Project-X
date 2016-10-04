@@ -60,6 +60,7 @@ function signUpRequest(signupInfo) {
  $.post('/api/auth/signup', signupInfo)
    .done((data) => {
      console.log('success')
+     this.context.router.replace('/')
    })
    .error((error) => {
      console.error(error);
@@ -67,4 +68,3 @@ function signUpRequest(signupInfo) {
 
 }
 module.exports = SignUp;
- 

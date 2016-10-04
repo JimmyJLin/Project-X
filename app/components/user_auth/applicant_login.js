@@ -5,6 +5,18 @@ const auth = require('./auth_helpers');
 
 const Applicant_login = React.createClass({
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      type: '',
+      isLoggedIn:'',
+
+    }
+
+  }
+
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -64,16 +76,8 @@ const Applicant_login = React.createClass({
                 <a href="/applicant_profile">
                   <button className="ui button" type="submit">Sign In</button>
                 </a>
-                {/*<a href="/applicant_profile">
-                  <button className="ui button" type="submit">Sign In</button>
-                </a>*/}
 
               </form>
-
-              <br/>
-              <a href="/applicant_profile">
-                <button className="ui button" type="submit">Sign In</button>
-              </a>
 
               <br/>
 

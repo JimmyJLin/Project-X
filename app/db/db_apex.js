@@ -69,19 +69,20 @@ function createUser(req, res, next) {
 function loginUser(req, res, next) {
   var email = req.body.email
   var password = req.body.password
-
+  console.log('loginUser inside db_apex is fired', email)
   db.one("SELECT * FROM Users WHERE email LIKE $1;", [email])
     .then((data) => {
       if (bcrypt.compareSync(password, data.password)) {
+        console.log('bycript worked and compared', data)
         res.rows = data
         next()
       } else {
-        res.status(401).json({data:"Fool this no workie"})
+        res.status(401).json({data:"Please check your password"})
         next()
       }
     })
     .catch(() => {
-      console.error('error finding users')
+      console.error('We could not find the user')
     })
 }
 

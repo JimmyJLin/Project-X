@@ -27,7 +27,7 @@ auth.route('/signup')
 
 auth.post('/login', db.loginUser, ( req, res ) => {
   var token = jwt.sign( res.rows, secret );
-
+  console.log('this is the login auth route', res.rows, token);
   res.json( { agent: res.rows, token: token } );
 })
 
