@@ -89,7 +89,7 @@ class Employer_profile extends Component {
 
             {/* Post Job Button*/}
             <div className="ui two column left grid">
-              <a href="#">
+              <a href="/new">
                 <button className="massive ui button">Post Job Today!</button>
               </a>
             </div>
