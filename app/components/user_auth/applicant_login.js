@@ -1,57 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-const auth = require('./auth_helpers');
+import {browserHistory} from 'react-router';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 
-const Applicant_login = React.createClass({
+export default class Applicant_login extends Component {
 
   constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      type: '',
-      isLoggedIn:'',
+  super(props);
 
+    this.state = { // sets initial states
+      email : '',
+      password : '',
+      error : '',
     }
-
   }
 
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-
-  getInitialState: function() {
-    return {
-      error: false
-    }
-  },
-
-  handleSubmit: function(event) {
-   event.preventDefault()
-
-   const email = this.refs.email.value
-   const pass = this.refs.pass.value
-
-   console.log('handle submit is fired', email,pass)
-
-   auth.login(email, pass, (loggedIn) => {
-     if (!loggedIn)
-       return this.setState({ error: true })
-
-     const { location } = this.props
-
-     if (location.state && location.state.nextPathname) {
-       this.context.router.replace(location.state.nextPathname)
-     } else {
-       this.context.router.replace('/')
-     }
-   })
- },
-
-
-
- render: function() {
+ render() {
    return (
 
         <div>
@@ -63,14 +28,22 @@ const Applicant_login = React.createClass({
 
             <div id="loginForm">
 
-              <form onSubmit={this.handleSubmit} className="ui form">
+              <form onSubmit={this.handleSubmit.bind(this)} className="ui form">
                 <div className="field">
                   <label>Email</label>
-                  <input ref="email" type="text" name="email" placeholder="email"/>
+                  <input
+                    value={this.state.email}
+                    onChange={event => this.onEmailChange(event.target.value)}
+                    type="email"
+                    placeholder="email"/>
                 </div>
                 <div className="field">
                   <label>Password</label>
-                  <input ref="pass" type="password" name="password" placeholder="password"/>
+                  <input
+                  value={this.state.password}
+                  onChange={event => this.onPasswordChange(event.target.value)}
+                  type="test"
+                  placeholder="password"/>
                 </div>
 
                 <a href="/applicant_profile">
@@ -90,6 +63,60 @@ const Applicant_login = React.createClass({
 
     )
   }
-});
 
-module.exports = Applicant_login;
+  onEmailChange(email) {
+    this.setState({email}); // updates username state
+  }
+
+  onPasswordChange(password) {
+  this.setState({password}); // updates password state
+ }
+
+  handleSubmit(event) {
+   event.preventDefault()
+   let error = 'Oops, please check your email or password';
+
+   if (this.state.email == '' || this.state.password == '') { // checks for real email/password
+     this.setState({error:error})
+   }
+
+   const userInfo = {
+     email:this.state.email,
+     password: this.state.password,
+   }
+   $.post('/api/auth/login', userInfo)
+     .done((data) => {
+       if (data.agent == 'error') { // if username/password doesn't match
+       this.setState({error:error})
+     } else {
+       localStorage.token = data.token; // saves token to local storage
+       console.log('success')
+     }
+     })
+     .error((error) => {
+       console.error(error);
+     })
+
+
+  //
+  //  const email = this.refs.email.value
+  //  const pass = this.refs.pass.value
+  //
+  //  console.log('handle submit is fired', email,pass)
+  //
+  //  auth.login(email, pass, (loggedIn) => {
+  //    if (!loggedIn)
+  //      return this.setState({ error: true })
+  //
+  //    const { location } = this.props
+  //
+  //    if (location.state && location.state.nextPathname) {
+  //      this.context.router.replace(location.state.nextPathname)
+  //    } else {
+  //      this.context.router.replace('/')
+  //    }
+  //  })
+  }
+
+
+};

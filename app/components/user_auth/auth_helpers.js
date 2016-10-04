@@ -2,14 +2,15 @@ const $ = require('jquery');
 
 module.exports = {
  login: function(email, pass, cb) {
-   console.log('login inside the auth is fired')
-   cb = arguments[arguments.length - 1]
-   if (localStorage.token) {
-     if (cb) cb(true)
-     this.onChange(true)
-     return
-   }
+   console.log('login inside the auth_helpers is fired', email,pass)
+  //  cb = arguments[arguments.length - 1]
+  //  if (localStorage.token) {
+  //    if (cb) cb(true)
+  //    this.onChange(true)
+  //    return
+  //  }
    loginRequest(email, pass, (res) => {
+     console.log('loginRequest runs')
      if (res.authenticated) {
        localStorage.token = res.token
        if (cb) cb(true)

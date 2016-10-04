@@ -1,4 +1,4 @@
-import axios from 'axios';
+const $ = require('jquery');
 import { browserHistory } from 'react-router';
 import {
   AUTH_USER,
@@ -33,7 +33,7 @@ export function signinUser({ email, password }) {
 export function signupUser({ email, password }) {
   console.log('this is coming from signupUser function inside the action/index.js', email, password)
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/auth/signup`, { email, password })
+    $.post(`${ROOT_URL}/auth/signup`, { email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);

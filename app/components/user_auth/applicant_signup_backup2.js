@@ -1,35 +1,25 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router';
-import { reduxForm, Field } from 'redux-form';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import { auth } from './auth_helpers';
+const $ = require('jquery');
 
 
-class Signup extends Component {
+const SignUp = React.createClass({
 
-  renderAlert() {
-   if (this.props.errorMessage) {
-     return (
-       <div className="alert alert-danger">
-         <strong>Oops!</strong> {this.props.errorMessage}
-       </div>
-     );
-   }
- }
+  handleSubmit: function(e){
+    e.preventDefault();
 
- handleFormSubmit(formProps){
+    const signupInfo = {
+    email: this.refs.email.value,
+    password: this.refs.password.value,
+    type: "applicant"
+    }
 
-  //  const signupInfo = {
-  //       email: this.refs.email.value,
-  //       password: this.refs.password.value,
-  //     }
-  // Call action creator to sign up the user
-  this.props.signupUser(formProps);
+  signUpRequest(signupInfo);
 
-}
+  this.refs.createUserForm.reset();
+},
 
-  render(){
-    const { fields: { email, password }, handleSubmit } = this.props;
+render: function(){
 
     return(
 
@@ -41,60 +31,39 @@ class Signup extends Component {
 
           <div id="loginForm">
 
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="ui form">
-
+            <form ref="createUserForm"
+            onSubmit={this.handleSubmit}
+            className="ui form">
               <div className="field">
-                <label>Email</label>
-                <input type="email"  {...email} />
-                {email.touched}
+                <label>Emaill</label>
+                <input ref="email" type="email"/>
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="text" {...password}/>
-                {password.touched}
+                <input ref="password"/>
               </div>
-
               <button className="ui button" action="submit">Sign Up</button>
-
             </form>
 
           </div>
 
         </div>
-
     )
   }
+});
+
+function signUpRequest(signupInfo) {
+
+  const d = signupInfo
+  console.log('signup Request fired here', signupInfo)
+
+ $.post('/api/auth/signup', signupInfo)
+   .done((data) => {
+     console.log('success')
+   })
+   .error((error) => {
+     console.error(error);
+   })
 
 }
-
-function validate(formProps) {
-  const errors = {};
-
-  if (!formProps.email) {
-    errors.email = 'Please enter an email';
-  }
-
-  if (!formProps.password) {
-    errors.password = 'Please enter a password';
-  }
-
-  if (!formProps.passwordConfirm) {
-    errors.passwordConfirm = 'Please enter a password confirmation';
-  }
-
-  if (formProps.password !== formProps.passwordConfirm) {
-    errors.password = 'Passwords must match';
-  }
-
-  return errors;
-}
-
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
-}
-
-export default reduxForm({
-  form: 'signup',
-  fields: ['email', 'password', 'passwordConfirm'],
-  validate
-}, mapStateToProps, actions)(Signup);
+module.exports = SignUp;

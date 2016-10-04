@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { auth } from './auth_helpers';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { registerUser } from '../../actions';
+
+
 const $ = require('jquery');
 
 
@@ -60,7 +64,6 @@ function signUpRequest(signupInfo) {
  $.post('/api/auth/signup', signupInfo)
    .done((data) => {
      console.log('success')
-     this.context.router.replace('/')
    })
    .error((error) => {
      console.error(error);
