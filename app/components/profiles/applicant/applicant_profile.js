@@ -11,8 +11,6 @@ class Applicant_profile extends Component {
     return(
         <div id="applicant_profile">
 
-        <HeaderMenu />
-
         {/* Profile Header */}
         <div className="ui grid">
           <div className="four wide column">
@@ -132,7 +130,6 @@ class Applicant_profile extends Component {
           <button className="massive ui button">Match Your Dream Job Today</button>
         </div>
 
-        <Footer />
 
         </div>
 

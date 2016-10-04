@@ -11,8 +11,6 @@ class Employer_profile extends Component {
     return(
         <div id="employer_profile">
 
-        <HeaderMenu />
-
         {/* Profile Header */}
         <div className="ui grid">
           <div className="four wide column">
@@ -171,8 +169,6 @@ class Employer_profile extends Component {
             </div>
           </div>
         </div>
-
-        <Footer />
 
         </div>
       </div>
