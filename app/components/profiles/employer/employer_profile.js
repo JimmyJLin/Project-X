@@ -53,7 +53,7 @@ class Employer_profile extends Component {
                 <div className="column">
                   <div className="ui label details">
                     Company Website:
-                    <div className="detail"><a href="www.ubs.com" _target="blank">www.ubs.com</a></div>
+                    <div className="detail"><a href="www.ubs.com" target="_blank">www.ubs.com</a></div>
                   </div>
                 </div>
               </div>
@@ -89,7 +89,7 @@ class Employer_profile extends Component {
 
             {/* Post Job Button*/}
             <div className="ui two column left grid">
-              <a href="#">
+              <a href="/new">
                 <button className="massive ui button">Post Job Today!</button>
               </a>
             </div>

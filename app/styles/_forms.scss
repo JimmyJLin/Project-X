@@ -1,0 +1,17 @@
+$job_primary_background_color: #f2f2f2;
+
+.posting_job{
+  padding-top: 25px;
+  h2{
+    text-align: center;
+  }
+  .ui.form.job{
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    background-color: $job_primary_background_color;
+  }
+}
