@@ -56,6 +56,7 @@ render: function(){
   }
 });
 
+
 function signUpRequest(signupInfo) {
 
   const d = signupInfo
