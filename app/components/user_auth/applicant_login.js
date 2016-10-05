@@ -1,45 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-const auth = require('./auth_helpers');
+import {browserHistory} from 'react-router';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 
-const Applicant_login = React.createClass({
+export default class Applicant_login extends Component {
 
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+  constructor(props) {
+  super(props);
 
-  getInitialState: function() {
-    return {
-      error: false
+    this.state = { // sets initial states
+      email : '',
+      password : '',
+      error : '',
     }
-  },
+  }
 
-  handleSubmit: function(event) {
-   event.preventDefault()
-
-   const email = this.refs.email.value
-   const pass = this.refs.pass.value
-
-   console.log('handle submit is fired', email,pass)
-
-   auth.login(email, pass, (loggedIn) => {
-     if (!loggedIn)
-       return this.setState({ error: true })
-
-     const { location } = this.props
-
-     if (location.state && location.state.nextPathname) {
-       this.context.router.replace(location.state.nextPathname)
-     } else {
-       this.context.router.replace('/')
-     }
-   })
- },
-
-
-
- render: function() {
+ render() {
    return (
 
         <div>
@@ -51,26 +28,29 @@ const Applicant_login = React.createClass({
 
             <div id="loginForm">
 
-              <form onSubmit={this.handleSubmit} className="ui form">
+              <form onSubmit={this.handleSubmit.bind(this)} className="ui form">
                 <div className="field">
                   <label>Email</label>
-                  <input ref="email" type="text" name="email" placeholder="email"/>
+                  <input
+                    value={this.state.email}
+                    onChange={event => this.onEmailChange(event.target.value)}
+                    type="email"
+                    placeholder="email"/>
                 </div>
                 <div className="field">
                   <label>Password</label>
-                  <input ref="pass" type="password" name="password" placeholder="password"/>
+                  <input
+                  value={this.state.password}
+                  onChange={event => this.onPasswordChange(event.target.value)}
+                  type="password"
+                  placeholder="password"/>
                 </div>
 
-                {/*<a href="/applicant_profile">
+                <a href="/applicant_profile">
                   <button className="ui button" type="submit">Sign In</button>
-                </a>*/}
+                </a>
 
               </form>
-
-              <br/>
-              <a href="/applicant_profile">
-                <button className="ui button" type="submit">Sign In</button>
-              </a>
 
               <br/>
 
@@ -83,6 +63,63 @@ const Applicant_login = React.createClass({
 
     )
   }
-});
 
-module.exports = Applicant_login;
+  onEmailChange(email) {
+    this.setState({email}); // updates username state
+  }
+
+  onPasswordChange(password) {
+  this.setState({password}); // updates password state
+ }
+
+  handleSubmit(event) {
+   event.preventDefault()
+   let error = 'Oops, please check your email or password';
+
+   if (this.state.email == '' || this.state.password == '') { // checks for real email/password
+     this.setState({error:error})
+   }
+
+   const userInfo = {
+     email:this.state.email,
+     password: this.state.password,
+   }
+   $.post('/api/auth/login', userInfo)
+     .done((data) => {
+       console.log(data)
+       if (data.agent == 'error') { // if username/password doesn't match
+       this.setState({error:error})
+     } else {
+       localStorage.token = data.token; // saves token to local storage
+       browserHistory.push('/'); // redirects to home
+       console.log('You are signed in')
+       window.location.assign("/applicant_profile")
+     }
+     })
+     .error((error) => {
+       console.error('sign in action is failed', error);
+     })
+
+
+  //
+  //  const email = this.refs.email.value
+  //  const pass = this.refs.pass.value
+  //
+  //  console.log('handle submit is fired', email,pass)
+  //
+  //  auth.login(email, pass, (loggedIn) => {
+  //    if (!loggedIn)
+  //      return this.setState({ error: true })
+  //
+  //    const { location } = this.props
+  //
+  //    if (location.state && location.state.nextPathname) {
+  //      this.context.router.replace(location.state.nextPathname)
+  //    } else {
+  //      this.context.router.replace('/')
+  //    }
+  //  })
+  }
+
+
+};
