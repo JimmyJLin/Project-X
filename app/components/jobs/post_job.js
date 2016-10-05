@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import HeaderMenu from '../headermenu';
 import Footer from '../footer';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 
 class Post_job extends Component {
@@ -10,46 +11,51 @@ class Post_job extends Component {
     super(props);
 
     this.state = {
-      job_title: '',
-      job_location: '',
-      type_of_job: '',
-      industry_type: '',
+      title: '',
+      description: '',
+      location: '',
+      type: '',
+      industry: '',
       salary: '',
-      job_experience: '',
-      start_date: '',
-      education: '',
-      job_description: ''
+      experience_level: '',
+      education_level: '',
+      starting_date: '',
+      status:''
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
+
     let jobData = {
-      job_title: this.state.job_title,
-      job_location: this.state.job_location,
-      type_of_job: this.state.type_of_job,
-      industry_type: this.state.industry_type,
+      employer_id:1,
+      title: this.state.job_title,
+      location: this.state.job_location,
+      type: this.state.type_of_job,
+      industry: this.state.industry_type,
       salary: this.state.salary,
-      job_experience: this.state.job_experience,
-      start_date: this.state.start_date,
-      education: this.state.education,
-      job_description: this.state.job_description
+      experience_level: this.state.job_experience,
+      starting_date: this.state.start_date,
+      education_level: this.state.education,
+      description: this.state.job_description,
+      status:'active'
     }
 
-    console.log(jobData)
+    postJob(jobData)
 
 
     this.setState({
-      job_title: '',
-      job_location: '',
-      type_of_job: '',
-      industry_type: '',
+      title: '',
+      description: '',
+      location: '',
+      type: '',
+      industry: '',
       salary: '',
-      job_experience: '',
-      start_date: '',
-      education: '',
-      job_description: ''
+      experience_level: '',
+      education_level: '',
+      starting_date: '',
+      status:''
     })
   }
 
@@ -190,6 +196,16 @@ class Post_job extends Component {
 
 }
 
+function postJob(jobData){
+  console.log('post job data is fired with data', jobData)
+  $.post('/api/jobs', jobData)
+    .done((data) => {
+      console.log('success', data)
+    })
+    .error((error) => {
+      console.error('Posting action is failed', error);
+    })
+}
 
 function mapStateToProps() {
   return {};

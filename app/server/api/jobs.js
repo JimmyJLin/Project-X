@@ -11,7 +11,8 @@ jobs.route('/')
   res.send(res.rows);
 })
 .post(db.postAJob, (req, res) => {
-  console.log(res.rows)
+  console.log('Job posting', req )
+  res.status( 201 ).json( { data: 'success' } );
 });
 
 jobs.route('/:job_id')
