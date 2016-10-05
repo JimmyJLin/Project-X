@@ -8,27 +8,21 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-if(process.env.ENVIRONMENT === 'production') {
-  const cn = process.env.DATABASE_URL;
-} else {
-  const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: process.env.DB,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS
-  };
-}
+// if(process.env.ENVIRONMENT === 'production') {
+//   const cn = process.env.DATABASE_URL;
+// } else {
+//
+// }
 
 // const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-// const cn = {
-//   host: 'localhost',
-//   port: 5432,
-//   database: 'apex',
-//   user: 'jimmylin',
-//   password: 'desertprince69'
-// };
+const cn = {
+  host: 'localhost',
+  port: 5432,
+  database: 'apex',
+  user: 'jimmylin',
+  password: 'desertprince69'
+};
 
 const db = pgp(cn);
 
