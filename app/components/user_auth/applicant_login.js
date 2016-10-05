@@ -42,7 +42,7 @@ export default class Applicant_login extends Component {
                   <input
                   value={this.state.password}
                   onChange={event => this.onPasswordChange(event.target.value)}
-                  type="test"
+                  type="password"
                   placeholder="password"/>
                 </div>
 
@@ -86,15 +86,19 @@ export default class Applicant_login extends Component {
    }
    $.post('/api/auth/login', userInfo)
      .done((data) => {
+       console.log(data)
        if (data.agent == 'error') { // if username/password doesn't match
        this.setState({error:error})
      } else {
        localStorage.token = data.token; // saves token to local storage
-       console.log('success')
+       browserHistory.push('/'); // redirects to home
+       console.log('You are signed in')
+       window.location.assign("/")
+
      }
      })
      .error((error) => {
-       console.error(error);
+       console.error('sign in action is failed', error);
      })
 
 
