@@ -11,8 +11,6 @@ class Employer_profile extends Component {
     return(
         <div id="employer_profile">
 
-        <HeaderMenu />
-
         {/* Profile Header */}
         <div className="ui grid">
           <div className="four wide column">
@@ -89,7 +87,7 @@ class Employer_profile extends Component {
 
             {/* Post Job Button*/}
             <div className="ui two column left grid">
-              <a href="#">
+              <a href="/new">
                 <button className="massive ui button">Post Job Today!</button>
               </a>
             </div>
@@ -171,8 +169,6 @@ class Employer_profile extends Component {
             </div>
           </div>
         </div>
-
-        <Footer />
 
         </div>
       </div>

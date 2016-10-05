@@ -9,7 +9,6 @@ class Main extends Component {
     return (
       <div className="intro">
         {/* Main Header Menu */}
-        <HeaderMenu />
 
         <div id="main_display_image">
           <img src="images/img_placeholders/1080x500.jpg" alt="topImage"/>
@@ -34,8 +33,6 @@ class Main extends Component {
 
           </div>
         </div>
-
-        <Footer />
 
       </div>
     );

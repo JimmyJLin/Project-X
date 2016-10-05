@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import {browserHistory} from 'react-router';
+import $ from 'jquery'; // requires jQuery for AJAX request
+
 
 export default class Employer_login extends Component {
+
+  constructor(props) {
+  super(props);
+
+    this.state = { // sets initial states
+      email : '',
+      password : '',
+      error : '',
+    }
+  }
 
   render(){
     return(
@@ -16,25 +29,31 @@ export default class Employer_login extends Component {
 
           <div id="loginForm">
 
-            <form className="ui form">
+            <form onSubmit={this.handleSubmit.bind(this)}  className="ui form">
               <div className="field">
                 <label>Email</label>
-                <input type="text" name="email" placeholder="email"/>
+                <input
+                value={this.state.email}
+                onChange={event => this.onEmailChange(event.target.value)}
+                type="email"
+                placeholder="email"
+                />
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="password"/>
+                <input
+                value={this.state.password}
+                onChange={event => this.onPasswordChange(event.target.value)}
+                type="password"
+                placeholder="password"
+                />
               </div>
 
-              {/*<a href="/employer_profile">
+              <a href="/employer_profile">
                 <button className="ui button" type="submit">Sign In</button>
-              </a>*/}
-            </form>
+              </a>
 
-            <br/>
-            <a href="/employer_profile">
-              <button className="ui button" type="submit">Sign In</button>
-            </a>
+            </form>
 
             <br/>
 
@@ -49,5 +68,44 @@ export default class Employer_login extends Component {
 
     )
   }
+
+
+    onEmailChange(email) {
+      this.setState({email}); // updates username state
+    }
+
+    onPasswordChange(password) {
+    this.setState({password}); // updates password state
+   }
+
+   handleSubmit(event) {
+    event.preventDefault()
+    let error = 'Oops, please check your email or password';
+
+    if (this.state.email == '' || this.state.password == '') { // checks for real email/password
+      this.setState({error:error})
+    }
+
+    const userInfo = {
+      email:this.state.email,
+      password: this.state.password,
+    }
+
+    $.post('/api/auth/login', userInfo)
+      .done((data) => {
+        console.log(data)
+        if (data.agent == 'error') { // if username/password doesn't match
+        this.setState({error:error})
+      } else {
+        localStorage.token = data.token; // saves token to local storage
+        browserHistory.push('/'); // redirects to home
+        console.log('You are signed in')
+        window.location.assign("/employer_profile")
+      }
+      })
+      .error((error) => {
+        console.error('sign in action is failed', error);
+      })
+    }
 
 }
