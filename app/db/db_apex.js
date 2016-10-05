@@ -8,7 +8,7 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-if(process.env.ENVIRONMENT === 'production') {
+if(process.env.ENV === 'production') {
   const cn = process.env.DATABASE_URL;
 }
 
