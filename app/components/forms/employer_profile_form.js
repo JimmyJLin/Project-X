@@ -37,15 +37,15 @@ class Employer_profile_form extends Component {
     console.log(employerProfileData)
 
 
-    // this.setState({
-    //   company_name: '',
-    //   company_url: '',
-    //   hiring_email: '',
-    //   branch_location: '',
-    //   company_size: '',
-    //   company_industry: '',
-    //   company_logo: ''
-    // })
+    this.setState({
+      company_name: '',
+      company_url: '',
+      hiring_email: '',
+      branch_location: '',
+      company_size: '',
+      company_industry: '',
+      company_logo: ''
+    })
 
   }
 

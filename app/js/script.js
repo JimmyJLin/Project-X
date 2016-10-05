@@ -1,6 +1,9 @@
 $(function(){
   console.log('script file loaded')
 
+  $('.ui.dropdown').dropdown()
+
+
   // sign in / sign out / forget password Modal
   $('#applicant_login_button').on('click', function(){
     console.log("applicant_login_button clicked")
