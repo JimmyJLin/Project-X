@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({silent: true});
 import Express from 'express';
 import path from 'path';
 const bodyParser = require('body-parser');
