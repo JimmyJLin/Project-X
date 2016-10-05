@@ -8,11 +8,9 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-// if(process.env.ENVIRONMENT === 'production') {
+if(process.env.ENVIRONMENT === 'production') {
   const cn = process.env.DATABASE_URL;
-// } else {
-//
-// }
+}
 
 // const cn = 'postgres://eminekoc:1297@localhost/apex'
 
