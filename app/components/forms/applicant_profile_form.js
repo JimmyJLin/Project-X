@@ -193,6 +193,29 @@ class Applicant_profile_form extends Component {
               </div>
               <div className="field">
                 <label name="languages_spoken">Languages Spoken</label>
+
+                <select multiple="" name="skills" className="ui fluid normal dropdown">
+                  <option value="">Skills</option>
+                <option value="angular">Angular</option>
+                <option value="css">CSS</option>
+                <option value="design">Graphic Design</option>
+                <option value="ember">Ember</option>
+                <option value="html">HTML</option>
+                <option value="ia">Information Architecture</option>
+                <option value="javascript">Javascript</option>
+                <option value="mech">Mechanical Engineering</option>
+                <option value="meteor">Meteor</option>
+                <option value="node">NodeJS</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="python">Python</option>
+                <option value="rails">Rails</option>
+                <option value="react">React</option>
+                <option value="repair">Kitchen Repair</option>
+                <option value="ruby">Ruby</option>
+                <option value="ui">UI Design</option>
+                <option value="ux">User Experience</option>
+                </select>
+
                 <select multiple="" name="languages_spoken" id="multi-select" className="ui dropdown" value={this.state.languages_spoken}
                 onChange={e => this.onLanguageChange(e.target.value)}>
                   <option value="">Please Select</option>
