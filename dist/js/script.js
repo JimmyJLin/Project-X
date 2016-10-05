@@ -1,7 +1,7 @@
 $(function(){
   console.log('script file loaded')
 
-  $('.ui.dropdown').dropdown('set selected', [{{#each tags}}'{{this}}',{{/each}}])
+  $('.ui.dropdown').dropdown()
 
 
   // sign in / sign out / forget password Modal
