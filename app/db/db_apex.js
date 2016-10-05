@@ -10,14 +10,6 @@ const pgp = require('pg-promise')({
 
 if(process.env.ENVIRONMENT === 'production') {
   const cn = process.env.DATABASE_URL;
-} else {
-  const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'apex',
-    user: 'jimmylin',
-    password: 'desertprince69'
-  };
 }
 
 // const cn = 'postgres://eminekoc:1297@localhost/apex'
