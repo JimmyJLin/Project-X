@@ -67,4 +67,3 @@ function signUpRequest(signupInfo) {
 
 }
 module.exports = SignUp;
- 
