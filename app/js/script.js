@@ -1,8 +1,13 @@
 $(function(){
   console.log('script file loaded')
 
-  $('.ui.dropdown').dropdown()
+  $('.ui.dropdown').dropdown({
+              allowAdditions: true
+          });
 
+  $('select.dropdown')
+    .dropdown('set selected', [])
+  ;
 
   // sign in / sign out / forget password Modal
   $('#applicant_login_button').on('click', function(){

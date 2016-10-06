@@ -17,6 +17,7 @@ class Applicant_profile_form extends Component {
       education_level: '',
       interested_working: [],
       industry_exp_level: '',
+      skills:[],
       resume: '',
       certification: [],
       profile_image: '',
@@ -27,9 +28,11 @@ class Applicant_profile_form extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
+
     let employerProfileData = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
+      skills:this.state.skills,
       desired_industry: this.state.desired_industry,
       education_level: this.state.education_level,
       interested_working: this.state.interested_working,
@@ -40,22 +43,21 @@ class Applicant_profile_form extends Component {
       languages_spoken: this.state.languages_spoken
 
     }
-
     console.log(employerProfileData)
 
-    // this.setState({
-    //   first_name: '',
-    //   last_name: '',
-    //   desired_industry: [],
-    //   education_level: '',
-    //   interested_working: [],
-    //   industry_exp_level: '',
-    //   resume: '',
-    //   certification: [],
-    //   profile_image: '',
-    //   languages_spoken: []
-    //
-    // })
+    this.setState({
+      first_name: '',
+      last_name: '',
+      desired_industry: [],
+      education_level: '',
+      interested_working: [],
+      industry_exp_level: '',
+      skills:[],
+      resume: '',
+      certification: [],
+      profile_image: '',
+      languages_spoken: []
+    })
 
   }
 
@@ -95,10 +97,15 @@ class Applicant_profile_form extends Component {
     this.setState({profile_image})
   }
 
-  onLanguageChange(languages_spoken){
-    this.setState({languages_spoken})
+  onLanguageChange(lang){
+    this.state.languages_spoken.push(lang)
+    this.setState({languages_spoken: this.state.languages_spoken})
   }
+  onSkillsChange(sk){
+    this.state.skills.push(sk)
 
+    this.setState({skills:this.state.skills})
+  }
 
   render(){
     return(
@@ -192,10 +199,12 @@ class Applicant_profile_form extends Component {
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="languages_spoken">Languages Spoken</label>
+                <label name="skills">Languages Spoken</label>
 
-                <select multiple="" name="skills" className="ui fluid normal dropdown">
-                  <option value="">Skills</option>
+                <select multiple="true" id="skills" name="skills" className="ui fluid normal dropdown"
+                value={this.state.skills}
+                onChange={e => this.onSkillsChange(e.target.value)}>
+                <option value="">Skills</option>
                 <option value="angular">Angular</option>
                 <option value="css">CSS</option>
                 <option value="design">Graphic Design</option>
@@ -216,9 +225,10 @@ class Applicant_profile_form extends Component {
                 <option value="ux">User Experience</option>
                 </select>
 
-                <select multiple="" name="languages_spoken" id="multi-select" className="ui dropdown" value={this.state.languages_spoken}
+                <select multiple="true" name="languages_spoken" id="multi-select" className="ui fluid normal dropdown"
+                value={this.state.languages_spoken}
                 onChange={e => this.onLanguageChange(e.target.value)}>
-                  <option value="">Please Select</option>
+                  <option value="">Languages</option>
                   <option value="English">English</option>
                   <option value="Chinese">Chinese</option>
                   <option value="Spanish">Spanish</option>
