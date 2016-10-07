@@ -9,6 +9,15 @@ $(function(){
     .dropdown('set selected', [])
   ;
 
+  // $(".ui.fluid.dropdown").dropdown({
+  //   allowLabels:true
+  // })
+  //
+  // $('.ui.fluid.dropdown').dropdown({
+  //   'set selected': 'Role1,Role2'
+  // });
+
+
   // sign in / sign out / forget password Modal
   $('#applicant_login_button').on('click', function(){
     console.log("applicant_login_button clicked")

@@ -7,11 +7,16 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 
 const LanguageOptions = [
-  { text: 'English', value: 'English' },
-  { text: 'French', value: 'French' },
   { text: 'Spanish', value: 'Spanish' },
   { text: 'German', value: 'German' },
+  { text: 'French', value: 'French' },
+  { text: 'Italian', value: 'Italian' },
   { text: 'Chinese', value: 'Chinese' },
+  { text: 'Arabic', value: 'Arabic' },
+  { text: 'Russian', value: 'Russian' },
+  { text: 'Hindi', value: 'Hindi' },
+  { text: 'Portuguese', value: 'Portuguese' },
+  { text: 'Japanese', value: 'Japanese' }
 ]
 
 const DesiredLocations = [
@@ -20,13 +25,26 @@ const DesiredLocations = [
   { text: 'High Level', value: 'High Level' },
 ]
 
-const Skills = [
-  { text: 'Series 7', value: 'Series 7' },
-  { text: 'CAP Certified', value: 'CAP Certified' },
-  { text: 'CFP', value: 'CFP' },
+const Certifications = [
+  { text: 'Certified Financial Planner (CFP)', value: 'Certified Financial Planner (CFP)' },
+  { text: 'Chartered Financial Analysts (CFA)', value: 'Chartered Financial Analysts (CFA)' },
+  { text: 'Certified Fund Specialists (CFS)', value: 'Certified Fund Specialists (CFS)' },
+  { text: 'Chartered Financial Consultant (ChFC)', value: 'Chartered Financial Consultant (ChFC)' },
+  { text: 'Chartered Investment Counselor (CIC)', value: 'Chartered Investment Counselor (CIC)' },
+  { text: 'Certified Investment Management Analysts (CIMA)', value: 'Certified Investment Management Analysts (CIMA)' },
+  { text: 'Chartered Market Technician (CMT)', value: 'Chartered Market Technician (CMT)' },
+  { text: 'Personal Financial Specialist (PFS)', value: 'Personal Financial Specialist (PFS)' },
+  { text: 'Certified Public Accountant (CPA)', value: 'Certified Public Accountant (CPA)' },
+  { text: 'Certified Management Accountant (CMA)', value: 'Certified Management Accountant (CMA)' },
+  { text: 'Certified in Financial Management (CFM)', value: 'Certified in Financial Management (CFM)' },
+  { text: 'Certified Internal Auditor (CIA)', value: 'Certified Internal Auditor (CIA)' },
+  { text: 'Certification in Control Self Assessment (CCSA)', value: 'Certification in Control Self Assessment (CCSA)' },
+  { text: 'Certified Information Systems Auditor (CISA)', value: 'Certified Information Systems Auditor (CISA)' },
+  { text: 'Certified Fraud Examiner (CFE)', value: 'Certified Fraud Examiner (CFE)' }
 ]
 
 class Applicant_profile_form extends Component {
+
   constructor(props) {
     super(props);
 
@@ -36,16 +54,15 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
-      skills:[],
       education_level:'',
       experience_level:'',
-      certifications:'',
+      certifications: [],
       languages_spoken:[],
       resume_pdf_pdf:'',
       profile_image:'',
       LanguageMultiple: LanguageOptions,
       DesiredLocationsMultiple: DesiredLocations,
-      SkillsMultiple: Skills
+      CertificationsMultiple: Certifications
     }
 
   }
@@ -57,6 +74,13 @@ class Applicant_profile_form extends Component {
   }
   handleChangeLanguageMultiple = (e, { value }) => this.setState({ languages_spoken: value })
 
+  handleCertificationsMultiple = (e, { value }) => {
+    this.setState({
+      CertificationsMultiple: [{ text: value, value }, ...this.state.CertificationsMultiple],
+    })
+  }
+  handleChangeCertificationsMultiple = (e, { value }) => this.setState({ certifications: value })
+
 
   handleDesiredLocationsMultiple = (e, { value }) => {
     this.setState({
@@ -64,14 +88,6 @@ class Applicant_profile_form extends Component {
     })
   }
   handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
-
-
-  handleSkillsMultiple = (e, { value }) => {
-    this.setState({
-      SkillsMultiple: [{ text: value, value }, ...this.state.SkillsMultiple],
-    })
-  }
-  handleChangeSkillsMultiple = (e, { value }) => this.setState({ skills: value })
 
 
   handleSubmit(e) {
@@ -84,7 +100,6 @@ class Applicant_profile_form extends Component {
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
       desired_location: this.state.desired_location,
-      skills:this.state.skills,
       education_level: this.state.education_level,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
@@ -101,10 +116,9 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
-      skills:[],
       education_level:'',
       experience_level:'',
-      certifications:'',
+      certifications:[],
       languages_spoken:[],
       resume_pdf:'',
       profile_image:''
@@ -154,12 +168,8 @@ class Applicant_profile_form extends Component {
   //   this.setState({languages_spoken: this.state.languages_spoken})
   // }
 
-  onSkillsChange(sk){
-    this.state.skills.push(sk)
-    _.times(3,
-      this.setState({skills:this.state.skills})
-    )
-  }
+
+// localStorage.token
 
   render(){
     const { currentValue, currentValues } = this.state
@@ -169,7 +179,12 @@ class Applicant_profile_form extends Component {
 
           <h1>Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
+
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
+
+            <div>
+              <p>Please click here to signup before creating applicant profile</p>
+            </div>
 
             <div className="two fields">
               <div className="field">
@@ -214,7 +229,7 @@ class Applicant_profile_form extends Component {
                 <label>Interested In Working</label>
                 <Dropdown
                   options={this.state.DesiredLocationsMultiple}
-                  placeholder='Choose Languages'
+                  placeholder='Choose Desired Location'
                   search
                   selection
                   fluid
@@ -232,9 +247,9 @@ class Applicant_profile_form extends Component {
                 <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                 onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                   <option value="">Please Select</option>
-                  <option value="Entry Level">Entry Level</option>
-                  <option value="Mid Level">Mid Level</option>
-                  <option value="High Level">High Level</option>
+                  <option value="Entry Level">Entry Level- 2 Years or less</option>
+                  <option value="Mid Level">Mid Level- 2-5 Years</option>
+                  <option value="High Level">High Level- 5-10Years</option>
                 </select>
               </div>
             </div>
@@ -247,10 +262,10 @@ class Applicant_profile_form extends Component {
                 onChange={ e => this.onresume_pdfChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="certifications">Relevant certificationss</label>
+                <label name="certifications">Relevant certifications</label>
                 <Dropdown
-                  options={this.state.LanguageMultiple}
-                  placeholder='Choose Languages'
+                  options={this.state.CertificationsMultiple}
+                  placeholder='Choose Certifications'
                   search
                   selection
                   fluid
@@ -258,8 +273,8 @@ class Applicant_profile_form extends Component {
                   allowAdditions
                   additionPosition='top'
                   additionLabel=''
-                  onAddItem={this.handleLanguageMultiple}
-                  onChange={this.handleChangeLanguageMultiple}
+                  onAddItem={this.handleCertificationsMultiple}
+                  onChange={this.handleChangeCertificationsMultiple}
                 />
               </div>
             </div>
@@ -272,31 +287,7 @@ class Applicant_profile_form extends Component {
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="skills">Skills</label>
-                <Dropdown
-                  options={this.state.SkillsMultiple}
-                  placeholder='Choose Languages'
-                  search
-                  selection
-                  fluid
-                  multiple
-                  allowAdditions
-                  additionPosition='top'
-                  additionLabel=''
-                  onAddItem={this.handleSkillsMultiple}
-                  onChange={this.handleChangeSkillsMultiple}
-                />
-              </div>
-            </div>
-
-            <div className="two fields">
-              <div className="field">
-
-              </div>
-
-              <div className="field">
-
-                <label name="languages_spoken">Languages Spoken</label>
+              <label name="languages_spoken">Languages Spoken</label>
                 <Dropdown
                   options={this.state.LanguageMultiple}
                   placeholder='Choose Languages'
@@ -305,6 +296,7 @@ class Applicant_profile_form extends Component {
                   onAddItem={this.handleLanguageMultiple}
                   onChange={this.handleChangeLanguageMultiple}
                 />
+
               </div>
             </div>
 
