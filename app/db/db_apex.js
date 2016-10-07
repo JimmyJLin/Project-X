@@ -8,15 +8,15 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-// const cn = 'postgres://eminekoc:1297@localhost/apex'
+const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'apex',
-  user: 'jimmylin',
-  password: 'desertprince69'
-};
+// const cn = {
+//   host: 'localhost',
+//   port: 5432,
+//   database: 'apex',
+//   user: 'jimmylin',
+//   password: 'desertprince69'
+// };
 
 const db = pgp(cn);
 
