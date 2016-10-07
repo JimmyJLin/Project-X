@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import HeaderMenu from '../../headermenu';
 import Footer from '../../footer';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 
 class Applicant_profile extends Component {
@@ -136,6 +137,17 @@ class Applicant_profile extends Component {
     )
   }
 
+}
+
+// const user_id = localStorage.id
+function getProfile(user_id){
+  $.get({
+    url : '/api/auth/'+user_id,
+    data : data
+  })
+  .done((data) => {
+    this.props.passProfileData(data.results);
+  })
 }
 
 

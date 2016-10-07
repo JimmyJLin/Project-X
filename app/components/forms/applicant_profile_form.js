@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import HeaderMenu from '../headermenu';
 import Footer from '../footer';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 
 class Applicant_profile_form extends Component {
@@ -11,18 +12,20 @@ class Applicant_profile_form extends Component {
     super(props);
 
     this.state = {
-      first_name: '',
-      last_name: '',
-      desired_industry: [],
-      education_level: '',
-      interested_working: [],
-      industry_exp_level: '',
+      user_id:'',
+      first_name:'',
+      last_name:'',
+      desired_industry:[],
+      desired_location:[],
       skills:[],
-      resume: '',
-      certification: [],
-      profile_image: '',
-      languages_spoken: []
+      education_level:'',
+      experience_level:'',
+      certifications:'',
+      languages_spoken:[],
+      resume_pdf_pdf:'',
+      profile_image:''
     }
+
   }
 
   handleSubmit(e) {
@@ -30,33 +33,35 @@ class Applicant_profile_form extends Component {
     console.log("submit clicked")
 
     let employerProfileData = {
+      user_id:localStorage.id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      skills:this.state.skills,
       desired_industry: this.state.desired_industry,
+      desired_location: this.state.desired_location,
+      skills:this.state.skills,
       education_level: this.state.education_level,
-      interested_working: this.state.interested_working,
-      industry_exp_level: this.state.industry_exp_level,
-      resume: this.state.resume,
-      certification: this.state.certification,
-      profile_image: this.state.profile_image,
-      languages_spoken: this.state.languages_spoken
-
+      experience_level: this.state.experience_level,
+      certifications: this.state.certifications,
+      languages_spoken: this.state.languages_spoken,
+      resume_pdf_pdf: this.state.resume_pdf,
+      profile_image: this.state.profile_image
     }
     console.log(employerProfileData)
+    postApplicant(employerProfileData)
 
     this.setState({
-      first_name: '',
-      last_name: '',
-      desired_industry: [],
-      education_level: '',
-      interested_working: [],
-      industry_exp_level: '',
+      user_id:'',
+      first_name:'',
+      last_name:'',
+      desired_industry:[],
+      desired_location:[],
       skills:[],
-      resume: '',
-      certification: [],
-      profile_image: '',
-      languages_spoken: []
+      education_level:'',
+      experience_level:'',
+      certifications:'',
+      languages_spoken:[],
+      resume_pdf:'',
+      profile_image:''
     })
 
   }
@@ -77,20 +82,21 @@ class Applicant_profile_form extends Component {
     this.setState({education_level});
   }
 
-  onInterestedWorkingChange(interested_working){
-    this.setState({interested_working});
+  onInterestedWorkingChange(desired_location){
+    this.setState({desired_location});
   }
 
-  onIndustryExpLevelChange(industry_exp_level){
-    this.setState({industry_exp_level});
+  onIndustryExpLevelChange(experience_level){
+    this.setState({experience_level});
   }
 
-  onResumeChange(resume){
-    this.setState({resume})
+  onresume_pdfChange(resume_pdf){
+    this.setState({resume_pdf})
   }
 
-  onCertificationChange(certification){
-    this.setState({certification})
+  oncertificationsChange(certifications){
+    this.state.certifications.push(certifications)
+    this.setState({certifications: this.state.certifications})
   }
 
   onProfileImageChange(profile_image){
@@ -103,7 +109,6 @@ class Applicant_profile_form extends Component {
   }
   onSkillsChange(sk){
     this.state.skills.push(sk)
-
     this.setState({skills:this.state.skills})
   }
 
@@ -157,12 +162,12 @@ class Applicant_profile_form extends Component {
               <div className="field">
                 <label>Interested In Working</label>
 
-                <input name="interested_working" type="text" value={this.state.interested_working}
+                <input name="desired_location" type="text" value={this.state.desired_location}
                 onChange={e => this.onInterestedWorkingChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="industry_exp_level">Experience Level</label>
-                <select name="industry_exp_level" id="" className="ui fluid dropdown" value={this.state.industry_exp_level}
+                <label name="experience_level">Experience Level</label>
+                <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                 onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                   <option value="">Please Select</option>
                   <option value="Entry Level">Entry Level</option>
@@ -174,15 +179,15 @@ class Applicant_profile_form extends Component {
 
             <div className="two fields">
               <div className="field">
-                <label>Upload Resume</label>
-                <input type="file" name="resume" accept="images/resume/*"
-                value={this.state.resume}
-                onChange={ e => this.onResumeChange(e.target.value)}/>
+                <label>Upload resume_pdf</label>
+                <input type="file" name="resume_pdf" accept="images/resume_pdf/*"
+                value={this.state.resume_pdf}
+                onChange={ e => this.onresume_pdfChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="certification">Relevant Certifications</label>
-                <select name="certification" id="" className="ui fluid dropdown" value={this.state.certification}
-                onChange={e => this.onCertificationChange(e.target.value)}>
+                <label name="certifications">Relevant certificationss</label>
+                <select multiple="true" name="certifications" id="" className="ui fluid dropdown" value={this.state.certifications}
+                onChange={e => this.oncertificationsChange(e.target.value)}>
                   <option value="">Please Select</option>
                   <option value="Series 7">Series 7</option>
                   <option value="CPA Certified">CPA Certified</option>
@@ -198,9 +203,10 @@ class Applicant_profile_form extends Component {
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
-              <div className="field">
-                <label name="skills">Languages Spoken</label>
 
+              <div className="field">
+
+                <label name="skills">Skills</label>
                 <select multiple="true" id="skills" name="skills" className="ui fluid normal dropdown"
                 value={this.state.skills}
                 onChange={e => this.onSkillsChange(e.target.value)}>
@@ -225,6 +231,7 @@ class Applicant_profile_form extends Component {
                 <option value="ux">User Experience</option>
                 </select>
 
+                <label name="languages_spoken">Languages Spoken</label>
                 <select multiple="true" name="languages_spoken" id="multi-select" className="ui fluid normal dropdown"
                 value={this.state.languages_spoken}
                 onChange={e => this.onLanguageChange(e.target.value)}>
@@ -245,6 +252,18 @@ class Applicant_profile_form extends Component {
     )
   }
 
+}
+
+
+function postApplicant(employerProfileData){
+  console.log('post job data is fired with data', employerProfileData)
+  $.post('/api/applicants/:id', employerProfileData)
+    .done((data) => {
+      console.log('success', data)
+    })
+    .error((error) => {
+      console.error('Posting is failed', error);
+    })
 }
 
 

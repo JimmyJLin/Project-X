@@ -172,11 +172,26 @@ function postAJob(req,res,next){
   })
 };
 
+
+function applicantProfile(req,res,next){
+  db.one("select * from Applicants where user_id = $1",
+  [ req.params.uid ])
+  .then(function(data) {
+    res.rows= data;
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
+
 module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
 module.exports.editUser = editUser;
 module.exports.deleteUser = deleteUser;
 module.exports.showallusers = showallusers;
+module.exports.applicantProfile = applicantProfile;
 
 
 module.exports.showAllJobs = showAllJobs;
