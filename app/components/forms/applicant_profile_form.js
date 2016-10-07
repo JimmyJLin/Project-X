@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
-import HeaderMenu from '../headermenu';
-import Footer from '../footer';
 import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 
@@ -183,7 +180,7 @@ class Applicant_profile_form extends Component {
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
             <div>
-              <p>Please click here to signup before creating applicant profile</p>
+              <p>Please click <a  id='applicant_signup_button'>here</a> to signup before creating applicant profile</p>
             </div>
 
             <div className="two fields">
@@ -293,6 +290,7 @@ class Applicant_profile_form extends Component {
                   placeholder='Choose Languages'
                   selection
                   multiple
+                  additionPosition='bottom'
                   onAddItem={this.handleLanguageMultiple}
                   onChange={this.handleChangeLanguageMultiple}
                 />
