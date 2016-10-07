@@ -156,7 +156,9 @@ class Applicant_profile_form extends Component {
 
   onSkillsChange(sk){
     this.state.skills.push(sk)
-    this.setState({skills:this.state.skills})
+    _.times(3,
+      this.setState({skills:this.state.skills})
+    )
   }
 
   render(){

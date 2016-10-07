@@ -8,7 +8,25 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 
 class Applicant_profile extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      applicantProfile: {}
+    }
+  }
+
+  componentDidMount() {
+   // this is where you'll get the data from the 'db'
+   $.get('/api/auth/11').done( (data)=>{
+      this.state.applicantProfile=data;
+      this.setState({applicantProfile:this.state.applicantProfile})
+    })
+  }
+
+
   render(){
+
     return(
         <div id="applicant_profile">
 
@@ -19,7 +37,7 @@ class Applicant_profile extends Component {
           </div>
           <div className="twelve wide column">
             <div className="twelve wide column">
-              <h2>Don Swanson: CPA</h2>
+              <h2>{this.state.applicantProfile.first_name} {this.state.applicantProfile.last_name}: {this.state.applicantProfile.certifications}</h2>
             </div>
 
             <div className="ui divider"></div>
@@ -137,17 +155,6 @@ class Applicant_profile extends Component {
     )
   }
 
-}
-
-// const user_id = localStorage.id
-function getProfile(user_id){
-  $.get({
-    url : '/api/auth/'+user_id,
-    data : data
-  })
-  .done((data) => {
-    this.props.passProfileData(data.results);
-  })
 }
 
 
