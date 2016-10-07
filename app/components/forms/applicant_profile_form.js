@@ -4,10 +4,29 @@ import { Link } from 'react-router'
 import HeaderMenu from '../headermenu';
 import Footer from '../footer';
 import $ from 'jquery'; // requires jQuery for AJAX request
+import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 
+const LanguageOptions = [
+  { text: 'English', value: 'English' },
+  { text: 'French', value: 'French' },
+  { text: 'Spanish', value: 'Spanish' },
+  { text: 'German', value: 'German' },
+  { text: 'Chinese', value: 'Chinese' },
+]
+
+const DesiredLocations = [
+  { text: 'New York', value: 'New York' },
+  { text: 'London', value: 'London' },
+  { text: 'High Level', value: 'High Level' },
+]
+
+const Skills = [
+  { text: 'Series 7', value: 'Series 7' },
+  { text: 'CAP Certified', value: 'CAP Certified' },
+  { text: 'CFP', value: 'CFP' },
+]
 
 class Applicant_profile_form extends Component {
-
   constructor(props) {
     super(props);
 
@@ -15,7 +34,7 @@ class Applicant_profile_form extends Component {
       user_id:'',
       first_name:'',
       last_name:'',
-      desired_industry:[],
+      desired_industry:'',
       desired_location:[],
       skills:[],
       education_level:'',
@@ -23,10 +42,37 @@ class Applicant_profile_form extends Component {
       certifications:'',
       languages_spoken:[],
       resume_pdf_pdf:'',
-      profile_image:''
+      profile_image:'',
+      LanguageMultiple: LanguageOptions,
+      DesiredLocationsMultiple: DesiredLocations,
+      SkillsMultiple: Skills
     }
 
   }
+
+  handleLanguageMultiple = (e, { value }) => {
+    this.setState({
+      LanguageMultiple: [{ text: value, value }, ...this.state.LanguageMultiple],
+    })
+  }
+  handleChangeLanguageMultiple = (e, { value }) => this.setState({ languages_spoken: value })
+
+
+  handleDesiredLocationsMultiple = (e, { value }) => {
+    this.setState({
+      DesiredLocationsMultiple: [{ text: value, value }, ...this.state.DesiredLocationsMultiple],
+    })
+  }
+  handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
+
+
+  handleSkillsMultiple = (e, { value }) => {
+    this.setState({
+      SkillsMultiple: [{ text: value, value }, ...this.state.SkillsMultiple],
+    })
+  }
+  handleChangeSkillsMultiple = (e, { value }) => this.setState({ skills: value })
+
 
   handleSubmit(e) {
     e.preventDefault();
@@ -53,7 +99,7 @@ class Applicant_profile_form extends Component {
       user_id:'',
       first_name:'',
       last_name:'',
-      desired_industry:[],
+      desired_industry:'',
       desired_location:[],
       skills:[],
       education_level:'',
@@ -103,16 +149,19 @@ class Applicant_profile_form extends Component {
     this.setState({profile_image})
   }
 
-  onLanguageChange(lang){
-    this.state.languages_spoken.push(lang)
-    this.setState({languages_spoken: this.state.languages_spoken})
-  }
+  // onLanguageChange(lang){
+  //   this.state.languages_spoken.push(lang)
+  //   this.setState({languages_spoken: this.state.languages_spoken})
+  // }
+
   onSkillsChange(sk){
     this.state.skills.push(sk)
     this.setState({skills:this.state.skills})
   }
 
   render(){
+    const { currentValue, currentValues } = this.state
+
     return(
         <div id="applicant_profile_form">
 
@@ -161,10 +210,21 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Interested In Working</label>
-
-                <input name="desired_location" type="text" value={this.state.desired_location}
-                onChange={e => this.onInterestedWorkingChange(e.target.value)}/>
+                <Dropdown
+                  options={this.state.DesiredLocationsMultiple}
+                  placeholder='Choose Languages'
+                  search
+                  selection
+                  fluid
+                  multiple
+                  allowAdditions
+                  additionPosition='top'
+                  additionLabel=''
+                  onAddItem={this.handleDesiredLocationsMultiple}
+                  onChange={this.handleChangeDesiredLocationsMultiple}
+                />
               </div>
+
               <div className="field">
                 <label name="experience_level">Experience Level</label>
                 <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
@@ -186,13 +246,19 @@ class Applicant_profile_form extends Component {
               </div>
               <div className="field">
                 <label name="certifications">Relevant certificationss</label>
-                <select multiple="true" name="certifications" id="" className="ui fluid dropdown" value={this.state.certifications}
-                onChange={e => this.oncertificationsChange(e.target.value)}>
-                  <option value="">Please Select</option>
-                  <option value="Series 7">Series 7</option>
-                  <option value="CPA Certified">CPA Certified</option>
-                  <option value="FMA">FMA</option>
-                </select>
+                <Dropdown
+                  options={this.state.LanguageMultiple}
+                  placeholder='Choose Languages'
+                  search
+                  selection
+                  fluid
+                  multiple
+                  allowAdditions
+                  additionPosition='top'
+                  additionLabel=''
+                  onAddItem={this.handleLanguageMultiple}
+                  onChange={this.handleChangeLanguageMultiple}
+                />
               </div>
             </div>
 
@@ -203,43 +269,40 @@ class Applicant_profile_form extends Component {
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
+              <div className="field">
+                <label name="skills">Skills</label>
+                <Dropdown
+                  options={this.state.SkillsMultiple}
+                  placeholder='Choose Languages'
+                  search
+                  selection
+                  fluid
+                  multiple
+                  allowAdditions
+                  additionPosition='top'
+                  additionLabel=''
+                  onAddItem={this.handleSkillsMultiple}
+                  onChange={this.handleChangeSkillsMultiple}
+                />
+              </div>
+            </div>
+
+            <div className="two fields">
+              <div className="field">
+
+              </div>
 
               <div className="field">
 
-                <label name="skills">Skills</label>
-                <select multiple="true" id="skills" name="skills" className="ui fluid normal dropdown"
-                value={this.state.skills}
-                onChange={e => this.onSkillsChange(e.target.value)}>
-                <option value="">Skills</option>
-                <option value="angular">Angular</option>
-                <option value="css">CSS</option>
-                <option value="design">Graphic Design</option>
-                <option value="ember">Ember</option>
-                <option value="html">HTML</option>
-                <option value="ia">Information Architecture</option>
-                <option value="javascript">Javascript</option>
-                <option value="mech">Mechanical Engineering</option>
-                <option value="meteor">Meteor</option>
-                <option value="node">NodeJS</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="python">Python</option>
-                <option value="rails">Rails</option>
-                <option value="react">React</option>
-                <option value="repair">Kitchen Repair</option>
-                <option value="ruby">Ruby</option>
-                <option value="ui">UI Design</option>
-                <option value="ux">User Experience</option>
-                </select>
-
                 <label name="languages_spoken">Languages Spoken</label>
-                <select multiple="true" name="languages_spoken" id="multi-select" className="ui fluid normal dropdown"
-                value={this.state.languages_spoken}
-                onChange={e => this.onLanguageChange(e.target.value)}>
-                  <option value="">Languages</option>
-                  <option value="English">English</option>
-                  <option value="Chinese">Chinese</option>
-                  <option value="Spanish">Spanish</option>
-                </select>
+                <Dropdown
+                  options={this.state.LanguageMultiple}
+                  placeholder='Choose Languages'
+                  selection
+                  multiple
+                  onAddItem={this.handleLanguageMultiple}
+                  onChange={this.handleChangeLanguageMultiple}
+                />
               </div>
             </div>
 

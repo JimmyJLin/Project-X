@@ -54,6 +54,7 @@
     "redux-thunk": "^0.1.0",
     "rewire": "^2.3.4",
     "semantic-ui": "2.2",
+    "semantic-ui-react": "^0.54.3",
     "superagent": "^1.4.0"
   },
   "devDependencies": {
