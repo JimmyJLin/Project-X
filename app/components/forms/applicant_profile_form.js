@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import HeaderMenu from '../headermenu';
 import Footer from '../footer';
 import $ from 'jquery'; // requires jQuery for AJAX request
+import _ from 'lodash';
 
 
 class Applicant_profile_form extends Component {
@@ -105,11 +106,14 @@ class Applicant_profile_form extends Component {
 
   onLanguageChange(lang){
     this.state.languages_spoken.push(lang)
+
     this.setState({languages_spoken: this.state.languages_spoken})
   }
   onSkillsChange(sk){
     this.state.skills.push(sk)
-    this.setState({skills:this.state.skills})
+    _.times(3,
+      this.setState({skills:this.state.skills})
+    )
   }
 
   render(){
