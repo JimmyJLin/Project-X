@@ -44,8 +44,8 @@ INSERT INTO Networking_Status (applicant_id,employer_id) VALUES
 (1,3);
 
 INSERT INTO Applicants (user_id,first_name,last_name,desired_industry,desired_location,skills,education_level, experience_level,certifications,languages_spoken, resume_pdf, profile_image ) VALUES
-('11','emine','koc','{"health"}','{"new york", "new jersey"}','{"html","JS","Ruby"}','Entry Level','2 Years','{"GBA"}', '{"Chineese", "ENGLISH"}', 'EMINEKOC.PDF', 'EMINE.JPG'),
-('12','jimmy','LIN','{"finance"}','{"new york", "new jersey"}','{"html","JS","Ruby"}','Entry Level','2 Years','{"GBA"}', '{"TURKISH", "ENGLISH"}', 'EMINEKOC.PDF', 'EMINE.JPG');
+('1','emine','koc','{"health"}','{"new york", "new jersey"}','{"html","JS","Ruby"}','Entry Level','2 Years','{"GBA"}', '{"Chineese", "ENGLISH"}', 'EMINEKOC.PDF', 'EMINE.JPG'),
+('2','jimmy','LIN','{"finance"}','{"new york", "new jersey"}','{"html","JS","Ruby"}','Entry Level','2 Years','{"GBA"}', '{"TURKISH", "ENGLISH"}', 'EMINEKOC.PDF', 'EMINE.JPG');
 
 
 INSERT INTO Messages(sender,receiver,message) VALUES

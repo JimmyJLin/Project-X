@@ -18,7 +18,7 @@ class Applicant_profile extends Component {
 
   componentDidMount() {
    // this is where you'll get the data from the 'db'
-   $.get('/api/auth/11').done( (data)=>{
+   $.get('/api/auth/1').done( (data)=>{
       this.state.applicantProfile=data;
       this.setState({applicantProfile:this.state.applicantProfile})
     })

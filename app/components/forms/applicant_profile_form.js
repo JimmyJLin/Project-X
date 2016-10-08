@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
+import ProfileSignUp from '../user_auth/applicant_profile_signup';
 
 const LanguageOptions = [
   { text: 'Spanish', value: 'Spanish' },
@@ -176,11 +177,13 @@ class Applicant_profile_form extends Component {
 
           <h1>Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
+          <ProfileSignUp />
+
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
             <div>
-              <p>Please click <a  id='applicant_signup_button'>here</a> to signup before creating applicant profile</p>
+              <p>Please click <a  id='applicant_profile_signup_button'>here</a> to signup before creating applicant profile</p>
             </div>
 
             <div className="two fields">
@@ -301,6 +304,7 @@ class Applicant_profile_form extends Component {
             <button className="ui button" type="submit">Activate Basic Profile</button>
 
           </form>
+
 
         </div>
 

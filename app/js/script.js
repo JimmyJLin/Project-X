@@ -34,6 +34,11 @@ $(function(){
     $('.ui.small.modal.applicant.signup').modal('show')
   })
 
+  $('#applicant_profile_signup_button').on('click', function(){
+    console.log("signup_button clicked")
+    $('.ui.small.modal.applicant.profile.signup').modal('show')
+  })
+
   $('#employer_signup_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.employer.signup').modal('show')
