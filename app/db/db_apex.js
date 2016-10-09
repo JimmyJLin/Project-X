@@ -231,12 +231,12 @@ function postAApplicant(req,res,next){
       req.body.first_name,
       req.body.last_name,
       req.body.desired_industry,
-      req.body.desired_location,
+      [req.body.desired_location],
       req.body.education_level,
       req.body.school,
       req.body.experience_level,
-      req.body.certifications,
-      req.body.languages_spoken,
+      [req.body.certifications],
+      [req.body.languages_spoken],
       req.body.resume_pdf,
       req.body.profile_image
     ])

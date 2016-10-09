@@ -55,7 +55,7 @@ class Applicant_profile_form extends Component {
       experience_level:'',
       certifications: [],
       languages_spoken:[],
-      resume_pdf_pdf:'',
+      resume_pdf:'',
       profile_image:'',
       LanguageMultiple: LanguageOptions,
       DesiredLocationsMultiple: DesiredLocations,
@@ -96,14 +96,11 @@ class Applicant_profile_form extends Component {
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
       desired_location: this.state.desired_location,
-      skills: this.state.skills,
       education_level: this.state.education_level,
-      school: this.state.school,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
       languages_spoken: this.state.languages_spoken,
-      search_tags: this.state.search_tags,
-      resume_pdf_pdf: this.state.resume_pdf,
+      resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
     console.log(employerProfileData)
@@ -115,13 +112,10 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
-      skills: [],
       education_level:'',
-      school: '',
       experience_level:'',
       certifications:[],
       languages_spoken:[],
-      search_tags: '',
       resume_pdf:'',
       profile_image:''
     })
