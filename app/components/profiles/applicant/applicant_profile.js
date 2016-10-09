@@ -14,7 +14,8 @@ class Applicant_profile extends Component {
     this.state = {
       applicantProfile: {},
       desired_location: [],
-      certifications: []
+      certifications: [],
+      search_tags: []
     }
   }
 
@@ -25,11 +26,13 @@ class Applicant_profile extends Component {
       this.state.applicantProfile=data;
       this.state.desired_location=data.desired_location;
       this.state.certifications=data.certifications;
+      this.state.search_tags=data.search_tags;
 
       this.setState({
         applicantProfile: this.state.applicantProfile,
         desired_location: this.state.desired_location,
-        certifications: this.state.certifications
+        certifications: this.state.certifications,
+        search_tags: this.state.search_tags
 
       })
       console.log(this.state.applicantProfile)
@@ -45,6 +48,11 @@ class Applicant_profile extends Component {
     const certifications = this.state.certifications.map(function(certification){
       return <div key={certification} className="ui label">{certification}</div>
     });
+
+    const search_tags = this.state.search_tags.map(function(search_tag){
+      return <div key={search_tag} className="item search_tags"><div className="ui label details">{search_tag}</div></div>
+    });
+
     console.log("certifications", certifications)
 
 
@@ -119,31 +127,12 @@ class Applicant_profile extends Component {
         {/* Applicant Key Search Tags */}
         <div className="twelve wide column">
           <h2>Key Search Tags</h2>
-          <div className="ui equal width grid">
-            <div className="column">
-              <div className="ui label details">
-                Accounting
-              </div>
-              <div className="ui label details">
-                Series 7
-              </div>
-              <div className="ui label details">
-                CPA
-              </div>
-            </div>
-            <div className="column">
-              <div className="ui label details">
-                Bachelors Degree
-              </div>
-              <div className="ui label details">
-                Mid level
-              </div>
-              <div className="ui label details">
-                NYC, Boston, London
-              </div>
-            </div>
 
+          <div className="ui horizontal list centered aligned middle">
+            {search_tags}
           </div>
+
+
         </div>
 
         {/* Match Button*/}

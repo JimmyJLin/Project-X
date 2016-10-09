@@ -47,6 +47,7 @@ CREATE TABLE Applicants (
   experience_level VARCHAR(200),
   certifications text[],
   languages_spoken text[],
+  search_tags text[],
   resume_pdf VARCHAR(2000),
   profile_image VARCHAR(200)
 );
