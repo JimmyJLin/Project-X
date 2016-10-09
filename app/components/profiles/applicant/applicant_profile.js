@@ -12,20 +12,41 @@ class Applicant_profile extends Component {
     super(props);
 
     this.state = {
-      applicantProfile: {}
+      applicantProfile: {},
+      desired_location: [],
+      certifications: []
     }
   }
 
   componentDidMount() {
    // this is where you'll get the data from the 'db'
-   $.get('/api/auth/1').done( (data)=>{
+   $.get('/api/auth/2').done( (data)=>{
+     console.log("applicantProfile data: ", data)
       this.state.applicantProfile=data;
-      this.setState({applicantProfile:this.state.applicantProfile})
+      this.state.desired_location=data.desired_location;
+      this.state.certifications=data.certifications;
+
+      this.setState({
+        applicantProfile: this.state.applicantProfile,
+        desired_location: this.state.desired_location,
+        certifications: this.state.certifications
+
+      })
+      console.log(this.state.applicantProfile)
     })
   }
 
 
   render(){
+    const desired_location = this.state.desired_location.map(function(location){
+      return <div key={location} className="ui label details">{location}</div>
+    });
+
+    const certifications = this.state.certifications.map(function(certification){
+      return <div key={certification} className="ui label">{certification}</div>
+    });
+    console.log("certifications", certifications)
+
 
     return(
         <div id="applicant_profile">
@@ -33,29 +54,18 @@ class Applicant_profile extends Component {
         {/* Profile Header */}
         <div className="ui grid">
           <div className="four wide column">
-            <img className="ui small circular image" src="/images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+            <img className="ui small circular image" src={this.state.applicantProfile.profile_image} alt="Profile Picture"/>
           </div>
           <div className="twelve wide column">
             <div className="twelve wide column">
-              <h2>{this.state.applicantProfile.first_name} {this.state.applicantProfile.last_name}: {this.state.applicantProfile.certifications}</h2>
+              <h2>{this.state.applicantProfile.first_name} {this.state.applicantProfile.last_name}: {this.state.certifications[0]}</h2>
             </div>
 
             <div className="ui divider"></div>
 
             <div className="twelve wide column">
               <div className="ui four middle aligned cards">
-                <div className="ui label">
-                  Series 7 Certified
-                </div>
-                <div className="ui label">
-                  CPA Completion
-                </div>
-                <div className="ui label">
-                  Bachelors Accounting
-                </div>
-                <div className="ui label">
-                  Entry Level
-                </div>
+                {certifications}
               </div>
             </div>
           </div>
@@ -70,15 +80,7 @@ class Applicant_profile extends Component {
               <h2>Interested in Position in</h2>
               <div className="ui left aligned divided list">
                 <div className="content">
-                  <div className="ui label details">
-                    Greater NYC
-                  </div>
-                  <div className="ui label details">
-                    London
-                  </div>
-                  <div className="ui label details">
-                    Boston
-                  </div>
+                  {desired_location}
                 </div>
               </div>
             </div>
@@ -88,10 +90,10 @@ class Applicant_profile extends Component {
               <div className="ui left aligned divided list">
                 <div className="content">
                   <div className="ui label details">
-                    Duke
+                    {this.state.applicantProfile.school}
                   </div>
                   <div className="ui label details">
-                    MBA
+                    {this.state.applicantProfile.education_level}
                   </div>
                 </div>
               </div>
