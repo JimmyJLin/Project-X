@@ -221,7 +221,7 @@ class Applicant_profile_form extends Component {
                   <option value="High School / GED">High School / GED</option>
                   <option value="Associate Degree">Associate Degree</option>
                   <option value="Bachelor Degree">Bachelor Degree</option>
-                  <option value="Bachelor Degree">Bachelor Degree</option>
+                  <option value="Master Degree">Master Degree</option>
                   <option value="Phd">Phd</option>
                 </select>
               </div>
