@@ -26,4 +26,16 @@
       width: 100%;
     }
   }
+
+  .ui.horizontal.list{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 50px;
+    display: flex;
+
+    .item.search_tags{
+      text-align: center;
+      width: 15%;
+    }
+  }
 }

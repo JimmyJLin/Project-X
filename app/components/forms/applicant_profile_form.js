@@ -1,9 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
-import HeaderMenu from '../headermenu';
-import Footer from '../footer';
+import $ from 'jquery'; // requires jQuery for AJAX request
+import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
+import ProfileSignUp from '../user_auth/applicant_profile_signup';
 
+const LanguageOptions = [
+  { text: 'Spanish', value: 'Spanish' },
+  { text: 'German', value: 'German' },
+  { text: 'French', value: 'French' },
+  { text: 'Italian', value: 'Italian' },
+  { text: 'Chinese', value: 'Chinese' },
+  { text: 'Arabic', value: 'Arabic' },
+  { text: 'Russian', value: 'Russian' },
+  { text: 'Hindi', value: 'Hindi' },
+  { text: 'Portuguese', value: 'Portuguese' },
+  { text: 'Japanese', value: 'Japanese' }
+]
+
+const DesiredLocations = [
+  { text: 'New York', value: 'New York' },
+  { text: 'London', value: 'London' },
+  { text: 'High Level', value: 'High Level' },
+]
+
+const Certifications = [
+  { text: 'Certified Financial Planner (CFP)', value: 'Certified Financial Planner (CFP)' },
+  { text: 'Chartered Financial Analysts (CFA)', value: 'Chartered Financial Analysts (CFA)' },
+  { text: 'Certified Fund Specialists (CFS)', value: 'Certified Fund Specialists (CFS)' },
+  { text: 'Chartered Financial Consultant (ChFC)', value: 'Chartered Financial Consultant (ChFC)' },
+  { text: 'Chartered Investment Counselor (CIC)', value: 'Chartered Investment Counselor (CIC)' },
+  { text: 'Certified Investment Management Analysts (CIMA)', value: 'Certified Investment Management Analysts (CIMA)' },
+  { text: 'Chartered Market Technician (CMT)', value: 'Chartered Market Technician (CMT)' },
+  { text: 'Personal Financial Specialist (PFS)', value: 'Personal Financial Specialist (PFS)' },
+  { text: 'Certified Public Accountant (CPA)', value: 'Certified Public Accountant (CPA)' },
+  { text: 'Certified Management Accountant (CMA)', value: 'Certified Management Accountant (CMA)' },
+  { text: 'Certified in Financial Management (CFM)', value: 'Certified in Financial Management (CFM)' },
+  { text: 'Certified Internal Auditor (CIA)', value: 'Certified Internal Auditor (CIA)' },
+  { text: 'Certification in Control Self Assessment (CCSA)', value: 'Certification in Control Self Assessment (CCSA)' },
+  { text: 'Certified Information Systems Auditor (CISA)', value: 'Certified Information Systems Auditor (CISA)' },
+  { text: 'Certified Fraud Examiner (CFE)', value: 'Certified Fraud Examiner (CFE)' }
+]
 
 class Applicant_profile_form extends Component {
 
@@ -11,51 +47,80 @@ class Applicant_profile_form extends Component {
     super(props);
 
     this.state = {
-      first_name: '',
-      last_name: '',
-      desired_industry: [],
-      education_level: '',
-      interested_working: [],
-      industry_exp_level: '',
-      resume: '',
-      certification: [],
-      profile_image: '',
-      languages_spoken: []
+      user_id:'',
+      first_name:'',
+      last_name:'',
+      desired_industry:'',
+      desired_location:[],
+      education_level:'',
+      experience_level:'',
+      certifications: [],
+      languages_spoken:[],
+      resume_pdf_pdf:'',
+      profile_image:'',
+      LanguageMultiple: LanguageOptions,
+      DesiredLocationsMultiple: DesiredLocations,
+      CertificationsMultiple: Certifications
     }
+
   }
+
+  handleLanguageMultiple = (e, { value }) => {
+    this.setState({
+      LanguageMultiple: [{ text: value, value }, ...this.state.LanguageMultiple],
+    })
+  }
+  handleChangeLanguageMultiple = (e, { value }) => this.setState({ languages_spoken: value })
+
+  handleCertificationsMultiple = (e, { value }) => {
+    this.setState({
+      CertificationsMultiple: [{ text: value, value }, ...this.state.CertificationsMultiple],
+    })
+  }
+  handleChangeCertificationsMultiple = (e, { value }) => this.setState({ certifications: value })
+
+
+  handleDesiredLocationsMultiple = (e, { value }) => {
+    this.setState({
+      DesiredLocationsMultiple: [{ text: value, value }, ...this.state.DesiredLocationsMultiple],
+    })
+  }
+  handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
+
 
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
+
     let employerProfileData = {
+      user_id:localStorage.id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
+      desired_location: this.state.desired_location,
       education_level: this.state.education_level,
-      interested_working: this.state.interested_working,
-      industry_exp_level: this.state.industry_exp_level,
-      resume: this.state.resume,
-      certification: this.state.certification,
-      profile_image: this.state.profile_image,
-      languages_spoken: this.state.languages_spoken
-
+      experience_level: this.state.experience_level,
+      certifications: this.state.certifications,
+      languages_spoken: this.state.languages_spoken,
+      resume_pdf_pdf: this.state.resume_pdf,
+      profile_image: this.state.profile_image
     }
-
     console.log(employerProfileData)
+    postApplicant(employerProfileData)
 
-    // this.setState({
-    //   first_name: '',
-    //   last_name: '',
-    //   desired_industry: [],
-    //   education_level: '',
-    //   interested_working: [],
-    //   industry_exp_level: '',
-    //   resume: '',
-    //   certification: [],
-    //   profile_image: '',
-    //   languages_spoken: []
-    //
-    // })
+    this.setState({
+      user_id:'',
+      first_name:'',
+      last_name:'',
+      desired_industry:'',
+      desired_location:[],
+      education_level:'',
+      experience_level:'',
+      certifications:[],
+      languages_spoken:[],
+      resume_pdf:'',
+      profile_image:''
+    })
 
   }
 
@@ -75,38 +140,51 @@ class Applicant_profile_form extends Component {
     this.setState({education_level});
   }
 
-  onInterestedWorkingChange(interested_working){
-    this.setState({interested_working});
+  onInterestedWorkingChange(desired_location){
+    this.setState({desired_location});
   }
 
-  onIndustryExpLevelChange(industry_exp_level){
-    this.setState({industry_exp_level});
+  onIndustryExpLevelChange(experience_level){
+    this.setState({experience_level});
   }
 
-  onResumeChange(resume){
-    this.setState({resume})
+  onresume_pdfChange(resume_pdf){
+    this.setState({resume_pdf})
   }
 
-  onCertificationChange(certification){
-    this.setState({certification})
+  oncertificationsChange(certifications){
+    this.state.certifications.push(certifications)
+    this.setState({certifications: this.state.certifications})
   }
 
   onProfileImageChange(profile_image){
     this.setState({profile_image})
   }
 
-  onLanguageChange(languages_spoken){
-    this.setState({languages_spoken})
-  }
+  // onLanguageChange(lang){
+  //   this.state.languages_spoken.push(lang)
+  //   this.setState({languages_spoken: this.state.languages_spoken})
+  // }
 
+
+// localStorage.token
 
   render(){
+    const { currentValue, currentValues } = this.state
+
     return(
         <div id="applicant_profile_form">
 
           <h1>Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
+          <ProfileSignUp />
+
+
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
+
+            <div>
+              <p>Please click <a  id='applicant_profile_signup_button'>here</a> to signup before creating applicant profile</p>
+            </div>
 
             <div className="two fields">
               <div className="field">
@@ -149,38 +227,55 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Interested In Working</label>
-
-                <input name="interested_working" type="text" value={this.state.interested_working}
-                onChange={e => this.onInterestedWorkingChange(e.target.value)}/>
+                <Dropdown
+                  options={this.state.DesiredLocationsMultiple}
+                  placeholder='Choose Desired Location'
+                  search
+                  selection
+                  fluid
+                  multiple
+                  allowAdditions
+                  additionPosition='top'
+                  additionLabel=''
+                  onAddItem={this.handleDesiredLocationsMultiple}
+                  onChange={this.handleChangeDesiredLocationsMultiple}
+                />
               </div>
+
               <div className="field">
-                <label name="industry_exp_level">Experience Level</label>
-                <select name="industry_exp_level" id="" className="ui fluid dropdown" value={this.state.industry_exp_level}
+                <label name="experience_level">Experience Level</label>
+                <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                 onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                   <option value="">Please Select</option>
-                  <option value="Entry Level">Entry Level</option>
-                  <option value="Mid Level">Mid Level</option>
-                  <option value="High Level">High Level</option>
+                  <option value="Entry Level">Entry Level- 2 Years or less</option>
+                  <option value="Mid Level">Mid Level- 2-5 Years</option>
+                  <option value="High Level">High Level- 5-10Years</option>
                 </select>
               </div>
             </div>
 
             <div className="two fields">
               <div className="field">
-                <label>Upload Resume</label>
-                <input type="file" name="resume" accept="images/resume/*"
-                value={this.state.resume}
-                onChange={ e => this.onResumeChange(e.target.value)}/>
+                <label>Upload resume_pdf</label>
+                <input type="file" name="resume_pdf" accept="images/resume_pdf/*"
+                value={this.state.resume_pdf}
+                onChange={ e => this.onresume_pdfChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="certification">Relevant Certifications</label>
-                <select name="certification" id="" className="ui fluid dropdown" value={this.state.certification}
-                onChange={e => this.onCertificationChange(e.target.value)}>
-                  <option value="">Please Select</option>
-                  <option value="Series 7">Series 7</option>
-                  <option value="CPA Certified">CPA Certified</option>
-                  <option value="FMA">FMA</option>
-                </select>
+                <label name="certifications">Relevant certifications</label>
+                <Dropdown
+                  options={this.state.CertificationsMultiple}
+                  placeholder='Choose Certifications'
+                  search
+                  selection
+                  fluid
+                  multiple
+                  allowAdditions
+                  additionPosition='top'
+                  additionLabel=''
+                  onAddItem={this.handleCertificationsMultiple}
+                  onChange={this.handleChangeCertificationsMultiple}
+                />
               </div>
             </div>
 
@@ -192,37 +287,17 @@ class Applicant_profile_form extends Component {
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
               <div className="field">
-                <label name="languages_spoken">Languages Spoken</label>
+              <label name="languages_spoken">Languages Spoken</label>
+                <Dropdown
+                  options={this.state.LanguageMultiple}
+                  placeholder='Choose Languages'
+                  selection
+                  multiple
+                  additionPosition='bottom'
+                  onAddItem={this.handleLanguageMultiple}
+                  onChange={this.handleChangeLanguageMultiple}
+                />
 
-                <select multiple="" name="skills" className="ui fluid normal dropdown">
-                  <option value="">Skills</option>
-                <option value="angular">Angular</option>
-                <option value="css">CSS</option>
-                <option value="design">Graphic Design</option>
-                <option value="ember">Ember</option>
-                <option value="html">HTML</option>
-                <option value="ia">Information Architecture</option>
-                <option value="javascript">Javascript</option>
-                <option value="mech">Mechanical Engineering</option>
-                <option value="meteor">Meteor</option>
-                <option value="node">NodeJS</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="python">Python</option>
-                <option value="rails">Rails</option>
-                <option value="react">React</option>
-                <option value="repair">Kitchen Repair</option>
-                <option value="ruby">Ruby</option>
-                <option value="ui">UI Design</option>
-                <option value="ux">User Experience</option>
-                </select>
-
-                <select multiple="" name="languages_spoken" id="multi-select" className="ui dropdown" value={this.state.languages_spoken}
-                onChange={e => this.onLanguageChange(e.target.value)}>
-                  <option value="">Please Select</option>
-                  <option value="English">English</option>
-                  <option value="Chinese">Chinese</option>
-                  <option value="Spanish">Spanish</option>
-                </select>
               </div>
             </div>
 
@@ -230,11 +305,24 @@ class Applicant_profile_form extends Component {
 
           </form>
 
+
         </div>
 
     )
   }
 
+}
+
+
+function postApplicant(employerProfileData){
+  console.log('post job data is fired with data', employerProfileData)
+  $.post('/api/applicants/:id', employerProfileData)
+    .done((data) => {
+      console.log('success', data)
+    })
+    .error((error) => {
+      console.error('Posting is failed', error);
+    })
 }
 
 

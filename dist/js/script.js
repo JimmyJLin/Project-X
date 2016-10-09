@@ -1,7 +1,21 @@
 $(function(){
   console.log('script file loaded')
 
-  $('.ui.dropdown').dropdown()
+  $('.ui.dropdown').dropdown({
+              allowAdditions: true
+          });
+
+  $('select.dropdown')
+    .dropdown('set selected', [])
+  ;
+
+  // $(".ui.fluid.dropdown").dropdown({
+  //   allowLabels:true
+  // })
+  //
+  // $('.ui.fluid.dropdown').dropdown({
+  //   'set selected': 'Role1,Role2'
+  // });
 
 
   // sign in / sign out / forget password Modal
@@ -18,6 +32,11 @@ $(function(){
   $('#applicant_signup_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.applicant.signup').modal('show')
+  })
+
+  $('#applicant_profile_signup_button').on('click', function(){
+    console.log("signup_button clicked")
+    $('.ui.small.modal.applicant.profile.signup').modal('show')
   })
 
   $('#employer_signup_button').on('click', function(){

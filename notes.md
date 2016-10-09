@@ -17,3 +17,5 @@ RESTFUL ROUTES API:
 
 (/api/employers)
 (/api/employers/:id)
+
+PGUSER=eminekoc PGPWD=1297 heroku pg:push apex DATABASE_URL --app heroku apex-project
