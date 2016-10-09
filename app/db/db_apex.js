@@ -148,7 +148,7 @@ function showAllJobs(req,res,next){
 };
 
 function showOneJob(req,res,next){
-  db.any('select * from Jobs where id LIKE $1;', [req.params.job_id] )
+  db.any('select * from Jobs where id = $1;', [req.params.job_id] )
   .then(function(data) {
     res.rows= data;
     console.log('this should show one Job', data)
@@ -185,6 +185,73 @@ function applicantProfile(req,res,next){
   })
 }
 
+// Applicant queries
+
+function showAllApplicants(req,res,next){
+  db.any('select * from Applicants;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show all Applicants;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showOneApplicant(req,res,next){
+  db.any('select * from Applicants where id = $1;', [req.params.applicant_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show one Applicant', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function postAApplicant(req,res,next){
+  db.none(`INSERT INTO Applicants  (
+    user_id,
+    first_name,
+    last_name,
+    desired_industry,
+    desired_location,
+    skills,
+    education_level,
+    school,
+    experience_level,
+    certifications,
+    languages_spoken,
+    search_tags,
+    resume_pdf,
+    profile_image
+  ) VALUES ($1, $2, $3, $4, $5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`,
+    [
+      req.body.user_id,
+      req.body.first_name,
+      req.body.last_name,
+      req.body.desired_industry,
+      req.body.desired_location,
+      req.body.skills,
+      req.body.education_level,
+      req.body.school,
+      req.body.education_level,
+      req.body.certifications,
+      req.body.languages_spoken,
+      req.body.search_tags,
+      req.body.resume_pdf,
+      req.body.profile_image
+    ])
+  .then(function(data) {
+    console.log('success',data);
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
 
 module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
@@ -193,7 +260,10 @@ module.exports.deleteUser = deleteUser;
 module.exports.showallusers = showallusers;
 module.exports.applicantProfile = applicantProfile;
 
-
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;
 module.exports.showOneJob = showOneJob;
+
+module.exports.showAllApplicants = showAllApplicants;
+module.exports.postAApplicant = postAApplicant;
+module.exports.showOneApplicant = showOneApplicant;

@@ -19,7 +19,7 @@ const LanguageOptions = [
 const DesiredLocations = [
   { text: 'New York', value: 'New York' },
   { text: 'London', value: 'London' },
-  { text: 'High Level', value: 'High Level' },
+  { text: 'Paris', value: 'Paris' },
 ]
 
 const Certifications = [
@@ -51,10 +51,13 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
+      skills: [],
       education_level:'',
+      school: '',
       experience_level:'',
       certifications: [],
       languages_spoken:[],
+      search_tags: '',
       resume_pdf_pdf:'',
       profile_image:'',
       LanguageMultiple: LanguageOptions,
@@ -86,21 +89,23 @@ class Applicant_profile_form extends Component {
   }
   handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
 
-
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-
+    const user_id = '1'
     let employerProfileData = {
-      user_id:localStorage.id,
+      user_id: user_id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
       desired_location: this.state.desired_location,
+      skills: this.state.skills,
       education_level: this.state.education_level,
+      school: this.state.school,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
       languages_spoken: this.state.languages_spoken,
+      search_tags: this.state.search_tags,
       resume_pdf_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
@@ -113,10 +118,13 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
+      skills: [],
       education_level:'',
+      school: '',
       experience_level:'',
       certifications:[],
       languages_spoken:[],
+      search_tags: '',
       resume_pdf:'',
       profile_image:''
     })
@@ -160,13 +168,7 @@ class Applicant_profile_form extends Component {
     this.setState({profile_image})
   }
 
-  // onLanguageChange(lang){
-  //   this.state.languages_spoken.push(lang)
-  //   this.setState({languages_spoken: this.state.languages_spoken})
-  // }
 
-
-// localStorage.token
 
   render(){
     const { currentValue, currentValues } = this.state
@@ -320,7 +322,7 @@ class Applicant_profile_form extends Component {
 
 function postApplicant(employerProfileData){
   console.log('post job data is fired with data', employerProfileData)
-  $.post('/api/applicants/:id', employerProfileData)
+  $.post('/api/applicants/:applicant_id', employerProfileData)
     .done((data) => {
       console.log('success', data)
     })
