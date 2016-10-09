@@ -11,7 +11,7 @@ class Main extends Component {
         {/* Main Header Menu */}
 
         <div id="main_display_image">
-          <img src="images/img_placeholders/1080x500.jpg" alt="topImage"/>
+          <img src="images/company_logo/apex_background.png" alt="topImage"/>
         </div>
 
         <div id="about_us_div">

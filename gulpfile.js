@@ -50,6 +50,10 @@ gulp.task('images', function() {
   .pipe(gulp.dest('./dist/images'))
 })
 
+gulp.task('images:watch', function() {
+  gulp.watch('app/images/**/*', ['images']);
+});
+
 gulp.task('images:build', ['images'], function() {
   return gulp.src('./dist/images/**/*')
              .pipe($.rev())
