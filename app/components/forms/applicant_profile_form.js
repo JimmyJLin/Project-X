@@ -51,13 +51,10 @@ class Applicant_profile_form extends Component {
       last_name:'',
       desired_industry:'',
       desired_location:[],
-      skills: [],
       education_level:'',
-      school: '',
       experience_level:'',
       certifications: [],
       languages_spoken:[],
-      search_tags: '',
       resume_pdf_pdf:'',
       profile_image:'',
       LanguageMultiple: LanguageOptions,
@@ -92,7 +89,7 @@ class Applicant_profile_form extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-    const user_id = '1'
+    const user_id = '4'
     let employerProfileData = {
       user_id: user_id,
       first_name: this.state.first_name,
@@ -263,7 +260,7 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload resume_pdf</label>
-                <input type="file" name="resume_pdf" accept="images/resume_pdf/*"
+                <input type="file" name="resume_pdf" accept="application/pdf"
                 value={this.state.resume_pdf}
                 onChange={ e => this.onresume_pdfChange(e.target.value)}/>
               </div>
@@ -288,7 +285,7 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload Profile Picture</label>
-                <input type="file" name="profile_image" accept="images/profile_images/*"
+                <input type="file" name="profile_image" accept="image/gif, image/jpeg"
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
@@ -322,7 +319,7 @@ class Applicant_profile_form extends Component {
 
 function postApplicant(employerProfileData){
   console.log('post job data is fired with data', employerProfileData)
-  $.post('/api/applicants/:applicant_id', employerProfileData)
+  $.post('/api/applicants/new', employerProfileData)
     .done((data) => {
       console.log('success', data)
     })
