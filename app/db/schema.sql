@@ -40,7 +40,7 @@ CREATE TABLE Applicants (
   first_name VARCHAR(200),
   last_name VARCHAR(200),
   desired_industry text,
-  desired_location text[],
+  desired_location text[][],
   education_level VARCHAR(200),
   school VARCHAR(200),
   experience_level VARCHAR(200),

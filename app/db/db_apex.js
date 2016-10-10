@@ -211,34 +211,47 @@ function showOneApplicant(req,res,next){
   })
 };
 
-function postAApplicant(req,res,next){
+function postOneApplicant(req,res,next){
+
+  // const languages_spoken_split = req.body.languages_spoken.slice(1, -1)
+  // const desired_location = req.body.desired_location;
+  // const certifications = req.body.certifications;
+  // const languages_spoken = req.body.languages_spoken;
+
+  console.log("req.body", req)
+  // console.log("logging req.body.languages_spoken", req.body.languages_spoken)
+  // console.log("languages_spoken_split", languages_spoken_split)
+  //
+  // console.log("logging req.body.first_name", req.body.first_name)
+
+
   db.none(`INSERT INTO Applicants  (
     user_id,
     first_name,
     last_name,
     desired_industry,
-    desired_location,
     education_level,
     school,
     experience_level,
-    certifications,
-    languages_spoken,
     resume_pdf,
-    profile_image
-  ) VALUES ($1, $2, $3, $4, $5,$6,$7,$8,$9,$10,$11,$12);`,
+    profile_image,
+    desired_location,
+    certifications,
+    languages_spoken
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, '{$10}', '{$11}', '{$12}');`,
     [
       req.body.user_id,
       req.body.first_name,
       req.body.last_name,
       req.body.desired_industry,
-      [req.body.desired_location],
       req.body.education_level,
       req.body.school,
       req.body.experience_level,
-      [req.body.certifications],
-      [req.body.languages_spoken],
       req.body.resume_pdf,
-      req.body.profile_image
+      req.body.profile_image,
+      req.body.desired_location,
+      req.body.certifications,
+      req.body.languages_spoken
     ])
   .then(function(data) {
     console.log('success',data);
@@ -261,5 +274,5 @@ module.exports.postAJob = postAJob;
 module.exports.showOneJob = showOneJob;
 
 module.exports.showAllApplicants = showAllApplicants;
-module.exports.postAApplicant = postAApplicant;
+module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;

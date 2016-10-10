@@ -90,7 +90,7 @@ class Applicant_profile_form extends Component {
     e.preventDefault();
     console.log("submit clicked")
     const user_id = '4'
-    let employerProfileData = {
+    let applicantProfileData = {
       user_id: user_id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -103,8 +103,8 @@ class Applicant_profile_form extends Component {
       resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
-    console.log(employerProfileData)
-    postApplicant(employerProfileData)
+    console.log("Applicant Profile Data: ", applicantProfileData)
+    postOneApplicant(applicantProfileData)
 
     this.setState({
       user_id:'',
@@ -311,9 +311,9 @@ class Applicant_profile_form extends Component {
 }
 
 
-function postApplicant(employerProfileData){
-  console.log('post job data is fired with data', employerProfileData)
-  $.post('/api/applicants/new', employerProfileData)
+function postOneApplicant(applicantProfileData){
+  console.log('post applicant profile data is fired with data: ', applicantProfileData)
+  $.post('/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('success', data)
     })

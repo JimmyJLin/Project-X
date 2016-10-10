@@ -12,8 +12,8 @@ applicants.route('/')
   })
 
 applicants.route('/new')
-  .post(db.postAApplicant, (req, res) => {
-    console.log('Adding New Profile', req )
+  .post(db.postOneApplicant, (req, res) => {
+    console.log('Adding New Profile', req.body )
     res.status( 201 ).json( { data: 'success' } );
   });
 
