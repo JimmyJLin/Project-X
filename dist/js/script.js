@@ -2,20 +2,16 @@ $(function(){
   console.log('script file loaded')
 
   $('.ui.dropdown').dropdown({
-              allowAdditions: true
-          });
+    allowAdditions: true
+  });
 
   $('select.dropdown')
     .dropdown('set selected', [])
   ;
 
-  // $(".ui.fluid.dropdown").dropdown({
-  //   allowLabels:true
-  // })
-  //
-  // $('.ui.fluid.dropdown').dropdown({
-  //   'set selected': 'Role1,Role2'
-  // });
+  $(".ui.normal.dropdown")
+    .dropdown()
+
 
 
   // sign in / sign out / forget password Modal
