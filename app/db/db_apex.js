@@ -11,15 +11,15 @@ const pgp = require('pg-promise')({
 // if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 
-// const cn = 'postgres://eminekoc:1297@localhost/apex'
+const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'apex',
-  user: 'jimmylin',
-  password: 'desertprince69'
-};
+// const cn = {
+//   host: 'localhost',
+//   port: 5432,
+//   database: 'apex',
+//   user: 'jimmylin',
+//   password: 'desertprince69'
+// };
 
 const db = pgp(cn);
 
@@ -225,7 +225,7 @@ function postOneApplicant(req,res,next){
   // console.log("logging req.body.first_name", req.body.first_name)
 
 
-  db.none(`INSERT INTO Applicants  (
+  db.any(`INSERT INTO Applicants  (
     user_id,
     first_name,
     last_name,
@@ -238,7 +238,7 @@ function postOneApplicant(req,res,next){
     desired_location,
     certifications,
     languages_spoken
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, '{$10}', '{$11}', '{$12}');`,
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *;`,
     [
       req.body.user_id,
       req.body.first_name,
@@ -254,7 +254,7 @@ function postOneApplicant(req,res,next){
       req.body.languages_spoken
     ])
   .then(function(data) {
-    console.log('success',data);
+    console.log('success languages_spoken',data.languages_spoken);
     next();
   })
   .catch(function(error){
