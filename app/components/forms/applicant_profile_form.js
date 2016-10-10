@@ -103,7 +103,51 @@ class Applicant_profile_form extends Component {
       resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
-    console.log("Applicant Profile Data: ", applicantProfileData)
+
+    //****************
+
+    var langArr =  applicantProfileData.languages_spoken   // => ["English", "Turkish"]
+    var final_languages = "{";
+
+    langArr.forEach(function(el){
+       final_languages = final_languages + "\"" + el + '\",';
+       if( el === langArr[langArr.length -1]) {
+         final_languages = final_languages + "\"" + el + '\"}';
+       }
+       applicantProfileData.languages_spoken = final_languages;
+       console.log("final_languages", final_languages)
+    })
+
+//****************
+    var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
+    var final_cert = "{";
+
+    certArr.forEach(function(el){
+       final_cert = final_cert + "\"" + el + '\",';
+       if( el === certArr[certArr.length-1]) {
+         final_cert = final_cert + "\"" + el + '\"}';
+       }
+       applicantProfileData.certifications = final_cert;
+       console.log("certifications", final_cert)
+    })
+
+// ***********
+  var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
+  var final_desired_location = "{";
+
+  desired_locationArr.forEach(function(el){
+     final_desired_location = final_desired_location + "\"" + el + '\",';
+     if( el === desired_locationArr[desired_locationArr.length-1] ) {
+       final_desired_location = final_desired_location + "\"" + el + '\"}';
+     }
+     applicantProfileData.desired_location = final_desired_location;
+     console.log("locations", final_desired_location)
+     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
+  })
+
+
+    // ('2','Jimmy','Lin','{"Finance"}','{"New York", "New Jersey", "London"}','Pace University','MBA','2 Years','{"CPA", "CFA", "PFS"}', '{"TURKISH", "ENGLISH", "CHINESE"}', 'EMINEKOC.PDF', 'images/img_placeholders/150x150.jpg');
+
     postOneApplicant(applicantProfileData)
 
     this.setState({
