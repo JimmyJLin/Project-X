@@ -103,7 +103,7 @@ class Applicant_profile_form extends Component {
       resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
-    console.log("Applicant Profile Data: ", applicantProfileData)
+    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
     postOneApplicant(applicantProfileData)
 
     this.setState({
@@ -312,13 +312,13 @@ class Applicant_profile_form extends Component {
 
 
 function postOneApplicant(applicantProfileData){
-  console.log('post applicant profile data is fired with data: ', applicantProfileData)
+  console.log('postOneApplicant Function data: ', applicantProfileData)
   $.post('/api/applicants/new', applicantProfileData)
     .done((data) => {
-      console.log('success', data)
+      console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
     })
     .error((error) => {
-      console.error('Posting is failed', error);
+      console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 }
 
