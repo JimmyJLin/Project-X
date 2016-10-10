@@ -17,25 +17,28 @@ class Applicant_profile extends Component {
       certifications: [],
       search_tags: []
     }
+
   }
 
   componentDidMount() {
    // this is where you'll get the data from the 'db'
    $.get('/api/auth/2').done( (data)=>{
      console.log("applicantProfile data: ", data)
-      this.state.applicantProfile=data;
-      this.state.desired_location=data.desired_location;
-      this.state.certifications=data.certifications;
-      this.state.search_tags=data.search_tags;
+      this.state.applicantProfile = data;
+      this.state.desired_industry = data.desired_industry
+      this.state.desired_location = data.desired_location;
+      this.state.education_level = data.education_level;
+      this.state.certifications = data.certifications;
 
       this.setState({
         applicantProfile: this.state.applicantProfile,
         desired_location: this.state.desired_location,
         certifications: this.state.certifications,
-        search_tags: this.state.search_tags
+        search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications
 
       })
       console.log(this.state.applicantProfile)
+
     })
   }
 
@@ -49,7 +52,12 @@ class Applicant_profile extends Component {
       return <div key={certification} className="ui label">{certification}</div>
     });
 
-    const search_tags = this.state.search_tags.map(function(search_tag){
+    const originalSearchTags = this.state.search_tags
+    const search_tags_separator = JSON.stringify(this.state.search_tags);
+    const search_tags_sliced = search_tags_separator.slice(1, -1)
+    const search_tags = search_tags_sliced.split(",")
+
+    const search_tags_array = search_tags.map(function(search_tag){
       return <div key={search_tag} className="item search_tags"><div className="ui label details">{search_tag}</div></div>
     });
 
@@ -129,7 +137,7 @@ class Applicant_profile extends Component {
           <h2>Key Search Tags</h2>
 
           <div className="ui horizontal list centered aligned middle">
-            {search_tags}
+            {search_tags_array}
           </div>
 
 

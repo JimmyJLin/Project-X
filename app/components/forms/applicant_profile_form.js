@@ -19,7 +19,7 @@ const LanguageOptions = [
 const DesiredLocations = [
   { text: 'New York', value: 'New York' },
   { text: 'London', value: 'London' },
-  { text: 'High Level', value: 'High Level' },
+  { text: 'Paris', value: 'Paris' },
 ]
 
 const Certifications = [
@@ -55,7 +55,7 @@ class Applicant_profile_form extends Component {
       experience_level:'',
       certifications: [],
       languages_spoken:[],
-      resume_pdf_pdf:'',
+      resume_pdf:'',
       profile_image:'',
       LanguageMultiple: LanguageOptions,
       DesiredLocationsMultiple: DesiredLocations,
@@ -86,13 +86,12 @@ class Applicant_profile_form extends Component {
   }
   handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
 
-
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-
-    let employerProfileData = {
-      user_id:localStorage.id,
+    const user_id = '4'
+    let applicantProfileData = {
+      user_id: user_id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
@@ -101,11 +100,11 @@ class Applicant_profile_form extends Component {
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
       languages_spoken: this.state.languages_spoken,
-      resume_pdf_pdf: this.state.resume_pdf,
+      resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image
     }
-    console.log(employerProfileData)
-    postApplicant(employerProfileData)
+    console.log("Applicant Profile Data: ", applicantProfileData)
+    postOneApplicant(applicantProfileData)
 
     this.setState({
       user_id:'',
@@ -160,13 +159,7 @@ class Applicant_profile_form extends Component {
     this.setState({profile_image})
   }
 
-  // onLanguageChange(lang){
-  //   this.state.languages_spoken.push(lang)
-  //   this.setState({languages_spoken: this.state.languages_spoken})
-  // }
 
-
-// localStorage.token
 
   render(){
     const { currentValue, currentValues } = this.state
@@ -222,7 +215,7 @@ class Applicant_profile_form extends Component {
                   <option value="High School / GED">High School / GED</option>
                   <option value="Associate Degree">Associate Degree</option>
                   <option value="Bachelor Degree">Bachelor Degree</option>
-                  <option value="Bachelor Degree">Bachelor Degree</option>
+                  <option value="Master Degree">Master Degree</option>
                   <option value="Phd">Phd</option>
                 </select>
               </div>
@@ -261,7 +254,7 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload resume_pdf</label>
-                <input type="file" name="resume_pdf" accept="images/resume_pdf/*"
+                <input type="file" name="resume_pdf" accept="application/pdf"
                 value={this.state.resume_pdf}
                 onChange={ e => this.onresume_pdfChange(e.target.value)}/>
               </div>
@@ -286,7 +279,7 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload Profile Picture</label>
-                <input type="file" name="profile_image" accept="images/profile_images/*"
+                <input type="file" name="profile_image" accept="image/gif, image/jpeg"
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
@@ -318,9 +311,9 @@ class Applicant_profile_form extends Component {
 }
 
 
-function postApplicant(employerProfileData){
-  console.log('post job data is fired with data', employerProfileData)
-  $.post('/api/applicants/:id', employerProfileData)
+function postOneApplicant(applicantProfileData){
+  console.log('post applicant profile data is fired with data: ', applicantProfileData)
+  $.post('/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('success', data)
     })

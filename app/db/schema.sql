@@ -39,15 +39,13 @@ CREATE TABLE Applicants (
   user_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
   first_name VARCHAR(200),
   last_name VARCHAR(200),
-  desired_industry text[],
-  desired_location text[],
-  skills text[],
+  desired_industry text,
+  desired_location text[][],
   education_level VARCHAR(200),
   school VARCHAR(200),
   experience_level VARCHAR(200),
   certifications text[],
   languages_spoken text[],
-  search_tags text[],
   resume_pdf VARCHAR(2000),
   profile_image VARCHAR(200)
 );
