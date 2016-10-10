@@ -1,4 +1,3 @@
-require('dotenv').config();
 import Express from 'express';
 import path from 'path';
 const bodyParser = require('body-parser');
@@ -55,9 +54,11 @@ server.set('view engine', 'ejs');
 // *********************** API ROUTES ****************** //
 const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
 const userRoutes = require(path.join(__dirname, '/api/auth'));
+const ApplicantsRoutes = require(path.join(__dirname, '/api/applicants'));
 
 server.use('/api/jobs', jobsRoutes);
 server.use('/api/auth', userRoutes);
+server.use('/api/applicants', ApplicantsRoutes);
 
 
 // mock apis

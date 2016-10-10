@@ -15,7 +15,7 @@ export default class HeaderMenu extends Component {
 
           <div id="logo">
             <a href="/">
-              <img id="logoImage" className="ui centered tiny image" src="images/company_logo/apex_logo.png" alt="Company Logo"/>
+              <img className="ui centered tiny image" src="images/company_logo/apex_logo.png" alt="Company Logo"/>
             </a>
           </div>
           <div className="ui text container">

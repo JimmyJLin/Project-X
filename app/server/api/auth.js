@@ -31,4 +31,11 @@ auth.post('/login', db.loginUser, ( req, res ) => {
   res.json( { agent: res.rows, token: token } );
 })
 
+auth.route('/:uid')
+.get( db.applicantProfile, (req, res) => {
+  res.send(res.rows);
+})
+
+
+
 module.exports = auth;

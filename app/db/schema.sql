@@ -37,14 +37,17 @@ CREATE TABLE JT (
 CREATE TABLE Applicants (
   id SERIAL PRIMARY KEY UNIQUE,
   user_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
-  desired_industry VARCHAR(200),
-  desired_location VARCHAR(200),
-  skills VARCHAR(200),
-  education VARCHAR(200),
-  experience VARCHAR(200),
-  certifications VARCHAR(200),
+  first_name VARCHAR(200),
+  last_name VARCHAR(200),
+  desired_industry text,
+  desired_location text[],
+  education_level VARCHAR(200),
+  school VARCHAR(200),
+  experience_level VARCHAR(200),
+  certifications text[],
+  languages_spoken text[],
   resume_pdf VARCHAR(2000),
-  image VARCHAR(200)
+  profile_image VARCHAR(200)
 );
 
 CREATE TABLE Jobs (

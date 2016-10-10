@@ -1,7 +1,17 @@
 $(function(){
   console.log('script file loaded')
 
-  $('.ui.dropdown').dropdown()
+  $('.ui.dropdown').dropdown({
+    allowAdditions: true
+  });
+
+  $('select.dropdown')
+    .dropdown('set selected', [])
+  ;
+
+  $(".ui.normal.dropdown")
+    .dropdown()
+
 
 
   // sign in / sign out / forget password Modal
@@ -10,19 +20,29 @@ $(function(){
     $('.ui.small.modal.applicant.login').modal('show')
   })
 
-  $('#employer_login_button').on('click', function(){
-    console.log("employer_login_button clicked")
-    $('.ui.small.modal.employer.login').modal('show')
-  })
-
   $('#applicant_signup_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.applicant.signup').modal('show')
   })
 
+  $('#employer_login_button').on('click', function(){
+    console.log("employer_login_button clicked")
+    $('.ui.small.modal.employer.login').modal('show')
+  })
+
   $('#employer_signup_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.employer.signup').modal('show')
+  })
+
+  $('#applicant_profile_signup_button').on('click', function(){
+    console.log("profile signup_button clicked")
+    $('.ui.small.modal.applicant.signup').modal('show')
+  })
+
+  $('#applicant_profile_login_button').on('click', function(){
+    console.log("applicant_login_button clicked")
+    $('.ui.small.modal.applicant.login').modal('show')
   })
 
   $('#reset_password_button').on('click', function(){
