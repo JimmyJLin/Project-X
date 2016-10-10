@@ -8,9 +8,6 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-// if (process.env.NODE_ENV !== 'production') require('dotenv').config()
-
-
 // const cn = 'postgres://eminekoc:1297@localhost/apex'
 
 const cn = {
