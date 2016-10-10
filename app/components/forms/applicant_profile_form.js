@@ -3,42 +3,9 @@ import { connect } from 'react-redux';
 import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 
-const LanguageOptions = [
-  { text: 'Spanish', value: 'Spanish' },
-  { text: 'German', value: 'German' },
-  { text: 'French', value: 'French' },
-  { text: 'Italian', value: 'Italian' },
-  { text: 'Chinese', value: 'Chinese' },
-  { text: 'Arabic', value: 'Arabic' },
-  { text: 'Russian', value: 'Russian' },
-  { text: 'Hindi', value: 'Hindi' },
-  { text: 'Portuguese', value: 'Portuguese' },
-  { text: 'Japanese', value: 'Japanese' }
-]
-
-const DesiredLocations = [
-  { text: 'New York', value: 'New York' },
-  { text: 'London', value: 'London' },
-  { text: 'Paris', value: 'Paris' },
-]
-
-const Certifications = [
-  { text: 'Certified Financial Planner (CFP)', value: 'Certified Financial Planner (CFP)' },
-  { text: 'Chartered Financial Analysts (CFA)', value: 'Chartered Financial Analysts (CFA)' },
-  { text: 'Certified Fund Specialists (CFS)', value: 'Certified Fund Specialists (CFS)' },
-  { text: 'Chartered Financial Consultant (ChFC)', value: 'Chartered Financial Consultant (ChFC)' },
-  { text: 'Chartered Investment Counselor (CIC)', value: 'Chartered Investment Counselor (CIC)' },
-  { text: 'Certified Investment Management Analysts (CIMA)', value: 'Certified Investment Management Analysts (CIMA)' },
-  { text: 'Chartered Market Technician (CMT)', value: 'Chartered Market Technician (CMT)' },
-  { text: 'Personal Financial Specialist (PFS)', value: 'Personal Financial Specialist (PFS)' },
-  { text: 'Certified Public Accountant (CPA)', value: 'Certified Public Accountant (CPA)' },
-  { text: 'Certified Management Accountant (CMA)', value: 'Certified Management Accountant (CMA)' },
-  { text: 'Certified in Financial Management (CFM)', value: 'Certified in Financial Management (CFM)' },
-  { text: 'Certified Internal Auditor (CIA)', value: 'Certified Internal Auditor (CIA)' },
-  { text: 'Certification in Control Self Assessment (CCSA)', value: 'Certification in Control Self Assessment (CCSA)' },
-  { text: 'Certified Information Systems Auditor (CISA)', value: 'Certified Information Systems Auditor (CISA)' },
-  { text: 'Certified Fraud Examiner (CFE)', value: 'Certified Fraud Examiner (CFE)' }
-]
+let languageState = [];
+let certificateState = [];
+let locationState = [];
 
 class Applicant_profile_form extends Component {
 
@@ -57,34 +24,12 @@ class Applicant_profile_form extends Component {
       languages_spoken:[],
       resume_pdf:'',
       profile_image:'',
-      LanguageMultiple: LanguageOptions,
-      DesiredLocationsMultiple: DesiredLocations,
-      CertificationsMultiple: Certifications
+      certificationsArry: [],
+      languages_spokenArry:[],
+      desired_locationArry:[]
     }
 
   }
-
-  handleLanguageMultiple = (e, { value }) => {
-    this.setState({
-      LanguageMultiple: [{ text: value, value }, ...this.state.LanguageMultiple],
-    })
-  }
-  handleChangeLanguageMultiple = (e, { value }) => this.setState({ languages_spoken: value })
-
-  handleCertificationsMultiple = (e, { value }) => {
-    this.setState({
-      CertificationsMultiple: [{ text: value, value }, ...this.state.CertificationsMultiple],
-    })
-  }
-  handleChangeCertificationsMultiple = (e, { value }) => this.setState({ certifications: value })
-
-
-  handleDesiredLocationsMultiple = (e, { value }) => {
-    this.setState({
-      DesiredLocationsMultiple: [{ text: value, value }, ...this.state.DesiredLocationsMultiple],
-    })
-  }
-  handleChangeDesiredLocationsMultiple = (e, { value }) => this.setState({ desired_location: value })
 
   handleSubmit(e) {
     e.preventDefault();
@@ -147,8 +92,6 @@ class Applicant_profile_form extends Component {
   })
 
 
-    // ('2','Jimmy','Lin','{"Finance"}','{"New York", "New Jersey", "London"}','Pace University','MBA','2 Years','{"CPA", "CFA", "PFS"}', '{"TURKISH", "ENGLISH", "CHINESE"}', 'EMINEKOC.PDF', 'images/img_placeholders/150x150.jpg');
-
     postOneApplicant(applicantProfileData)
 
     this.setState({
@@ -162,7 +105,8 @@ class Applicant_profile_form extends Component {
       certifications:[],
       languages_spoken:[],
       resume_pdf:'',
-      profile_image:''
+      profile_image:'',
+      testLanguage: []
     })
 
   }
@@ -183,10 +127,6 @@ class Applicant_profile_form extends Component {
     this.setState({education_level});
   }
 
-  onInterestedWorkingChange(desired_location){
-    this.setState({desired_location});
-  }
-
   onIndustryExpLevelChange(experience_level){
     this.setState({experience_level});
   }
@@ -195,16 +135,24 @@ class Applicant_profile_form extends Component {
     this.setState({resume_pdf})
   }
 
-  oncertificationsChange(certifications){
-    this.state.certifications.push(certifications)
-    this.setState({certifications: this.state.certifications})
-  }
-
   onProfileImageChange(profile_image){
     this.setState({profile_image})
   }
 
+  onLanguageChange(languages_spokenArry){
+    languageState.push(languages_spokenArry)
+    this.setState({languages_spoken: languageState})
+  }
 
+  onCertificationChange(certificationsArry){
+    certificateState.push(certificationsArry)
+    this.setState({certifications: certificateState})
+  }
+
+  onLocationChange(desired_locationArry){
+    locationState.push(desired_locationArry)
+    this.setState({desired_location: locationState})
+  }
 
   render(){
     const { currentValue, currentValues } = this.state
@@ -269,19 +217,28 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Interested In Working</label>
-                <Dropdown
-                  options={this.state.DesiredLocationsMultiple}
-                  placeholder='Choose Desired Location'
-                  search
-                  selection
-                  fluid
-                  multiple
-                  allowAdditions
-                  additionPosition='top'
-                  additionLabel=''
-                  onAddItem={this.handleDesiredLocationsMultiple}
-                  onChange={this.handleChangeDesiredLocationsMultiple}
-                />
+                <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
+                value={this.state.desired_locationArry}
+                onChange={e => this.onLocationChange(e.target.value)}>
+                  <option value="">Please Select</option>
+                  <option value="New York">New York</option>
+                  <option value="London">London</option>
+                  <option value="Paris">Paris</option>
+                  <option value="Berlin ">Berlin </option>
+                  <option value="Tokyo">Tokyo</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="Nassau County">Nassau County</option>
+                  <option value="Suffolk County">Suffolk County</option>
+                  <option value="Brooklyn">Brooklyn</option>
+                  <option value="Queens">Queens</option>
+                  <option value="Manhattan">Manhattan</option>
+                  <option value="Staten Island">Staten Island</option>
+                  <option value="Jersey City">Jersey City</option>
+                  <option value="Rye">Rye</option>
+                  <option value="Westchester">Westchester</option>
+                  <option value="Albany">Albany</option>
+
+                </select>
               </div>
 
               <div className="field">
@@ -305,19 +262,27 @@ class Applicant_profile_form extends Component {
               </div>
               <div className="field">
                 <label name="certifications">Relevant certifications</label>
-                <Dropdown
-                  options={this.state.CertificationsMultiple}
-                  placeholder='Choose Certifications'
-                  search
-                  selection
-                  fluid
-                  multiple
-                  allowAdditions
-                  additionPosition='top'
-                  additionLabel=''
-                  onAddItem={this.handleCertificationsMultiple}
-                  onChange={this.handleChangeCertificationsMultiple}
-                />
+                <select multiple="true" name="certifications" className="ui fluid normal dropdown"
+                value={this.state.certificationsArry}
+                onChange={e => this.onCertificationChange(e.target.value)}>
+                  <option value="">Please Select</option>
+                  <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
+                  <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
+                  <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
+                  <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
+                  <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
+                  <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
+                  <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
+                  <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
+                  <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
+                  <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
+                  <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
+                  <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
+                  <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
+                  <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
+                  <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+
+                </select>
               </div>
             </div>
 
@@ -328,17 +293,24 @@ class Applicant_profile_form extends Component {
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
               </div>
+
               <div className="field">
-              <label name="languages_spoken">Languages Spoken</label>
-                <Dropdown
-                  options={this.state.LanguageMultiple}
-                  placeholder='Choose Languages'
-                  selection
-                  multiple
-                  additionPosition='bottom'
-                  onAddItem={this.handleLanguageMultiple}
-                  onChange={this.handleChangeLanguageMultiple}
-                />
+                <label name="languages_spoken">Languages Spoken</label>
+                <select multiple="true" name="languages_spoken" className="ui fluid normal dropdown"
+                value={this.state.languages_spokenArry}
+                onChange={e => this.onLanguageChange(e.target.value)}>
+                  <option value="">Please Select</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="German">German</option>
+                  <option value="French">French</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Russian">Russian</option>
+                  <option value="Hindi">Hindi</option>
+                  <option value="Portuguese">Portuguese</option>
+                  <option value="Japanese">Japanese</option>
+                </select>
 
               </div>
             </div>
