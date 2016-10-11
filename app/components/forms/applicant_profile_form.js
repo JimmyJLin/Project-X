@@ -334,7 +334,7 @@ class Applicant_profile_form extends Component {
 
 function postOneApplicant(applicantProfileData){
   console.log('postOneApplicant Function data: ', applicantProfileData)
-  $.post('/api/applicants/newNOT', applicantProfileData)
+  $.post('/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
     })
