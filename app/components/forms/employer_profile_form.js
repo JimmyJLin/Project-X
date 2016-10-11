@@ -91,9 +91,16 @@ class Employer_profile_form extends Component {
           <div className="three fields">
             <div className="field"></div>
             <div className="field">
-              <input type="file" name="company_logo" accept="images/company_logo/*"
+              <img className="profile-pic" src="" />
+              <br/>
+              <input className="file-upload" name="company_logo" type="file" accept="images/*"
               value={this.state.company_logo}
               onChange={ e => this.onImageChange(e.target.value)}/>
+
+              {/*<input type="file" name="company_logo" accept="images/company_logo/*"
+              value={this.state.company_logo}
+              onChange={ e => this.onImageChange(e.target.value)}/>*/}
+
             </div>
             <div className="field"></div>
 
