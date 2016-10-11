@@ -259,6 +259,73 @@ function postOneApplicant(req,res,next){
   })
 };
 
+
+// Applicant queries
+
+function showAllEmployers(req,res,next){
+  db.any('select * from Employers;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show all Employers;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showOneEmployer(req,res,next){
+  db.any('select * from Employers where id = $1;', [req.params.employer_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show one Employers', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function postOneEmployer(req,res,next){
+
+  db.any(`INSERT INTO Applicants  (
+    user_id,
+    first_name,
+    last_name,
+    desired_industry,
+    education_level,
+    school,
+    experience_level,
+    resume_pdf,
+    profile_image,
+    desired_location,
+    certifications,
+    languages_spoken
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *;`,
+    [
+      req.body.user_id,
+      req.body.first_name,
+      req.body.last_name,
+      req.body.desired_industry,
+      req.body.education_level,
+      req.body.school,
+      req.body.experience_level,
+      req.body.resume_pdf,
+      req.body.profile_image,
+      req.body.desired_location,
+      req.body.certifications,
+      req.body.languages_spoken
+    ])
+  .then(function(data) {
+    console.log('success languages_spoken',data.languages_spoken);
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+
 module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
 module.exports.editUser = editUser;
@@ -273,3 +340,7 @@ module.exports.showOneJob = showOneJob;
 module.exports.showAllApplicants = showAllApplicants;
 module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;
+
+module.exports.showAllEmployers = showAllEmployers;
+module.exports.postOneEmployer = postOneEmployer;
+module.exports.showOneEmployer = showOneEmployer;
