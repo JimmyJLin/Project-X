@@ -40,7 +40,7 @@ render: function(){
               </div>
               <div className="field">
                 <label>Password</label>
-                <input ref="password"/>
+                <input ref="password" type="password"/>
               </div>
               <button className="ui button" action="submit">Sign Up</button>
             </form>
@@ -60,7 +60,7 @@ function signUpRequest(signupInfo) {
   const d = signupInfo
   console.log('signup Request fired here', signupInfo)
 
- $.post('/api/auth/signup', signupInfo)
+ $.post('/api/auth/employer/signup', signupInfo)
    .done((data) => {
      console.log('success')
    })

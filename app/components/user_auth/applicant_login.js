@@ -84,7 +84,7 @@ export default class Applicant_login extends Component {
      email:this.state.email,
      password: this.state.password,
    }
-   $.post('/api/auth/login', userInfo)
+   $.post('/api/auth/employer/login', userInfo)
      .done((data) => {
        console.log(data)
        if (data.agent == 'error') { // if username/password doesn't match
