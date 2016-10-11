@@ -105,11 +105,13 @@ class Applicant_profile_form extends Component {
       desired_location:[],
       education_level:'',
       experience_level:'',
-      certifications:[],
+      certifications: [],
       languages_spoken:[],
       resume_pdf:'',
       profile_image:'',
-      testLanguage: []
+      certificationsArry: [],
+      languages_spokenArry:[],
+      desired_locationArry:[]
     })
 
   }
