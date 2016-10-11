@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
+import { connect } from 'react-redux';
+
 
 
 export default class Applicant_login extends Component {

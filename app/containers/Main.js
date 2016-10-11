@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
 import HeaderMenu from '../components/headermenu';
 import Footer from '../components/footer';
 
-class Main extends Component {
+const Main = React.createClass({
+
   render() {
     return (
+      <div>
+
+      <HeaderMenu />
+
+      {React.cloneElement({...this.props}.children, {...this.props})}
+
+
       <div className="intro">
         {/* Main Header Menu */}
 
@@ -33,14 +42,14 @@ class Main extends Component {
 
           </div>
         </div>
+        </div>
+
+        <Footer />
 
       </div>
     );
   }
-}
+});
 
-function mapStateToProps() {
-  return {};
-}
 
-export default connect(mapStateToProps)(Main);
+export default Main;

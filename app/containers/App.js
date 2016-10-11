@@ -1,25 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import HeaderMenu from '../components/headermenu';
-import Footer from '../components/footer';
+import * as actionCreators from '../actions/index';
+import Main from './Main';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <HeaderMenu />
 
-          {this.props.children}
 
-        <Footer />
-
-      </div>
-    );
+function mapStateToProps(state) {
+  return {
+    users: state.users,
   }
 }
 
-function mapStateToProps(state) {
-  return {};
+function mapDispachToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(mapStateToProps)(App);
+const App = connect(mapStateToProps, mapDispachToProps)(Main);
+
+export default App;

@@ -77,8 +77,9 @@ server.get('*', (req, res, next)=> {
   let store = configureStore();
   let routes = createRoutes(history);
   let location = history.createLocation(req.url);
-
+//
   match({ routes, location }, (error, redirectLocation, renderProps) => {
+
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
@@ -108,17 +109,17 @@ server.get('*', (req, res, next)=> {
         unsubscribe();
         next(err);
       });
-      function getReduxPromise () {
-        let { query, params } = renderProps;
-        let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
-        let promise = comp.fetchData ?
-          comp.fetchData({ query, params, store, history }) :
-          Promise.resolve();
-
-        return promise;
-      }
+//       function getReduxPromise () {
+//         // let { query, params } = renderProps;
+//         // let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
+//         // let promise = comp.fetchData ? false
+//         //   comp.fetchData({ query, params, store, history }) :
+//         //   Promise.resolve();
+//
+//         // return promise;
+      // }
     }
-  });
+  })
   function subscribeUrl () {
     let currentUrl = location.pathname + location.search;
     let unsubscribe = history.listen((newLoc)=> {
@@ -131,7 +132,9 @@ server.get('*', (req, res, next)=> {
       unsubscribe
     ];
   }
-});
+
+}
+);  // => end of the .get
 
 server.use((err, req, res, next)=> {
   console.log(err.stack);
