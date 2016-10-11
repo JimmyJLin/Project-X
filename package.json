@@ -10,6 +10,14 @@
     "build": "rimraf dist/ && npm run webpack && gulp css:build && gulp scripts:build && gulp images:build && gulp semantic:build",
     "postinstall": "npm run build"
   },
+  "engines": {
+    "node": "6.1.0",
+    "npm": "3.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "dependencies": {
     "assets-webpack-plugin": "^3.2.0",
     "axios": "^0.14.0",
@@ -37,6 +45,7 @@
     "pg-promise": "^5.3.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-dropzone": "^3.6.0",
     "react-redux": "4.3.0",
     "react-router": "^2.4.1",
     "react-select": "^0.9.1",

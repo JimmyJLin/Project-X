@@ -1,14 +1,29 @@
 $(function(){
   console.log('script file loaded')
 
+  // image uploading
+  var readURL = function(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $('.profile-pic').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(".file-upload").on('change', function(){
+    console.log("hello from file-upload")
+    readURL(this);
+  });
+
+
+  // multiple-select & simple-select dropdown
   $('.ui.dropdown').dropdown({
     allowAdditions: true
   });
-
   $('select.dropdown')
     .dropdown('set selected', [])
   ;
-
   $(".ui.normal.dropdown")
     .dropdown()
 
