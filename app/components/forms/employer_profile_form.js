@@ -169,6 +169,12 @@ class Employer_profile_form extends Component {
           </div>
 
           <div className="field">
+            <label name="company_description"> Description </label>
+            <textarea value={this.state.company_description}
+            onChange={e => this.onCompanyDescriptionChange(e.target.value)}></textarea>
+          </div>
+
+          <div className="field">
             <label>Company Address</label>
             <input name="company_address" type="text" value={this.state.company_address}
             onChange={e => this.onCompanyAddressChange(e.target.value)}/>
