@@ -251,7 +251,6 @@ function postOneApplicant(req,res,next){
       req.body.languages_spoken
     ])
   .then(function(data) {
-    console.log('success languages_spoken',data.languages_spoken);
     next();
   })
   .catch(function(error){
@@ -288,36 +287,37 @@ function showOneEmployer(req,res,next){
 
 function postOneEmployer(req,res,next){
 
-  db.any(`INSERT INTO Applicants  (
-    user_id,
-    first_name,
-    last_name,
-    desired_industry,
-    education_level,
-    school,
-    experience_level,
-    resume_pdf,
-    profile_image,
-    desired_location,
-    certifications,
-    languages_spoken
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *;`,
+  db.any(`INSERT INTO Employers  (
+    company_name,
+    company_address,
+    company_city,
+    company_state,
+    company_zip,
+    company_description,
+    company_website,
+    company_phone_number,
+    company_email,
+    company_size,
+    company_industry,
+    company_branch,
+    company_logo
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
     [
-      req.body.user_id,
-      req.body.first_name,
-      req.body.last_name,
-      req.body.desired_industry,
-      req.body.education_level,
-      req.body.school,
-      req.body.experience_level,
-      req.body.resume_pdf,
-      req.body.profile_image,
-      req.body.desired_location,
-      req.body.certifications,
-      req.body.languages_spoken
+      req.body.company_name,
+      req.body.company_address,
+      req.body.company_city,
+      req.body.company_state,
+      req.body.company_zip,
+      req.body.company_description,
+      req.body.company_website,
+      req.body.company_phone_number,
+      req.body.company_email,
+      req.body.company_size,
+      req.body.company_industry,
+      req.body.company_branch,
+      req.body.company_logo
     ])
   .then(function(data) {
-    console.log('success languages_spoken',data.languages_spoken);
     next();
   })
   .catch(function(error){

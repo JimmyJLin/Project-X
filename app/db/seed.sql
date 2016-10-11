@@ -5,12 +5,96 @@ INSERT INTO Users (name, last_name, email, password, type) VALUES
 ('emine', 'emine-last', 'emine@emine.com', '44dsdsds', 'applicant');
 
 
-INSERT INTO Employers (company_name,company_address,company_description,company_website,company_phone_number,company_email,company_logo) VALUES
-('company X', 'somewhere in NJ', 'Accounting', 'www.xyz.com', '21221212121', 'x@x.com', 'logo.png'),
-('company Y', 'somewhere in NJ', 'Accounting', 'www.xyz.com', '21221212121', 'y@x.com', 'logo.png'),
-('company Z', 'somewhere in NY', 'Accounting', 'www.xyz.com', '21221212121', 'z@x.com', 'logo.png'),
-('company F', 'somewhere in NY', 'Accounting', 'www.xyz.com', '21221212121', 'f@x.com', 'logo.png'),
-('company E', 'somewhere in NY', 'Accounting', 'www.xyz.com', '21221212121', 'e@x.com', 'logo.png');
+INSERT INTO Employers (
+  company_name,
+  company_address,
+  company_city,
+  company_state,
+  company_zip,
+  company_description,
+  company_website,
+  company_phone_number,
+  company_email,
+  company_size,
+  company_industry,
+  company_branch,
+  company_logo
+) VALUES
+(
+  'Company A',
+  'A Drive',
+  'Awesome',
+  'NY',
+  '10012',
+  'Best Company in Town',
+  'www.CompanyA.com',
+  '21221212121',
+  'A@A.com',
+  'Micro Cap',
+  'Accounting',
+  'New YOrk',
+  'logo.png'
+),
+(
+  'Company B',
+  'B Drive',
+  'Awesome',
+  'NY',
+  '10012',
+  'Best Company in Town',
+  'www.CompanyB.com',
+  '21221212121',
+  'B@B.com',
+  'Micro Cap',
+  'Accounting',
+  'New YOrk',
+  'logo.png'
+),
+(
+  'Company C',
+  'C Drive',
+  'Awesome',
+  'NY',
+  '10012',
+  'Best Company in Town',
+  'www.CompanyC.com',
+  '21221212121',
+  'C@C.com',
+  'Micro Cap',
+  'Accounting',
+  'New YOrk',
+  'logo.png'
+),
+(
+  'Company D',
+  'D Drive',
+  'Awesome',
+  'NY',
+  '10012',
+  'Best Company in Town',
+  'www.CompanyD.com',
+  '21221212121',
+  'D@D.com',
+  'Micro Cap',
+  'Accounting',
+  'New YOrk',
+  'logo.png'
+),
+(
+  'Company E',
+  'E Drive',
+  'Awesome',
+  'NY',
+  '10012',
+  'Best Company in Town',
+  'www.CompanyE.com',
+  '21221212121',
+  'E@E.com',
+  'Micro Cap',
+  'Accounting',
+  'New YOrk',
+  'logo.png'
+);
 
 
 INSERT INTO Applicants (user_id,desired_industry,desired_location,skills,education,experience,certifications,resume_pdf,image)  VALUES
