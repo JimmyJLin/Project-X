@@ -17,14 +17,21 @@ CREATE TABLE Users (
   type VARCHAR(200)
 );
 
+
 CREATE TABLE Employers (
   id SERIAL PRIMARY KEY UNIQUE,
   company_name VARCHAR(200),
   company_address VARCHAR(200),
+  company_city VARCHAR(200),
+  company_state VARCHAR(200),
+  company_zip VARCHAR(200),
   company_description VARCHAR(200),
   company_website VARCHAR(100),
   company_phone_number VARCHAR(200),
   company_email VARCHAR(2000),
+  company_size VARCHAR(2000),
+  company_industry VARCHAR(2000),
+  company_branch VARCHAR(2000),
   company_logo VARCHAR(200)
 );
 

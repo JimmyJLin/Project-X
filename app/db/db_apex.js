@@ -251,13 +251,80 @@ function postOneApplicant(req,res,next){
       req.body.languages_spoken
     ])
   .then(function(data) {
-    console.log('success languages_spoken',data.languages_spoken);
     next();
   })
   .catch(function(error){
     console.error(error);
   })
 };
+
+
+// Applicant queries
+
+function showAllEmployers(req,res,next){
+  db.any('select * from Employers;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show all Employers;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showOneEmployer(req,res,next){
+  db.any('select * from Employers where id = $1;', [req.params.employer_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show one Employers', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function postOneEmployer(req,res,next){
+
+  db.any(`INSERT INTO Employers  (
+    company_name,
+    company_address,
+    company_city,
+    company_state,
+    company_zip,
+    company_description,
+    company_website,
+    company_phone_number,
+    company_email,
+    company_size,
+    company_industry,
+    company_branch,
+    company_logo
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+    [
+      req.body.company_name,
+      req.body.company_address,
+      req.body.company_city,
+      req.body.company_state,
+      req.body.company_zip,
+      req.body.company_description,
+      req.body.company_website,
+      req.body.company_phone_number,
+      req.body.company_email,
+      req.body.company_size,
+      req.body.company_industry,
+      req.body.company_branch,
+      req.body.company_logo
+    ])
+  .then(function(data) {
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
 
 module.exports.createUser = createUser;
 module.exports.loginUser = loginUser;
@@ -273,3 +340,7 @@ module.exports.showOneJob = showOneJob;
 module.exports.showAllApplicants = showAllApplicants;
 module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;
+
+module.exports.showAllEmployers = showAllEmployers;
+module.exports.postOneEmployer = postOneEmployer;
+module.exports.showOneEmployer = showOneEmployer;
