@@ -47,6 +47,9 @@ render: function(){
               <button className="ui button" type="submit">Sign Up</button>
             </form>
 
+            <br/>
+
+            <p>Aready have an account? <a id="employer_profile_login_button">Sign In</a> </p>
           </div>
 
         </div>

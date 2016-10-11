@@ -40,7 +40,7 @@ render: function(){
               </div>
               <div className="field">
                 <label>Password</label>
-                <input ref="password"/>
+                <input ref="password" type="password"/>
               </div>
               <button className="ui button" action="submit">Sign Up</button>
             </form>

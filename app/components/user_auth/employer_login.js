@@ -57,7 +57,7 @@ export default class Employer_login extends Component {
 
             <br/>
 
-            <p>Not a member yet ... <a id="employer_signup_button">Sign Up</a> </p>
+            <p>Not a member yet ... <a id="employer_profile_signup_button">Sign Up</a> </p>
 
           </div>
 
