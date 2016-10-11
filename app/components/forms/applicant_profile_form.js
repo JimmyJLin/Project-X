@@ -56,9 +56,10 @@ class Applicant_profile_form extends Component {
     var final_languages = "{";
 
     langArr.forEach(function(el){
-       final_languages = final_languages + "\"" + el + '\",';
        if( el === langArr[langArr.length -1]) {
          final_languages = final_languages + "\"" + el + '\"}';
+       } else {
+         final_languages = final_languages + "\"" + el + '\",';
        }
        applicantProfileData.languages_spoken = final_languages;
        console.log("final_languages", final_languages)
@@ -69,9 +70,10 @@ class Applicant_profile_form extends Component {
     var final_cert = "{";
 
     certArr.forEach(function(el){
-       final_cert = final_cert + "\"" + el + '\",';
        if( el === certArr[certArr.length-1]) {
          final_cert = final_cert + "\"" + el + '\"}';
+       } else {
+         final_cert = final_cert + "\"" + el + '\",';
        }
        applicantProfileData.certifications = final_cert;
        console.log("certifications", final_cert)
@@ -82,9 +84,10 @@ class Applicant_profile_form extends Component {
   var final_desired_location = "{";
 
   desired_locationArr.forEach(function(el){
-     final_desired_location = final_desired_location + "\"" + el + '\",';
      if( el === desired_locationArr[desired_locationArr.length-1] ) {
        final_desired_location = final_desired_location + "\"" + el + '\"}';
+     } else {
+       final_desired_location = final_desired_location + "\"" + el + '\",';
      }
      applicantProfileData.desired_location = final_desired_location;
      console.log("locations", final_desired_location)
