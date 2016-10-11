@@ -289,9 +289,13 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload Profile Picture</label>
-                <input type="file" name="profile_image" accept="image/gif, image/jpeg"
+
+                <img className="profile-pic" src="" />
+                <br/>
+                <input className="file-upload" name="profile_image" type="file" accept="images/*"
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
+
               </div>
 
               <div className="field">
@@ -330,7 +334,7 @@ class Applicant_profile_form extends Component {
 
 function postOneApplicant(applicantProfileData){
   console.log('postOneApplicant Function data: ', applicantProfileData)
-  $.post('/api/applicants/new', applicantProfileData)
+  $.post('/api/applicants/newNOT', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
     })
