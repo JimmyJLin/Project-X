@@ -70,6 +70,12 @@ $(function(){
     $('.ui.small.modal.applicant.signup').modal('show')
   })
 
+
+  $('#employer_profile_form_signup_button').on('click', function(){
+    console.log("profile signup_button clicked")
+    $('.ui.small.modal.applicant.signup').modal('show')
+  })
+
   $('#reset_password_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.reset_password').modal('show')

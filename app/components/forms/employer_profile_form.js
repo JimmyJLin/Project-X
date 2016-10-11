@@ -138,7 +138,7 @@ class Employer_profile_form extends Component {
               NOT a member yet
               <br/>
               <p>Please signup before creating applicant profile</p>
-              <a id='applicant_profile_signup_button' className="fluid ui button"> Sign up</a>
+              <a id='employer_profile_form_signup_button' className="fluid ui button"> Sign up</a>
             </h2>
           </div>
 
