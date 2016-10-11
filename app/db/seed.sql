@@ -1,9 +1,14 @@
-INSERT INTO Users (name, last_name, email, password, type) VALUES
+INSERT INTO ApplicantUsers (name, last_name, email, password, type) VALUES
 ('jim', 'jim-last', 'jim@jim.com', '23242sdsdsds', 'employer'),
 ('raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds', 'employer'),
 ('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds', 'applicant'),
 ('emine', 'emine-last', 'emine@emine.com', '44dsdsds', 'applicant');
 
+INSERT INTO EmployerUsers (name, last_name, email, password, type) VALUES
+('jim', 'jim-last', 'jim@jim.com', '23242sdsdsds', 'employer'),
+('raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds', 'employer'),
+('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds', 'applicant'),
+('emine', 'emine-last', 'emine@emine.com', '44dsdsds', 'applicant');
 
 INSERT INTO Employers (
   company_name,
@@ -111,7 +116,7 @@ INSERT INTO Jobs (employer_id,title,description,location,type,industry,salary,ex
 (5, 'Finance Manager', 'dskdslds dsdsds dsds', 'New York', 'Full Time', 'Finance', '$120.000', '5 years','masters degree', 'asap', 'active');
 
 
-INSERT INTO JT (user_id , employer_id) VALUES
+INSERT INTO JTEmployersProfileAndEmployerUsers (user_id , employer_id) VALUES
 (1,2),
 (1,4),
 (1,5);

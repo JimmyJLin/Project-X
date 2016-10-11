@@ -91,7 +91,7 @@ export default class Employer_login extends Component {
       password: this.state.password,
     }
 
-    $.post('/api/auth/login', userInfo)
+    $.post('/api/auth/employer/login', userInfo)
       .done((data) => {
         console.log(data)
         if (data.agent == 'error') { // if username/password doesn't match

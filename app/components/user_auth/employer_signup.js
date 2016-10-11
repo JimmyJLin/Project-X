@@ -62,7 +62,7 @@ function signUpRequest(signupInfo) {
   const d = signupInfo
   console.log('signup Request fired employer', signupInfo)
 
- $.post('/api/auth/signup', signupInfo)
+ $.post('/api/auth/employer/signup', signupInfo)
    .done((data) => {
      console.log('success')
    })

@@ -22,7 +22,7 @@ class Applicant_profile extends Component {
 
   componentDidMount() {
    // this is where you'll get the data from the 'db'
-   $.get('/api/auth/2').done( (data)=>{
+   $.get('/api/auth/applicant/2').done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;
       this.state.desired_industry = data.desired_industry

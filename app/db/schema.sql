@@ -1,14 +1,15 @@
-DROP TABLE if EXISTS Users CASCADE;
+DROP TABLE if EXISTS ApplicantUsers CASCADE;
+DROP TABLE if EXISTS EmployerUsers CASCADE;
 DROP TABLE if EXISTS Employers CASCADE;
+DROP TABLE if EXISTS JTEmployersProfileAndEmployerUsers CASCADE;
 DROP TABLE if EXISTS Applicants CASCADE;
 DROP TABLE if EXISTS Jobs CASCADE;
-DROP TABLE if EXISTS Messages CASCADE;
-DROP TABLE if EXISTS JT CASCADE;
 DROP TABLE if EXISTS Applications CASCADE;
 DROP TABLE if EXISTS Networking_Status CASCADE;
+DROP TABLE if EXISTS Messages CASCADE;
 
 
-CREATE TABLE Users (
+CREATE TABLE ApplicantUsers (
   id SERIAL PRIMARY KEY UNIQUE,
   name VARCHAR(200),
   last_name VARCHAR(200),
@@ -17,6 +18,14 @@ CREATE TABLE Users (
   type VARCHAR(200)
 );
 
+CREATE TABLE EmployerUsers (
+  id SERIAL PRIMARY KEY UNIQUE,
+  name VARCHAR(200),
+  last_name VARCHAR(200),
+  email VARCHAR(200) UNIQUE,
+  password VARCHAR(200),
+  type VARCHAR(200)
+);
 
 CREATE TABLE Employers (
   id SERIAL PRIMARY KEY UNIQUE,
@@ -35,15 +44,15 @@ CREATE TABLE Employers (
   company_logo VARCHAR(200)
 );
 
-CREATE TABLE JT (
-  user_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
+CREATE TABLE JTEmployersProfileAndEmployerUsers (
+  user_id INTEGER REFERENCES EmployerUsers (id) ON DELETE CASCADE,
   employer_id INTEGER REFERENCES Employers (id) ON DELETE CASCADE,
   PRIMARY KEY (user_id, employer_id)
 );
 
 CREATE TABLE Applicants (
   id SERIAL PRIMARY KEY UNIQUE,
-  user_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES ApplicantUsers (id) ON DELETE CASCADE,
   first_name VARCHAR(200),
   last_name VARCHAR(200),
   desired_industry text,
@@ -73,15 +82,15 @@ CREATE TABLE Jobs (
 );
 
 CREATE TABLE Applications (
-  applicant_id INTEGER REFERENCES Applicants (id) ON DELETE CASCADE,
+  applicant_id INTEGER REFERENCES ApplicantUsers (id) ON DELETE CASCADE,
   job_id INTEGER REFERENCES Jobs (id) ON DELETE CASCADE,
   status VARCHAR(20),
   PRIMARY KEY (applicant_id, job_id)
 );
 
 CREATE TABLE Networking_Status (
-  applicant_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
-  employer_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
+  applicant_id INTEGER REFERENCES ApplicantUsers (id) ON DELETE CASCADE,
+  employer_id INTEGER REFERENCES EmployerUsers (id) ON DELETE CASCADE,
   PRIMARY KEY (applicant_id, employer_id)
 );
 

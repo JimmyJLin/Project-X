@@ -20,11 +20,127 @@ const cn = {
 
 const db = pgp(cn);
 
-function showallusers(req, res, next) {
-  db.any('select * from Users;')
+
+// Employer User Auth
+function showAllEmployerUsers(req, res, next) {
+  db.any('select * from EmployerUsers;')
   .then(function(data) {
     res.rows= data;
-    console.log('this should show all Users;', data)
+    console.log('this should show all Employer Users;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function createEmployerUser(req, res, next) {
+  console.log('req.body from post request', req.body)
+
+  createSecure(req.body.email, req.body.password, saveUser);
+
+  function saveUser(email, hash) {
+    db.none("INSERT INTO EmployerUsers (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
+    .then(function (data) {
+      // success;
+      console.log('New EmployerUsers added')
+      next();
+    })
+    .catch(function () {
+      // error;
+      console.error('error signing up');
+    });
+  }
+}
+
+function loginEmployerUser(req, res, next) {
+  var email = req.body.email
+  var password = req.body.password
+
+  db.one("SELECT * FROM EmployerUsers WHERE email LIKE $1;", [email])
+    .then((data) => {
+      if (bcrypt.compareSync(password, data.password)) {
+        res.rows = data
+        next()
+      } else {
+        res.status(401).json({data:"Fool this no workie"})
+        next()
+      }
+    })
+    .catch(() => {
+      console.error('error finding users')
+    })
+}
+
+function employerProfile(req,res,next){
+  db.one("select * from Employers where user_id = $1",
+  [ req.params.uid ])
+  .then(function(data) {
+    res.rows= data;
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
+
+// Applicant User Auth
+function showallApplicantUsers(req, res, next) {
+  db.any('select * from ApplicantUsers;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show all Applicant Users;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function createApplicantUser(req, res, next) {
+  console.log('req.body from post request', req.body)
+
+  createSecure(req.body.email, req.body.password, saveUser);
+
+  function saveUser(email, hash) {
+    db.none("INSERT INTO ApplicantUsers (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
+    .then(function (data) {
+      // success;
+      console.log('New Applicant User added')
+      next();
+    })
+    .catch(function () {
+      // error;
+      console.error('error signing up');
+    });
+  }
+}
+
+function loginApplicantUser(req, res, next) {
+  var email = req.body.email
+  var password = req.body.password
+
+  db.one("SELECT * FROM ApplicantUsers WHERE email LIKE $1;", [email])
+    .then((data) => {
+      if (bcrypt.compareSync(password, data.password)) {
+        res.rows = data
+        next()
+      } else {
+        res.status(401).json({data:"Fool this no workie"})
+        next()
+      }
+    })
+    .catch(() => {
+      console.error('error finding users')
+    })
+}
+
+function applicantProfile(req,res,next) {
+
+  db.one("select * from ApplicantUsers where id = $1)",
+  [ req.params.id ])
+  .then(function(data) {
     next();
   })
   .catch(function(error){
@@ -46,56 +162,10 @@ function createSecure(email, password,callback) {
   })
 }
 
-function createUser(req, res, next) {
-  console.log('req.body from post request', req.body)
 
-  createSecure(req.body.email, req.body.password, saveUser);
-
-  function saveUser(email, hash) {
-    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
-    .then(function (data) {
-      // success;
-      console.log('New User added')
-      next();
-    })
-    .catch(function () {
-      // error;
-      console.error('error signing up');
-    });
-  }
-}
 // User Auth Queries -  LOGIN AN ACCOUNT
 
-function loginUser(req, res, next) {
-  var email = req.body.email
-  var password = req.body.password
 
-  db.one("SELECT * FROM Users WHERE email LIKE $1;", [email])
-    .then((data) => {
-      if (bcrypt.compareSync(password, data.password)) {
-        res.rows = data
-        next()
-      } else {
-        res.status(401).json({data:"Fool this no workie"})
-        next()
-      }
-    })
-    .catch(() => {
-      console.error('error finding users')
-    })
-}
-
-function userProfile(req,res,next) {
-
-  db.one("select * from Users where id = $1)",
-  [ req.params.id ])
-  .then(function(data) {
-    next();
-  })
-  .catch(function(error){
-    console.error(error);
-  })
-};
 
 
 // User Auth Queries -  UPDATE A USER ACCOUNT
@@ -325,22 +395,32 @@ function postOneEmployer(req,res,next){
   })
 };
 
+// Employer user_auth exports
+module.exports.showAllEmployerUsers = showAllEmployerUsers;
+module.exports.createEmployerUser = createEmployerUser;
+module.exports.loginEmployerUser = loginEmployerUser;
+module.exports.employerProfile = employerProfile;
 
-module.exports.createUser = createUser;
-module.exports.loginUser = loginUser;
-module.exports.editUser = editUser;
-module.exports.deleteUser = deleteUser;
-module.exports.showallusers = showallusers;
+// Applicant user_auth exports
+module.exports.showallApplicantUsers = showallApplicantUsers;
+module.exports.createApplicantUser = createApplicantUser;
+module.exports.loginApplicantUser = loginApplicantUser;
 module.exports.applicantProfile = applicantProfile;
 
-module.exports.showAllJobs = showAllJobs;
-module.exports.postAJob = postAJob;
-module.exports.showOneJob = showOneJob;
+module.exports.editUser = editUser;
+module.exports.deleteUser = deleteUser;
 
+// Applicant Profile Form exports
 module.exports.showAllApplicants = showAllApplicants;
 module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;
 
+// Employer Profile Form Exports
 module.exports.showAllEmployers = showAllEmployers;
 module.exports.postOneEmployer = postOneEmployer;
 module.exports.showOneEmployer = showOneEmployer;
+
+// Job Exports
+module.exports.showAllJobs = showAllJobs;
+module.exports.postAJob = postAJob;
+module.exports.showOneJob = showOneJob;
