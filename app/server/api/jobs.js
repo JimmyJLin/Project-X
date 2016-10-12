@@ -15,10 +15,15 @@ jobs.route('/new')
   res.status( 201 ).json( { data: 'success' } );
 });
 
-jobs.route('/:job_id')
+jobs.route('/:employer_id')
 .get( db.showOneJob, (req, res) => {
   res.send(res.rows);
 });
+
+jobs.route('/job_details/:job_id')
+.get( db.getOneJob, (req, res) => {
+  res.send(res.rows)
+})
 
 
 
