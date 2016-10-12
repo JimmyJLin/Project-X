@@ -1,6 +1,9 @@
 $(function(){
   console.log('script file loaded')
 
+  // loader
+  $('.ui.segment.loader').dimmer('show');
+  
   // image uploading
   var readURL = function(input) {
     if (input.files && input.files[0]) {

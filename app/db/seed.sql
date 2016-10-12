@@ -26,19 +26,19 @@ INSERT INTO Employers (
   company_logo
 ) VALUES
 (
-  'Company A',
-  'A Drive',
-  'Awesome',
+  'UBS Investment Bank',
+  '1 UBS Drive',
+  'New YOrk',
   'NY',
   '10012',
-  'Best Company in Town',
-  'www.CompanyA.com',
-  '21221212121',
-  'A@A.com',
-  'Micro Cap',
-  'Accounting',
-  'New YOrk',
-  'logo.png'
+  'UBS is a global firm providing financial services in over 50 countries. Visit our site to find out what we offer in your country.',
+  'https://www.ubs.com',
+  '8882793343',
+  'info@ubs.com',
+  'Large Cap',
+  'Finance',
+  'New York',
+  'images/company_logo/ubs.png'
 ),
 (
   'Company B',
