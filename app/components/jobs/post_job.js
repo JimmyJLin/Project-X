@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../headermenu';
-import Footer from '../footer';
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 

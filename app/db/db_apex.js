@@ -163,11 +163,6 @@ function createSecure(email, password,callback) {
 }
 
 
-// User Auth Queries -  LOGIN AN ACCOUNT
-
-
-
-
 // User Auth Queries -  UPDATE A USER ACCOUNT
 
 function editUser(req,res,next) {
@@ -215,7 +210,7 @@ function showAllJobs(req,res,next){
 };
 
 function showOneJob(req,res,next){
-  db.any('select * from Jobs where id = $1;', [req.params.job_id] )
+  db.any('select * from Jobs where employer_id = $1;', [req.params.employer_id] )
   .then(function(data) {
     res.rows= data;
     console.log('this should show one Job', data)
@@ -279,18 +274,6 @@ function showOneApplicant(req,res,next){
 };
 
 function postOneApplicant(req,res,next){
-
-  // const languages_spoken_split = req.body.languages_spoken.slice(1, -1)
-  // const desired_location = req.body.desired_location;
-  // const certifications = req.body.certifications;
-  // const languages_spoken = req.body.languages_spoken;
-
-  console.log("req.body", req)
-  // console.log("logging req.body.languages_spoken", req.body.languages_spoken)
-  // console.log("languages_spoken_split", languages_spoken_split)
-  //
-  // console.log("logging req.body.first_name", req.body.first_name)
-
 
   db.any(`INSERT INTO Applicants  (
     user_id,
@@ -395,6 +378,20 @@ function postOneEmployer(req,res,next){
   })
 };
 
+
+// get one Job based on job_id
+function getOneJob(req,res,next){
+  db.any('select * from Jobs where id = $1;', [req.params.job_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should get one Job', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -424,3 +421,4 @@ module.exports.showOneEmployer = showOneEmployer;
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;
 module.exports.showOneJob = showOneJob;
+module.exports.getOneJob = getOneJob;

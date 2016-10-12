@@ -13,12 +13,14 @@ import Employer_profile_form from 'components/forms/employer_profile_form';
 import Applicant_profile from 'components/profiles/applicant/applicant_profile';
 import Employer_profile from 'components/profiles/employer/employer_profile';
 import Post_job from 'components/jobs/post_job';
+import List_jobs from 'components/jobs/list_jobs';
+import Job from 'components/jobs/job';
 
 export default function(history) {
   return (
     <Router history={history}>
       <Route path="/" component={App}>
-        <Route path="/about_us" component={About_us} />
+
         {/* Applicant / Employer User Auth */}
         <Route path="/applicant_login" component={Applicant_login} />
         <Route path="/employer_login" component={Employer_login} />
@@ -33,6 +35,9 @@ export default function(history) {
 
         {/* Post New Job */}
         <Route path="/new" component={Post_job} />
+        <Route path="/list_jobs" component={List_jobs} />
+        <Route path="jobs/job_details/:id" component={Job} />
+
 
         <IndexRoute component={Main} />
       </Route>
