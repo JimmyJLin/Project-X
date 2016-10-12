@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import HeaderMenu from '../headermenu';
 import Footer from '../footer';
+import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
 
@@ -42,6 +43,7 @@ class Post_job extends Component {
       status:'active'
     }
 
+    console.log('job posted with: ', jobData)
     postJob(jobData)
 
 
@@ -112,8 +114,28 @@ class Post_job extends Component {
               </div>
               <div className="field">
                 <label name="job_location">Location</label>
-                <input type="text" value={this.state.job_location}
-                onChange={e => this.onJobLocationChange(e.target.value)}/>
+                <select name="job_location" className="ui fluid normal dropdown"
+                value={this.state.job_location}
+                onChange={e => this.onJobLocationChange(e.target.value)}>
+                  <option value="">Please Select</option>
+                  <option value="New York">New York</option>
+                  <option value="London">London</option>
+                  <option value="Paris">Paris</option>
+                  <option value="Berlin ">Berlin </option>
+                  <option value="Tokyo">Tokyo</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="Nassau County">Nassau County</option>
+                  <option value="Suffolk County">Suffolk County</option>
+                  <option value="Brooklyn">Brooklyn</option>
+                  <option value="Queens">Queens</option>
+                  <option value="Manhattan">Manhattan</option>
+                  <option value="Staten Island">Staten Island</option>
+                  <option value="Jersey City">Jersey City</option>
+                  <option value="Rye">Rye</option>
+                  <option value="Westchester">Westchester</option>
+                  <option value="Albany">Albany</option>
+
+                </select>
               </div>
             </div>
 
@@ -125,7 +147,7 @@ class Post_job extends Component {
                   <option value="">Please Select</option>
                   <option value="Finance">Finance</option>
                   <option value="Accounting">Accounting</option>
-                  <option value="Health">Health</option>
+                  <option value="Health">Insurance</option>
                 </select>
               </div>
               <div className="field">
@@ -135,7 +157,7 @@ class Post_job extends Component {
                   <option value="">Please Select</option>
                   <option value="Finance">Finance</option>
                   <option value="Accounting">Accounting</option>
-                  <option value="Health">Health</option>
+                  <option value="Health">Insurance</option>
                 </select>
               </div>
             </div>
@@ -150,10 +172,10 @@ class Post_job extends Component {
                 <label>Experience</label>
                 <select name="job_experience" id="" className="ui fluid dropdown" value={this.state.job_experience}
                 onChange={e => this.onJobExperienceChange(e.target.value)}>
-                  <option value="">Please Select</option>
-                  <option value="Entry Level">Entry Level</option>
-                  <option value="Mid Level">Mid Level</option>
-                  <option value="High Level">High Level</option>
+                <option value="">Please Select</option>
+                <option value="Entry Level">Entry Level- 2 Years or less</option>
+                <option value="Mid Level">Mid Level- 2-5 Years</option>
+                <option value="High Level">High Level- 5-10Years</option>
                 </select>
               </div>
             </div>
@@ -172,7 +194,7 @@ class Post_job extends Component {
                   <option value="High School / GED">High School / GED</option>
                   <option value="Associate Degree">Associate Degree</option>
                   <option value="Bachelor Degree">Bachelor Degree</option>
-                  <option value="Bachelor Degree">Bachelor Degree</option>
+                  <option value="Master Degree">Master Degree</option>
                   <option value="Phd">Phd</option>
                 </select>
               </div>
@@ -198,9 +220,10 @@ class Post_job extends Component {
 
 function postJob(jobData){
   console.log('post job data is fired with data', jobData)
-  $.post('/api/jobs', jobData)
+  $.post('/api/jobs/new', jobData)
     .done((data) => {
       console.log('success', data)
+      browserHistory.push('/employer_profile'); // redirects to profile
     })
     .error((error) => {
       console.error('Posting action is failed', error);

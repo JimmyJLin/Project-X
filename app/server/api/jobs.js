@@ -6,7 +6,7 @@ const jobs = express.Router();
 
 const db = require('../../db/db_apex');
 
-jobs.route('/')
+jobs.route('/new')
 .get(db.showAllJobs, (req, res) => {
   res.send(res.rows);
 })
