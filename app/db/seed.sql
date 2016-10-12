@@ -1,14 +1,14 @@
-INSERT INTO ApplicantUsers (name, last_name, email, password, type) VALUES
-('jim', 'jim-last', 'jim@jim.com', '23242sdsdsds', 'employer'),
-('raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds', 'employer'),
-('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds', 'applicant'),
-('emine', 'emine-last', 'emine@emine.com', '44dsdsds', 'applicant');
+INSERT INTO ApplicantUsers (name, last_name, email, password) VALUES
+('jim', 'jim-last', 'jim@jim.com', '23242sdsdsds'),
+('raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds'),
+('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds'),
+('emine', 'emine-last', 'emine@emine.com', '44dsdsds');
 
-INSERT INTO EmployerUsers (name, last_name, email, password, type) VALUES
-('jim', 'jim-last', 'jim@jim.com', '23242sdsdsds', 'employer'),
-('raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds', 'employer'),
-('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds', 'applicant'),
-('emine', 'emine-last', 'emine@emine.com', '44dsdsds', 'applicant');
+INSERT INTO EmployerUsers (employer_id, name, last_name, email, password) VALUES
+(1,'jim', 'jim-last', 'jim@jim.com', '23242sdsdsds'),
+(2,'raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds'),
+(4,'emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds'),
+(2,'emine', 'emine-last', 'emine@emine.com', '44dsdsds');
 
 INSERT INTO Employers (
   company_name,

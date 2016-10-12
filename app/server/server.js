@@ -48,9 +48,6 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
 
 
-
-
-
 // *********************** API ROUTES ****************** //
 const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
 const userRoutes = require(path.join(__dirname, '/api/auth'));
