@@ -10,8 +10,7 @@ class Job extends Component {
     super(props);
 
     this.state = {
-      job_data: [],
-      job_id: this.props.params
+      job_data: []
     }
 
   }
@@ -19,8 +18,10 @@ class Job extends Component {
   componentDidMount() {
     console.log("hello from componentDidMount")
     // get employer job data
-    $.get(`/api/jobs/job_details/${this.props.params.id}`).done( (data)=>{
+    let job_id = this.props.params.id
+    $.get(`/api/jobs/job_details/${job_id}`).done( (data)=>{
       this.state.job_data = data
+      console.log("this.props.params", this.props.params.id)
       console.log("job details", data)
        this.setState({
          job_data: this.state.job_data
@@ -32,25 +33,28 @@ class Job extends Component {
   }
 
   render(){
-    const jobData = this.state.job_data
+    const jobData = this.state.job_data.map(function(job){
+      return <div key={job.id} className="ui piled segment jobdetails">
+                <h4 className="ui header">
+                  {job.id} - {job.title}
+                </h4>
+                <p>{job.location}</p>
+                <p>{job.industry}</p>
+                <p>{job.description}</p>
+                <p>{job.type}</p>
+                <p>{job.experience_level}</p>
+                <p>{job.education_level}</p>
+                <p>{job.salary}</p>
+                <p>{job.starting_date}</p>
+                <p>{job.status}</p>
+              </div>
+    })
+
     console.log("loggin jobData in render", jobData)
     return(
       <div id="job_details">
         <h1>Detail Job View</h1>
-        <div className="ui piled segment jobdetails">
-          <h4 className="ui header">
-            {jobData[0].id} - {jobData[0].title}
-          </h4>
-          <p>{jobData[0].location}</p>
-          <p>{jobData[0].industry}</p>
-          <p>{jobData[0].description}</p>
-          <p>{jobData[0].type}</p>
-          <p>{jobData[0].experience_level}</p>
-          <p>{jobData[0].education_level}</p>
-          <p>{jobData[0].salary}</p>
-          <p>{jobData[0].starting_date}</p>
-          <p>{jobData[0].status}</p>
-        </div>
+        {jobData}
       </div>
 
     )
