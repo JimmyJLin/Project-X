@@ -34,9 +34,9 @@ class Job extends Component {
 
   render(){
     const jobData = this.state.job_data.map(function(job){
-      return <div key={job.id} className="ui piled segment jobdetails">
+      return <div key={job.id} className="ui segment jobdetails">
                 <h4 className="ui header">
-                  {job.id} - {job.title}
+                  Job #: {job.id} - {job.title}
                 </h4>
                 <p>{job.location}</p>
                 <p>{job.industry}</p>
@@ -54,13 +54,62 @@ class Job extends Component {
     return(
       <div id="job_details">
         <h1>Detail Job View</h1>
-        {jobData}
+        <div className="ui grid">
+          <div className="twelve wide column">
+            {jobData}
+          </div>
+          <div className="four wide column">
+            <div className="ui segment">
+              <h3>Applicants: </h3>
+              <div className="ui middle aligned divided list">
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">312</a>
+                  </div>
+                  <div className="content">Compatible matches</div>
+                </div>
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">25</a>
+                  </div>
+                  <div className="content">Engaged</div>
+                </div>
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">10</a>
+                  </div>
+                  <div className="content">Rejected</div>
+                </div>
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">5</a>
+                  </div>
+                  <div className="content">Interviewed</div>
+                </div>
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">0</a>
+                  </div>
+                  <div className="content">Hired</div>
+                </div>
+                <div className="item">
+                  <div className="right floated content">
+                    <a href="#">287</a>
+                  </div>
+                  <div className="content">Remaining</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     )
   }
 
 }
+
+
 
 
 function mapStateToProps() {

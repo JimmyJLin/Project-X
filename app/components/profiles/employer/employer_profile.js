@@ -210,53 +210,8 @@ class Employer_profile extends Component {
                     </div>
 
                   </div>
-                <h3>Applicants: </h3>
-                <div className="ui middle aligned divided list">
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">312</a>
-                    </div>
-                    <div className="content">Compatible matches</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">25</a>
-                    </div>
-                    <div className="content">Engaged</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">10</a>
-                    </div>
-                    <div className="content">Rejected</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">5</a>
-                    </div>
-                    <div className="content">Interviewed</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">0</a>
-                    </div>
-                    <div className="content">Hired</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">287</a>
-                    </div>
-                    <div className="content">Remaining</div>
-                  </div>
 
               </div>
-            </div>
           </div>
 
         </div>
