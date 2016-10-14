@@ -45,7 +45,7 @@ class Employer_profile extends Component {
 
 
    //  get employer profile data
-   $.get('/api/employers/1').done( (data)=>{
+   $.get('/api/employers/47').done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
       this.state.company_city = data[0].company_city;
@@ -81,7 +81,7 @@ class Employer_profile extends Component {
   }
 
   render(){
-
+    console.log("this.state.company_logo", this.state.company_logo)
     const loader = function(){
       return  <div className="ui active inverted dimmer"><div className="ui indeterminate medium text loader">Loading</div></div>
     }
@@ -95,7 +95,7 @@ class Employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={this.state.company_logo} alt="Company Logo"/>
+              <img className="ui small circular image" src={"../images/company_logo/" + this.state.company_logo} alt="Company Logo"/>
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">

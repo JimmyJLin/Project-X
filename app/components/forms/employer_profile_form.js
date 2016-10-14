@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../headermenu';
-import Footer from '../footer';
-
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
+import $ from 'jquery';
 
 class Employer_profile_form extends Component {
 
@@ -23,7 +23,8 @@ class Employer_profile_form extends Component {
       company_size: '',
       company_industry: '',
       company_branch: '',
-      company_logo: ''
+      company_logo: '',
+      company_files: []
     }
   }
 
@@ -43,29 +44,32 @@ class Employer_profile_form extends Component {
       company_size: this.state.company_size,
       company_industry: this.state.company_industry,
       company_branch: this.state.company_branch,
-      company_logo: this.state.company_logo
+      company_logo: this.state.company_logo,
+      company_files: this.state.company_files
+
     }
 
     console.log(employerProfileData)
+    postOneEmployer(this.state)
 
 
-    this.setState({
-      company_name: '',
-      company_address: '',
-      company_city: '',
-      company_state: '',
-      company_zip: '',
-      company_description: '',
-      company_website: '',
-      company_phone_number: '',
-      company_email: '',
-      company_size: '',
-      company_industry: '',
-      company_branch: '',
-      company_logo: ''
-    })
+    // this.setState({
+    //   company_name: '',
+    //   company_address: '',
+    //   company_city: '',
+    //   company_state: '',
+    //   company_zip: '',
+    //   company_description: '',
+    //   company_website: '',
+    //   company_phone_number: '',
+    //   company_email: '',
+    //   company_size: '',
+    //   company_industry: '',
+    //   company_branch: '',
+    //   company_logo: '',
+    //   company_files: []
+    // })
 
-    postOneEmployer(employerProfileData)
 
   }
 
@@ -121,7 +125,20 @@ class Employer_profile_form extends Component {
     this.setState({company_logo})
   }
 
+  onDrop(acceptedFiles){
+    console.log("acceptedFiles", acceptedFiles)
+
+    this.setState({
+      company_files: acceptedFiles
+    });
+
+    console.log("onDrop this.state.company_files", this.state.company_files)
+    $('#eventDropZone').hide()
+  }
+
   render(){
+    console.log("render this.state.files", this.state.company_files)
+
     return(
         <div id="employer_profile_form">
 
@@ -143,7 +160,21 @@ class Employer_profile_form extends Component {
           </div>
 
           <div className="three fields">
-            <div className="field"></div>
+            <div className="field">
+
+              <div >
+                <Dropzone onDrop={this.onDrop.bind(this)} id="eventDropZone">
+                  <div>Try dropping your image here, or click to select image to upload.</div>
+                </Dropzone>
+                {this.state.company_files.length > 0 ? <div>
+                  <h5>Picture uploaded</h5>
+                  <h2>Uploading {this.state.company_files.length} files ... </h2>
+                  <div>{this.state.company_files.map((file) => <img className="eventPreview" src={file.preview} /> )}</div>
+                  </div> : null}
+              </div>
+
+            </div>
+
             <div className="field">
               <img className="profile-pic" src="" />
               <br/>
@@ -301,11 +332,35 @@ class Employer_profile_form extends Component {
 
 }
 
-function postOneEmployer(employerProfileData){
-  console.log('postOneEmployer Function data: ', employerProfileData)
-  $.post('/api/employers/new', employerProfileData)
+function postOneEmployer(thisstate){
+  // const company_image_logo = employerProfileData.company_files
+  // console.log('company_image_logo', company_image_logo)
+  // console.log('employerProfileData', employerProfileData)
+
+  // console.log("this.state.company_files", this.state.company_files)
+  console.log("this.state", thisstate)
+  $.post('/api/employers/new', {processData: false}, thisstate)
     .done((data) => {
+      console.log("data.id", data.id)
       console.log('Employer Profile Data Posted to postOneEmployer - returned data: ', data)
+
+      let req = request.post('/api/employers/upload');
+      thisstate.company_files.forEach((file) => {
+        console.log(req)
+        console.log("hello from inside forEach()", file)
+        req.attach(file.name, file);
+        req.field('id', data.id)
+      })
+      req.end(function(err, res){
+        if (err || !res.ok) {
+          alert('Oh no! error');
+        } else {
+          alert('yay got ' + JSON.stringify(res.body));
+        }
+      })
+
+
+
     })
     .error((error) => {
       console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);

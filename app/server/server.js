@@ -41,7 +41,7 @@ if ( process.env.NODE_ENV === 'production' ) {
 
 // *********************** API ROUTES ****************** //
 
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(compression());
 server.use(Express.static(path.join(__dirname, '../..', 'dist')));
 server.set('views', path.join(__dirname, 'views'));
