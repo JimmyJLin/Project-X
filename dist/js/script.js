@@ -3,7 +3,7 @@ $(function(){
 
   // loader
   $('.ui.segment.loader').dimmer('show');
-  
+
   // image uploading
   var readURL = function(input) {
     if (input.files && input.files[0]) {

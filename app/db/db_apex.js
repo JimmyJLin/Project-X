@@ -352,9 +352,8 @@ function postOneEmployer(req,res,next){
     company_email,
     company_size,
     company_industry,
-    company_branch,
-    company_logo
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+    company_branch
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
     [
       req.body.company_name,
       req.body.company_address,
@@ -367,10 +366,10 @@ function postOneEmployer(req,res,next){
       req.body.company_email,
       req.body.company_size,
       req.body.company_industry,
-      req.body.company_branch,
-      req.body.company_logo
+      req.body.company_branch
     ])
   .then(function(data) {
+    res.rows = data[0]
     next();
   })
   .catch(function(error){
@@ -390,6 +389,24 @@ function getOneJob(req,res,next){
   .catch(function(error){
     console.error(error);
   })
+};
+
+function uploadCompanyLogo(req,res,next){
+  req.body.filename = req.files[0].filename;
+  console.log(req.body)
+
+  req.body.filename = req.files[0].filename;
+  db.none(`update Employers set
+    company_logo = $/filename/
+    where id = $/id/`,
+      req.body)
+    .then(() => {
+      console.log('inserted event picture');
+    })
+    .catch((err) => {
+      console.error('error inserting event pic: ', err);
+    })
+
 };
 
 // Employer user_auth exports
@@ -416,6 +433,8 @@ module.exports.showOneApplicant = showOneApplicant;
 module.exports.showAllEmployers = showAllEmployers;
 module.exports.postOneEmployer = postOneEmployer;
 module.exports.showOneEmployer = showOneEmployer;
+module.exports.uploadCompanyLogo = uploadCompanyLogo;
+
 
 // Job Exports
 module.exports.showAllJobs = showAllJobs;
