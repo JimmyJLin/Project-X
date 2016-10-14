@@ -50,7 +50,7 @@ class Employer_profile_form extends Component {
     }
 
     // console.log(employerProfileData)
-    postOneEmployer(this.state)
+    postOneEmployer(employerProfileData)
 
 
     // this.setState({

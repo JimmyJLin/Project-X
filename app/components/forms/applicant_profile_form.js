@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 
 let languageState = [];
 let certificateState = [];
@@ -26,7 +28,8 @@ class Applicant_profile_form extends Component {
       profile_image:'',
       certificationsArry: [],
       languages_spokenArry:[],
-      desired_locationArry:[]
+      desired_locationArry:[],
+      company_files: []
     }
 
   }
@@ -46,7 +49,9 @@ class Applicant_profile_form extends Component {
       certifications: this.state.certifications,
       languages_spoken: this.state.languages_spoken,
       resume_pdf: this.state.resume_pdf,
-      profile_image: this.state.profile_image
+      profile_image: this.state.profile_image,
+      company_files: this.state.company_files
+
     }
     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
 
@@ -97,22 +102,22 @@ class Applicant_profile_form extends Component {
 
     postOneApplicant(applicantProfileData)
 
-    this.setState({
-      user_id:'',
-      first_name:'',
-      last_name:'',
-      desired_industry:'',
-      desired_location:[],
-      education_level:'',
-      experience_level:'',
-      certifications: [],
-      languages_spoken:[],
-      resume_pdf:'',
-      profile_image:'',
-      certificationsArry: [],
-      languages_spokenArry:[],
-      desired_locationArry:[]
-    })
+    // this.setState({
+    //   user_id:'',
+    //   first_name:'',
+    //   last_name:'',
+    //   desired_industry:'',
+    //   desired_location:[],
+    //   education_level:'',
+    //   experience_level:'',
+    //   certifications: [],
+    //   languages_spoken:[],
+    //   resume_pdf:'',
+    //   profile_image:'',
+    //   certificationsArry: [],
+    //   languages_spokenArry:[],
+    //   desired_locationArry:[]
+    // })
 
   }
 
@@ -159,6 +164,17 @@ class Applicant_profile_form extends Component {
     this.setState({desired_location: locationState})
   }
 
+  onDrop(acceptedFiles){
+    // console.log("acceptedFiles", acceptedFiles)
+
+    this.setState({
+      company_files: acceptedFiles
+    });
+
+    // console.log("onDrop this.state.company_files", this.state.company_files)
+    $('#eventDropZone').hide()
+  }
+
   render(){
     const { currentValue, currentValues } = this.state
 
@@ -169,29 +185,18 @@ class Applicant_profile_form extends Component {
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
-            <div className="ui stacked segment">
-              <h2 className="ui center aligned icon header">
-                <i className="circular users icon"></i>
-                NOT a member yet
-                <br/>
-                <p>Please signup before creating applicant profile</p>
-                <a id='applicant_profile_signup_button' className="fluid ui button"> Sign up</a>
-              </h2>
-            </div>
-
             <div className="ui divider"></div>
-
-            <div className="two fields">
+            <div className="three fields">
+              <div className="field"></div>
               <div className="field">
-                <label>First Name</label>
-                <input name="first_name" type="text" value={this.state.first_name}
-                onChange={e => this.onFirstNameChange(e.target.value)}/>
+              <div>
+                <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
+                  <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
+                </Dropzone>
+                {this.state.company_files.length > 0 ? <div>{this.state.company_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
               </div>
-              <div className="field">
-                <label name="last_name">Last Name</label>
-                <input type="text" value={this.state.last_name}
-                onChange={e => this.onLastNameChange(e.target.value)}/>
               </div>
+              <div className="field"></div>
             </div>
 
             <div className="two fields">
@@ -337,11 +342,27 @@ class Applicant_profile_form extends Component {
 }
 
 
-function postOneApplicant(applicantProfileData){
-  console.log('postOneApplicant Function data: ', applicantProfileData)
-  $.post('/api/applicants/new', applicantProfileData)
+function postOneApplicant(thisstate){
+  console.log('postOneApplicant Function data: ', thisstate)
+  $.post('/api/applicants/new', {processData: false}, thisstate)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
+
+      let req = request.post('/api/applicants/upload');
+      thisstate.company_files.forEach((file) => {
+        // console.log(req)
+        console.log("hello from inside forEach()", file)
+        req.attach(file.name, file);
+        req.field('id', data.id)
+      })
+      req.end(function(err, res){
+        if (err || !res.ok) {
+          alert('Oh no! error');
+        } else {
+          alert('yay got ' + JSON.stringify(res.body));
+        }
+      })
+
     })
     .error((error) => {
       console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
