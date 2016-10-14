@@ -127,7 +127,7 @@ class Employer_profile_form extends Component {
 
 
         <h1>List Your Company Profile Today</h1>
-        <h4>it's free.  Only pay when you post.</h4>
+        <h4>its free.  Only pay when you post.</h4>
 
         <form className="ui form employer_profile_form"
         onSubmit={this.handleSubmit.bind(this)}>
