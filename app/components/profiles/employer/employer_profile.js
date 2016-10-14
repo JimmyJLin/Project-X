@@ -22,13 +22,29 @@ class Employer_profile extends Component {
       company_size: '',
       company_industry: '',
       company_branch: '',
-      company_logo: ''
+      company_logo: '',
+      job_openings: ''
     }
 
   }
 
   componentDidMount() {
-   // this is where you'll get the data from the 'db'
+
+    // get employer job data
+    $.get('/api/jobs/1').done( (data)=>{
+      console.log('job data: ', data)
+      console.log('job data: ', data.length)
+      this.state.job_openings = data.length
+
+       this.setState({
+         job_openings: this.state.job_openings
+
+       })
+
+     })
+
+
+   //  get employer profile data
    $.get('/api/employers/1').done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
@@ -174,7 +190,7 @@ class Employer_profile extends Component {
 
                     <div className="item">
                       <div className="right floated content">
-                        <a href="#">1</a>
+                        <Link to="/list_jobs">{this.state.job_openings}</Link>
                       </div>
                       <div className="content">Open</div>
                     </div>
@@ -194,53 +210,8 @@ class Employer_profile extends Component {
                     </div>
 
                   </div>
-                <h3>Applicants: </h3>
-                <div className="ui middle aligned divided list">
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">312</a>
-                    </div>
-                    <div className="content">Compatible matches</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">25</a>
-                    </div>
-                    <div className="content">Engaged</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">10</a>
-                    </div>
-                    <div className="content">Rejected</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">5</a>
-                    </div>
-                    <div className="content">Interviewed</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">0</a>
-                    </div>
-                    <div className="content">Hired</div>
-                  </div>
-
-                  <div className="item">
-                    <div className="right floated content">
-                      <a href="#">287</a>
-                    </div>
-                    <div className="content">Remaining</div>
-                  </div>
 
               </div>
-            </div>
           </div>
 
         </div>
