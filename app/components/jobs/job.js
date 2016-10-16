@@ -82,6 +82,9 @@ class Job extends Component {
                   <p>{salary}</p>
                   <p>{job.salary}</p>
                 </div>
+                <br/>
+                <br/>
+                {/*<buton className="ui blue button">Update</buton>*/}
               </div>
     })
 
@@ -94,7 +97,7 @@ class Job extends Component {
             {jobData}
           </div>
           <div className="four wide column">
-            <div className="ui segment">
+            <div className="ui segment match">
               <h3>Applicants: </h3>
               <div className="ui middle aligned divided list">
                 <div className="item">
