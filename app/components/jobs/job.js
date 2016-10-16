@@ -34,19 +34,54 @@ class Job extends Component {
 
   render(){
     const jobData = this.state.job_data.map(function(job){
+      let salary;
+      if (job.salary = ""){
+        salary = job.salary
+      } else {
+        salary = "N/A"
+      }
       return <div key={job.id} className="ui segment jobdetails">
-                <h4 className="ui header">
-                  Job #: {job.id} - {job.title}
-                </h4>
-                <p>{job.location}</p>
-                <p>{job.industry}</p>
-                <p>{job.description}</p>
-                <p>{job.type}</p>
-                <p>{job.experience_level}</p>
-                <p>{job.education_level}</p>
-                <p>{job.salary}</p>
-                <p>{job.starting_date}</p>
-                <p>{job.status}</p>
+                <h2 className="ui header">
+                  {job.title}
+                </h2>
+                <div className="ui grid">
+                  <div className="four wide column">
+                    <i className="icon marker"></i>
+                    <p id="field_title">{job.location}</p>
+                  </div>
+                  <div className="four wide column">
+                    <i className="icon building"></i>
+                    <p id="field_title">{job.industry}</p>
+                  </div>
+                </div>
+                <br/>
+                <div>
+                  <p>{job.description}</p>
+                </div>
+                <br/>
+                <div className="four wide column">
+                  <p id="field_title">Industry: </p>
+                  <p>{job.type}</p>
+                </div>
+                <br/>
+                <div>
+                  <p id="field_title">The successful candidate:</p>
+                  <ul>
+                    <li>{job.experience_level}</li>
+                    <li>{job.education_level}</li>
+                  </ul>
+                </div>
+                <br/>
+                <div className="four wide column">
+                  <p id="field_title">Starting Date: </p>
+                  <p>{job.starting_date}</p>
+                </div>
+                <br/>
+                <div className="four wide column">
+                  <p id="field_title">Salary: </p>
+                  <p>{salary}</p>
+                  <p>{job.salary}</p>
+                </div>
               </div>
     })
 
