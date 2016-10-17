@@ -288,7 +288,7 @@ function postOneApplicant(req,res,next){
     desired_location,
     certifications,
     languages_spoken
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *;`,
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
     [
       req.body.user_id,
       req.body.first_name,
@@ -304,6 +304,7 @@ function postOneApplicant(req,res,next){
       req.body.languages_spoken
     ])
   .then(function(data) {
+    res.rows = data[0]
     next();
   })
   .catch(function(error){
@@ -409,6 +410,24 @@ function uploadCompanyLogo(req,res,next){
 
 };
 
+function uploadProfileLogo(req,res,next){
+  req.body.filename = req.files[0].filename;
+  console.log(req.body)
+
+  req.body.filename = req.files[0].filename;
+  db.none(`update Employers set
+    company_logo = $/filename/
+    where id = $/id/`,
+      req.body)
+    .then(() => {
+      console.log('inserted event picture');
+    })
+    .catch((err) => {
+      console.error('error inserting event pic: ', err);
+    })
+
+};
+
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -428,6 +447,7 @@ module.exports.deleteUser = deleteUser;
 module.exports.showAllApplicants = showAllApplicants;
 module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;
+module.exports.uploadProfileLogo = uploadProfileLogo;
 
 // Employer Profile Form Exports
 module.exports.showAllEmployers = showAllEmployers;
