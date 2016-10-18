@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import $ from 'jquery'; // requires jQuery for AJAX request
 
 
-class Applicant_profile extends Component {
+class Matched_applicant_profile extends Component {
 
   constructor(props) {
     super(props);
@@ -19,8 +19,10 @@ class Applicant_profile extends Component {
   }
 
   componentDidMount() {
+    let applicant_id = this.props.params.id
+
    // this is where you'll get the data from the 'db'
-   $.get('/api/auth/applicant/2').done( (data)=>{
+   $.get(`/api/auth/applicant/${applicant_id}`).done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;
       this.state.desired_industry = data.desired_industry
@@ -130,23 +132,6 @@ class Applicant_profile extends Component {
           </div>
         </div>
 
-        {/* Applicant Key Search Tags */}
-        <div className="twelve wide column">
-          <h2>Key Search Tags</h2>
-
-          <div className="ui horizontal list centered aligned middle">
-            {search_tags_array}
-          </div>
-
-
-        </div>
-
-        {/* Match Button*/}
-        <div className="ui two column centered grid">
-          <button className="massive ui button">Match Your Dream Job Today</button>
-        </div>
-
-
         </div>
 
     )
@@ -159,4 +144,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps)(Applicant_profile);
+export default connect(mapStateToProps)(Matched_applicant_profile);
