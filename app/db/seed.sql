@@ -4,7 +4,7 @@ INSERT INTO ApplicantUsers (name, last_name, email, password) VALUES
 ('emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds'),
 ('emine', 'emine-last', 'emine@emine.com', '44dsdsds');
 
-INSERT INTO EmployerUsers (employer_id, name, last_name, email, password) VALUES
+INSERT INTO Employer (employer_id, name, last_name, email, password) VALUES
 (1,'jim', 'jim-last', 'jim@jim.com', '23242sdsdsds'),
 (2,'raz', 'raz-last', 'raz@raz.com', 'dsdsdsdsds'),
 (4,'emi', 'emi-last', 'emi@emi.com', 'dsdsdsdsdsdsdsds'),

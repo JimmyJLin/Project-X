@@ -1,6 +1,5 @@
 DROP TABLE if EXISTS ApplicantUsers CASCADE;
 DROP TABLE if EXISTS Employers CASCADE;
-DROP TABLE if EXISTS EmployerUsers CASCADE;
 DROP TABLE if EXISTS JTEmployersProfileAndEmployerUsers CASCADE;
 DROP TABLE if EXISTS Applicants CASCADE;
 DROP TABLE if EXISTS Jobs CASCADE;
@@ -19,6 +18,10 @@ CREATE TABLE ApplicantUsers (
 
 CREATE TABLE Employers (
   id SERIAL PRIMARY KEY UNIQUE,
+  first_name VARCHAR(200),
+  last_name VARCHAR(200),
+  email VARCHAR(200) UNIQUE,
+  password VARCHAR(200),
   company_name VARCHAR(200),
   company_address VARCHAR(200),
   company_city VARCHAR(200),
@@ -35,14 +38,6 @@ CREATE TABLE Employers (
 );
 
 
-CREATE TABLE EmployerUsers (
-  id SERIAL PRIMARY KEY UNIQUE,
-  employer_id INTEGER REFERENCES Employers (id) ON DELETE CASCADE,
-  name VARCHAR(200),
-  last_name VARCHAR(200),
-  email VARCHAR(200) UNIQUE,
-  password VARCHAR(200)
-);
 
 
 -- CREATE TABLE JTEmployersProfileAndEmployerUsers (

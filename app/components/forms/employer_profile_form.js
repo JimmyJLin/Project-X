@@ -30,7 +30,7 @@ class Employer_profile_form extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log("submit clicked")
+    console.log("submit clicked")
     let employerProfileData = {
       company_name: this.state.company_name,
       company_address: this.state.company_address,
@@ -49,8 +49,8 @@ class Employer_profile_form extends Component {
 
     }
 
-    // console.log(employerProfileData)
-    postOneEmployer(employerProfileData)
+    console.log(employerProfileData)
+    postOneEmployer(this.state)
 
 
     // this.setState({
@@ -126,18 +126,18 @@ class Employer_profile_form extends Component {
   }
 
   onDrop(acceptedFiles){
-    // console.log("acceptedFiles", acceptedFiles)
+    console.log("acceptedFiles", acceptedFiles)
 
     this.setState({
       company_files: acceptedFiles
     });
 
-    // console.log("onDrop this.state.company_files", this.state.company_files)
+    console.log("onDrop this.state.company_files", this.state.company_files)
     $('#eventDropZone').hide()
   }
 
   render(){
-    // console.log("render this.state.files", this.state.company_files)
+    console.log("render this.state.files", this.state.company_files)
 
     return(
         <div id="employer_profile_form">
@@ -149,20 +149,41 @@ class Employer_profile_form extends Component {
         <form className="ui form employer_profile_form"
         onSubmit={this.handleSubmit.bind(this)}>
 
+          <div className="ui stacked segment">
+            <h2 className="ui center aligned icon header">
+              <i className="circular users icon"></i>
+              NOT a member yet
+              <br/>
+              <p>Please signup before creating applicant profile</p>
+              <a id='employer_profile_form_signup_button' className="fluid ui button"> Sign up</a>
+            </h2>
+          </div>
+
           <div className="three fields">
-            <div className="field"></div>
-
             <div className="field">
-              <div>
-                <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-                  <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
-                </Dropzone>
 
-                {this.state.company_files.length > 0 ? <div>{this.state.company_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
+              <div >
+                <Dropzone onDrop={this.onDrop.bind(this)} id="eventDropZone">
+                  <div>Try dropping your image here, or click to select image to upload.</div>
+                </Dropzone>
+                {this.state.company_files.length > 0 ? <div>
+                  <h5>Picture uploaded</h5>
+                  <h2>Uploading {this.state.company_files.length} files ... </h2>
+                  <div>{this.state.company_files.map((file) => <img className="eventPreview" src={file.preview} /> )}</div>
+                  </div> : null}
               </div>
+
             </div>
 
+            <div className="field">
+              <img className="profile-pic" src="" />
+              <br/>
+              <input className="file-upload" name="company_logo" type="file" accept="images/*"
+              value={this.state.company_logo}
+              onChange={ e => this.onImageChange(e.target.value)}/>
+            </div>
             <div className="field"></div>
+
           </div>
 
           <div className="two fields">
@@ -311,22 +332,25 @@ class Employer_profile_form extends Component {
 
 }
 
+
+
+
 function postOneEmployer(thisstate){
   // const company_image_logo = employerProfileData.company_files
   // console.log('company_image_logo', company_image_logo)
   // console.log('employerProfileData', employerProfileData)
 
   // console.log("this.state.company_files", this.state.company_files)
-  // console.log("this.state", thisstate)
+  console.log("this.state", thisstate)
   $.post('/api/employers/new', {processData: false}, thisstate)
     .done((data) => {
-      // console.log("data.id", data.id)
-      // console.log('Employer Profile Data Posted to postOneEmployer - returned data: ', data)
+      console.log("data.id", data.id)
+      console.log('Employer Profile Data Posted to postOneEmployer - returned data: ', data)
 
       let req = request.post('/api/employers/upload');
       thisstate.company_files.forEach((file) => {
-        // console.log(req)
-        // console.log("hello from inside forEach()", file)
+        console.log(req)
+        console.log("hello from inside forEach()", file)
         req.attach(file.name, file);
         req.field('id', data.id)
       })
@@ -342,7 +366,7 @@ function postOneEmployer(thisstate){
 
     })
     .error((error) => {
-      // console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);
+      console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);
     })
 }
 
