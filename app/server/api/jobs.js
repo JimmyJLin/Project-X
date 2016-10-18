@@ -31,9 +31,11 @@ jobs.route('/job_details/:job_id')
   res.send(res.rows)
 })
 .post( db.updateJobStatus, (req, res) => {
-  console.log(req.params.job_id)
-  console.log(req.params.id)
+  res.send(res.rows)
+})
 
+jobs.route('/job_update/:job_id')
+.post( db.updateJobPost, (req, res) => {
   res.send(res.rows)
 })
 

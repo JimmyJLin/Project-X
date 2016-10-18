@@ -443,6 +443,20 @@ function updateJobStatus(req,res,next){
     })
 
 };
+
+function updateJobPost(req,res,next){
+
+  db.none(`update Jobs set status = $1 where id = $2`,
+    ['active', req.params.job_id])
+    .then(() => {
+      console.log('Updated Job Status to Active');
+      next()
+    })
+    .catch((err) => {
+      console.error('error updating job status: ', err);
+    })
+
+};
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -478,3 +492,4 @@ module.exports.showActiveJobs = showActiveJobs;
 module.exports.showArchivedJobs = showArchivedJobs;
 module.exports.getOneJob = getOneJob;
 module.exports.updateJobStatus = updateJobStatus;
+module.exports.updateJobPost = updateJobPost;
