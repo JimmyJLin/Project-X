@@ -14,6 +14,7 @@ import Applicant_profile from 'components/profiles/applicant/applicant_profile';
 import Employer_profile from 'components/profiles/employer/employer_profile';
 import Post_job from 'components/jobs/post_job';
 import List_jobs from 'components/jobs/list_jobs';
+import Archived_jobs from 'components/jobs/archived_jobs';
 import Job from 'components/jobs/job';
 
 export default function(history) {
@@ -36,6 +37,7 @@ export default function(history) {
         {/* Post New Job */}
         <Route path="/new" component={Post_job} />
         <Route path="/list_jobs" component={List_jobs} />
+        <Route path="/archived_jobs" component={Archived_jobs} />
         <Route path="jobs/job_details/:id" component={Job} />
 
 
