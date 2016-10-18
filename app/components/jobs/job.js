@@ -30,9 +30,32 @@ class Job extends Component {
 
      })
 
+
+
+  }
+
+
+  handleJobStatusChange(e) {
+    e.preventDefault();
+
+    console.log("Archive Button Clicked, captured id is: ", this.props.params.id)
+
+    let job_id = this.props.params.id
+
+    $.post(`/api/jobs/job_details/${job_id}`)
+    .done((data) => {
+        console.log('success updating job status', data)
+        window.location.replace('/employer_profile'); // redirects to profile
+      })
+      .error((error) => {
+        console.error('Posting JobStatus failed', error);
+
+      })
+
   }
 
   render(){
+
     const jobData = this.state.job_data.map(function(job){
       let salary;
       if (job.salary = ""){
@@ -84,7 +107,7 @@ class Job extends Component {
                 </div>
                 <br/>
                 <br/>
-                {/*<buton className="ui blue button">Update</buton>*/}
+
               </div>
     })
 
@@ -95,6 +118,22 @@ class Job extends Component {
         <div className="ui grid">
           <div className="twelve wide column">
             {jobData}
+
+            <div className="ui grid">
+                <div className="four wide column"></div>
+                <div className="twelve wide column">
+                    <div className="ui grid">
+                      <div className="four wide column">
+                        <buton className="ui blue button">Update</buton>
+                      </div>
+                      <div className="four wide column">
+                        <buton onClick={ this.handleJobStatusChange.bind(this)} className="ui red button">Archive</buton>
+                      </div>
+                    </div>
+                </div>
+                <div className=" four widecolumn"></div>
+            </div>
+
           </div>
           <div className="four wide column">
             <div className="ui segment match">
