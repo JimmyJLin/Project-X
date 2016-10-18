@@ -136,17 +136,6 @@ function loginApplicantUser(req, res, next) {
     })
 }
 
-function applicantProfile(req,res,next) {
-
-  db.one("select * from ApplicantUsers where id = $1)",
-  [ req.params.id ])
-  .then(function(data) {
-    next();
-  })
-  .catch(function(error){
-    console.error(error);
-  })
-};
 
 // User Auth Queries -  CREATE AN ACCOUNT
 function createSecure(email, password,callback) {
@@ -209,11 +198,23 @@ function showAllJobs(req,res,next){
   })
 };
 
-function showOneJob(req,res,next){
-  db.any('select * from Jobs where employer_id = $1;', [req.params.employer_id] )
+function showActiveJobs(req,res,next){
+  db.any('select * from Jobs where employer_id = $1 and status = $2 ;', [req.params.employer_id, 'active'] )
   .then(function(data) {
     res.rows= data;
     console.log('this should show one Job', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showArchivedJobs(req,res,next){
+  db.any('select * from Jobs where employer_id = $1 and status = $2 ;', [req.params.employer_id, 'archived'] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show archived Job', data)
     next();
   })
   .catch(function(error){
@@ -428,6 +429,20 @@ function uploadProfileLogo(req,res,next){
 
 };
 
+
+function updateJobStatus(req,res,next){
+
+  db.none(`update Jobs set status = $1 where id = $2`,
+    ['archived', req.params.job_id])
+    .then(() => {
+      console.log('Updated Job Status to Archived');
+      next()
+    })
+    .catch((err) => {
+      console.error('error updating job status: ', err);
+    })
+
+};
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -459,5 +474,7 @@ module.exports.uploadCompanyLogo = uploadCompanyLogo;
 // Job Exports
 module.exports.showAllJobs = showAllJobs;
 module.exports.postAJob = postAJob;
-module.exports.showOneJob = showOneJob;
+module.exports.showActiveJobs = showActiveJobs;
+module.exports.showArchivedJobs = showArchivedJobs;
 module.exports.getOneJob = getOneJob;
+module.exports.updateJobStatus = updateJobStatus;

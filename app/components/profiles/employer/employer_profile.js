@@ -23,25 +23,37 @@ class Employer_profile extends Component {
       company_industry: '',
       company_branch: '',
       company_logo: '',
-      job_openings: ''
+      active_jobs: '',
+      archived_jobs: ''
     }
 
   }
 
   componentDidMount() {
 
-    // get employer job data
-    $.get('/api/jobs/1').done( (data)=>{
-      console.log('job data: ', data)
-      console.log('job data: ', data.length)
-      this.state.job_openings = data.length
+    // fetch employer posted jobs with status active
+    $.get('/api/jobs/active/1').done( (data)=>{
+      this.state.active_jobs = data.length
 
        this.setState({
-         job_openings: this.state.job_openings
+         active_jobs: this.state.active_jobs
 
        })
-
+       console.log("this.state.active_jobs", this.state.active_jobs)
      })
+
+     // fetch employer posted jobs with status archived
+     $.get('/api/jobs/archived/1').done( (data)=>{
+       console.log('job data: ', data)
+       console.log('job data: ', data.length)
+       this.state.archived_jobs = data.length
+
+        this.setState({
+          archived_jobs: this.state.archived_jobs
+
+        })
+        console.log("this.state.archived_jobs", this.state.archived_jobs)
+      })
 
 
    //  get employer profile data
@@ -95,7 +107,7 @@ class Employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={"../images/company_logo/" + this.state.company_logo} alt="Company Logo"/>
+              <img className="ui small circular image" src={this.state.company_logo} alt="Company Logo"/>
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">
@@ -190,23 +202,16 @@ class Employer_profile extends Component {
 
                     <div className="item">
                       <div className="right floated content">
-                        <Link to="/list_jobs">{this.state.job_openings}</Link>
+                        <Link to="/list_jobs">{this.state.active_jobs}</Link>
                       </div>
                       <div className="content">Open</div>
                     </div>
 
                     <div className="item">
                       <div className="right floated content">
-                        <a href="#">0</a>
+                        <Link to="/archived_jobs">{this.state.archived_jobs}</Link>
                       </div>
-                      <div className="content">Paused</div>
-                    </div>
-
-                    <div className="item">
-                      <div className="right floated content">
-                        <a href="#">0</a>
-                      </div>
-                      <div className="content">Closed</div>
+                      <div className="content">Archived</div>
                     </div>
 
                   </div>

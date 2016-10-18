@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 
 
-class List_jobs extends Component {
+class Archived_jobs extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,7 @@ class List_jobs extends Component {
 
   componentDidMount() {
     // get employer job data
-    $.get('/api/jobs/active/1').done( (data)=>{
+    $.get('/api/jobs/archived/1').done( (data)=>{
       this.state.job_data = data
        this.setState({
          job_data: this.state.job_data
@@ -39,7 +39,7 @@ class List_jobs extends Component {
 
     return(
       <div id="list_jobs">
-        <h1>Current Active Job Lists</h1>
+        <h1>Current Archived Job Lists</h1>
         <div className="ui fluid cards">
           {jobs}
         </div>
@@ -55,4 +55,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps)(List_jobs);
+export default connect(mapStateToProps)(Archived_jobs);
