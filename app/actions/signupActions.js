@@ -1,17 +1,19 @@
 import axios from 'axios';
+const $ = require('jquery');
+
 
 // APPLICANT USERS
 export function userSignupRequest(userData) {
   return dispatch => {
     console.log('this is the data sended to signup route from the sign up action', userData);
 
-    return axios.post('/api/auth/applicant/signup', userData);
+    return $.post('/api/auth/applicant/signup', userData);
   }
 }
 
 export function isUserExists(identifier) {
   return dispatch => {
-    return axios.get(`/api/auth/applicant/${identifier}`);
+    return $.get(`/api/auth/applicant/${identifier}`);
   }
 }
 
@@ -20,12 +22,14 @@ export function employerSignupRequest(userData) {
   return dispatch => {
     console.log('Employer Sign up Request sent data', userData);
 
-    return axios.post('/api/auth/employer/signup', userData);
+    return $.post('/api/auth/employer/signup', userData).done(()=>{
+      console.log('employerUser is added')
+    });
   }
 }
 
 export function isEmployerUserExists(identifier) {
   return dispatch => {
-    return axios.get(`/api/auth/employer/${identifier}`);
+    return $.get(`/api/auth/employer/${identifier}`);
   }
 }

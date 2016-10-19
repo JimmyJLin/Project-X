@@ -41,7 +41,7 @@ auth.route('/employer/signup')
     res.send(res.rows);
   })
   .post( db.createEmployerUser, ( req, res ) => {
-    console.log('request us receieved', req )
+    console.log('request us received', req )
     res.status( 201 ).json( { data: 'success' } );
   });
 
@@ -51,7 +51,8 @@ auth.post('/employer/login', db.loginEmployerUser, ( req, res ) => {
   res.json( { agent: res.rows, token: token } );
 })
 
-auth.route('/employer/:uid')
+
+auth.route('/employer/:identifier')
 .get( db.employerProfile, (req, res) => {
   res.send(res.rows);
 })
