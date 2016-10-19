@@ -20,17 +20,126 @@ const cn = {
 
 const db = pgp(cn);
 
-function showallusers(req, res, next) {
-  db.any('select * from Users;')
+
+// Employer User Auth
+function showAllEmployerUsers(req, res, next) {
+  db.any('select * from EmployerUsers;')
   .then(function(data) {
     res.rows= data;
-    console.log('this should show all Users;', data)
+    console.log('this should show all Employer Users;', data)
     next();
   })
   .catch(function(error){
     console.error(error);
   })
 };
+
+function createEmployerUser(req, res, next) {
+  createSecure(req.body.email, req.body.password, saveUser);
+  console.log(req.body, 'req.body')
+
+  function saveUser(email, hash) {
+    db.none("INSERT INTO Employers (email, password, first_name, last_name, company_name, company_address, company_city, company_state, company_zip, company_website) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10);",
+    [email, hash, req.body.first_name, req.body.last_name, req.body.company_name, req.body.company_address,
+    req.body.company_city, req.body.company_state, req.body.company_zip, req.body.company_website])
+    .then(function (data) {
+        // success;
+        console.log('New Employer added')
+        next();
+      })
+      .catch(function () {
+        // error;
+        console.error('error on Employer signing up');
+      });
+
+  }
+}
+
+
+function loginEmployerUser(req, res, next) {
+  var email = req.body.email
+  var password = req.body.password
+
+  db.one("SELECT * FROM Employers WHERE email LIKE $1;", [email])
+    .then((data) => {
+      if (bcrypt.compareSync(password, data.password)) {
+        res.rows = data
+        next()
+      } else {
+        res.status(401).json({data:"Fool this no workie"})
+        next()
+      }
+    })
+    .catch(() => {
+      console.error('error finding users loginEmployerUser')
+    })
+}
+
+function employerProfile(req,res,next){
+  db.one("select * from Employers where email = $1",
+  [ req.params.identifier ])
+  .then(function(data) {
+    res.rows= data;
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
+
+// Applicant User Auth
+function showallApplicantUsers(req, res, next) {
+  db.any('select * from ApplicantUsers;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show all Applicant Users;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function createApplicantUser(req, res, next) {
+  console.log('req.body from post request', req.body)
+
+  createSecure(req.body.email, req.body.password, saveUser);
+
+  function saveUser(email, hash) {
+    db.none("INSERT INTO ApplicantUsers (email, password, type, name, last_name) VALUES ($1, $2, $3,$4,$5);", [email, hash, req.body.type, req.body.name, req.body.last_name])
+    .then(function (data) {
+      // success;
+      console.log('New Applicant User added', data)
+      next();
+    })
+    .catch(function () {
+      // error;
+      console.error('error signing up create ApplicantUser');
+    });
+  }
+}
+
+function loginApplicantUser(req, res, next) {
+  var email = req.body.email
+  var password = req.body.password
+  console.log(req.body, 'loginApplicantUser')
+  db.one("SELECT * FROM ApplicantUsers WHERE email LIKE $1;", [email])
+    .then((data) => {
+      if (bcrypt.compareSync(password, data.password)) {
+        res.rows = data
+        console.log('res.rows', data)
+        next()
+      } else {
+        res.status(401).json({data:"Fool this no workie"})
+        next()
+      }
+    })
+    .catch(() => {
+      console.error('error finding users loginApplicantUser')
+    })
+}
+
 
 // User Auth Queries -  CREATE AN ACCOUNT
 function createSecure(email, password,callback) {
@@ -45,57 +154,6 @@ function createSecure(email, password,callback) {
     })
   })
 }
-
-function createUser(req, res, next) {
-  console.log('req.body from post request', req.body)
-
-  createSecure(req.body.email, req.body.password, saveUser);
-
-  function saveUser(email, hash) {
-    db.none("INSERT INTO Users (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
-    .then(function (data) {
-      // success;
-      console.log('New User added')
-      next();
-    })
-    .catch(function () {
-      // error;
-      console.error('error signing up');
-    });
-  }
-}
-// User Auth Queries -  LOGIN AN ACCOUNT
-
-function loginUser(req, res, next) {
-  var email = req.body.email
-  var password = req.body.password
-
-  db.one("SELECT * FROM Users WHERE email LIKE $1;", [email])
-    .then((data) => {
-      if (bcrypt.compareSync(password, data.password)) {
-        res.rows = data
-        next()
-      } else {
-        res.status(401).json({data:"Fool this no workie"})
-        next()
-      }
-    })
-    .catch(() => {
-      console.error('error finding users')
-    })
-}
-
-function userProfile(req,res,next) {
-
-  db.one("select * from Users where id = $1)",
-  [ req.params.id ])
-  .then(function(data) {
-    next();
-  })
-  .catch(function(error){
-    console.error(error);
-  })
-};
 
 
 // User Auth Queries -  UPDATE A USER ACCOUNT
@@ -144,11 +202,23 @@ function showAllJobs(req,res,next){
   })
 };
 
-function showOneJob(req,res,next){
-  db.any('select * from Jobs where id = $1;', [req.params.job_id] )
+function showActiveJobs(req,res,next){
+  db.any('select * from Jobs where employer_id = $1 and status = $2 ;', [req.params.employer_id, 'active'] )
   .then(function(data) {
     res.rows= data;
     console.log('this should show one Job', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showArchivedJobs(req,res,next){
+  db.any('select * from Jobs where employer_id = $1 and status = $2 ;', [req.params.employer_id, 'archived'] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should show archived Job', data)
     next();
   })
   .catch(function(error){
@@ -209,19 +279,7 @@ function showOneApplicant(req,res,next){
 };
 
 function postOneApplicant(req,res,next){
-
-  // const languages_spoken_split = req.body.languages_spoken.slice(1, -1)
-  // const desired_location = req.body.desired_location;
-  // const certifications = req.body.certifications;
-  // const languages_spoken = req.body.languages_spoken;
-
-  console.log("req.body", req)
-  // console.log("logging req.body.languages_spoken", req.body.languages_spoken)
-  // console.log("languages_spoken_split", languages_spoken_split)
-  //
-  // console.log("logging req.body.first_name", req.body.first_name)
-
-
+  console.log("req.body", req.body)
   db.any(`INSERT INTO Applicants  (
     user_id,
     first_name,
@@ -235,7 +293,7 @@ function postOneApplicant(req,res,next){
     desired_location,
     certifications,
     languages_spoken
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *;`,
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
     [
       req.body.user_id,
       req.body.first_name,
@@ -251,7 +309,7 @@ function postOneApplicant(req,res,next){
       req.body.languages_spoken
     ])
   .then(function(data) {
-    console.log('success languages_spoken',data.languages_spoken);
+    res.rows = data[0]
     next();
   })
   .catch(function(error){
@@ -259,17 +317,183 @@ function postOneApplicant(req,res,next){
   })
 };
 
-module.exports.createUser = createUser;
-module.exports.loginUser = loginUser;
-module.exports.editUser = editUser;
-module.exports.deleteUser = deleteUser;
-module.exports.showallusers = showallusers;
+
+// Applicant queries
+
+function showAllEmployers(req,res,next){
+  db.any('select * from Employers;')
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show all Employers;', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function showOneEmployer(req,res,next){
+  db.any('select * from Employers where id = $1;', [req.params.employer_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('Show one Employers', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function postOneEmployer(req,res,next){
+
+  db.any(`INSERT INTO Employers  (
+    company_name,
+    company_address,
+    company_city,
+    company_state,
+    company_zip,
+    company_description,
+    company_website,
+    company_phone_number,
+    company_email,
+    company_size,
+    company_industry,
+    company_branch
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
+    [
+      req.body.company_name,
+      req.body.company_address,
+      req.body.company_city,
+      req.body.company_state,
+      req.body.company_zip,
+      req.body.company_description,
+      req.body.company_website,
+      req.body.company_phone_number,
+      req.body.company_email,
+      req.body.company_size,
+      req.body.company_industry,
+      req.body.company_branch
+    ])
+  .then(function(data) {
+    res.rows = data[0]
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+
+// get one Job based on job_id
+function getOneJob(req,res,next){
+  db.any('select * from Jobs where id = $1;', [req.params.job_id] )
+  .then(function(data) {
+    res.rows= data;
+    console.log('this should get one Job', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+function uploadCompanyLogo(req,res,next){
+  req.body.filename = req.files[0].filename;
+  console.log(req.body)
+
+  req.body.filename = req.files[0].filename;
+  db.none(`update Employers set
+    company_logo = $/filename/
+    where id = $/id/`,
+      req.body)
+    .then(() => {
+      console.log('inserted event picture');
+    })
+    .catch((err) => {
+      console.error('error inserting event pic: ', err);
+    })
+
+};
+
+function uploadProfileLogo(req,res,next){
+  req.body.filename = req.files[0].filename;
+  console.log(req.body)
+
+  req.body.filename = req.files[0].filename;
+  db.none(`update Employers set
+    company_logo = $/filename/
+    where id = $/id/`,
+      req.body)
+    .then(() => {
+      console.log('inserted event picture');
+    })
+    .catch((err) => {
+      console.error('error inserting event pic: ', err);
+    })
+
+};
+
+
+function updateJobStatus(req,res,next){
+
+  db.none(`update Jobs set status = $1 where id = $2`,
+    ['archived', req.params.job_id])
+    .then(() => {
+      console.log('Updated Job Status to Archived');
+      next()
+    })
+    .catch((err) => {
+      console.error('error updating job status: ', err);
+    })
+
+};
+
+function updateJobPost(req,res,next){
+
+  db.none(`update Jobs set status = $1 where id = $2`,
+    ['active', req.params.job_id])
+    .then(() => {
+      console.log('Updated Job Status to Active');
+      next()
+    })
+    .catch((err) => {
+      console.error('error updating job status: ', err);
+    })
+
+};
+// Employer user_auth exports
+module.exports.showAllEmployerUsers = showAllEmployerUsers;
+module.exports.createEmployerUser = createEmployerUser;
+module.exports.loginEmployerUser = loginEmployerUser;
+module.exports.employerProfile = employerProfile;
+
+// Applicant user_auth exports
+module.exports.showallApplicantUsers = showallApplicantUsers;
+module.exports.createApplicantUser = createApplicantUser;
+module.exports.loginApplicantUser = loginApplicantUser;
 module.exports.applicantProfile = applicantProfile;
 
-module.exports.showAllJobs = showAllJobs;
-module.exports.postAJob = postAJob;
-module.exports.showOneJob = showOneJob;
+module.exports.editUser = editUser;
+module.exports.deleteUser = deleteUser;
 
+// Applicant Profile Form exports
 module.exports.showAllApplicants = showAllApplicants;
 module.exports.postOneApplicant = postOneApplicant;
 module.exports.showOneApplicant = showOneApplicant;
+module.exports.uploadProfileLogo = uploadProfileLogo;
+
+// Employer Profile Form Exports
+module.exports.showAllEmployers = showAllEmployers;
+module.exports.postOneEmployer = postOneEmployer;
+module.exports.showOneEmployer = showOneEmployer;
+module.exports.uploadCompanyLogo = uploadCompanyLogo;
+
+
+// Job Exports
+module.exports.showAllJobs = showAllJobs;
+module.exports.postAJob = postAJob;
+module.exports.showActiveJobs = showActiveJobs;
+module.exports.showArchivedJobs = showArchivedJobs;
+module.exports.getOneJob = getOneJob;
+module.exports.updateJobStatus = updateJobStatus;
+module.exports.updateJobPost = updateJobPost;

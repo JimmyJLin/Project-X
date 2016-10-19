@@ -1,6 +1,9 @@
 @import "intro";
 @import "profiles";
 @import "forms";
+@import "card_view";
+@import "detailView";
+
 
 $primary_background_color: transparent;
 
@@ -8,4 +11,10 @@ $primary_background_color: transparent;
 
 body {
   font-family: Arial;
+}
+
+.forwardlogin{
+  padding-left:20%;
+  padding-right:20%;
+  padding-top:10%;
 }

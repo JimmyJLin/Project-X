@@ -18,6 +18,21 @@ $job_primary_background_color: #f2f2f2;
 
 
 #employer_profile_form, #applicant_profile_form{
+  .ui.segment{
+    height: 200px;
+    width: 200px;
+
+    .ui.header{
+      text-align: center;
+    }
+
+  }
+
+  .profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+  }
 
   padding-top: 75px;
   h1, h4, p{

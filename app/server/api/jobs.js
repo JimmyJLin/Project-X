@@ -6,7 +6,7 @@ const jobs = express.Router();
 
 const db = require('../../db/db_apex');
 
-jobs.route('/')
+jobs.route('/new')
 .get(db.showAllJobs, (req, res) => {
   res.send(res.rows);
 })
@@ -15,10 +15,30 @@ jobs.route('/')
   res.status( 201 ).json( { data: 'success' } );
 });
 
-jobs.route('/:job_id')
-.get( db.showOneJob, (req, res) => {
+jobs.route('/active/:employer_id')
+.get( db.showActiveJobs, (req, res) => {
   res.send(res.rows);
 });
+
+jobs.route('/archived/:employer_id')
+.get( db.showArchivedJobs, (req, res) => {
+  res.send(res.rows);
+});
+
+
+jobs.route('/job_details/:job_id')
+.get( db.getOneJob, (req, res) => {
+  res.send(res.rows)
+})
+.post( db.updateJobStatus, (req, res) => {
+  res.send(res.rows)
+})
+
+jobs.route('/job_update/:job_id')
+.post( db.updateJobPost, (req, res) => {
+  res.send(res.rows)
+})
+
 
 
 

@@ -1,0 +1,36 @@
+
+
+#list_jobs, #job_details{
+  h1{
+    text-align: center;
+  }
+  padding-top: 75px;
+  margin-left: 25px;
+  margin-right: 25px;
+
+  .ui.piled.segment.jobdetails{
+    margin-left: 75px;
+    margin-right: 75px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .ui.fluid.cards{
+    .card{
+      height: 250px;
+      width: 400px;
+
+      .truncate{
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+
+
+
+
+}

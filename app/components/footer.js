@@ -8,7 +8,7 @@ export default class Footer extends Component {
 
       <div id="footer">
 
-        <p>&copy; 2016 APEX.  All rights reserved</p>
+        <p>&copy; 2016 AtlasCV.  All rights reserved</p>
 
       </div>
 

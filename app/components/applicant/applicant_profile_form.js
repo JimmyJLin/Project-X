@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 
 let languageState = [];
 let certificateState = [];
@@ -26,17 +28,20 @@ class Applicant_profile_form extends Component {
       profile_image:'',
       certificationsArry: [],
       languages_spokenArry:[],
-      desired_locationArry:[]
+      desired_locationArry:[],
+      profile_files: []
     }
 
   }
 
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-    const user_id = '4'
+    const applicant_id = localStorage.id
+    console.log('applicant_id', applicant_id)
     let applicantProfileData = {
-      user_id: user_id,
+      user_id: applicant_id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
@@ -46,7 +51,9 @@ class Applicant_profile_form extends Component {
       certifications: this.state.certifications,
       languages_spoken: this.state.languages_spoken,
       resume_pdf: this.state.resume_pdf,
-      profile_image: this.state.profile_image
+      profile_image: this.state.profile_image,
+      profile_files: this.state.profile_files
+
     }
     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
 
@@ -56,9 +63,10 @@ class Applicant_profile_form extends Component {
     var final_languages = "{";
 
     langArr.forEach(function(el){
-       final_languages = final_languages + "\"" + el + '\",';
        if( el === langArr[langArr.length -1]) {
          final_languages = final_languages + "\"" + el + '\"}';
+       } else {
+         final_languages = final_languages + "\"" + el + '\",';
        }
        applicantProfileData.languages_spoken = final_languages;
        console.log("final_languages", final_languages)
@@ -69,9 +77,10 @@ class Applicant_profile_form extends Component {
     var final_cert = "{";
 
     certArr.forEach(function(el){
-       final_cert = final_cert + "\"" + el + '\",';
        if( el === certArr[certArr.length-1]) {
          final_cert = final_cert + "\"" + el + '\"}';
+       } else {
+         final_cert = final_cert + "\"" + el + '\",';
        }
        applicantProfileData.certifications = final_cert;
        console.log("certifications", final_cert)
@@ -82,32 +91,35 @@ class Applicant_profile_form extends Component {
   var final_desired_location = "{";
 
   desired_locationArr.forEach(function(el){
-     final_desired_location = final_desired_location + "\"" + el + '\",';
      if( el === desired_locationArr[desired_locationArr.length-1] ) {
        final_desired_location = final_desired_location + "\"" + el + '\"}';
+     } else {
+       final_desired_location = final_desired_location + "\"" + el + '\",';
      }
      applicantProfileData.desired_location = final_desired_location;
      console.log("locations", final_desired_location)
      console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
   })
 
-
+    console.log("Line 102 - applicantProfileData", applicantProfileData)
     postOneApplicant(applicantProfileData)
 
-    this.setState({
-      user_id:'',
-      first_name:'',
-      last_name:'',
-      desired_industry:'',
-      desired_location:[],
-      education_level:'',
-      experience_level:'',
-      certifications:[],
-      languages_spoken:[],
-      resume_pdf:'',
-      profile_image:'',
-      testLanguage: []
-    })
+    // this.setState({
+    //   user_id:'',
+    //   first_name:'',
+    //   last_name:'',
+    //   desired_industry:'',
+    //   desired_location:[],
+    //   education_level:'',
+    //   experience_level:'',
+    //   certifications: [],
+    //   languages_spoken:[],
+    //   resume_pdf:'',
+    //   profile_image:'',
+    //   certificationsArry: [],
+    //   languages_spokenArry:[],
+    //   desired_locationArry:[]
+    // })
 
   }
 
@@ -154,9 +166,19 @@ class Applicant_profile_form extends Component {
     this.setState({desired_location: locationState})
   }
 
+  onDrop(acceptedFiles){
+    // console.log("acceptedFiles", acceptedFiles)
+
+    this.setState({
+      profile_files: acceptedFiles
+    });
+
+    // console.log("onDrop this.state.profile_files", this.state.profile_files)
+    $('#eventDropZone').hide()
+  }
+
   render(){
     const { currentValue, currentValues } = this.state
-
     return(
         <div id="applicant_profile_form">
 
@@ -164,29 +186,18 @@ class Applicant_profile_form extends Component {
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
-            <div className="ui stacked segment">
-              <h2 className="ui center aligned icon header">
-                <i className="circular users icon"></i>
-                NOT a member yet
-                <br/>
-                <p>Please signup before creating applicant profile</p>
-                <a id='applicant_profile_signup_button' className="fluid ui button"> Sign up</a>
-              </h2>
-            </div>
-
             <div className="ui divider"></div>
-
-            <div className="two fields">
+            <div className="three fields">
+              <div className="field"></div>
               <div className="field">
-                <label>First Name</label>
-                <input name="first_name" type="text" value={this.state.first_name}
-                onChange={e => this.onFirstNameChange(e.target.value)}/>
+              <div>
+                <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
+                  <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
+                </Dropzone>
+                {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
               </div>
-              <div className="field">
-                <label name="last_name">Last Name</label>
-                <input type="text" value={this.state.last_name}
-                onChange={e => this.onLastNameChange(e.target.value)}/>
               </div>
+              <div className="field"></div>
             </div>
 
             <div className="two fields">
@@ -289,9 +300,13 @@ class Applicant_profile_form extends Component {
             <div className="two fields">
               <div className="field">
                 <label>Upload Profile Picture</label>
-                <input type="file" name="profile_image" accept="image/gif, image/jpeg"
+
+                <img className="profile-pic" src="" />
+                <br/>
+                <input className="file-upload" name="profile_image" type="file" accept="images/*"
                 value={this.state.profile_image}
                 onChange={ e => this.onProfileImageChange(e.target.value)}/>
+
               </div>
 
               <div className="field">
@@ -330,9 +345,25 @@ class Applicant_profile_form extends Component {
 
 function postOneApplicant(applicantProfileData){
   console.log('postOneApplicant Function data: ', applicantProfileData)
-  $.post('/api/applicants/new', applicantProfileData)
+  $.post('/api/applicants/new', {processData: false}, applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
+
+      let req = request.post('/api/applicants/upload');
+      applicantProfileData.profile_files.forEach((file) => {
+        // console.log(req)
+        console.log("hello from inside forEach()", file)
+        req.attach(file.name, file);
+        req.field('id', data.id)
+      })
+      req.end(function(err, res){
+        if (err || !res.ok) {
+          alert('Oh no! error');
+        } else {
+          alert('yay got ' + JSON.stringify(res.body));
+        }
+      })
+
     })
     .error((error) => {
       console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);

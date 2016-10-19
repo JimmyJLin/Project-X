@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../../headermenu';
-import Footer from '../../footer';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
 
@@ -21,8 +19,11 @@ class Applicant_profile extends Component {
   }
 
   componentDidMount() {
+    const applicant_id = localStorage.id
+
    // this is where you'll get the data from the 'db'
-   $.get('/api/auth/2').done( (data)=>{
+   const url = '/api/auth/applicant/' + applicant_id
+   $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;
       this.state.desired_industry = data.desired_industry
@@ -145,7 +146,9 @@ class Applicant_profile extends Component {
 
         {/* Match Button*/}
         <div className="ui two column centered grid">
-          <button className="massive ui button">Match Your Dream Job Today</button>
+          <Link to="/list_match">
+            <button className="massive ui button">Match Your Dream Job Today</button>
+          </Link>
         </div>
 
 

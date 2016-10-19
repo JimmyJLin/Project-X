@@ -1,111 +1,98 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import {browserHistory} from 'react-router';
-import $ from 'jquery'; // requires jQuery for AJAX request
+import React from 'react';
+import TextFieldGroup from '../common/TextFieldGroup';
+import validateInput from './../../server/shared/validations/login';
+import { connect } from 'react-redux';
+import { login_employer } from '../../actions/authActions';
 
 
-export default class Employer_login extends Component {
+class EmploymentLoginForm extends React.Component {
 
   constructor(props) {
-  super(props);
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      errors: {},
+      isLoading: false
+    };
 
-    this.state = { // sets initial states
-      email : '',
-      password : '',
-      error : '',
-    }
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  render(){
-    return(
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
 
-      <div>
+    if (!isValid) {
+      this.setState({ errors });
+    }
 
-        <div className="ui small modal employer login">
-          <i className="close icon"></i>
-          <div className="header">
-            Employer Login
-          </div>
+    return isValid;
+  }
 
-          <div id="loginForm">
 
-            <form onSubmit={this.handleSubmit.bind(this)}  className="ui form">
-              <div className="field">
-                <label>Email</label>
-                <input
-                value={this.state.email}
-                onChange={event => this.onEmailChange(event.target.value)}
-                type="email"
-                placeholder="email"
-                />
-              </div>
-              <div className="field">
-                <label>Password</label>
-                <input
-                value={this.state.password}
-                onChange={event => this.onPasswordChange(event.target.value)}
-                type="password"
-                placeholder="password"
-                />
-              </div>
+  onSubmit(e) {
+    e.preventDefault();
+    console.log('login this.state vefore validate', this.state)
 
-              <a href="/employer_profile">
-                <button className="ui button" type="submit">Sign In</button>
-              </a>
+    // if (this.isValid()) {
+      console.log('login this.state', this.state)
+      this.setState({ errors: {}, isLoading: true });
+      this.props.login_employer(this.state).then(
+        (res) => this.context.router.push('/employer_profile'),
+        (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
+      );
+    // }
+  }
 
-            </form>
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-            <br/>
+  render() {
+    const { errors, email, password, isLoading } = this.state;
 
-            <p>Not a member yet ... <a id="employer_signup_button">Sign Up</a> </p>
+    return (
 
-          </div>
+      <form className="ui form" onSubmit={this.onSubmit}>
+        <h1>Employer Login</h1>
 
+        { errors.form && <div className="alert">{errors.form}</div> }
+
+        <div className="field">
+        <TextFieldGroup
+          field="email"
+          label="Email"
+          value={email}
+          error={errors.email}
+          onChange={this.onChange}
+        />
         </div>
+        <div className="field">
+        <TextFieldGroup
+          field="password"
+          label="Password"
+          value={password}
+          error={errors.password}
+          onChange={this.onChange}
+          type="password"
+        />
+        </div>
+        <button className="ui button" disabled={isLoading}>Login
+        </button>
+        <br/><br/>
+      </form>
+    );
+  }
+}
 
 
-      </div>
-
-    )
+  EmploymentLoginForm.propTypes = {
+    login_employer: React.PropTypes.func.isRequired
   }
 
+  EmploymentLoginForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
 
-    onEmailChange(email) {
-      this.setState({email}); // updates username state
-    }
-
-    onPasswordChange(password) {
-    this.setState({password}); // updates password state
-   }
-
-   handleSubmit(event) {
-    event.preventDefault()
-    let error = 'Oops, please check your email or password';
-
-    if (this.state.email == '' || this.state.password == '') { // checks for real email/password
-      this.setState({error:error})
-    }
-
-    const userInfo = {
-      email:this.state.email,
-      password: this.state.password,
-    }
-
-    $.post('/api/auth/login', userInfo)
-      .done((data) => {
-        console.log(data)
-        if (data.agent == 'error') { // if username/password doesn't match
-        this.setState({error:error})
-      } else {
-        localStorage.token = data.token; // saves token to local storage
-        browserHistory.push('/'); // redirects to home
-        console.log('You are signed in')
-        window.location.assign("/employer_profile")
-      }
-      })
-      .error((error) => {
-        console.error('sign in action is failed', error);
-      })
-    }
-
-}
+  export default connect(null, { login_employer })(EmploymentLoginForm);
