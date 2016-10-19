@@ -32,9 +32,13 @@ import Post_job from 'components/jobs/post_job';
 import List_jobs from 'components/jobs/list_jobs';
 import Archived_jobs from 'components/jobs/archived_jobs';
 import Job from 'components/jobs/job';
+
+import List_match from 'components/applicants/list_match';
+
 import List_matched_applicants from 'components/applicants/list_matched_applicants';
 import Matched_applicant from 'components/applicants/matched_applicant_profile';
-
+import List_matched_employers from 'components/applicants/list_matched_employers';
+import Matched_employer from 'components/applicants/matched_employer_profile';
 
 
 
@@ -64,8 +68,11 @@ export default function(history) {
         <Route path="/jobs/job_details/:id" component={Job} />
 
         {/* Matching */}
-        <Route path="/list_matched_applicants" component={List_matched_applicants} />
+        <Route path="/list_matched_applicants" component={List_match} />
         <Route path="/list_matched_applicants/:id" component={Matched_applicant} />
+
+        <Route path="/list_match" component={List_match} />
+        <Route path="/list_matched_employers/:id" component={Matched_employer} />
 
         <IndexRoute component={Main} />
       </Route>

@@ -15,6 +15,20 @@
     padding-right: 25px;
   }
 
+  .ui.fluid.cards{
+    .card{
+      height: 250px;
+      width: 400px;
+
+      .truncate{
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
 
 
 
