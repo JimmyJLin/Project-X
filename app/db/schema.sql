@@ -50,8 +50,6 @@ CREATE TABLE Employers (
 CREATE TABLE Applicants (
   id SERIAL PRIMARY KEY UNIQUE,
   user_id INTEGER REFERENCES ApplicantUsers (id) ON DELETE CASCADE,
-  first_name VARCHAR(200),
-  last_name VARCHAR(200),
   desired_industry text,
   desired_location text[],
   education_level VARCHAR(200),
