@@ -9,7 +9,7 @@ let languageState = [];
 let certificateState = [];
 let locationState = [];
 
-class Applicant_profile_form extends Component {
+class NOTApplicant_profile_form extends Component {
 
   constructor(props) {
     super(props);
@@ -374,4 +374,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps)(Applicant_profile_form);
+export default connect(mapStateToProps)(NOTApplicant_profile_form);

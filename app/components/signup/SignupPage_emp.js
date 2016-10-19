@@ -8,6 +8,7 @@ import { addFlashMessage } from '../../actions/flashMessages.js';
 
 class SignupPage_emp extends React.Component {
   render() {
+    const { employerSignupRequest, addFlashMessage, isEmployerUserExists } = this.props;
     return (
       <div className="forwardlogin">
       <EmployerSignupForm

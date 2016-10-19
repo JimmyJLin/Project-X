@@ -17,7 +17,7 @@ import SignupPage_emp from 'components/signup/SignupPage_emp';
 import LoginPage from 'components/login/LoginPage';
 import LoginPage_emp from 'components/login/LoginPage_emp';
 
-import Applicant_profile_form from 'components/applicant/new_applicant_page';
+import Applicant_profile_form from 'components/applicant/applicant_profile_form';
 import Employer_profile_form from 'components/employers/employer_profile_form';
 import Applicant_profile from 'components/profiles/applicant/applicant_profile';
 import Employer_profile from 'components/profiles/employer/employer_profile';
