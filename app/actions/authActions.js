@@ -27,7 +27,7 @@ export function login(data) {
   return dispatch => {
     return $.post('/api/auth/applicant/login', data)
       .done( (data)=> {
-        console.log('agent data', data.agent)
+        console.log('agent data', data)
       let token = data.token;
       let user = data.agent;
       let id = user.id;

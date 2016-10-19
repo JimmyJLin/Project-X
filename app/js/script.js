@@ -1,6 +1,6 @@
 $(function(){
   console.log('script file loaded')
-
+  console.log('localStorage', localStorage.id)
   // loader
   $('.ui.segment.loader').dimmer('show');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import SignupForm from './SignupForm';
+import SignupForm from  '../user_auth/applicant_signup';
 import { connect } from 'react-redux';
 import { userSignupRequest, isUserExists } from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages.js';
@@ -8,13 +8,11 @@ class SignupPage extends React.Component {
   render() {
     const { userSignupRequest, addFlashMessage, isUserExists } = this.props;
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <SignupForm
-            isUserExists={isUserExists}
-            userSignupRequest={userSignupRequest}
-            addFlashMessage={addFlashMessage} />
-        </div>
+      <div className="forwardlogin">
+        <SignupForm
+          isUserExists={isUserExists}
+          userSignupRequest={userSignupRequest}
+          addFlashMessage={addFlashMessage} />
       </div>
     );
   }

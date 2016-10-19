@@ -10,7 +10,6 @@ import requireAuth_emp from '../utils/requireAuth_emp';
 
 import App from 'containers/App';
 import Main from 'containers/Main';
-import About_us from 'containers/about_us';
 
 import SignupPage from 'components/signup/SignupPage';
 import SignupPage_emp from 'components/signup/SignupPage_emp';
