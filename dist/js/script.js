@@ -64,13 +64,13 @@ $(function(){
   })
 
   $('#employer_profile_login_button').on('click', function(){
-    console.log("applicant_login_button clicked")
-    $('.ui.small.modal.applicant.login').modal('show')
+    console.log("employer_login_button clicked")
+    $('.ui.small.modal.employer.login').modal('show')
   })
 
   $('#employer_profile_signup_button').on('click', function(){
     console.log("profile signup_button clicked")
-    $('.ui.small.modal.applicant.signup').modal('show')
+    $('.ui.small.modal.employer.signup').modal('show')
   })
 
 

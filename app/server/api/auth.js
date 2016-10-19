@@ -33,7 +33,7 @@ auth.route('/applicant/:uid')
   res.send(res.rows);
 })
 
-
+  
 // Employer User Auth
 // Path http://localhost:3000/api/auth/employer/...
 auth.route('/employer/signup')

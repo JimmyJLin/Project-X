@@ -2,13 +2,18 @@ import 'babel-polyfill'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { browserHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router';
 
 import configureStore from 'store/configureStore'
 import createRoutes from 'routes/index'
 import { Provider } from 'react-redux'
 import Immutable from 'immutable'
 import _ from 'lodash'
+
+import jwtDecode from 'jwt-decode';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import { setCurrentUser } from './actions/authActions';
+
 
 let reduxState = {}
 if (window.__REDUX_STATE__) {
@@ -22,6 +27,11 @@ if (window.__REDUX_STATE__) {
 }
 
 const store = configureStore(reduxState)
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+}
 
 ReactDOM.render((
   <Provider store={store}>

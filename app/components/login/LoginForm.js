@@ -1,12 +1,10 @@
 import React from 'react';
 import TextFieldGroup from '../common/TextFieldGroup';
-import validateInput from './../../server/shared/validations/login';
+import validateInput from '../../../server/shared/validations/login';
 import { connect } from 'react-redux';
-import { login_employer } from '../../actions/authActions';
+import { login } from '../../actions/authActions';
 
-
-class EmploymentLoginForm extends React.Component {
-
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,19 +28,16 @@ class EmploymentLoginForm extends React.Component {
     return isValid;
   }
 
-
   onSubmit(e) {
     e.preventDefault();
-    console.log('login this.state vefore validate', this.state)
-
-    // if (this.isValid()) {
+    if (this.isValid()) {
       console.log('login this.state', this.state)
       this.setState({ errors: {}, isLoading: true });
-      this.props.login_employer(this.state).then(
-        (res) => this.context.router.push('/employer_profile'),
+      this.props.login(this.state).then(
+        (res) => this.context.router.push('/'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
-    // }
+    }
   }
 
   onChange(e) {
@@ -53,13 +48,11 @@ class EmploymentLoginForm extends React.Component {
     const { errors, email, password, isLoading } = this.state;
 
     return (
-
       <form className="ui form" onSubmit={this.onSubmit}>
-        <h1>Employer Login</h1>
+        <h1>Login</h1>
 
-        { errors.form && <div className="alert">{errors.form}</div> }
+        { errors.form && <div className="alert alert-danger">{errors.form}</div> }
 
-        <div className="field">
         <TextFieldGroup
           field="email"
           label="Email"
@@ -67,8 +60,7 @@ class EmploymentLoginForm extends React.Component {
           error={errors.email}
           onChange={this.onChange}
         />
-        </div>
-        <div className="field">
+
         <TextFieldGroup
           field="password"
           label="Password"
@@ -77,22 +69,19 @@ class EmploymentLoginForm extends React.Component {
           onChange={this.onChange}
           type="password"
         />
-        </div>
-        <button className="ui button" disabled={isLoading}>Login
-        </button>
-        <br/><br/>
+
+        <button className="ui button" disabled={isLoading}>Login</button>
       </form>
     );
   }
 }
 
+LoginForm.propTypes = {
+  login: React.PropTypes.func.isRequired
+}
 
-  EmploymentLoginForm.propTypes = {
-    login_employer: React.PropTypes.func.isRequired
-  }
+LoginForm.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
 
-  EmploymentLoginForm.contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
-
-  export default connect(null, { login_employer })(EmploymentLoginForm);
+export default connect(null, { login })(LoginForm);
