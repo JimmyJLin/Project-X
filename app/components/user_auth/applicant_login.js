@@ -35,10 +35,11 @@ class ApplicantLoginForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('login this.state vefore validate', this.state)
+    console.log('login this.state before validate', this.state)
 
       console.log('login this.state', this.state)
       this.setState({ errors: {}, isLoading: true });
+
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })

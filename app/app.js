@@ -14,19 +14,32 @@ import jwtDecode from 'jwt-decode';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/authActions';
 
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './rootReducer';
 
-let reduxState = {}
-if (window.__REDUX_STATE__) {
-  try {
-    let plain = JSON.parse(unescape(__REDUX_STATE__))
-    _.each(plain, (val, key)=> {
-      reduxState[key] = Immutable.fromJS(val)
-    })
-  } catch (e) {
-  }
-}
 
-const store = configureStore(reduxState)
+// let reduxState = {}
+// if (window.__REDUX_STATE__) {
+//   try {
+//     let plain = JSON.parse(unescape(__REDUX_STATE__))
+//     _.each(plain, (val, key)=> {
+//       reduxState[key] = Immutable.fromJS(val)
+//     })
+//   } catch (e) {
+//   }
+// }
+
+// const store = configureStore(reduxState)
+
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+);
+
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);

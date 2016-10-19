@@ -68,7 +68,7 @@ function loginEmployerUser(req, res, next) {
       }
     })
     .catch(() => {
-      console.error('error finding users')
+      console.error('error finding users loginEmployerUser')
     })
 }
 
@@ -112,7 +112,7 @@ function createApplicantUser(req, res, next) {
     })
     .catch(function () {
       // error;
-      console.error('error signing up');
+      console.error('error signing up create ApplicantUser');
     });
   }
 }
@@ -120,11 +120,12 @@ function createApplicantUser(req, res, next) {
 function loginApplicantUser(req, res, next) {
   var email = req.body.email
   var password = req.body.password
-
+  console.log(req.body, 'loginApplicantUser')
   db.one("SELECT * FROM ApplicantUsers WHERE email LIKE $1;", [email])
     .then((data) => {
       if (bcrypt.compareSync(password, data.password)) {
         res.rows = data
+        console.log('res.rows', data)
         next()
       } else {
         res.status(401).json({data:"Fool this no workie"})
@@ -132,7 +133,7 @@ function loginApplicantUser(req, res, next) {
       }
     })
     .catch(() => {
-      console.error('error finding users')
+      console.error('error finding users loginApplicantUser')
     })
 }
 
