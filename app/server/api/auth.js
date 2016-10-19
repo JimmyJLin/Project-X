@@ -3,7 +3,6 @@
 const express = require('express');
 const expressJWT  = require('express-jwt');
 const auth = express.Router();
-// const bodyParser = require('body-parser');
 // this is the route localhost:3000/api/auth
 const db = require('../../db/db_apex');
 
@@ -22,7 +21,8 @@ auth.route('/applicant/signup')
     res.status( 201 ).json( { data: 'success' } );
   });
 
-auth.post('/applicant/login', db.loginApplicantUser, ( req, res ) => {
+auth.route('/applicant/login')
+  .post(db.loginApplicantUser, ( req, res ) => {
   var token = jwt.sign( res.rows, secret );
 
   res.json( { agent: res.rows, token: token } );
@@ -41,7 +41,7 @@ auth.route('/employer/signup')
     res.send(res.rows);
   })
   .post( db.createEmployerUser, ( req, res ) => {
-    console.log('request us receieved', req )
+    console.log('request us received', req )
     res.status( 201 ).json( { data: 'success' } );
   });
 
@@ -51,7 +51,8 @@ auth.post('/employer/login', db.loginEmployerUser, ( req, res ) => {
   res.json( { agent: res.rows, token: token } );
 })
 
-auth.route('/employer/:uid')
+
+auth.route('/employer/:identifier')
 .get( db.employerProfile, (req, res) => {
   res.send(res.rows);
 })

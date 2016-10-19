@@ -8,15 +8,15 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-// const cn = 'postgres://eminekoc:1297@localhost/apex'
+const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'apex',
-  user: 'jimmylin',
-  password: 'desertprince69'
-};
+// const cn = {
+//   host: 'localhost',
+//   port: 5432,
+//   database: 'apex',
+//   user: 'jimmylin',
+//   password: 'desertprince69'
+// };
 
 const db = pgp(cn);
 
@@ -35,29 +35,32 @@ function showAllEmployerUsers(req, res, next) {
 };
 
 function createEmployerUser(req, res, next) {
-  console.log('req.body from post request', req.body)
-
   createSecure(req.body.email, req.body.password, saveUser);
+  console.log(req.body, 'req.body')
 
   function saveUser(email, hash) {
-    db.none("INSERT INTO EmployerUsers (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
+    db.none("INSERT INTO Employers (email, password, first_name, last_name, company_name, company_address, company_city, company_state, company_zip, company_website) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10);",
+    [email, hash, req.body.first_name, req.body.last_name, req.body.company_name, req.body.company_address,
+    req.body.company_city, req.body.company_state, req.body.company_zip, req.body.company_website])
     .then(function (data) {
-      // success;
-      console.log('New EmployerUsers added')
-      next();
-    })
-    .catch(function () {
-      // error;
-      console.error('error signing up');
-    });
+        // success;
+        console.log('New Employer added')
+        next();
+      })
+      .catch(function () {
+        // error;
+        console.error('error on Employer signing up');
+      });
+
   }
 }
+
 
 function loginEmployerUser(req, res, next) {
   var email = req.body.email
   var password = req.body.password
 
-  db.one("SELECT * FROM EmployerUsers WHERE email LIKE $1;", [email])
+  db.one("SELECT * FROM Employers WHERE email LIKE $1;", [email])
     .then((data) => {
       if (bcrypt.compareSync(password, data.password)) {
         res.rows = data
@@ -68,13 +71,13 @@ function loginEmployerUser(req, res, next) {
       }
     })
     .catch(() => {
-      console.error('error finding users')
+      console.error('error finding users loginEmployerUser')
     })
 }
 
 function employerProfile(req,res,next){
-  db.one("select * from Employers where user_id = $1",
-  [ req.params.uid ])
+  db.one("select * from Employers where email = $1",
+  [ req.params.identifier ])
   .then(function(data) {
     res.rows= data;
     next();
@@ -104,15 +107,15 @@ function createApplicantUser(req, res, next) {
   createSecure(req.body.email, req.body.password, saveUser);
 
   function saveUser(email, hash) {
-    db.none("INSERT INTO ApplicantUsers (email, password, type) VALUES ($1, $2, $3);", [email, hash, req.body.type])
+    db.none("INSERT INTO ApplicantUsers (email, password, type, name, last_name) VALUES ($1, $2, $3,$4,$5);", [email, hash, req.body.type, req.body.name, req.body.last_name])
     .then(function (data) {
       // success;
-      console.log('New Applicant User added')
+      console.log('New Applicant User added', data)
       next();
     })
     .catch(function () {
       // error;
-      console.error('error signing up');
+      console.error('error signing up create ApplicantUser');
     });
   }
 }
@@ -120,11 +123,12 @@ function createApplicantUser(req, res, next) {
 function loginApplicantUser(req, res, next) {
   var email = req.body.email
   var password = req.body.password
-
+  console.log(req.body, 'loginApplicantUser')
   db.one("SELECT * FROM ApplicantUsers WHERE email LIKE $1;", [email])
     .then((data) => {
       if (bcrypt.compareSync(password, data.password)) {
         res.rows = data
+        console.log('res.rows', data)
         next()
       } else {
         res.status(401).json({data:"Fool this no workie"})
@@ -132,7 +136,7 @@ function loginApplicantUser(req, res, next) {
       }
     })
     .catch(() => {
-      console.error('error finding users')
+      console.error('error finding users loginApplicantUser')
     })
 }
 
