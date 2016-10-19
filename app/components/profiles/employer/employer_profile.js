@@ -30,9 +30,12 @@ class Employer_profile extends Component {
   }
 
   componentDidMount() {
+    const employer_id = localStorage.id
 
+    console.log("employer id", employer_id)
     // fetch employer posted jobs with status active
-    $.get('/api/jobs/active/1').done( (data)=>{
+    const activeUrl = "/api/jobs/active/" + employer_id
+    $.get(activeUrl).done( (data)=>{
       this.state.active_jobs = data.length
 
        this.setState({
@@ -43,7 +46,8 @@ class Employer_profile extends Component {
      })
 
      // fetch employer posted jobs with status archived
-     $.get('/api/jobs/archived/1').done( (data)=>{
+     const archivedUrl = "/api/jobs/archived/" + employer_id
+     $.get(archivedUrl).done( (data)=>{
        console.log('job data: ', data)
        console.log('job data: ', data.length)
        this.state.archived_jobs = data.length

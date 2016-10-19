@@ -14,8 +14,11 @@ class List_jobs extends Component {
   }
 
   componentDidMount() {
+    const employer_id = localStorage.id
+    console.log("employer_id", employer_id)
     // get employer job data
-    $.get('/api/jobs/active/1').done( (data)=>{
+    const url = '/api/jobs/active/' + employer_id
+    $.get(url).done( (data)=>{
       this.state.job_data = data
        this.setState({
          job_data: this.state.job_data

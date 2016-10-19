@@ -26,9 +26,10 @@ class Post_job extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-
+    const employer_id = localStorage.id
+    console.log("employer_id", employer_id)
     let jobData = {
-      employer_id:1,
+      employer_id: employer_id,
       title: this.state.job_title,
       location: this.state.job_location,
       type: this.state.type_of_job,

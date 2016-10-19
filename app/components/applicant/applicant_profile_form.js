@@ -29,17 +29,19 @@ class Applicant_profile_form extends Component {
       certificationsArry: [],
       languages_spokenArry:[],
       desired_locationArry:[],
-      company_files: []
+      profile_files: []
     }
 
   }
 
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-    const user_id = '4'
+    const applicant_id = localStorage.id
+    console.log('applicant_id', applicant_id)
     let applicantProfileData = {
-      user_id: user_id,
+      user_id: applicant_id,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       desired_industry: this.state.desired_industry,
@@ -50,7 +52,7 @@ class Applicant_profile_form extends Component {
       languages_spoken: this.state.languages_spoken,
       resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image,
-      company_files: this.state.company_files
+      profile_files: this.state.profile_files
 
     }
     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
@@ -99,7 +101,7 @@ class Applicant_profile_form extends Component {
      console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
   })
 
-
+    console.log("Line 102 - applicantProfileData", applicantProfileData)
     postOneApplicant(applicantProfileData)
 
     // this.setState({
@@ -168,16 +170,15 @@ class Applicant_profile_form extends Component {
     // console.log("acceptedFiles", acceptedFiles)
 
     this.setState({
-      company_files: acceptedFiles
+      profile_files: acceptedFiles
     });
 
-    // console.log("onDrop this.state.company_files", this.state.company_files)
+    // console.log("onDrop this.state.profile_files", this.state.profile_files)
     $('#eventDropZone').hide()
   }
 
   render(){
     const { currentValue, currentValues } = this.state
-
     return(
         <div id="applicant_profile_form">
 
@@ -193,7 +194,7 @@ class Applicant_profile_form extends Component {
                 <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
                   <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
                 </Dropzone>
-                {this.state.company_files.length > 0 ? <div>{this.state.company_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
+                {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
               </div>
               </div>
               <div className="field"></div>
@@ -342,14 +343,14 @@ class Applicant_profile_form extends Component {
 }
 
 
-function postOneApplicant(thisstate){
-  console.log('postOneApplicant Function data: ', thisstate)
-  $.post('/api/applicants/new', {processData: false}, thisstate)
+function postOneApplicant(applicantProfileData){
+  console.log('postOneApplicant Function data: ', applicantProfileData)
+  $.post('/api/applicants/new', {processData: false}, applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
       let req = request.post('/api/applicants/upload');
-      thisstate.company_files.forEach((file) => {
+      applicantProfileData.profile_files.forEach((file) => {
         // console.log(req)
         console.log("hello from inside forEach()", file)
         req.attach(file.name, file);

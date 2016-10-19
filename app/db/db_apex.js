@@ -279,7 +279,7 @@ function showOneApplicant(req,res,next){
 };
 
 function postOneApplicant(req,res,next){
-
+  console.log("req.body", req.body)
   db.any(`INSERT INTO Applicants  (
     user_id,
     first_name,
