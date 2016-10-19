@@ -14,6 +14,8 @@ class HeaderMenu extends Component {
   logout(e) {
     e.preventDefault();
     this.props.logout();
+
+    window.location.assign('/');
   }
 
   render(){
@@ -28,9 +30,9 @@ class HeaderMenu extends Component {
 
       const userLinks = (
         <div className="ui text container">
-          <a id="about_us_button" className="item"><i className="icon info circle"></i>Dashboard</a>
-          <a id="applicant_login_button" className="item"><i className="icon sign in"></i>Messages</a>
-          <a  className="item" onClick={this.logout.bind(this)}>Logout</a>
+          <a id="about_us_button" className="item" href="/employer_profile"><i className="icon info circle"></i>Dashboard</a>
+          <a className="item"><i className="icon comment"></i>Messages</a>
+          <a className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</a>
         </div>
       );
 

@@ -34,8 +34,8 @@ class ApplicantLoginForm extends React.Component {
 
 
   onSubmit(e) {
-    e.preventDefault();
     console.log('login this.state before validate', this.state)
+      e.preventDefault();
 
       console.log('login this.state', this.state)
       this.setState({ errors: {}, isLoading: true });
@@ -44,6 +44,7 @@ class ApplicantLoginForm extends React.Component {
         (res) => this.context.router.push('/applicant_profile'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
+
   }
 
   onChange(e) {
@@ -79,7 +80,7 @@ class ApplicantLoginForm extends React.Component {
           type="password"
         />
         </div>
-        <button className="ui button" disabled={isLoading}>Login
+        <button id="applicant_login_submit_button" className="ui button ok" disabled={isLoading}>Login
         </button>
       </form>
     );

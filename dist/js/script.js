@@ -38,6 +38,16 @@ $(function(){
     $('.ui.small.modal.applicant.login').modal('show')
   })
 
+  $('#applicant_login_submit_button').on('click', function(){
+    console.log("applicant_login_submit_button clicked")
+    $('.ui.small.modal.applicant.login').modal({
+      onApprove: function(){
+        window.alert('Approved')
+        return true
+      }
+    }).modal('show')
+  })
+
   $('#applicant_signup_button').on('click', function(){
     console.log("signup_button clicked")
     $('.ui.small.modal.applicant.signup').modal('show')

@@ -13,7 +13,8 @@ CREATE TABLE ApplicantUsers (
   name VARCHAR(200),
   last_name VARCHAR(200),
   email VARCHAR(200) UNIQUE,
-  password VARCHAR(200)
+  password VARCHAR(200),
+  type VARCHAR(200)
 );
 
 CREATE TABLE Employers (

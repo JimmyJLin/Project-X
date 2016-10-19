@@ -38,7 +38,7 @@ class Job extends Component {
       console.log("Applicant Data length", data.length)
       console.log("this.state.job_applicants", this.state.job_applicants)
       this.setState({
-        job_status: this.state.job_applicants
+        job_applicants: this.state.job_applicants
       })
 
     })
@@ -139,15 +139,16 @@ class Job extends Component {
                 </div>
                 <br/>
                 <br/>
-                {jobStatus}
               </div>
     })
 
 
 
     let jobStatus;
-    if (this.state.job_status == "active"){
-      console.log("job status: Active")
+    const status = this.state.job_status
+    console.log("line 149 job status:", status)
+    if (this.state.job_status == 'active'){
+      console.log("line 151 job status:", this.state.job_status)
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
