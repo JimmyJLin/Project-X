@@ -48,9 +48,6 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
 
 
-
-
-
 // *********************** API ROUTES ****************** //
 const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
 const userRoutes = require(path.join(__dirname, '/api/auth'));
@@ -87,7 +84,7 @@ server.get('*', (req, res, next)=> {
       res.status(500).send(error.message);
     } else if (renderProps == null) {
       res.status(404).send('Not found')
-    } else {
+    } else {  // if everything is ok and routes are working. status 200
       let [ getCurrentUrl, unsubscribe ] = subscribeUrl();
       let reqUrl = location.pathname + location.search;
 

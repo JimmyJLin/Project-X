@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "assets-webpack-plugin": "^3.2.0",
-    "axios": "^0.14.0",
+    "axios": "^0.13.1",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-polyfill": "^6.3.14",
     "babel-preset-stage-1": "^6.16.0",
@@ -28,6 +28,7 @@
     "bcrypt": "^0.8.7",
     "bluebird": "^2.10.0",
     "body-parser": "^1.15.2",
+    "classnames": "^2.2.5",
     "compression": "^1.6.0",
     "dotenv": "",
     "ejs": "^2.3.4",
@@ -39,7 +40,7 @@
     "install": "^0.8.1",
     "isomorphic-fetch": "^2.1.1",
     "jsonwebtoken": "^7.1.9",
-    "lodash": "^3.10.1",
+    "jwt-decode": "^2.1.0",
     "multer": "^1.2.0",
     "normalizr": "^1.0.0",
     "npm": "^3.10.8",
@@ -57,7 +58,9 @@
     "rewire": "^2.3.4",
     "semantic-ui": "2.2",
     "semantic-ui-react": "^0.54.3",
-    "superagent": "^1.4.0"
+    "shortid": "^2.2.6",
+    "superagent": "^1.4.0",
+    "validator": "^6.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",
