@@ -11,7 +11,8 @@ class Job extends Component {
 
     this.state = {
       job_data: [],
-      job_status: ''
+      job_status: '',
+      job_applicants: ''
     }
 
   }
@@ -22,31 +23,25 @@ class Job extends Component {
     let job_id = this.props.params.id
     $.get(`/api/jobs/job_details/${job_id}`).done( (data)=>{
       this.state.job_data = data
-      // console.log("this.props.params", this.props.params.id)
-      // console.log("job details", data)
+
       this.state.job_status = data[0].status
-      console.log("data[0].status", data[0].status)
-      console.log("this.state.job_status", this.state.job_status)
-      // if (data[0].status == "archived"){
-      //   console.log("Line 31 - console log job status is equal to ", data[0].status)
-      //
-        this.setState({
-          job_status: data[0].status
-        })
-      //   console.log("Line 36", this.state.job_status)
-      // } else {
-      //   this.setState({
-      //     job_status: 'active'
-      //   })
-      // }
 
-      //  this.setState({
-      //    job_data: this.state.job_data
-       //
-      //  })
+      this.setState({
+        job_status: data[0].status
+      })
 
-     })
+    })
 
+    // get # of Applicants
+    $.get('/api/applicants/').done( (data)=>{
+      this.state.job_applicants = data.length
+      console.log("Applicant Data length", data.length)
+      console.log("this.state.job_applicants", this.state.job_applicants)
+      this.setState({
+        job_status: this.state.job_applicants
+      })
+
+    })
 
 
   }
@@ -201,7 +196,7 @@ class Job extends Component {
               <div className="ui middle aligned divided list">
                 <div className="item">
                   <div className="right floated content">
-                    <a href="#">312</a>
+                    <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
                   </div>
                   <div className="content">Compatible matches</div>
                 </div>
