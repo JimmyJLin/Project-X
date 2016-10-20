@@ -38,12 +38,9 @@ class Applicant_profile_form extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
-    const applicant_id = localStorage.id
-    console.log('applicant_id', applicant_id)
+
     let applicantProfileData = {
-      user_id: applicant_id,
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      user_id: this.props.auth.user.id,
       desired_industry: this.state.desired_industry,
       desired_location: this.state.desired_location,
       education_level: this.state.education_level,
@@ -52,10 +49,13 @@ class Applicant_profile_form extends Component {
       languages_spoken: this.state.languages_spoken,
       resume_pdf: this.state.resume_pdf,
       profile_image: this.state.profile_image,
+    }
+
+    let ApplicantProfileImages = {
       profile_files: this.state.profile_files
 
     }
-    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
+    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages)
 
     //****************
 
@@ -101,8 +101,14 @@ class Applicant_profile_form extends Component {
      console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
   })
 
-    console.log("Line 102 - applicantProfileData", applicantProfileData)
-    postOneApplicant(applicantProfileData)
+    console.log("Line 105 - applicantProfileData", applicantProfileData)
+    console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
+
+
+    // UploadImage(this.state.user_id, ApplicantProfileImages, data);
+      // if(this.state.profile_image !== '') {
+      postOneApplicant(applicantProfileData , ApplicantProfileImages);
+      // }
 
     // this.setState({
     //   user_id:'',
@@ -170,7 +176,7 @@ class Applicant_profile_form extends Component {
     // console.log("acceptedFiles", acceptedFiles)
 
     this.setState({
-      profile_files: acceptedFiles
+      profile_files: acceptedFiles , profile_image:acceptedFiles[0].id
     });
 
     // console.log("onDrop this.state.profile_files", this.state.profile_files)
@@ -182,7 +188,7 @@ class Applicant_profile_form extends Component {
     return(
         <div id="applicant_profile_form">
 
-          <h1>Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
+          <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
@@ -194,7 +200,7 @@ class Applicant_profile_form extends Component {
                 <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
                   <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
                 </Dropzone>
-                {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui medium circular image" src={file.preview} /> )}</div> : null}
+                {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui medium circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
               </div>
               </div>
               <div className="field"></div>
@@ -334,36 +340,74 @@ class Applicant_profile_form extends Component {
 }
 
 
-function postOneApplicant(applicantProfileData){
+function postOneApplicant(applicantProfileData, ApplicantProfileImages){
+
   console.log('postOneApplicant Function data: ', applicantProfileData)
-  $.post('/api/applicants/new', {processData: false}, applicantProfileData)
+
+  $.post('/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
-      let req = request.post('/api/applicants/upload');
-      applicantProfileData.profile_files.forEach((file) => {
-        // console.log(req)
-        console.log("hello from inside forEach()", file)
-        req.attach(file.name, file);
-        req.field('id', data.id)
-      })
-      req.end(function(err, res){
-        if (err || !res.ok) {
-          alert('Oh no! error');
-        } else {
-          alert('yay got ' + JSON.stringify(res.body));
-        }
-      })
+      PostImage( data.id, ApplicantProfileImages  );
+
 
     })
     .error((error) => {
-      console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
+      // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
+
+}
+
+function PostImage(id, imgObj){
+
+  $.post('/api/applicants/'+ id, {processData: false}, imgObj)
+
+  let req = request.post('/api/applicants/upload');
+  imgObj.profile_files.forEach((file) => {
+    // console.log(req)
+    console.log("hello from inside forEach()", file)
+    req.attach(file.name, file);
+    req.field('id', id)
+    req.end(function(err, res){
+      if (err || !res.ok) {
+        alert('Oh no! error');
+      } else {
+        alert('yay got ' + JSON.stringify(res.body));
+      }
+    })
+  })
+
 }
 
 
-function mapStateToProps() {
-  return {};
+// function UploadImage(user_id, imageObj, data){
+//
+//   let req = request.post('/api/applicants/upload');
+//
+//     imageObj.profile_files.forEach((file) => {
+//     // console.log(req)
+//     console.log("hello from inside forEach()", file)
+//
+//     req.attach(file.name, file);
+//     req.field('id', data.id)
+//       req.end(function(err, res){
+//       if (err || !res.ok) {
+//         alert('Oh no! error');
+//       } else {
+//         alert('yay got ' + JSON.stringify(res.body));
+//       }
+//     })
+//     })
+//     .error((error) => {
+//       console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
+//     })
+// }
+
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
 }
 
 export default connect(mapStateToProps)(Applicant_profile_form);

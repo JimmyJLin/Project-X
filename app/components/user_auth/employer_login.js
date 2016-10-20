@@ -51,6 +51,7 @@ class EmploymentLoginForm extends React.Component {
 
   render() {
     const { errors, email, password, isLoading } = this.state;
+    const { isAuthenticated } = this.props.auth;
 
     return (
 
@@ -88,6 +89,7 @@ class EmploymentLoginForm extends React.Component {
 
 
   EmploymentLoginForm.propTypes = {
+    auth: React.PropTypes.object.isRequired,
     login_employer: React.PropTypes.func.isRequired
   }
 
@@ -95,4 +97,10 @@ class EmploymentLoginForm extends React.Component {
     router: React.PropTypes.object.isRequired
   }
 
-  export default connect(null, { login_employer })(EmploymentLoginForm);
+  function mapStateToProps(state) {
+    return {
+      auth: state.auth
+    };
+  }
+
+  export default connect(mapStateToProps, { login_employer })(EmploymentLoginForm);

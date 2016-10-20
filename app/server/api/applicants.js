@@ -4,7 +4,7 @@ const express = require('express');
 const applicants = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'app/images/profile_images/'})
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const db = require('../../db/db_apex');
 
@@ -20,9 +20,17 @@ applicants.route('/')
   })
 
 applicants.route('/new')
-  .post(db.postOneApplicant, (req, res) => {
+  .post(db.postOneApplicantDetails, (req, res) => {
+    console.log('this is the req.body', req.body)
     res.send(res.rows)
   });
+
+  applicants.route('/:id')
+    .post(db.postOneApplicantImage, (req, res) => {
+      console.log('this is the req.body', req.body)
+      res.send(res.rows)
+    });
+
 
 applicants.route('/:applicant_id')
   .get( db.showOneApplicant, (req, res) => {

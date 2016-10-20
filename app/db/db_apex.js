@@ -278,12 +278,10 @@ function showOneApplicant(req,res,next){
   })
 };
 
-function postOneApplicant(req,res,next){
-  console.log("req.body", req.body)
+function postOneApplicantDetails(req,res,next){
+  console.log("req.body coming from db_apex file postOneApplicant", req.body)
   db.any(`INSERT INTO Applicants  (
     user_id,
-    first_name,
-    last_name,
     desired_industry,
     education_level,
     school,
@@ -293,11 +291,9 @@ function postOneApplicant(req,res,next){
     desired_location,
     certifications,
     languages_spoken
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id;`,
     [
       req.body.user_id,
-      req.body.first_name,
-      req.body.last_name,
       req.body.desired_industry,
       req.body.education_level,
       req.body.school,
@@ -317,8 +313,23 @@ function postOneApplicant(req,res,next){
   })
 };
 
+function postOneApplicantImage(req,res,next){
+  console.log("req.body coming from db_apex file postOneApplicantImage", req.body)
 
-// Applicant queries
+  db.one(`update Applicants set profile_image = $1 where id = $2`,
+    [req.body.profile_image, req.params.id])
+  .then(function(data) {
+    res.rows = data[0]
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+
+
+
 
 function showAllEmployers(req,res,next){
   db.any('select * from Employers;')
@@ -415,13 +426,14 @@ function uploadCompanyLogo(req,res,next){
 
 };
 
+// this is for applicants
 function uploadProfileLogo(req,res,next){
   req.body.filename = req.files[0].filename;
   console.log(req.body)
 
   req.body.filename = req.files[0].filename;
-  db.none(`update Employers set
-    company_logo = $/filename/
+  db.none(`update Applicants set
+    profile_image = $/filename/
     where id = $/id/`,
       req.body)
     .then(() => {
@@ -478,7 +490,9 @@ module.exports.deleteUser = deleteUser;
 
 // Applicant Profile Form exports
 module.exports.showAllApplicants = showAllApplicants;
-module.exports.postOneApplicant = postOneApplicant;
+module.exports.postOneApplicantDetails = postOneApplicantDetails;
+module.exports.postOneApplicantImage = postOneApplicantImage;
+
 module.exports.showOneApplicant = showOneApplicant;
 module.exports.uploadProfileLogo = uploadProfileLogo;
 
