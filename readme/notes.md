@@ -19,3 +19,9 @@ RESTFUL ROUTES API:
 (/api/employers/:id)
 
 PGUSER=eminekoc PGPWD=1297 heroku pg:push apex DATABASE_URL --app heroku apex-project
+
+<!-- Deployment to Heroku Clearing Cache -->
+heroku config:set NODE_MODULES_CACHE=false
+git commit -m 'message'
+git push heroku master
+heroku config:unset NODE_MODULES_CACHE
