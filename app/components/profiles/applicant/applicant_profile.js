@@ -63,14 +63,14 @@ class Applicant_profile extends Component {
 
     console.log("certifications", certifications)
 
-
+    '/images/profile_images/'
     return(
         <div id="applicant_profile">
 
         {/* Profile Header */}
         <div className="ui grid">
           <div className="four wide column">
-            <img className="ui small circular image" src={this.state.applicantProfile.profile_image} alt="Profile Picture"/>
+            <img className="ui small circular image" src={  '/images/profile_images/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
           </div>
           <div className="twelve wide column">
             <div className="twelve wide column">
