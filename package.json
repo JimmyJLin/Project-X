@@ -10,6 +10,10 @@
     "build": "rimraf dist/ && npm run webpack && gulp css:build && gulp scripts:build && gulp images:build && gulp semantic:build",
     "postinstall": "npm run build"
   },
+  "engines": {
+    "node": "6.1.0",
+    "npm": "3.8.6"
+  },
   "repository": {
     "type": "git",
     "url": ""
@@ -26,7 +30,7 @@
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
     "compression": "^1.6.0",
-    "dotenv": "^2.0.0",
+    "dotenv": "",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-jwt": "^5.0.0",
@@ -42,10 +46,10 @@
     "normalizr": "^1.0.0",
     "npm": "^3.10.8",
     "pg-promise": "^5.3.3",
-    "react": "^0.14.1",
-    "react-dom": "^15.3.2",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-dropzone": "^3.6.0",
-    "react-redux": "^4.3.0",
+    "react-redux": "4.3.0",
     "react-router": "^2.4.1",
     "react-select": "^0.9.1",
     "redux": "^3.0.0",
@@ -53,7 +57,7 @@
     "redux-logger": "^1.0.9",
     "redux-thunk": "^0.1.0",
     "rewire": "^2.3.4",
-    "semantic-ui": "2.1.8",
+    "semantic-ui": "2.2",
     "semantic-ui-react": "^0.54.3",
     "shortid": "^2.2.6",
     "superagent": "^1.4.0",
