@@ -2,3 +2,5 @@
 node_modules
 dist
 .tmp
+app/images/profile_images/
+app/images/company_logo/

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import HeaderMenu from '../components/headermenu';
 import Footer from '../components/footer';
 
-class Main extends Component {
+class Main extends Component {''
   render() {
     return (
       <div className="intro">

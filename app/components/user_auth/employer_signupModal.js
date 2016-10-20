@@ -7,6 +7,7 @@ import { addFlashMessage } from '../../actions/flashMessages.js';
 class Employer_signupModel extends React.Component {
   render() {
     const { employerSignupRequest, addFlashMessage, isEmployerUserExists } = this.props;
+    const { isAuthenticated } = this.props.auth;
     return (
       <div>
 
@@ -37,10 +38,17 @@ class Employer_signupModel extends React.Component {
 }
 
 Employer_signupModel.propTypes = {
+  auth: React.PropTypes.object.isRequired,
   employerSignupRequest: React.PropTypes.func.isRequired,
   addFlashMessage: React.PropTypes.func.isRequired,
   isEmployerUserExists: React.PropTypes.func.isRequired
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
 
-export default connect(null, { employerSignupRequest, addFlashMessage, isEmployerUserExists })(Employer_signupModel);
+
+export default connect(mapStateToProps, { employerSignupRequest, addFlashMessage, isEmployerUserExists })(Employer_signupModel);

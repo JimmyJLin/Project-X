@@ -45,12 +45,16 @@ class Employer_profile_form extends Component {
       company_industry: this.state.company_industry,
       company_branch: this.state.company_branch,
       company_logo: this.state.company_logo,
+    }
+
+    let employerProfileImage = {
       company_files: this.state.company_files
 
     }
 
     console.log(employerProfileData)
-    postOneEmployer(this.state)
+
+    postOneEmployer(employerProfileData, employerProfileImage)
 
 
     // this.setState({
@@ -317,39 +321,44 @@ class Employer_profile_form extends Component {
 
 
 
-function postOneEmployer(thisstate){
+function postOneEmployer(employerProfileData, employerProfileImage) {
   // const company_image_logo = employerProfileData.company_files
   // console.log('company_image_logo', company_image_logo)
   // console.log('employerProfileData', employerProfileData)
 
   // console.log("this.state.company_files", this.state.company_files)
-  console.log("this.state", thisstate)
-  $.post('/api/employers/new', {processData: false}, thisstate)
+  console.log("employerProfileData", employerProfileData)
+  $.post('/api/employers/new', employerProfileData)
     .done((data) => {
       console.log("data.id", data.id)
       console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
-
-      let req = request.post('/api/employers/upload');
-      thisstate.company_files.forEach((file) => {
-        console.log(req)
-        console.log("hello from inside forEach()", file)
-        req.attach(file.name, file);
-        req.field('id', data.id)
-      })
-      req.end(function(err, res){
-        if (err || !res.ok) {
-          alert('Oh no! error');
-        } else {
-          alert('yay got ' + JSON.stringify(res.body));
-        }
-      })
-
+      postEmployerImage(data.id, employerProfileImage)
 
 
     })
     .error((error) => {
       console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);
     })
+}
+
+function postEmployerImage( id, imgObj) {
+
+  $.post('/api/employers/'+id, {processData: false}, imgObj)
+
+  let req = request.post('/api/employers/upload');
+  imgObj.company_files.forEach((file) => {
+    console.log(req)
+    console.log("hello from inside forEach()", file)
+    req.attach(file.name, file);
+    req.field('id', id)
+  })
+  req.end(function(err, res){
+    if (err || !res.ok) {
+      alert('Oh no! error');
+    } else {
+      alert('yay got ' + JSON.stringify(res.body));
+    }
+  })
 }
 
 function mapStateToProps() {

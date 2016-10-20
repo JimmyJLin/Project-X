@@ -7,6 +7,7 @@ import { addFlashMessage } from '../../actions/flashMessages.js';
 class Applicant_signupModel extends React.Component {
   render() {
     const { userSignupRequest, addFlashMessage, isUserExists } = this.props;
+    const { isAuthenticated } = this.props.auth;
     return (
       <div className="ui small modal applicant signup">
         <i className="close icon"></i>
@@ -31,10 +32,16 @@ class Applicant_signupModel extends React.Component {
 }
 
 Applicant_signupModel.propTypes = {
+  auth: React.PropTypes.object.isRequired,
   userSignupRequest: React.PropTypes.func.isRequired,
   addFlashMessage: React.PropTypes.func.isRequired,
   isUserExists: React.PropTypes.func.isRequired
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
 
-export default connect(null, { userSignupRequest, addFlashMessage, isUserExists })(Applicant_signupModel);
+export default connect(mapStateToProps, { userSignupRequest, addFlashMessage, isUserExists })(Applicant_signupModel);
