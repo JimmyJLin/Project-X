@@ -394,6 +394,20 @@ function postOneEmployer(req,res,next){
   })
 };
 
+function postOneEmployerImage(req,res,next){
+
+  db.one(`update Employers set company_logo = $1 where id = $2`,
+    [req.body.company_logo, req.params.id])
+  .then(function(data) {
+    res.rows = data[0]
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
+
+
 
 // get one Job based on job_id
 function getOneJob(req,res,next){
@@ -499,6 +513,7 @@ module.exports.uploadProfileLogo = uploadProfileLogo;
 // Employer Profile Form Exports
 module.exports.showAllEmployers = showAllEmployers;
 module.exports.postOneEmployer = postOneEmployer;
+module.exports.postOneEmployerImage = postOneEmployerImage;
 module.exports.showOneEmployer = showOneEmployer;
 module.exports.uploadCompanyLogo = uploadCompanyLogo;
 

@@ -380,29 +380,6 @@ function PostImage(id, imgObj){
 }
 
 
-// function UploadImage(user_id, imageObj, data){
-//
-//   let req = request.post('/api/applicants/upload');
-//
-//     imageObj.profile_files.forEach((file) => {
-//     // console.log(req)
-//     console.log("hello from inside forEach()", file)
-//
-//     req.attach(file.name, file);
-//     req.field('id', data.id)
-//       req.end(function(err, res){
-//       if (err || !res.ok) {
-//         alert('Oh no! error');
-//       } else {
-//         alert('yay got ' + JSON.stringify(res.body));
-//       }
-//     })
-//     })
-//     .error((error) => {
-//       console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
-//     })
-// }
-
 
 function mapStateToProps(state) {
   return {

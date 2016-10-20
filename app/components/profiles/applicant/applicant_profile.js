@@ -43,7 +43,6 @@ class Applicant_profile extends Component {
     })
   }
 
-
   render(){
     const desired_location = this.state.desired_location.map(function(location){
       return <div key={location} className="ui label details">{location}</div>

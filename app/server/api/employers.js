@@ -25,6 +25,11 @@ employers.route('/new')
     res.send(res.rows)
   });
 
+employers.route('/:id')
+    .post(db.postOneEmployerImage, (req, res) => {
+      res.send(res.rows)
+    });
+
 employers.route('/:employer_id')
   .get( db.showOneEmployer, (req, res) => {
     res.send(res.rows);
