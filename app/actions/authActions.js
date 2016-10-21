@@ -1,14 +1,16 @@
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import jwtDecode from 'jwt-decode';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, AUTHENTICATED } from './types';
 const $ = require('jquery');
 
-export function setCurrentUser(user) {
+export function setCurrentUser(user, auth) {
   return {
     type: SET_CURRENT_USER,
+    auth,
     user
   };
 }
+
 
 export function logout() {
   return dispatch => {
@@ -29,16 +31,18 @@ export function login(data) {
       .done( (data)=> {
         console.log('agent data', data)
       let token = data.token;
+      // setAuthorizationToken(token);
+      dispatch(setCurrentUser(jwtDecode(token)));
+
       let user = data.agent;
       let id = user.id;
       let type = user.type || '';
       let fullname = user.name + ' ' + user.last_name
+
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('id', id);
       localStorage.setItem('type', type);
       localStorage.setItem('fullname', fullname);
-      setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwtDecode(token)));
     });
   }
 }
