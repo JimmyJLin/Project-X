@@ -6,7 +6,7 @@ import Footer from '../components/footer';
 class App extends Component {
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+
 
     return (
       <div>
@@ -25,15 +25,7 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
+  return {};
 }
-
-function mapDispachToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
-}
-
-
 
 export default connect(mapStateToProps)(App);

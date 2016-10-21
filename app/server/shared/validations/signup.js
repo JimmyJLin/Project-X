@@ -1,5 +1,5 @@
 import Validator from 'validator';
-import isEmpty from 'lodash/isEmpty';
+var isEmpty = require('lodash.isempty');
 
 export default function validateInput(data) {
   let errors = {};
