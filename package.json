@@ -42,6 +42,10 @@
     "jsonwebtoken": "^7.1.9",
     "jwt-decode": "^2.1.0",
     "lag.map": "^0.1.0",
+<<<<<<< HEAD
+=======
+    "lodash": "^4.16.4",
+>>>>>>> 860c9a9b1ecbce4806ae6be4e51ca3fe7336266a
     "lodash.findindex": "^4.6.0",
     "lodash.isempty": "^4.4.0",
     "multer": "^1.2.0",
