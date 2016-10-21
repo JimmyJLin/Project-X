@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
-import $ from 'jQuery';
+import $ from 'jquery'; // requires jQuery for AJAX request
 
 class List_matched_employers extends Component {
   constructor(props) {

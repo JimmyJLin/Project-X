@@ -1,5 +1,4 @@
 import React from 'react';
-import map from 'lodash/map';
 import classnames from 'classnames';
 import validateInput from './../../server/shared/validations/signup';
 import TextFieldGroup from '../common/TextFieldGroup';
