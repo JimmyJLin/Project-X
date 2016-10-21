@@ -8,15 +8,15 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-const cn = 'postgres://eminekoc:1297@localhost/apex'
+// const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-// const cn = {
-//   host: 'localhost',
-//   port: 5432,
-//   database: 'apex',
-//   user: 'jimmylin',
-//   password: 'desertprince69'
-// };
+const cn = {
+  host: 'localhost',
+  port: 5432,
+  database: 'apex',
+  user: 'jimmylin',
+  password: 'desertprince69'
+};
 
 const db = pgp(cn);
 
@@ -487,6 +487,39 @@ function updateJobPost(req,res,next){
     })
 
 };
+
+function applyOneJob(req, res, next){
+  db.any(`INSERT INTO applications  (
+    applicant_id,
+    job_id,
+    status
+  ) VALUES ($1, $2, $3);`,
+    [
+      req.body.applicant_id,
+      req.body.job_id,
+      req.body.status
+    ])
+  .then(function(data) {
+    res.rows = data[0]
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
+function getJobApplicants(req, res, next){
+  db.any('select * from applications where job_id = $1;', [req.params.job_id] )
+  .then(function(data) {
+    res.rows= data
+    console.log('successfully getting current applicants for the job', data)
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -526,3 +559,5 @@ module.exports.showArchivedJobs = showArchivedJobs;
 module.exports.getOneJob = getOneJob;
 module.exports.updateJobStatus = updateJobStatus;
 module.exports.updateJobPost = updateJobPost;
+module.exports.applyOneJob = applyOneJob;
+module.exports.getJobApplicants = getJobApplicants;

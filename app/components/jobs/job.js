@@ -12,7 +12,8 @@ class Job extends Component {
     this.state = {
       job_data: [],
       job_status: '',
-      job_applicants: ''
+      job_applicants: '',
+      applicants_applied: ''
     }
 
   }
@@ -21,11 +22,10 @@ class Job extends Component {
     console.log("hello from componentDidMount")
     // get employer job data
     let job_id = this.props.params.id
+
     $.get(`/api/jobs/job_details/${job_id}`).done( (data)=>{
       this.state.job_data = data
-
       this.state.job_status = data[0].status
-
       this.setState({
         job_status: data[0].status
       })
@@ -35,13 +35,33 @@ class Job extends Component {
     // get # of Applicants
     $.get('/api/applicants/').done( (data)=>{
       this.state.job_applicants = data.length
-      console.log("Applicant Data length", data.length)
-      console.log("this.state.job_applicants", this.state.job_applicants)
+      // console.log("Matched applicants Data length", data.length)
+      // console.log("this.state.job_applicants", this.state.job_applicants)
       this.setState({
         job_applicants: this.state.job_applicants
       })
 
     })
+
+    // get # of Applicants for the job
+    // let jobApplicantAppliedData = {
+    //   job_id: this.props.params.id
+    // }
+    console.log("this.props.params.id", this.props.params.id)
+    // console.log("jobApplicantAppliedData", jobApplicantAppliedData)
+    $.get(`/api/jobs/application/${job_id}`)
+      .done((data)=>{
+        console.log("Job Applicant Data", data)
+        //
+        this.state.applicants_applied = data.length
+        // console.log("Applicant Data length", data.length)
+        // console.log("this.state.job_applicants", this.state.applicants_applied)
+
+        this.setState({
+          applicants_applied: this.state.applicants_applied
+        })
+        console.log("this.state.applicants_applied", this.state.applicants_applied)
+      })
 
 
   }
@@ -50,7 +70,7 @@ class Job extends Component {
   handleJobStatusChange(e) {
     e.preventDefault();
 
-    console.log("Archive Button Clicked, captured id is: ", this.props.params.id)
+    // console.log("Archive Button Clicked, captured id is: ", this.props.params.id)
 
     let job_id = this.props.params.id
 
@@ -69,7 +89,7 @@ class Job extends Component {
   handleJobRepostChange(e) {
     e.preventDefault();
 
-    console.log("Re-Post Button Clicked, captured id is: ", this.props.params.id)
+    // console.log("Re-Post Button Clicked, captured id is: ", this.props.params.id)
 
     let job_id = this.props.params.id
 
@@ -85,6 +105,39 @@ class Job extends Component {
 
   }
 
+  handleApplyJobChange(e){
+    e.preventDefault();
+    let applicant_id = localStorage.id
+    let job_id = this.state.job_data[0].id
+    //
+    // console.log("Apply Job button clicked")
+    // console.log("job id is: ", job_id)
+    // console.log("applicant_id is: ", applicant_id)
+
+    let applicationData = {
+      applicant_id: applicant_id,
+      job_id: job_id,
+      status: 'applied'
+    }
+
+    $.post('/api/jobs/application', applicationData)
+      .done((data) => {
+        console.log('succesfully applied for a job')
+      })
+      .error((error) => {
+        console.log('unable to apply for a job', error)
+      })
+
+  }
+
+  handleConnectChange(e){
+    e.preventDefault();
+    // console.log("Connect button clicked")
+    // console.log("employer_id is: ", this.state.job_data[0].employer_id)
+    // console.log("applicant_id is: ", localStorage.id)
+
+  }
+
   render(){
 
     const jobData = this.state.job_data.map(function(job){
@@ -95,7 +148,7 @@ class Job extends Component {
         salary = "N/A"
       }
 
-      return <div key={job.id} className="ui segment jobdetails">
+      return <div key={job.id} className="ui raised padded segment">
                 <h2 className="ui header">
                   {job.title}
                 </h2>
@@ -110,7 +163,7 @@ class Job extends Component {
                   </div>
                 </div>
                 <br/>
-                <div>
+                <div id="job_description">
                   <p>{job.description}</p>
                 </div>
                 <br/>
@@ -146,9 +199,10 @@ class Job extends Component {
 
     let jobStatus;
     const status = this.state.job_status
-    console.log("line 149 job status:", status)
-    if (this.state.job_status == 'active'){
-      console.log("line 151 job status:", this.state.job_status)
+    // console.log("line 149 job status:", status)
+    // console.log('localStorage.type', localStorage.type)
+    if (this.state.job_status == 'active' && !localStorage.type){
+      // console.log("line 151 job status:", this.state.job_status)
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
@@ -163,7 +217,7 @@ class Job extends Component {
                       </div>
                       <div className=" four widecolumn"></div>
                   </div>
-    } else {
+    } else if (this.state.job_status == 'archived' && !localStorage.type) {
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
@@ -178,61 +232,122 @@ class Job extends Component {
                       </div>
                       <div className=" four widecolumn"></div>
                   </div>
+    } else {
+
+    }
+
+    let applicantView;
+    if (this.state.job_status == 'active' && !localStorage.type){
+      applicantView = <div className="ui segment match">
+                        <h3>Applicants: </h3>
+                        <div className="ui middle aligned divided list">
+                          <div className="item">
+                            <div className="right floated content">
+                              <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
+                            </div>
+                            <div className="content">Matched</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">{this.state.applicants_applied}</a>
+                            </div>
+                            <div className="content">Applied</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">10</a>
+                            </div>
+                            <div className="content">Rejected</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">5</a>
+                            </div>
+                            <div className="content">Interviewed</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">0</a>
+                            </div>
+                            <div className="content">Hired</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">287</a>
+                            </div>
+                            <div className="content">Remaining</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+    } else if (this.state.job_status == 'archived' && !localStorage.type) {
+      applicantView = <div className="ui segment match">
+                        <h3>Applicants: </h3>
+                        <div className="ui middle aligned divided list">
+                          <div className="item">
+                            <div className="right floated content">
+                              <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
+                            </div>
+                            <div className="content">Compatible matches</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">25</a>
+                            </div>
+                            <div className="content">Engaged</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">10</a>
+                            </div>
+                            <div className="content">Rejected</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">5</a>
+                            </div>
+                            <div className="content">Interviewed</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">0</a>
+                            </div>
+                            <div className="content">Hired</div>
+                          </div>
+                          <div className="item">
+                            <div className="right floated content">
+                              <a href="#">287</a>
+                            </div>
+                            <div className="content">Remaining</div>
+                          </div>
+                        </div>
+                      </div>
+
+    } else {
+      applicantView = <div className="ui grid">
+                        <div id="applicants_buttons">
+                          <label>Connect with the employer </label>
+                          <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
+                        </div>
+                        <div id="applicants_buttons">
+                          <p>Apply to current job posting</p>
+                          <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+                        </div>
+                      </div>
     }
 
 
     return(
       <div id="job_details">
         <h1>Detail Job View</h1>
-        <div className="ui grid">
+        <div className="ui grid stackable">
           <div className="twelve wide column">
             {jobData}
             {jobStatus}
-
-
           </div>
           <div className="four wide column">
-            <div className="ui segment match">
-              <h3>Applicants: </h3>
-              <div className="ui middle aligned divided list">
-                <div className="item">
-                  <div className="right floated content">
-                    <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
-                  </div>
-                  <div className="content">Compatible matches</div>
-                </div>
-                <div className="item">
-                  <div className="right floated content">
-                    <a href="#">25</a>
-                  </div>
-                  <div className="content">Engaged</div>
-                </div>
-                <div className="item">
-                  <div className="right floated content">
-                    <a href="#">10</a>
-                  </div>
-                  <div className="content">Rejected</div>
-                </div>
-                <div className="item">
-                  <div className="right floated content">
-                    <a href="#">5</a>
-                  </div>
-                  <div className="content">Interviewed</div>
-                </div>
-                <div className="item">
-                  <div className="right floated content">
-                    <a href="#">0</a>
-                  </div>
-                  <div className="content">Hired</div>
-                </div>
-                <div className="item">
-                  <div className="right floated content">
-                    <a href="#">287</a>
-                  </div>
-                  <div className="content">Remaining</div>
-                </div>
-              </div>
-            </div>
+            {applicantView}
           </div>
         </div>
       </div>

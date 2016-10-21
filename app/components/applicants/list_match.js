@@ -33,7 +33,7 @@ class List_match extends Component {
     const jobs = job_lists.map(function(job){
       const url = '/'+ job.company_logo
       console.log("image url ", url)
-      const link = `/list_matched_jobs/` + job.id
+      const link = `/list_matched/job/` + job.id
       return <Link to={link} className="card" key={job.id} >
               <div className="content">
                 <div className="header">{job.title} {job.location} </div>

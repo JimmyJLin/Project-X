@@ -70,9 +70,11 @@ export default function(history) {
         {/* Matching */}
         <Route path="/list_matched_applicants" component={List_match} />
         <Route path="/list_matched_applicants/:id" component={Matched_applicant} />
+        <Route path="/list_matched_employers/:id" component={Matched_employer} />
 
         <Route path="/list_match" component={List_match} />
-        <Route path="/list_matched_employers/:id" component={Matched_employer} />
+        <Route path="/list_matched/job/:id" component={Job} />
+
 
         <IndexRoute component={Main} />
       </Route>

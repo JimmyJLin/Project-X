@@ -35,7 +35,7 @@ class HeaderMenu extends Component {
       const guestLinks = (
 
       <div className="ui text container">
-        <a  className="item"><i className="icon info circle"></i>About Us</a>
+        <a id="about_us_button" className="item"><i className="icon info circle"></i>About Us</a>
         <a id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</a>
         <a id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</a>
       </div>
