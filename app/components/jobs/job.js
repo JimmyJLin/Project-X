@@ -35,8 +35,6 @@ class Job extends Component {
     // get # of Applicants
     $.get('/api/applicants/').done( (data)=>{
       this.state.job_applicants = data.length
-      // console.log("Matched applicants Data length", data.length)
-      // console.log("this.state.job_applicants", this.state.job_applicants)
       this.setState({
         job_applicants: this.state.job_applicants
       })
@@ -44,19 +42,10 @@ class Job extends Component {
     })
 
     // get # of Applicants for the job
-    // let jobApplicantAppliedData = {
-    //   job_id: this.props.params.id
-    // }
-    console.log("this.props.params.id", this.props.params.id)
-    // console.log("jobApplicantAppliedData", jobApplicantAppliedData)
     $.get(`/api/jobs/application/${job_id}`)
       .done((data)=>{
         console.log("Job Applicant Data", data)
-        //
-        this.state.applicants_applied = data.length
-        // console.log("Applicant Data length", data.length)
-        // console.log("this.state.job_applicants", this.state.applicants_applied)
-
+        this.state.applicants_applied = data
         this.setState({
           applicants_applied: this.state.applicants_applied
         })
@@ -109,10 +98,6 @@ class Job extends Component {
     e.preventDefault();
     let applicant_id = localStorage.id
     let job_id = this.state.job_data[0].id
-    //
-    // console.log("Apply Job button clicked")
-    // console.log("job id is: ", job_id)
-    // console.log("applicant_id is: ", applicant_id)
 
     let applicationData = {
       applicant_id: applicant_id,
@@ -249,7 +234,7 @@ class Job extends Component {
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">{this.state.applicants_applied}</a>
+                              <Link to="/list_applicants_applied">{this.state.applicants_applied.length}</Link>
                             </div>
                             <div className="content">Applied</div>
                           </div>
@@ -289,13 +274,13 @@ class Job extends Component {
                             <div className="right floated content">
                               <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
                             </div>
-                            <div className="content">Compatible matches</div>
+                            <div className="content">Matched</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">25</a>
+                              <Link to="/list_applicants_applied">{this.state.applicants_applied.length}</Link>
                             </div>
-                            <div className="content">Engaged</div>
+                            <div className="content">Applied</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">

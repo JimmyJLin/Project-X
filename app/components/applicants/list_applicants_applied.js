@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
-class List_matched_applicants extends Component {
+class List_applicants_applied extends Component {
   constructor(props) {
     super(props);
 
@@ -15,16 +15,16 @@ class List_matched_applicants extends Component {
 
   componentDidMount() {
     // get all matched Applicants data
-    $.get('/api/applicants/').done( (data)=>{
-      this.state.job_applicants = data
-      console.log("Applicant Data:", data)
-      console.log("this.state.job_applicants", this.state.job_applicants)
-
-      this.setState({
-        job_status: this.state.job_applicants
-      })
-
-    })
+    // $.get('/api/applicants/').done( (data)=>{
+    //   this.state.job_applicants = data
+    //   console.log("Applicant Data:", data)
+    //   console.log("this.state.job_applicants", this.state.job_applicants)
+    //
+    //   this.setState({
+    //     job_status: this.state.job_applicants
+    //   })
+    //
+    // })
   }
 
 
@@ -63,7 +63,7 @@ class List_matched_applicants extends Component {
 
     return(
       <div id="list_jobs">
-        <h1>Current Matched Applicant Lists</h1>
+        <h1>Current Applied Applicant Lists</h1>
         <div className="ui fluid centered aligned cards">
           {applicants}
         </div>
@@ -79,4 +79,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps)(List_matched_applicants);
+export default connect(mapStateToProps)(List_applicants_applied);

@@ -17,7 +17,7 @@
 
   .ui.fluid.cards{
     .card{
-      height: 250px;
+      height: auto;
       width: 400px;
 
       .truncate{
@@ -28,7 +28,7 @@
       }
     }
   }
-  
+
   .ui.segment.match{
     width: 100%;
   }
