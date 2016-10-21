@@ -42,7 +42,6 @@
     "jsonwebtoken": "^7.1.9",
     "jwt-decode": "^2.1.0",
     "lag.map": "^0.1.0",
-    "lodash": "^4.16.4",
     "lodash.findindex": "^4.6.0",
     "lodash.isempty": "^4.4.0",
     "multer": "^1.2.0",

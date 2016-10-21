@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import HeaderMenu from '../components/headermenu';
 import Footer from '../components/footer';
 
-class Main extends Component {''
+class Main extends Component {
   render() {
     return (
       <div className="intro">
@@ -15,21 +15,21 @@ class Main extends Component {''
         </div>
 
         <div id="about_us_div">
-          <p id="about_us_text">At AtlasCV, we strive to put power in the hands of Job Applicants around the world. Simply by creating one <span id="italic">free</span>, centralized profile, we can match you with compatible positions in the city you've always dreamed of working in. No longer are the days of multiple cover letters, applications, and emails. Simply create one profile, and take the hassle out of the application process by connecting directly with vacant positions. Let us put you in direct contact with Employers who are looking for you, today.</p>
+          <p id="about_us_text">At AtlasCV, we strive to put power in the hands of Job Applicants around the world. Simply by creating one <span id="italic">free</span>, centralized profile, we can match you with compatible positions in the city you ve always dreamed of working in. No longer are the days of multiple cover letters, applications, and emails. Simply create one profile, and take the hassle out of the application process by connecting directly with vacant positions. Let us put you in direct contact with Employers who are looking for you, today.</p>
         </div>
 
         <div id="main_display_links" className="ui grid">
           <div className="eight wide column">
             <h3>Applying</h3>
-            <a href="/applicant_profile_form">
+            <Link to="/applicant_profile_form">
               <button className="ui button">Begin Your Free Profile Today</button>
-            </a>
+            </Link>
           </div>
           <div className="eight wide column">
             <h3>Posting</h3>
-            <a href="/employer_profile_form">
+            <Link to="/employer_profile_form">
               <button className="ui button">Register & Post Today</button>
-            </a>
+            </Link>
 
           </div>
         </div>
