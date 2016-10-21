@@ -14,14 +14,17 @@ class List_matched_applicants extends Component {
   }
 
   componentDidMount() {
+    console.log("hello from list_matched_applicants componentDidMount")
+    let applicant_id = this.props.params.id
+    let url = "/api/applicant/" + applicant_id
     // get all matched Applicants data
-    $.get('/api/applicants/').done( (data)=>{
+    $.get(url).done( (data)=>{
       this.state.job_applicants = data
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
 
       this.setState({
-        job_status: this.state.job_applicants
+        job_applicants: this.state.job_applicants
       })
 
     })

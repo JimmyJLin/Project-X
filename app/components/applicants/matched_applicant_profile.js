@@ -20,9 +20,10 @@ class Matched_applicant_profile extends Component {
 
   componentDidMount() {
     let applicant_id = this.props.params.id
+    const url = '/api/auth/applicant/' + applicant_id
 
    // this is where you'll get the data from the 'db'
-   $.get(`/api/auth/applicant/${applicant_id}`).done( (data)=>{
+   $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;
       this.state.desired_industry = data.desired_industry

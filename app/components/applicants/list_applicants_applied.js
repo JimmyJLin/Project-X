@@ -13,18 +13,21 @@ class List_applicants_applied extends Component {
     }
   }
 
-  componentDidMount() {
-    // get all matched Applicants data
-    // $.get('/api/applicants/').done( (data)=>{
-    //   this.state.job_applicants = data
-    //   console.log("Applicant Data:", data)
-    //   console.log("this.state.job_applicants", this.state.job_applicants)
-    //
-    //   this.setState({
-    //     job_status: this.state.job_applicants
-    //   })
-    //
-    // })
+  componentWillMount() {
+    let job_id = this.props.params.job_id
+    console.log("line 17", job_id)
+    // get # of Applied Applicants for current job
+    $.get(`/api/jobs/application/${job_id}`)
+      .done((data)=>{
+        console.log("line 22 Job Applicant Data", data)
+
+        this.state.job_applicants = data
+
+        this.setState({
+          job_applicants: this.state.job_applicants
+        })
+
+      })
   }
 
 
@@ -33,25 +36,13 @@ class List_applicants_applied extends Component {
     const applicants = job_applicants.map(function(applicant){
       const url = '/'+ applicant.profile_image
       console.log("image url ", url)
-      const link = `/list_matched_applicants/` + applicant.user_id
-      return <Link to={link} className="card" key={applicant.user_id} >
+      const link = `/Matched_applicant/` + applicant.applicant_id
+      return <Link to={link} className="card" key={applicant.applicant_id} >
               <div className="ui grid">
                 <div className="eight wide column">
-                  <img src={url} alt="profile pic"/>
-                </div>
-                <div className="eight wide column">
                   <div className="content">
-                  <div className="header">{applicant.first_name} {applicant.last_name} </div>
-                  <div className="meta">{applicant.id}</div>
-                  <div className="decription">
-                    {applicant.education_level}
-                    <br/>
-                    {applicant.school}
-                    <br/>
-                    {applicant.desired_industry}
-                    <br/>
-                    {applicant.experience_level}
-                  </div>
+                    <div className="header">{applicant.name} {applicant.last_name} </div>
+                    <div className="meta">{applicant.id}</div>
                   </div>
                 </div>
               </div>

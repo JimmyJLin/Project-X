@@ -508,16 +508,30 @@ function applyOneJob(req, res, next){
   })
 }
 
+// function getJobApplicants(req, res, next){
+//   db.any('select * from applications where job_id = $1;', [req.params.job_id] )
+//   .then(function(data) {
+//     res.rows= data
+//     console.log('successfully getting current applicants for the job', data)
+//     next();
+//   })
+//   .catch(function(error){
+//     console.error(error);
+//   })
+// }
+
 function getJobApplicants(req, res, next){
-  db.any('select * from applications where job_id = $1;', [req.params.job_id] )
-  .then(function(data) {
-    res.rows= data
-    console.log('successfully getting current applicants for the job', data)
-    next();
-  })
-  .catch(function(error){
-    console.error(error);
-  })
+ db.any(
+ "SELECT * FROM Applications INNER JOIN ApplicantUsers on ApplicantUsers.id = Applications.applicant_id where Applications.job_id = $1;"
+ , [req.params.job_id] )
+ .then(function(data) {
+   res.rows= data
+   console.log('successfully getting current applicants for the job', data)
+   next();
+ })
+ .catch(function(error){
+   console.error(error);
+ })
 }
 
 // Employer user_auth exports
