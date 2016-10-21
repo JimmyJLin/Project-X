@@ -14,39 +14,28 @@ class HeaderMenu extends Component {
   logout(e) {
     e.preventDefault();
     this.props.logout();
-
-    window.location.assign('/');
   }
 
   render(){
 
       const { isAuthenticated } = this.props.auth;
 
-      const userLinks_Old = (
-        <ul className="nav navbar-nav navbar-right">
-          <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
-        </ul>
-      );
+
 
       const userLinks = (
         <div className="ui text container">
-          <Link  className="item" to="/employer_profile"><i className="icon info circle"></i>Profile</Link>
+          <a className="item"><i className="icon user"></i>Profile</a>
           <a className="item"><i className="icon comment"></i>Messages</a>
-          <a className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</a>
+          <a  className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</a>
         </div>
       );
 
-      const guestLinks_Old = (
-        <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/signup">Sign up</Link></li>
-          <li><Link to="/login">Login</Link></li>
-        </ul>
-      );
+
 
       const guestLinks = (
 
       <div className="ui text container">
-        <a id="about_us_button" className="item"><i className="icon info circle"></i>About Us</a>
+        <a  className="item"><i className="icon info circle"></i>About Us</a>
         <a id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</a>
         <a id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</a>
       </div>

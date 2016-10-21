@@ -52,6 +52,7 @@ class ApplicantLoginForm extends React.Component {
 
   render() {
     const { errors, email, password, isLoading } = this.state;
+    const { isAuthenticated } = this.props.auth;
 
     return (
 
@@ -88,14 +89,20 @@ class ApplicantLoginForm extends React.Component {
 
 
   ApplicantLoginForm.propTypes = {
+    auth: React.PropTypes.object.isRequired,
     login: React.PropTypes.func.isRequired
   }
 
   ApplicantLoginForm.contextTypes = {
     router: React.PropTypes.object.isRequired
   }
+  function mapStateToProps(state) {
+    return {
+      auth: state.auth
+    };
+  }
 
-  export default connect(null, { login })(ApplicantLoginForm);
+  export default connect(mapStateToProps, { login })(ApplicantLoginForm);
 
 
 
