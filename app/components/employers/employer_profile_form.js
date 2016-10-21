@@ -154,8 +154,9 @@ class Employer_profile_form extends Component {
         onSubmit={this.handleSubmit.bind(this)}>
 
           <div className="three fields">
-            <div className="field">
+            <div className="field"></div>
 
+            <div className="field">
               <div >
                 <Dropzone onDrop={this.onDrop.bind(this)} id="eventDropZone">
                   <div>Try dropping your image here, or click to select image to upload.</div>
@@ -166,15 +167,6 @@ class Employer_profile_form extends Component {
                   <div>{this.state.company_files.map((file) => <img className="eventPreview" src={file.preview} /> )}</div>
                   </div> : null}
               </div>
-
-            </div>
-
-            <div className="field">
-              <img className="profile-pic" src="" />
-              <br/>
-              <input className="file-upload" name="company_logo" type="file" accept="images/*"
-              value={this.state.company_logo}
-              onChange={ e => this.onImageChange(e.target.value)}/>
             </div>
             <div className="field"></div>
 

@@ -15,7 +15,7 @@ class Main extends Component {''
         </div>
 
         <div id="about_us_div">
-          <p id="about_us_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <p id="about_us_text">At AtlasCV, we strive to put power in the hands of Job Applicants around the world. Simply by creating one <span id="italic">free</span>, centralized profile, we can match you with compatible positions in the city you've always dreamed of working in. No longer are the days of multiple cover letters, applications, and emails. Simply create one profile, and take the hassle out of the application process by connecting directly with vacant positions. Let us put you in direct contact with Employers who are looking for you, today.</p>
         </div>
 
         <div id="main_display_links" className="ui grid">

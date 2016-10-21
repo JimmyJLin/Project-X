@@ -24,9 +24,9 @@ class HeaderMenu extends Component {
 
       const userLinks = (
         <div className="ui text container">
-          <a className="item"><i className="icon info circle"></i>Dashboard</a>
-          <a className="item"><i className="icon sign in"></i>Messages</a>
-          <a  className="item" onClick={this.logout.bind(this)}>Logout</a>
+          <a className="item"><i className="icon user"></i>Profile</a>
+          <a className="item"><i className="icon comment"></i>Messages</a>
+          <a  className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</a>
         </div>
       );
 
