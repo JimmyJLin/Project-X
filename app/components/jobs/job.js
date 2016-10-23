@@ -205,7 +205,7 @@ class Job extends Component {
                       </div>
                       <div className=" four widecolumn"></div>
                   </div>
-    } else if (this.state.job_status == 'archived' && !localStorage.type) {
+    } else if (this.state.job_status == 'archived' && localStorage.type) {
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
@@ -233,7 +233,7 @@ class Job extends Component {
                         <div className="ui middle aligned divided list">
                           <div className="item">
                             <div className="right floated content">
-                              <Link to="/list_matched_applicants">{this.state.job_applicants.length}</Link>
+                              <Link to={"/list_matched_applicants/"}>{this.state.job_applicants.length}</Link>
                             </div>
                             <div className="content">Matched</div>
                           </div>
@@ -271,9 +271,9 @@ class Job extends Component {
                       </div>
 
 
-    } else if (this.state.job_status == 'archived' && !localStorage.type) {
+    } else if (this.state.job_status == 'archived' && localStorage.type) {
 
-    } else {
+    } else if (localStorage.stype = 'applicant'){
       applicantView = <div className="ui grid">
                         <div id="applicants_buttons">
                           <label>Connect with the employer </label>
