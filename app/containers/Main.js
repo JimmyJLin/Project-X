@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import HeaderMenu from '../components/headermenu';
-import Footer from '../components/footer';
 
 class Main extends Component {
   render() {
