@@ -189,7 +189,7 @@ class Job extends Component {
     const status = this.state.job_status
     // console.log("line 149 job status:", status)
     // console.log('localStorage.type', localStorage.type)
-    if (this.state.job_status == 'active' && !localStorage.type){
+    if (this.state.job_status == 'active' && localStorage.type == "employer"){
       // console.log("line 151 job status:", this.state.job_status)
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
@@ -205,7 +205,7 @@ class Job extends Component {
                       </div>
                       <div className=" four widecolumn"></div>
                   </div>
-    } else if (this.state.job_status == 'archived' && localStorage.type) {
+    } else if (this.state.job_status == 'archived' && localStorage.type == "employer") {
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
@@ -227,7 +227,7 @@ class Job extends Component {
     let applicantView;
     let jobApplicant_id = this.state.applicants_applied_id
     console.log("jobApplicant_id", jobApplicant_id)
-    if (this.state.job_status == 'active' && !localStorage.type){
+    if (this.state.job_status == 'active' && localStorage.type == "employer"){
       applicantView = <div className="ui segment match">
                         <h3>Applicants: </h3>
                         <div className="ui middle aligned divided list">
