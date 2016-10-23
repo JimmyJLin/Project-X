@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../../headermenu';
-import Footer from '../../footer';
 
 
 class Employer_profile extends Component {
@@ -61,7 +59,8 @@ class Employer_profile extends Component {
 
 
    //  get employer profile data
-   $.get('/api/employers/1').done( (data)=>{
+   const employerUrl = "/api/employers/" + employer_id
+   $.get(employerUrl).done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
       this.state.company_city = data[0].company_city;

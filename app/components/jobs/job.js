@@ -272,47 +272,6 @@ class Job extends Component {
 
 
     } else if (this.state.job_status == 'archived' && !localStorage.type) {
-      applicantView = <div className="ui segment match">
-                        <h3>Applicants: </h3>
-                        <div className="ui middle aligned divided list">
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="/list_matched_applicants">{this.state.job_applicants.length}</Link>
-                            </div>
-                            <div className="content">Matched</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to={"/list_applicants_applied/" + jobApplicant_id}>{this.state.applicants_applied.length}</Link>
-                            </div>
-                            <div className="content">Applied</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">10</a>
-                            </div>
-                            <div className="content">Rejected</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">5</a>
-                            </div>
-                            <div className="content">Interviewed</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">0</a>
-                            </div>
-                            <div className="content">Hired</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">287</a>
-                            </div>
-                            <div className="content">Remaining</div>
-                          </div>
-                        </div>
-                      </div>
 
     } else {
       applicantView = <div className="ui grid">

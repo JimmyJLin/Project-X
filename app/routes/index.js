@@ -26,7 +26,6 @@ import SignupPage_emp from 'components/user_auth/signup/SignupPage_emp';
 import LoginPage from 'components/user_auth/login/LoginPage';
 import LoginPage_emp from 'components/user_auth/login/LoginPage_emp';
 
-
 // employer jobs
 import Post_job from 'components/jobs/post_job';
 import List_jobs from 'components/jobs/list_jobs';

@@ -44,6 +44,7 @@ class ApplicantLoginForm extends React.Component {
         (res) => this.context.router.push('/applicant_profile'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
+
   }
 
   onChange(e) {

@@ -116,7 +116,7 @@ render() {
   const { errors } = this.state;
   return (
 
-          <form onSubmit={this.onSubmit} className="ui form">
+          <form id="employer_signup_form" onSubmit={this.onSubmit} className="ui form">
           <div className="two fields">
               <div className="field">
               <TextFieldGroup
