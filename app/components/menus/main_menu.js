@@ -13,6 +13,12 @@ import Employer_signupModal from '../user_auth/employer_signupModal';
 let ApplicantOrEmployer;
 
 class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      routePath: ''
+    };
+  }
 
   logout(e) {
     e.preventDefault();
@@ -25,27 +31,33 @@ class MainMenu extends Component {
     localStorage.setItem('key', key)
     let key = "helloooooooo"
 
-    console.log("key", key)
-    if (localStorage.type == "applicant") {
-      console.log("YESSSSSS")
-      ApplicantOrEmployer = "/applicant_profile"
+    let applicant_type = localStorage.key
+    
+    if (applicant_type == "applicant") {
+      console.log("applicant")
+      this.setState({
+        routePath: "/applicant_profile"
+      })
+    } else if (applicant_type == "employer") {
+      console.log("employer")
+      this.setState({
+        routePath: "/employer_profile"
+      })
     } else {
-      console.log("NOOOOOOO")
-      ApplicantOrEmployer = "/employer_profile"
-      console.log("ApplicantOrEmployer", ApplicantOrEmployer)
+      console.log("/")
+      this.setState({
+        routePath: "/"
+      })
     }
   }
 
   render(){
-      // console.log("MainMenu localstorage", localStorage.type)
-      // console.log(localStorage.type)
       const { isAuthenticated } = this.props.auth;
-
 
 
       const userLinks = (
         <div className="ui text container">
-          <Link id="profile" className="item" to={ApplicantOrEmployer}><i className="icon user"></i>Profile</Link>
+          <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
           <Link id="messages" className="item"><i className="icon comment"></i>Messages</Link>
           <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
         </div>
