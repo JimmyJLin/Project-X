@@ -38,7 +38,7 @@ import List_matched_applicants from 'components/applicants/list_matched_applican
 import Matched_applicant from 'components/applicants/matched_applicant_profile';
 import List_matched_employers from 'components/applicants/list_matched_employers';
 import Matched_employer from 'components/applicants/matched_employer_profile';
-import List_applicants_applied from 'components/applicants/List_applicants_applied'
+import List_applicants_applied from 'components/applicants/list_applicants_applied'
 
 
 
