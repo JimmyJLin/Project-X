@@ -19,7 +19,6 @@ var config = {
       'react-router',
       'redux',
       'react-dom',
-      'lodash',
       'bluebird',
       'humps',
       'history'
