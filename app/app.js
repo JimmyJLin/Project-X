@@ -1,22 +1,24 @@
 import 'babel-polyfill'
 
 import React from 'react'
+import { render } from 'react-dom';
 import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router';
 
-import configureStore from 'store/configureStore'
-import createRoutes from 'routes/index'
+// import configureStore from 'store/configureStore'
 import { Provider } from 'react-redux'
-import Immutable from 'immutable'
-import _ from 'lodash'
-
-import jwtDecode from 'jwt-decode';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
+import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './actions/authActions';
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './rootReducer';
+import createRoutes from 'routes/index'
+// import Immutable from 'immutable'
+// import _ from 'lodash'
+
+
 
 
 // let reduxState = {}

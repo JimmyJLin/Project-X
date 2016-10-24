@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../actions/authActions';
+import { logout } from '../../actions/authActions';
 import {browserHistory} from 'react-router';
 
-import Applicant_loginModal from './user_auth/applicant_loginModal';
-import Applicant_signupModel from './user_auth/applicant_signupModel';
+import Applicant_loginModal from '../user_auth/applicant_loginModal';
+import Applicant_signupModel from '../user_auth/applicant_signupModel';
 
-import Employer_loginModal from './user_auth/employer_loginModal';
-import Employer_signupModal from './user_auth/employer_signupModal';
+import Employer_loginModal from '../user_auth/employer_loginModal';
+import Employer_signupModal from '../user_auth/employer_signupModal';
 
-class HeaderMenu extends Component {
+class ApplicantMenu extends Component {
 
   logout(e) {
     e.preventDefault();
@@ -20,7 +20,7 @@ class HeaderMenu extends Component {
   }
 
   render(){
-      // console.log("headermenu localstorage", localStorage.type)
+      // console.log("ApplicantMenu localstorage", localStorage.type)
       // console.log(localStorage.type)
       const { isAuthenticated } = this.props.auth;
 
@@ -60,7 +60,7 @@ class HeaderMenu extends Component {
 
     return(
 
-      <div id="headermenu">
+      <div id="ApplicantMenu">
 
         <div className="ui top fixed main three item menu">
 
@@ -87,7 +87,7 @@ class HeaderMenu extends Component {
 }
 
 
-HeaderMenu.propTypes = {
+ApplicantMenu.propTypes = {
   auth: React.PropTypes.object.isRequired,
   logout: React.PropTypes.func.isRequired
 }
@@ -98,4 +98,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logout })(HeaderMenu);
+export default connect(mapStateToProps, { logout })(ApplicantMenu);

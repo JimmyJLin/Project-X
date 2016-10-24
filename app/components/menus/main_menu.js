@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../actions/authActions';
+import { logout } from '../../actions/authActions';
 import {browserHistory} from 'react-router';
 
-import Applicant_loginModal from './user_auth/applicant_loginModal';
-import Applicant_signupModel from './user_auth/applicant_signupModel';
+import Applicant_loginModal from '../user_auth/applicant_loginModal';
+import Applicant_signupModel from '../user_auth/applicant_signupModel';
 
-import Employer_loginModal from './user_auth/employer_loginModal';
-import Employer_signupModal from './user_auth/employer_signupModal';
+import Employer_loginModal from '../user_auth/employer_loginModal';
+import Employer_signupModal from '../user_auth/employer_signupModal';
 
-class HeaderMenu extends Component {
+let ApplicantOrEmployer;
+
+class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      routePath: ''
+    };
+  }
 
   logout(e) {
     e.preventDefault();
@@ -19,29 +27,37 @@ class HeaderMenu extends Component {
 
   }
 
+  componentDidMount(){
+    localStorage.setItem('key', key)
+    let key = "helloooooooo"
+
+    let applicant_type = localStorage.type
+
+    if (applicant_type == "applicant") {
+      console.log("applicant")
+      this.setState({
+        routePath: "/applicant_profile"
+      })
+    } else if (applicant_type == "employer") {
+      console.log("employer")
+      this.setState({
+        routePath: "/employer_profile"
+      })
+    } else {
+      console.log("/")
+      this.setState({
+        routePath: "/"
+      })
+    }
+  }
+
   render(){
-      // console.log("headermenu localstorage", localStorage.type)
-      // console.log(localStorage.type)
       const { isAuthenticated } = this.props.auth;
-
-      let ApplicantOrEmployer;
-
-      // let localstorage = localStorage
-      // let type = localStorage
-      // if (localStorage == 'undefined' && localStorage == null){
-      //   if (type == "applicant") {
-      //     console.log("YESSSSSS")
-      //     ApplicantOrEmployer = "/applicant_profile"
-      //   } else {
-      //     console.log("NOOOOOOO")
-      //     ApplicantOrEmployer = "/employer_profile"
-      //   }
-      // }
 
 
       const userLinks = (
         <div className="ui text container">
-          <Link id="profile" className="item" to={"/applicant_profile" || "/employer_profile"}><i className="icon user"></i>Profile</Link>
+          <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
           <Link id="messages" className="item"><i className="icon comment"></i>Messages</Link>
           <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
         </div>
@@ -60,7 +76,7 @@ class HeaderMenu extends Component {
 
     return(
 
-      <div id="headermenu">
+      <div id="MainMenu">
 
         <div className="ui top fixed main three item menu">
 
@@ -87,7 +103,7 @@ class HeaderMenu extends Component {
 }
 
 
-HeaderMenu.propTypes = {
+MainMenu.propTypes = {
   auth: React.PropTypes.object.isRequired,
   logout: React.PropTypes.func.isRequired
 }
@@ -98,4 +114,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logout })(HeaderMenu);
+export default connect(mapStateToProps, { logout })(MainMenu);

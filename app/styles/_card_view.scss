@@ -17,7 +17,7 @@
 
   .ui.fluid.cards{
     .card{
-      height: 250px;
+      height: auto;
       width: 400px;
 
       .truncate{
@@ -26,6 +26,21 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+    }
+  }
+
+  .ui.segment.match{
+    width: 100%;
+  }
+
+  #applicants_buttons{
+    padding-top: 40px;
+
+  }
+
+  #job_description{
+    p{
+      word-wrap: break-word;
     }
   }
 

@@ -8,15 +8,15 @@ const pgp = require('pg-promise')({
     // Initialization Options
 });
 
-const cn = 'postgres://eminekoc:1297@localhost/apex'
+// const cn = 'postgres://eminekoc:1297@localhost/apex'
 
-// const cn = {
-//   host: 'localhost',
-//   port: 5432,
-//   database: 'apex',
-//   user: 'jimmylin',
-//   password: 'desertprince69'
-// };
+const cn = {
+  host: 'localhost',
+  port: 5432,
+  database: 'apex',
+  user: 'jimmylin',
+  password: 'desertprince69'
+};
 
 const db = pgp(cn);
 
@@ -355,35 +355,18 @@ function showOneEmployer(req,res,next){
   })
 };
 
+"UPDATE Employers SET user_id = $1, company_description = $2, company_email = $3, company_branch = $4, company_size = $5, company_industry returning id;"
+
 function postOneEmployer(req,res,next){
 
-  db.any(`INSERT INTO Employers  (
-    company_name,
-    company_address,
-    company_city,
-    company_state,
-    company_zip,
-    company_description,
-    company_website,
-    company_phone_number,
-    company_email,
-    company_size,
-    company_industry,
-    company_branch
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning id;`,
+  db.any("UPDATE Employers SET company_description = $2, company_email = $3, company_branch = $4, company_size = $5, company_industry = $6 WHERE id = $1 RETURNING id;",
     [
-      req.body.company_name,
-      req.body.company_address,
-      req.body.company_city,
-      req.body.company_state,
-      req.body.company_zip,
+      req.body.user_id,
       req.body.company_description,
-      req.body.company_website,
-      req.body.company_phone_number,
       req.body.company_email,
+      req.body.company_branch,
       req.body.company_size,
-      req.body.company_industry,
-      req.body.company_branch
+      req.body.company_industry
     ])
   .then(function(data) {
     res.rows = data[0]
@@ -487,6 +470,53 @@ function updateJobPost(req,res,next){
     })
 
 };
+
+function applyOneJob(req, res, next){
+  db.any(`INSERT INTO applications  (
+    applicant_id,
+    job_id,
+    status
+  ) VALUES ($1, $2, $3);`,
+    [
+      req.body.applicant_id,
+      req.body.job_id,
+      req.body.status
+    ])
+  .then(function(data) {
+    res.rows = data[0]
+    next();
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+}
+
+// function getJobApplicants(req, res, next){
+//   db.any('select * from applications where job_id = $1;', [req.params.job_id] )
+//   .then(function(data) {
+//     res.rows= data
+//     console.log('successfully getting current applicants for the job', data)
+//     next();
+//   })
+//   .catch(function(error){
+//     console.error(error);
+//   })
+// }
+
+function getJobApplicants(req, res, next){
+ db.any(
+ "SELECT * FROM Applications INNER JOIN ApplicantUsers on ApplicantUsers.id = Applications.applicant_id where Applications.job_id = $1;"
+ , [req.params.job_id] )
+ .then(function(data) {
+   res.rows= data
+   console.log('successfully getting current applicants for the job', data)
+   next();
+ })
+ .catch(function(error){
+   console.error(error);
+ })
+}
+
 // Employer user_auth exports
 module.exports.showAllEmployerUsers = showAllEmployerUsers;
 module.exports.createEmployerUser = createEmployerUser;
@@ -526,3 +556,5 @@ module.exports.showArchivedJobs = showArchivedJobs;
 module.exports.getOneJob = getOneJob;
 module.exports.updateJobStatus = updateJobStatus;
 module.exports.updateJobPost = updateJobPost;
+module.exports.applyOneJob = applyOneJob;
+module.exports.getJobApplicants = getJobApplicants;

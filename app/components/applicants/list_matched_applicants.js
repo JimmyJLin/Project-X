@@ -14,14 +14,17 @@ class List_matched_applicants extends Component {
   }
 
   componentDidMount() {
+    console.log("hello from list_matched_applicants componentDidMount")
+    let applicant_id = this.props.params.id
+    let url = "https://apex-database.herokuapp.com/api/applicants/"
     // get all matched Applicants data
-    $.get('/api/applicants/').done( (data)=>{
+    $.get(url).done( (data)=>{
       this.state.job_applicants = data
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
 
       this.setState({
-        job_status: this.state.job_applicants
+        job_applicants: this.state.job_applicants
       })
 
     })
@@ -33,7 +36,7 @@ class List_matched_applicants extends Component {
     const applicants = job_applicants.map(function(applicant){
       const url = '/'+ applicant.profile_image
       console.log("image url ", url)
-      const link = `/list_matched_applicants/` + applicant.user_id
+      const link = `/Matched_applicant/` + applicant.user_id
       return <Link to={link} className="card" key={applicant.user_id} >
               <div className="ui grid">
                 <div className="eight wide column">
@@ -64,7 +67,7 @@ class List_matched_applicants extends Component {
     return(
       <div id="list_jobs">
         <h1>Current Matched Applicant Lists</h1>
-        <div className="ui fluid cards">
+        <div className="ui fluid centered aligned cards">
           {applicants}
         </div>
       </div>

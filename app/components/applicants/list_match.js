@@ -15,7 +15,7 @@ class List_match extends Component {
 
   componentDidMount() {
     // get all matched jobs data
-    $.get('/api/jobs/new').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
       this.state.jobs = data
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)
@@ -33,7 +33,7 @@ class List_match extends Component {
     const jobs = job_lists.map(function(job){
       const url = '/'+ job.company_logo
       console.log("image url ", url)
-      const link = `/list_matched_jobs/` + job.id
+      const link = `/list_matched/job/` + job.id
       return <Link to={link} className="card" key={job.id} >
               <div className="content">
                 <div className="header">{job.title} {job.location} </div>

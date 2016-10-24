@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import HeaderMenu from '../../headermenu';
-import Footer from '../../footer';
 
 
 class Employer_profile extends Component {
@@ -34,7 +32,7 @@ class Employer_profile extends Component {
 
     console.log("employer id", employer_id)
     // fetch employer posted jobs with status active
-    const activeUrl = "/api/jobs/active/" + employer_id
+    const activeUrl = "https://apex-database.herokuapp.com/api/jobs/active/" + employer_id
     $.get(activeUrl).done( (data)=>{
       this.state.active_jobs = data.length
 
@@ -46,7 +44,7 @@ class Employer_profile extends Component {
      })
 
      // fetch employer posted jobs with status archived
-     const archivedUrl = "/api/jobs/archived/" + employer_id
+     const archivedUrl = "https://apex-database.herokuapp.com/api/jobs/archived/" + employer_id
      $.get(archivedUrl).done( (data)=>{
        console.log('job data: ', data)
        console.log('job data: ', data.length)
@@ -61,7 +59,8 @@ class Employer_profile extends Component {
 
 
    //  get employer profile data
-   $.get('/api/employers/1').done( (data)=>{
+   const employerUrl = "https://apex-database.herokuapp.com/api/applicants/profile/" + employer_id
+   $.get(employerUrl).done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
       this.state.company_city = data[0].company_city;
@@ -111,7 +110,7 @@ class Employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={this.state.company_logo} alt="Company Logo"/>
+              <img className="ui small circular image" src={'/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">

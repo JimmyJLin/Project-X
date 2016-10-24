@@ -15,7 +15,19 @@ $job_primary_background_color: #f2f2f2;
     background-color: $job_primary_background_color;
   }
 }
+#employer_loginForm{
+  padding-top: 15px;
+  padding-bottom: 25px;
 
+  p {
+    padding-left: 25px;
+  }
+  
+  #employer_signup_form{
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
 
 #employer_profile_form, #applicant_profile_form{
   .ui.segment{

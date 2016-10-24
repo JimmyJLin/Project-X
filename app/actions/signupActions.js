@@ -1,4 +1,3 @@
-import axios from 'axios';
 const $ = require('jquery');
 
 
@@ -7,13 +6,13 @@ export function userSignupRequest(userData) {
   return dispatch => {
     console.log('this is the data sended to signup route from the sign up action', userData);
 
-    return $.post('/api/auth/applicant/signup', userData);
+    return $.post('https://apex-database.herokuapp.com/api/users/applicants/signup', userData);
   }
 }
 
 export function isUserExists(identifier) {
   return dispatch => {
-    return $.get(`/api/auth/applicant/${identifier}`);
+    return $.get(`https://apex-database.herokuapp.com/api/users/applicant/${identifier}`);
   }
 }
 
@@ -22,7 +21,7 @@ export function employerSignupRequest(userData) {
   return dispatch => {
     console.log('Employer Sign up Request sent data', userData);
 
-    return $.post('/api/auth/employer/signup', userData).done(()=>{
+    return $.post('https://apex-database.herokuapp.com/api/users/employers/signup', userData).done(()=>{
       console.log('employerUser is added')
     });
   }
@@ -30,6 +29,6 @@ export function employerSignupRequest(userData) {
 
 export function isEmployerUserExists(identifier) {
   return dispatch => {
-    return $.get(`/api/auth/employer/${identifier}`);
+    return $.get(`https://apex-database.herokuapp.com/api/users/employer/${identifier}`);
   }
 }

@@ -344,7 +344,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('/api/applicants/new', applicantProfileData)
+  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
@@ -360,9 +360,9 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
 function PostImage(id, imgObj){
 
-  $.post('/api/applicants/'+ id, {processData: false}, imgObj)
+  $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
 
-  let req = request.post('/api/applicants/upload');
+  let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
   imgObj.profile_files.forEach((file) => {
     // console.log(req)
     console.log("hello from inside forEach()", file)

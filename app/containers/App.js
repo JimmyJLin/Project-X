@@ -1,16 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import HeaderMenu from '../components/headermenu';
-import Footer from '../components/footer';
+import MainMenu from '../components/menus/main_menu';
+import Footer from '../components/menus/footer';
 
 class App extends Component {
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+
 
     return (
       <div>
-        <HeaderMenu />
+        <MainMenu />
 
           {this.props.children}
 
@@ -25,15 +25,7 @@ class App extends Component {
 
 
 function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
+  return {};
 }
-
-function mapDispachToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
-}
-
-
 
 export default connect(mapStateToProps)(App);

@@ -219,7 +219,7 @@ class Post_job extends Component {
 
 function postJob(jobData){
   console.log('post job data is fired with data', jobData)
-  $.post('/api/jobs/new', jobData)
+  $.post('https://apex-database.herokuapp.com/api/jobs/new', jobData)
     .done((data) => {
       console.log('success', data)
       browserHistory.push('/employer_profile'); // redirects to profile

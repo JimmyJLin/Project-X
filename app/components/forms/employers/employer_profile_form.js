@@ -31,7 +31,10 @@ class Employer_profile_form extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
+    const employer_id = localStorage.id
+    console.log("employer_id: ", employer_id)
     let employerProfileData = {
+      user_id: employer_id,
       company_name: this.state.company_name,
       company_address: this.state.company_address,
       company_city: this.state.company_city,
@@ -57,22 +60,22 @@ class Employer_profile_form extends Component {
     postOneEmployer(employerProfileData, employerProfileImage)
 
 
-    // this.setState({
-    //   company_name: '',
-    //   company_address: '',
-    //   company_city: '',
-    //   company_state: '',
-    //   company_zip: '',
-    //   company_description: '',
-    //   company_website: '',
-    //   company_phone_number: '',
-    //   company_email: '',
-    //   company_size: '',
-    //   company_industry: '',
-    //   company_branch: '',
-    //   company_logo: '',
-    //   company_files: []
-    // })
+    this.setState({
+      company_name: '',
+      company_address: '',
+      company_city: '',
+      company_state: '',
+      company_zip: '',
+      company_description: '',
+      company_website: '',
+      company_phone_number: '',
+      company_email: '',
+      company_size: '',
+      company_industry: '',
+      company_branch: '',
+      company_logo: '',
+      company_files: []
+    })
 
 
   }
@@ -172,7 +175,7 @@ class Employer_profile_form extends Component {
 
           </div>
 
-          <div className="two fields">
+          {/*<div className="two fields">
             <div className="field">
               <label>Company Name</label>
               <input name="company_name" type="text" value={this.state.company_name}
@@ -183,7 +186,7 @@ class Employer_profile_form extends Component {
               <input type="text" value={this.state.company_website}
               onChange={e => this.onCompanyWebsiteChange(e.target.value)}/>
             </div>
-          </div>
+          </div>*/}
 
           <div className="field">
             <label name="company_description"> Description </label>
@@ -191,7 +194,7 @@ class Employer_profile_form extends Component {
             onChange={e => this.onCompanyDescriptionChange(e.target.value)}></textarea>
           </div>
 
-          <div className="field">
+          {/*<div className="field">
             <label>Company Address</label>
             <input name="company_address" type="text" value={this.state.company_address}
             onChange={e => this.onCompanyAddressChange(e.target.value)}/>
@@ -266,11 +269,11 @@ class Employer_profile_form extends Component {
               <input name="company_zip" type="text" value={this.state.company_zip}
               onChange={e => this.onCompanyZipChange(e.target.value)}/>
             </div>
-          </div>
+          </div>*/}
 
           <div className="two fields">
             <div className="field">
-              <label>Company Email</label>
+              <label>Hiring Email</label>
               <input name="company_email" type="text" value={this.state.company_email}
               onChange={e => this.onCompanyEmailChange(e.target.value)}/>
             </div>
@@ -328,7 +331,7 @@ function postOneEmployer(employerProfileData, employerProfileImage) {
 
   // console.log("this.state.company_files", this.state.company_files)
   console.log("employerProfileData", employerProfileData)
-  $.post('/api/employers/new', employerProfileData)
+  $.post('https://apex-database.herokuapp.com/api/employers/new', employerProfileData)
     .done((data) => {
       console.log("data.id", data.id)
       console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
@@ -343,9 +346,9 @@ function postOneEmployer(employerProfileData, employerProfileImage) {
 
 function postEmployerImage( id, imgObj) {
 
-  $.post('/api/employers/'+id, {processData: false}, imgObj)
+  $.post('https://apex-database.herokuapp.com/api/employers/'+id, {processData: false}, imgObj)
 
-  let req = request.post('/api/employers/upload');
+  let req = request.post('https://apex-database.herokuapp.com/api/employers/upload_image');
   imgObj.company_files.forEach((file) => {
     console.log(req)
     console.log("hello from inside forEach()", file)
