@@ -10,6 +10,7 @@ import requireAuth_emp from '../utils/requireAuth_emp';
 // main
 import App from 'containers/App';
 import Main from 'containers/Main';
+import Messages from 'containers/Messages';
 
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
@@ -58,11 +59,11 @@ export default function(history) {
         <Route path="employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />
 
         {/* Applicant & Employer Profile*/}
-        <Route path="/applicant_profile" component={Applicant_profile} />
-        <Route path="/employer_profile" component={Employer_profile} />
+        <Route path="/applicant_profile" component={requireAuth(Applicant_profile)} />
+        <Route path="/employer_profile" component={requireAuth_emp(Employer_profile)} />
 
         {/* Post New Job */}
-        <Route path="/new" component={Post_job} />
+        <Route path="/new" component={requireAuth_emp(Post_job)} />
         <Route path="/list_jobs" component={List_jobs} />
         <Route path="/archived_jobs" component={Archived_jobs} />
         <Route path="/jobs/job_details/:id" component={Job} />

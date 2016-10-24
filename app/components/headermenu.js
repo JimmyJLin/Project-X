@@ -42,10 +42,15 @@ class HeaderMenu extends Component {
       const userLinks = (
         <div className="ui text container">
           <Link id="profile" className="item" to={"/applicant_profile" || "/employer_profile"}><i className="icon user"></i>Profile</Link>
-          <Link id="messages" className="item"><i className="icon comment"></i>Messages</Link>
+          <Link to = "messages"  id="messages" className="item"><i className="icon comment"></i>Messages</Link>
           <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
         </div>
       );
+
+    const Profile = (
+      <Link id="profile" className="item" to={"/applicant_profile" || "/employer_profile"}><i className="icon user"></i>Profile</Link>
+
+    )
 
 
 
