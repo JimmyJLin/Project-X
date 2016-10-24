@@ -22,7 +22,7 @@ class Applicant_profile extends Component {
     const applicant_id = localStorage.id
 
    // this is where you'll get the data from the 'db'
-   const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + applicant_id
+   const url = 'https://apex-database.herokuapp.com/api/applicants/' + applicant_id
    $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;

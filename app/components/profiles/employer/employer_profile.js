@@ -59,7 +59,7 @@ class Employer_profile extends Component {
 
 
    //  get employer profile data
-   const employerUrl = "https://apex-database.herokuapp.com/api/employers/profile/" + employer_id
+   const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
    $.get(employerUrl).done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
