@@ -2,7 +2,7 @@ import 'babel-polyfill'
 
 import React from 'react'
 import { render } from 'react-dom';
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router';
 
 // import configureStore from 'store/configureStore'
@@ -13,6 +13,8 @@ import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './actions/authActions';
+
+import routes from 'routes/index';
 
 import createRoutes from 'routes/index'
 // import Immutable from 'immutable'
@@ -48,8 +50,7 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
 }
 
-ReactDOM.render((
+render(
   <Provider store={store}>
     { createRoutes(browserHistory) }
-  </Provider>
-), document.getElementById('root'))
+  </Provider> , document.getElementById('root'));

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Main extends Component {
+
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <div className="intro">
         {/* Main Header Menu */}
@@ -37,8 +39,15 @@ class Main extends Component {
   }
 }
 
-function mapStateToProps() {
-  return {};
+Main.propTypes = {
+  auth: React.PropTypes.object.isRequired,
+}
+
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
 }
 
 export default connect(mapStateToProps)(Main);

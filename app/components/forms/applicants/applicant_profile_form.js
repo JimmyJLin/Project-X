@@ -184,8 +184,9 @@ class Applicant_profile_form extends Component {
   }
 
   render(){
-    const { currentValue, currentValues } = this.state
-    return(
+    const { isAuthenticated } = this.props.auth;
+
+    const appForm = (
         <div id="applicant_profile_form">
 
           <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
@@ -333,7 +334,11 @@ class Applicant_profile_form extends Component {
 
 
         </div>
-
+      )
+    return (
+      <div>
+      { isAuthenticated ? appForm : '' }
+      </div>
     )
   }
 

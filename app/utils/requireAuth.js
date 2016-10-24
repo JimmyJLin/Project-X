@@ -23,6 +23,7 @@ export default function(ComposedComponent) {
     }
 
     render() {
+      console.log('render')
       return (
         <ComposedComponent {...this.props} />
       );

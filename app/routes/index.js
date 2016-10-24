@@ -3,14 +3,14 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import configureStore from 'store/configureStore';
 
-import requireAuth from '../utils/requireAuth';
-import requireAuth_emp from '../utils/requireAuth_emp';
-
 
 // main
 import App from 'containers/App';
 import Main from 'containers/Main';
 import Messages from 'containers/Messages';
+
+import requireAuth from '../utils/requireAuth';
+import requireAuth_emp from '../utils/requireAuth_emp';
 
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
@@ -42,11 +42,11 @@ import Matched_employer from 'components/applicants/matched_employer_profile';
 import List_applicants_applied from 'components/applicants/List_applicants_applied'
 
 
-
 export default function(history) {
   return (
     <Router history={history}>
       <Route path="/" component={App}>
+        <IndexRoute component={Main} />
 
         {/* Applicant / Employer User Auth */}
         <Route path="signup" component={SignupPage} />
@@ -79,7 +79,6 @@ export default function(history) {
         <Route path="/list_matched/job/:id" component={Job} />
 
 
-        <IndexRoute component={Main} />
       </Route>
     </Router>
   );

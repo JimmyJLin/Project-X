@@ -144,9 +144,10 @@ class Employer_profile_form extends Component {
   }
 
   render(){
-    console.log("render this.state.files", this.state.company_files)
+    const { isAuthenticated } = this.props.auth;
 
-    return(
+    const compForm = (
+
         <div id="employer_profile_form">
 
 
@@ -315,12 +316,15 @@ class Employer_profile_form extends Component {
           <p>By activating your profile, you agree to the Apex Terms and Conditions</p>
 
         </div>
-
+      )
+    return (
+      <div>
+      { isAuthenticated ? compForm : '' }
+      </div>
     )
   }
 
 }
-
 
 
 
@@ -364,8 +368,10 @@ function postEmployerImage( id, imgObj) {
   })
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
 }
 
 export default connect(mapStateToProps)(Employer_profile_form);

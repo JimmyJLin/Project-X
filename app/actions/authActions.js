@@ -3,10 +3,9 @@ import jwtDecode from 'jwt-decode';
 import { SET_CURRENT_USER, AUTHENTICATED } from './types';
 const $ = require('jquery');
 
-export function setCurrentUser(user, auth) {
+export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
-    auth,
     user
   };
 }
@@ -17,6 +16,7 @@ export function logout() {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('id');
     localStorage.removeItem('type');
+    localStorage.removeItem('key');
     localStorage.removeItem('fullname');
     localStorage.removeItem('first_name');
     localStorage.removeItem('last_name');
@@ -31,7 +31,7 @@ export function login(data) {
       .done( (data)=> {
         console.log('agent data', data)
       let token = data.token;
-      // setAuthorizationToken(token);
+      setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
 
       let user = data.agent;
