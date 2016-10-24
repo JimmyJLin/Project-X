@@ -26,7 +26,6 @@ import SignupPage_emp from 'components/user_auth/signup/SignupPage_emp';
 import LoginPage from 'components/user_auth/login/LoginPage';
 import LoginPage_emp from 'components/user_auth/login/LoginPage_emp';
 
-
 // employer jobs
 import Post_job from 'components/jobs/post_job';
 import List_jobs from 'components/jobs/list_jobs';
@@ -70,9 +69,9 @@ export default function(history) {
 
         {/* Matching */}
         <Route path="/list_matched_applicants" component={List_matched_applicants} />
-        <Route path="/list_matched_applicants/:id" component={Matched_applicant} />
+        <Route path="/Matched_applicant/:id" component={Matched_applicant} />
         <Route path="/list_matched_employers/:id" component={Matched_employer} />
-        <Route path="/list_applicants_applied" component={List_applicants_applied} />
+        <Route path="/list_applicants_applied/:job_id" component={List_applicants_applied} />
 
 
         <Route path="/list_match" component={List_match} />

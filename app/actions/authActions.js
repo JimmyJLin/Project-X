@@ -36,9 +36,8 @@ export function login(data) {
 
       let user = data.agent;
       let id = user.id;
-      let type = user.type || '';
+      let type = 'applicant';
       let fullname = user.name + ' ' + user.last_name
-
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('id', id);
       localStorage.setItem('type', type);
@@ -56,10 +55,12 @@ export function login_employer(data) {
       let token = data.token;
       let user = data.agent;
         let id = user.id;
+        let type = 'employer';
         let first_name = user.first_name || '';
         let last_name = user.last_name || ''
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('id', id);
+      localStorage.setItem('type', type);
       localStorage.setItem('first_name', first_name);
       localStorage.setItem('last_name', last_name);
       setAuthorizationToken(token);

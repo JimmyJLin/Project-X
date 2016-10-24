@@ -13,16 +13,17 @@ class Job extends Component {
       job_data: [],
       job_status: '',
       job_applicants: '',
-      applicants_applied: ''
+      applicants_applied: '',
+      applicants_applied_id: ''
     }
 
   }
 
   componentDidMount() {
     console.log("hello from componentDidMount")
-    // get employer job data
     let job_id = this.props.params.id
 
+    // job details
     $.get(`/api/jobs/job_details/${job_id}`).done( (data)=>{
       this.state.job_data = data
       this.state.job_status = data[0].status
@@ -32,22 +33,24 @@ class Job extends Component {
 
     })
 
-    // get # of Applicants
+    // get # of Matched Applicants
     $.get('/api/applicants/').done( (data)=>{
-      this.state.job_applicants = data.length
+      this.state.job_applicants = data
       this.setState({
         job_applicants: this.state.job_applicants
       })
 
     })
 
-    // get # of Applicants for the job
+    // get # of Applied Applicants for current job
     $.get(`/api/jobs/application/${job_id}`)
       .done((data)=>{
         console.log("Job Applicant Data", data)
         this.state.applicants_applied = data
+        this.state.applicants_applied_id = data[0].job_id
         this.setState({
-          applicants_applied: this.state.applicants_applied
+          applicants_applied: this.state.applicants_applied,
+          applicants_applied_id: this.state.applicants_applied_id
         })
         console.log("this.state.applicants_applied", this.state.applicants_applied)
       })
@@ -186,7 +189,7 @@ class Job extends Component {
     const status = this.state.job_status
     // console.log("line 149 job status:", status)
     // console.log('localStorage.type', localStorage.type)
-    if (this.state.job_status == 'active' && !localStorage.type){
+    if (this.state.job_status == 'active' && localStorage.type == "employer"){
       // console.log("line 151 job status:", this.state.job_status)
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
@@ -202,7 +205,7 @@ class Job extends Component {
                       </div>
                       <div className=" four widecolumn"></div>
                   </div>
-    } else if (this.state.job_status == 'archived' && !localStorage.type) {
+    } else if (this.state.job_status == 'archived' && localStorage.type == "employer") {
       jobStatus = <div className="ui grid">
                       <div className="four wide column"></div>
                       <div className="twelve wide column">
@@ -222,19 +225,21 @@ class Job extends Component {
     }
 
     let applicantView;
-    if (this.state.job_status == 'active' && !localStorage.type){
+    let jobApplicant_id = this.state.applicants_applied_id
+    console.log("jobApplicant_id", jobApplicant_id)
+    if (this.state.job_status == 'active' && localStorage.type == "employer"){
       applicantView = <div className="ui segment match">
                         <h3>Applicants: </h3>
                         <div className="ui middle aligned divided list">
                           <div className="item">
                             <div className="right floated content">
-                              <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
+                              <Link to={"/list_matched_applicants/"}>{this.state.job_applicants.length}</Link>
                             </div>
                             <div className="content">Matched</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <Link to="/list_applicants_applied">{this.state.applicants_applied.length}</Link>
+                              <Link to={"/list_applicants_applied/" + jobApplicant_id}>{this.state.applicants_applied.length}</Link>
                             </div>
                             <div className="content">Applied</div>
                           </div>
@@ -266,50 +271,9 @@ class Job extends Component {
                       </div>
 
 
-    } else if (this.state.job_status == 'archived' && !localStorage.type) {
-      applicantView = <div className="ui segment match">
-                        <h3>Applicants: </h3>
-                        <div className="ui middle aligned divided list">
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="/list_matched_applicants">{this.state.job_applicants}</Link>
-                            </div>
-                            <div className="content">Matched</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="/list_applicants_applied">{this.state.applicants_applied.length}</Link>
-                            </div>
-                            <div className="content">Applied</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">10</a>
-                            </div>
-                            <div className="content">Rejected</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">5</a>
-                            </div>
-                            <div className="content">Interviewed</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">0</a>
-                            </div>
-                            <div className="content">Hired</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <a href="#">287</a>
-                            </div>
-                            <div className="content">Remaining</div>
-                          </div>
-                        </div>
-                      </div>
+    } else if (this.state.job_status == 'archived' && localStorage.type) {
 
-    } else {
+    } else if (localStorage.stype = 'applicant'){
       applicantView = <div className="ui grid">
                         <div id="applicants_buttons">
                           <label>Connect with the employer </label>

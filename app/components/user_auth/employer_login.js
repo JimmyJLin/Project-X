@@ -13,6 +13,7 @@ class EmploymentLoginForm extends React.Component {
       email: '',
       password: '',
       errors: {},
+      type:'employer',
       isLoading: false
     };
 

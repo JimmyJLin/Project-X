@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import HeaderMenu from '../components/headermenu';
-import Footer from '../components/footer';
 
 class Main extends Component {
   render() {
@@ -21,15 +19,15 @@ class Main extends Component {
         <div id="main_display_links" className="ui grid">
           <div className="eight wide column">
             <h3>Applying</h3>
-            <Link to="/applicant_profile_form">
+            <a href="/applicant_profile_form">
               <button className="ui button">Begin Your Free Profile Today</button>
-            </Link>
+            </a>
           </div>
           <div className="eight wide column">
             <h3>Posting</h3>
-            <Link to="/employer_profile_form">
+            <a href="/employer_profile_form">
               <button className="ui button">Register & Post Today</button>
-            </Link>
+            </a>
 
           </div>
         </div>
