@@ -17,7 +17,7 @@ class List_applicants_applied extends Component {
     let job_id = this.props.params.job_id
     console.log("line 17", job_id)
     // get # of Applied Applicants for current job
-    $.get(`/api/jobs/application/${job_id}`)
+    $.get(`http://localhost:8080/api/jobs/application/${job_id}`)
       .done((data)=>{
         console.log("line 22 Job Applicant Data", data)
 

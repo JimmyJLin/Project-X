@@ -31,8 +31,8 @@ class MainMenu extends Component {
     localStorage.setItem('key', key)
     let key = "helloooooooo"
 
-    let applicant_type = localStorage.key
-    
+    let applicant_type = localStorage.type
+
     if (applicant_type == "applicant") {
       console.log("applicant")
       this.setState({

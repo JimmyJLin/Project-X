@@ -15,7 +15,7 @@ class List_match extends Component {
 
   componentDidMount() {
     // get all matched jobs data
-    $.get('/api/jobs/new').done( (data)=>{
+    $.get('http://localhost:8080/api/jobs/').done( (data)=>{
       this.state.jobs = data
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)

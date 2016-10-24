@@ -15,7 +15,7 @@ class List_matched_employers extends Component {
 
   componentDidMount() {
     // get all matched Applicants data
-    $.get('/api/applicants/').done( (data)=>{
+    $.get('http://localhost:8080/api/applicants/').done( (data)=>{
       this.state.job_applicants = data
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
