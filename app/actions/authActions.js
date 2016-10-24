@@ -35,7 +35,7 @@ export function login(data) {
       .done( (data)=> {
         console.log('agent data', data)
       let token = data.token;
-      // setAuthorizationToken(token);
+      setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
 
       let user = data.agent;
