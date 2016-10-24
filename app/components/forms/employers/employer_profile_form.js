@@ -331,7 +331,7 @@ function postOneEmployer(employerProfileData, employerProfileImage) {
 
   // console.log("this.state.company_files", this.state.company_files)
   console.log("employerProfileData", employerProfileData)
-  $.post('/api/employers/new', employerProfileData)
+  $.post('https://apex-database.herokuapp.com/api/employers/new', employerProfileData)
     .done((data) => {
       console.log("data.id", data.id)
       console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
@@ -346,9 +346,9 @@ function postOneEmployer(employerProfileData, employerProfileImage) {
 
 function postEmployerImage( id, imgObj) {
 
-  $.post('/api/employers/'+id, {processData: false}, imgObj)
+  $.post('https://apex-database.herokuapp.com/api/employers/'+id, {processData: false}, imgObj)
 
-  let req = request.post('/api/employers/upload');
+  let req = request.post('https://apex-database.herokuapp.com/api/employers/upload_image');
   imgObj.company_files.forEach((file) => {
     console.log(req)
     console.log("hello from inside forEach()", file)

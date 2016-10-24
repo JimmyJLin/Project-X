@@ -18,7 +18,7 @@ class List_jobs extends Component {
     const employer_id = localStorage.id
     console.log("employer_id", employer_id)
     // get employer job data
-    const url = 'http://localhost:8080/api/jobs/active/' + employer_id
+    const url = 'https://apex-database.herokuapp.com/api/jobs/active/' + employer_id
     $.get(url).done( (data)=>{
       this.state.job_data = data
        this.setState({

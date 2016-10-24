@@ -24,7 +24,7 @@ class Job extends Component {
     let job_id = this.props.params.id
 
     // job details
-    $.get(`http://localhost:8080/api/jobs/${job_id}`).done( (data)=>{
+    $.get(`https://apex-database.herokuapp.com/api/jobs/${job_id}`).done( (data)=>{
       this.state.job_data = data
       this.state.job_status = data[0].status
       this.setState({
@@ -34,7 +34,7 @@ class Job extends Component {
     })
 
     // get # of Matched Applicants
-    $.get('http://localhost:8080/api/jobs/').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
       this.state.job_applicants = data
       this.setState({
         job_applicants: this.state.job_applicants
@@ -43,7 +43,7 @@ class Job extends Component {
     })
 
     // get # of Applied Applicants for current job
-    $.get(`http://localhost:8080/api/jobs/application/${job_id}`)
+    $.get(`https://apex-database.herokuapp.com/api/jobs/application/${job_id}`)
       .done((data)=>{
         console.log("Job Applicant Data", data)
         this.state.applicants_applied = data
@@ -66,7 +66,7 @@ class Job extends Component {
 
     let job_id = this.props.params.id
 
-    $.post(`http://localhost:8080/api/jobs/archived/update/${job_id}`)
+    $.post(`https://apex-database.herokuapp.com/api/jobs/archived/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
         window.location.replace('/employer_profile'); // redirects to profile
@@ -85,7 +85,7 @@ class Job extends Component {
 
     let job_id = this.props.params.id
 
-    $.post(`http://localhost:8080/api/jobs/active/update/${job_id}`)
+    $.post(`https://apex-database.herokuapp.com/api/jobs/active/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
         window.location.replace('/employer_profile'); // redirects to profile
@@ -108,7 +108,7 @@ class Job extends Component {
       status: 'applied'
     }
 
-    $.post('http://localhost:8080/api/jobs/application', applicationData)
+    $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       .done((data) => {
         console.log('succesfully applied for a job')
       })

@@ -31,7 +31,7 @@ export function getToken(){
 
 export function login(data) {
   return dispatch => {
-    return $.post('http://localhost:8080/api/users/applicants/login', data)
+    return $.post('https://apex-database.herokuapp.com/api/users/applicants/login', data)
       .done( (data)=> {
         console.log('agent data', data)
       let token = data.token;
@@ -53,7 +53,7 @@ export function login(data) {
 
 export function login_employer(data) {
   return dispatch => {
-    return $.post('http://localhost:8080/api/users/employers/login', data)
+    return $.post('https://apex-database.herokuapp.com/api/users/employers/login', data)
     .done( (data)=> {
     console.log('agent data', data.agent)
       let token = data.token;

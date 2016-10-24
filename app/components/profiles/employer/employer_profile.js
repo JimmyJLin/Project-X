@@ -32,7 +32,7 @@ class Employer_profile extends Component {
 
     console.log("employer id", employer_id)
     // fetch employer posted jobs with status active
-    const activeUrl = "http://localhost:8080/api/jobs/active/" + employer_id
+    const activeUrl = "https://apex-database.herokuapp.com/api/jobs/active/" + employer_id
     $.get(activeUrl).done( (data)=>{
       this.state.active_jobs = data.length
 
@@ -44,7 +44,7 @@ class Employer_profile extends Component {
      })
 
      // fetch employer posted jobs with status archived
-     const archivedUrl = "http://localhost:8080/api/jobs/archived/" + employer_id
+     const archivedUrl = "https://apex-database.herokuapp.com/api/jobs/archived/" + employer_id
      $.get(archivedUrl).done( (data)=>{
        console.log('job data: ', data)
        console.log('job data: ', data.length)
@@ -59,7 +59,7 @@ class Employer_profile extends Component {
 
 
    //  get employer profile data
-   const employerUrl = "http://localhost:8080/api/applicants/profile/" + employer_id
+   const employerUrl = "https://apex-database.herokuapp.com/api/applicants/profile/" + employer_id
    $.get(employerUrl).done( (data)=>{
       this.state.company_name = data[0].company_name;
       this.state.company_address = data[0].company_address;
