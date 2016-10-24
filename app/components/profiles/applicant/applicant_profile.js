@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import $ from 'jquery'; // requires jQuery for AJAX request
-
+import auth from '../../../actions/authActions'
 
 class Applicant_profile extends Component {
 
@@ -22,7 +22,7 @@ class Applicant_profile extends Component {
     const applicant_id = localStorage.id
 
    // this is where you'll get the data from the 'db'
-   const url = '/api/auth/applicant/' + applicant_id
+   const url = 'http://localhost:8080/api/applicants/profile/' + applicant_id
    $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
       this.state.applicantProfile = data;

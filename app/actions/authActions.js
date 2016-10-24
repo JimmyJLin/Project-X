@@ -25,6 +25,10 @@ export function logout() {
   }
 }
 
+export function getToken(){
+  return localStorage.token
+}
+
 export function login(data) {
   return dispatch => {
     return $.post('/api/auth/applicant/login', data)
