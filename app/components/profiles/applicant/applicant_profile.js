@@ -73,7 +73,7 @@ class Applicant_profile extends Component {
           </div>
           <div className="twelve wide column">
             <div className="twelve wide column">
-              <h2>{this.state.applicantProfile.first_name} {this.state.applicantProfile.last_name}: {this.state.certifications[0]}</h2>
+              <h2>{this.state.applicantProfile.name} {this.state.applicantProfile.last_name}: {this.state.certifications[0]}</h2>
             </div>
 
             <div className="ui divider"></div>
