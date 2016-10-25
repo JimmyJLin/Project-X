@@ -274,14 +274,16 @@ class Job extends Component {
     } else if (this.state.job_status == 'archived' && localStorage.type) {
 
     } else if (localStorage.stype = 'applicant'){
-      applicantView = <div className="ui grid">
-                        <div id="applicants_buttons">
-                          <label>Connect with the employer </label>
-                          <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
-                        </div>
-                        <div id="applicants_buttons">
-                          <p>Apply to current job posting</p>
-                          <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+      applicantView = <div className="ui segment">
+                        <div className="ui grid">
+                          <div id="applicants_buttons">
+                            <label>Connect with the employer </label>
+                            <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
+                          </div>
+                          <div id="applicants_buttons">
+                            <p>Apply to current job posting</p>
+                            <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+                          </div>
                         </div>
                       </div>
     }
