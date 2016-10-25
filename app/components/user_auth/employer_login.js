@@ -43,11 +43,16 @@ class EmploymentLoginForm extends React.Component {
         (res) => this.context.router.push('/employer_profile'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
+      this.closeModal();
     // }
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  closeModal(){
+    $('.ui.small.modal.employer.login').modal('hide')
   }
 
   render() {
