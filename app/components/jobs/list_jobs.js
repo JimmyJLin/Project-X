@@ -35,7 +35,13 @@ class List_jobs extends Component {
 
     const jobs = jobData.map(function(job){
 
-      return <Link to={{pathname: `jobs/job_details/${job.id}`}} className="card" key={job.id} ><div className="content"><div className="header">{job.title}</div><div className="meta">{job.id}</div><div className="decription">{job.location}</div></div></Link>
+      return <Link to={{pathname: `jobs/job_details/${job.id}`}} className="card" key={job.id} >
+              <div className="content">
+                <div className="header">{job.title}</div>
+                <div className="meta">{job.id}</div>
+                <div className="decription">{job.location}</div>
+              </div>
+            </Link>
 
     })
 
