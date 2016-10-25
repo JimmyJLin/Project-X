@@ -45,11 +45,16 @@ class ApplicantLoginForm extends React.Component {
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
 
+      this.closeModal();
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+    onChange(e) {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+
+    closeModal(){
+      $('.ui.small.modal.applicant.login').modal('hide')
+    }
 
   render() {
     const { errors, email, password, isLoading } = this.state;
@@ -89,10 +94,11 @@ class ApplicantLoginForm extends React.Component {
 }
 
 
+
   ApplicantLoginForm.propTypes = {
     auth: React.PropTypes.object.isRequired,
     login: React.PropTypes.func.isRequired
-  }
+    }
 
   ApplicantLoginForm.contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -104,6 +110,9 @@ class ApplicantLoginForm extends React.Component {
   }
 
   export default connect(mapStateToProps, { login })(ApplicantLoginForm);
+
+
+
 
 
 
