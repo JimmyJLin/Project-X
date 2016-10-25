@@ -49,16 +49,7 @@ server.set('view engine', 'ejs');
 
 
 // *********************** API ROUTES ****************** //
-const jobsRoutes = require(path.join(__dirname, '/api/jobs'));
-const userRoutes = require(path.join(__dirname, '/api/auth'));
-const ApplicantsRoutes = require(path.join(__dirname, '/api/applicants'));
-const EmployersRoutes = require(path.join(__dirname, '/api/employers'));
-
-server.use('/api/jobs', jobsRoutes);
-server.use('/api/auth', userRoutes);
-server.use('/api/applicants', ApplicantsRoutes);
-server.use('/api/employers', EmployersRoutes);
-
+// Please check the backend app
 
 // mock apis
 // server.get('/api/questions', (req, res)=> {
