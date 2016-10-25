@@ -345,6 +345,7 @@ class Applicant_profile_form extends Component {
         Please sign in as an Applicant to reach this page.
         </div>
       )
+
       return (
             <div>
               { isAuthenticated && this.props.auth.user.type =='applicant' ? applicantForm : error }

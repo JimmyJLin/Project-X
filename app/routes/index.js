@@ -40,8 +40,6 @@ import List_matched_employers from 'components/applicants/list_matched_employers
 import Matched_employer from 'components/applicants/matched_employer_profile';
 import List_applicants_applied from 'components/applicants/list_applicants_applied'
 
-
-
 export default function(history) {
   return (
     <Router history={history}>
@@ -58,8 +56,8 @@ export default function(history) {
         <Route path="employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />
 
         {/* Applicant & Employer Profile*/}
-        <Route path="/applicant_profile" component={Applicant_profile} />
-        <Route path="/employer_profile" component={Employer_profile} />
+        <Route path="/applicant_profile" component={requireAuth(Applicant_profile)} />
+        <Route path="/employer_profile" component={requireAuth_emp(Employer_profile)} />
 
         {/* Post New Job */}
         <Route path="/new" component={Post_job} />
