@@ -24,7 +24,7 @@ class Job extends Component {
     let job_id = this.props.params.id
 
     // job details
-    $.get(`/api/jobs/job_details/${job_id}`).done( (data)=>{
+    $.get(`https://apex-database.herokuapp.com/api/jobs/${job_id}`).done( (data)=>{
       this.state.job_data = data
       this.state.job_status = data[0].status
       this.setState({
@@ -34,7 +34,7 @@ class Job extends Component {
     })
 
     // get # of Matched Applicants
-    $.get('/api/applicants/').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
       this.state.job_applicants = data
       this.setState({
         job_applicants: this.state.job_applicants
@@ -43,7 +43,7 @@ class Job extends Component {
     })
 
     // get # of Applied Applicants for current job
-    $.get(`/api/jobs/application/${job_id}`)
+    $.get(`https://apex-database.herokuapp.com/api/jobs/application/${job_id}`)
       .done((data)=>{
         console.log("Job Applicant Data", data)
         this.state.applicants_applied = data
@@ -59,14 +59,14 @@ class Job extends Component {
   }
 
 
-  handleJobStatusChange(e) {
+  handleJobStatusChangeToArchive(e) {
     e.preventDefault();
 
     // console.log("Archive Button Clicked, captured id is: ", this.props.params.id)
 
     let job_id = this.props.params.id
 
-    $.post(`/api/jobs/job_details/${job_id}`)
+    $.post(`https://apex-database.herokuapp.com/api/jobs/archived/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
         window.location.replace('/employer_profile'); // redirects to profile
@@ -78,14 +78,14 @@ class Job extends Component {
 
   }
 
-  handleJobRepostChange(e) {
+  handleJobStatusChangeToActive(e) {
     e.preventDefault();
 
     // console.log("Re-Post Button Clicked, captured id is: ", this.props.params.id)
 
     let job_id = this.props.params.id
 
-    $.post(`/api/jobs/job_update/${job_id}`)
+    $.post(`https://apex-database.herokuapp.com/api/jobs/active/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
         window.location.replace('/employer_profile'); // redirects to profile
@@ -108,7 +108,7 @@ class Job extends Component {
       status: 'applied'
     }
 
-    $.post('/api/jobs/application', applicationData)
+    $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       .done((data) => {
         console.log('succesfully applied for a job')
       })
@@ -199,7 +199,7 @@ class Job extends Component {
                               <buton className="ui blue button">Update</buton>
                             </div>
                             <div className="four wide column">
-                              <buton onClick={ this.handleJobStatusChange.bind(this)} className="ui red button">Archive</buton>
+                              <buton onClick={ this.handleJobStatusChangeToArchive.bind(this)} className="ui red button">Archive</buton>
                             </div>
                           </div>
                       </div>
@@ -214,7 +214,7 @@ class Job extends Component {
                               <buton className="ui blue button">Update</buton>
                             </div>
                             <div className="four wide column">
-                              <buton onClick={ this.handleJobRepostChange.bind(this)} className="ui red button">RePost</buton>
+                              <buton onClick={ this.handleJobStatusChangeToActive.bind(this)} className="ui red button">RePost</buton>
                             </div>
                           </div>
                       </div>
@@ -274,14 +274,16 @@ class Job extends Component {
     } else if (this.state.job_status == 'archived' && localStorage.type) {
 
     } else if (localStorage.stype = 'applicant'){
-      applicantView = <div className="ui grid">
-                        <div id="applicants_buttons">
-                          <label>Connect with the employer </label>
-                          <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
-                        </div>
-                        <div id="applicants_buttons">
-                          <p>Apply to current job posting</p>
-                          <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+      applicantView = <div className="ui segment">
+                        <div className="ui grid">
+                          <div id="applicants_buttons">
+                            <label>Connect with the employer </label>
+                            <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
+                          </div>
+                          <div id="applicants_buttons">
+                            <p>Apply to current job posting</p>
+                            <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+                          </div>
                         </div>
                       </div>
     }

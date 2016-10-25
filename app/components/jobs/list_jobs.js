@@ -13,11 +13,12 @@ class List_jobs extends Component {
     }
   }
 
+
   componentDidMount() {
     const employer_id = localStorage.id
     console.log("employer_id", employer_id)
     // get employer job data
-    const url = '/api/jobs/active/' + employer_id
+    const url = 'https://apex-database.herokuapp.com/api/jobs/active/' + employer_id
     $.get(url).done( (data)=>{
       this.state.job_data = data
        this.setState({
@@ -34,7 +35,13 @@ class List_jobs extends Component {
 
     const jobs = jobData.map(function(job){
 
-      return <Link to={{pathname: `jobs/job_details/${job.id}`}} className="card" key={job.id} ><div className="content"><div className="header">{job.title}</div><div className="meta">{job.id}</div><div className="decription">{job.location}</div></div></Link>
+      return <Link to={{pathname: `jobs/job_details/${job.id}`}} className="card" key={job.id} >
+              <div className="content">
+                <div className="header">{job.title}</div>
+                <div className="meta">{job.id}</div>
+                <div className="decription">{job.location}</div>
+              </div>
+            </Link>
 
     })
 

@@ -20,7 +20,7 @@ class Matched_applicant_profile extends Component {
 
   componentDidMount() {
     let applicant_id = this.props.params.id
-    const url = '/api/auth/applicant/' + applicant_id
+    const url = 'https://apex-database.herokuapp.com/api/applicant/profile/' + applicant_id
 
    // this is where you'll get the data from the 'db'
    $.get(url).done( (data)=>{

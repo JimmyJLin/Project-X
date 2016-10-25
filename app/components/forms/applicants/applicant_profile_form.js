@@ -4,6 +4,7 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import {browserHistory} from 'react-router';
 
 let languageState = [];
 let certificateState = [];
@@ -344,11 +345,13 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('/api/applicants/new', applicantProfileData)
+  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
       PostImage( data.id, ApplicantProfileImages  );
+      
+      browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
 
     })
@@ -360,9 +363,9 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
 function PostImage(id, imgObj){
 
-  $.post('/api/applicants/'+ id, {processData: false}, imgObj)
+  $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
 
-  let req = request.post('/api/applicants/upload');
+  let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
   imgObj.profile_files.forEach((file) => {
     // console.log(req)
     console.log("hello from inside forEach()", file)
@@ -370,12 +373,13 @@ function PostImage(id, imgObj){
     req.field('id', id)
     req.end(function(err, res){
       if (err || !res.ok) {
-        alert('Oh no! error');
+        console.log('Oh no! error')
       } else {
-        alert('yay got ' + JSON.stringify(res.body));
+        console.log('yay got ' + JSON.stringify(res.body))
       }
     })
   })
+
 
 }
 

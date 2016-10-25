@@ -16,7 +16,7 @@ class List_matched_applicants extends Component {
   componentDidMount() {
     console.log("hello from list_matched_applicants componentDidMount")
     let applicant_id = this.props.params.id
-    let url = "/api/applicants/"
+    let url = "https://apex-database.herokuapp.com/api/applicants/"
     // get all matched Applicants data
     $.get(url).done( (data)=>{
       this.state.job_applicants = data
