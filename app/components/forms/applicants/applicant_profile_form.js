@@ -340,17 +340,16 @@ class Applicant_profile_form extends Component {
 
 }
 
-
 function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
+  $.post('http://localhost:8080/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
       PostImage( data.id, ApplicantProfileImages  );
-      
+
       browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
 
@@ -363,9 +362,9 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
 function PostImage(id, imgObj){
 
-  $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
+  $.post('http://localhost:8080/api/applicants/'+ id, {processData: false}, imgObj)
 
-  let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
+  let req = request.post('http://localhost:8080/api/applicants/upload_image');
   imgObj.profile_files.forEach((file) => {
     // console.log(req)
     console.log("hello from inside forEach()", file)
