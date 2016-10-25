@@ -273,7 +273,7 @@ class Job extends Component {
 
     } else if (this.state.job_status == 'archived' && localStorage.type) {
 
-    } else if (localStorage.stype = 'applicant'){
+    } else if (localStorage.type == 'applicant'){
       applicantView = <div className="ui segment">
                         <div className="ui grid">
                           <div id="applicants_buttons">
