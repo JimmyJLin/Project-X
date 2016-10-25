@@ -328,7 +328,7 @@ class Employer_profile_form extends Component {
 
     return (
       <div>
-        { isAuthenticated && (this.props.auth.user.type =='employer') ? employer_form : error }
+        { isAuthenticated && (localStorage.type =='employer') ? employer_form : error }
       </div>
     )
   }
