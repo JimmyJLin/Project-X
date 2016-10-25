@@ -51,6 +51,7 @@ server.set('view engine', 'ejs');
 // *********************** API ROUTES ****************** //
 // Please check the backend app
 
+
 // mock apis
 // server.get('/api/questions', (req, res)=> {
 //   let { questions } = require('./mock_api');

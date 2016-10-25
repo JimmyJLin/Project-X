@@ -340,7 +340,6 @@ class Applicant_profile_form extends Component {
 
 }
 
-
 function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
