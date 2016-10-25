@@ -4,6 +4,7 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 import { Button, Dropdown, Grid, Header } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import {browserHistory} from 'react-router';
 
 let languageState = [];
 let certificateState = [];
@@ -349,6 +350,8 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
       PostImage( data.id, ApplicantProfileImages  );
+      
+      browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
 
     })
@@ -370,12 +373,13 @@ function PostImage(id, imgObj){
     req.field('id', id)
     req.end(function(err, res){
       if (err || !res.ok) {
-        alert('Oh no! error');
+        console.log('Oh no! error')
       } else {
-        alert('yay got ' + JSON.stringify(res.body));
+        console.log('yay got ' + JSON.stringify(res.body))
       }
     })
   })
+
 
 }
 
