@@ -185,8 +185,11 @@ class Applicant_profile_form extends Component {
   }
 
   render(){
-    const { currentValue, currentValues } = this.state
-    return(
+    const { currentValue, currentValues } = this.state;
+
+    const { isAuthenticated } = this.props.auth;
+
+    const applicantForm = (
         <div id="applicant_profile_form">
 
           <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
@@ -334,10 +337,19 @@ class Applicant_profile_form extends Component {
 
 
         </div>
+      )
 
-    )
-  }
-
+      const error = (
+        <div className="field">
+        <br/><br/><br/><br/><br/>
+        Please sign in as an Applicant to reach this page.
+        </div>
+      )
+      return (
+            <div>
+              { isAuthenticated && this.props.auth.user.type =='applicant' ? applicantForm : error }
+            </div>
+        )}
 }
 
 function postOneApplicant(applicantProfileData, ApplicantProfileImages){
@@ -378,11 +390,7 @@ function PostImage(id, imgObj){
       }
     })
   })
-
-
 }
-
-
 
 function mapStateToProps(state) {
   return {
