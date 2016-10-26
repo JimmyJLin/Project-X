@@ -245,25 +245,25 @@ class Job extends Component {
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">10</a>
+                              <Link to="#">10</Link>
                             </div>
                             <div className="content">Rejected</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">5</a>
+                              <Link to="#">5</Link>
                             </div>
                             <div className="content">Interviewed</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">0</a>
+                              <Link to="#">0</Link>
                             </div>
                             <div className="content">Hired</div>
                           </div>
                           <div className="item">
                             <div className="right floated content">
-                              <a href="#">287</a>
+                              <Link to="#">287</Link>
                             </div>
                             <div className="content">Remaining</div>
                           </div>
