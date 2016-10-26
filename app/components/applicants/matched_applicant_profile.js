@@ -64,7 +64,7 @@ class Matched_applicant_profile extends Component {
 
     console.log("certifications", certifications)
 
-    const url = '/' + this.state.applicantProfile.profile_image
+    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + this.state.applicantProfile.profile_image
     return(
         <div id="applicant_profile">
 

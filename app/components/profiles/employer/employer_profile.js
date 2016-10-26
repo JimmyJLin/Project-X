@@ -147,7 +147,7 @@ class Employer_profile extends Component {
                   <div className="column">
                     <div className="ui label details">
                       Company Website:
-                      <div className="detail"><a href={this.state.company_website} target="_blank">{this.state.company_website}</a></div>
+                      <div className="detail"><Link to={this.state.company_website} target="_blank">{this.state.company_website}</Link></div>
                     </div>
                   </div>
                 </div>
@@ -191,9 +191,9 @@ class Employer_profile extends Component {
 
               {/* Post Job Button*/}
               <div className="ui two column left grid">
-                <a href="/new">
+                <Link to="/new">
                   <button className="massive ui button">Post Job Today!</button>
-                </a>
+                </Link>
               </div>
 
             </div>

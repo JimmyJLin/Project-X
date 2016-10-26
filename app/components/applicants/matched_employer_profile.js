@@ -105,7 +105,7 @@ class Matched_employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={this.state.company_logo} alt="Company Logo"/>
+              <img className="ui small circular image" src={"https://apex-database.herokuapp.com/images/company_logo/" + this.state.company_logo} alt="Company Logo"/>
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">
@@ -142,7 +142,7 @@ class Matched_employer_profile extends Component {
                   <div className="column">
                     <div className="ui label details">
                       Company Website:
-                      <div className="detail"><a href={this.state.company_website} target="_blank">{this.state.company_website}</a></div>
+                      <div className="detail"><Link to={this.state.company_website} target="_blank">{this.state.company_website}</Link></div>
                     </div>
                   </div>
                 </div>
@@ -186,9 +186,9 @@ class Matched_employer_profile extends Component {
 
               {/* Post Job Button*/}
               <div className="ui two column left grid">
-                <a href="/new">
+                <Link to="/new">
                   <button className="massive ui button">Post Job Today!</button>
-                </a>
+                </Link>
               </div>
 
             </div>

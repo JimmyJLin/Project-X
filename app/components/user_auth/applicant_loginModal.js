@@ -1,5 +1,6 @@
 import React from 'react';
 import ApplicantLoginForm from './applicant_login';
+import { Link } from 'react-router'
 
 class Applicant_loginModal extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class Applicant_loginModal extends React.Component {
 
           <br/>
 
-        <p>Not a member yet ... <a id="applicant_signup_button">Sign Up</a>
+        <p>Not a member yet ... <Link id="applicant_signup_button">Sign Up</Link>
         </p>
 
       </div>

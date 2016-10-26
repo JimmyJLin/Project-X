@@ -9,7 +9,7 @@ class LoginPage extends React.Component {
     return (
       <div className="forwardlogin">
           <ApplicantLoginForm  />
-          <p>Not a member yet ... <a href="/signup">Sign Up</a></p>
+          <p>Not a member yet ... <Link to="/signup">Sign Up</Link></p>
     </div>
     );
   }

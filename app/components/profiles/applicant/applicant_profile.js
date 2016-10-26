@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import $ from 'jquery'; // requires jQuery for AJAX request
 import auth from '../../../actions/authActions'
+<<<<<<< HEAD
 import {browserHistory} from 'react-router'
+=======
+import {browserHistory} from 'react-router';
+>>>>>>> 3f4d7f12cdba6e86b7465bc6220a1abc77e10bd8
 
 class Applicant_profile extends Component {
 
@@ -26,11 +30,12 @@ class Applicant_profile extends Component {
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + applicant_id
    $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
-        this.state.applicantProfile = data;
-        console.log('test')
-        if (data.experience_level == null ){
-          browserHistory.push('/applicant_profile_form')
-        } else {
+
+      this.state.applicantProfile = data;
+      if(data.education_level == null){
+        // browserHistory.push('/applicant_profile_form'); // redirects to profile
+        window.location.assign('/applicant_profile_form')
+      } else {
         this.state.desired_industry = data.desired_industry
         this.state.desired_location = data.desired_location;
         this.state.education_level = data.education_level;
