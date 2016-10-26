@@ -28,6 +28,18 @@ class Employer_profile_form extends Component {
     }
   }
 
+  componentDidMount(){
+
+    // $('.ui.dropdown').dropdown({
+    //   allowAdditions: true
+    // });
+    // $('select.dropdown')
+    //   .dropdown('set selected', [])
+    // ;
+    // $(".ui.normal.dropdown")
+    //   .dropdown()
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
@@ -332,7 +344,7 @@ class Employer_profile_form extends Component {
       </div>
     )
   }
-  
+
 }
 
 

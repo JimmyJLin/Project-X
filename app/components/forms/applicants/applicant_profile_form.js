@@ -35,6 +35,16 @@ class Applicant_profile_form extends Component {
 
   }
 
+  componentWillUpdate(){
+    // $('.ui.dropdown').dropdown({
+    //   allowAdditions: true
+    // });
+    // $('select.dropdown')
+    //   .dropdown('set selected', [])
+    // ;
+    // $(".ui.normal.dropdown")
+    //   .dropdown()
+  }
 
   handleSubmit(e) {
     e.preventDefault();

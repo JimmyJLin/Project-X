@@ -20,15 +20,15 @@ $(function(){
 
 
   // multiple-select & simple-select dropdown
-  $('.ui.dropdown').dropdown({
-    allowAdditions: true
-  });
-  $('select.dropdown')
-    .dropdown('set selected', [])
-  ;
-  $(".ui.normal.dropdown")
-    .dropdown()
-
+  // $('.ui.dropdown').dropdown({
+  //   allowAdditions: true
+  // });
+  // $('select.dropdown')
+  //   .dropdown('set selected', [])
+  // ;
+  // $(".ui.normal.dropdown")
+  //   .dropdown()
+  //
 
 
   // sign in / sign out / forget password Modal

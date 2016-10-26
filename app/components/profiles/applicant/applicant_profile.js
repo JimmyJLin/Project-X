@@ -27,6 +27,7 @@ class Applicant_profile extends Component {
    $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
         this.state.applicantProfile = data;
+        console.log('test')
         if (data.experience_level == null ){
           browserHistory.push('/applicant_profile_form')
         } else {
