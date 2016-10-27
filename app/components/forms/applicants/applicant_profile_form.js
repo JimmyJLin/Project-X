@@ -34,6 +34,7 @@ class Applicant_profile_form extends Component {
       company_name: '',
       job_title: '',
       start_from: '',
+      to:'',
       resume_pdf:'',
       desired_location:[],
       languages_spoken:[],
@@ -176,7 +177,8 @@ class Applicant_profile_form extends Component {
     let jobData = {
       company_name: this.state.company_name,
       job_title: this.state.job_title,
-      start_from: this.state.start_from
+      start_from: this.state.start_from,
+      to:this.state.to
     }
 
     companyData.push(jobData)
@@ -247,6 +249,10 @@ class Applicant_profile_form extends Component {
 
   onStartFromChange(start_from){
     this.setState({start_from});
+  }
+
+  onToChange(to){
+    this.setState({to});
   }
 
   onresume_pdfChange(resume_pdf){
@@ -461,7 +467,7 @@ class Applicant_profile_form extends Component {
                       <input name="school" value={this.state.school} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
                     </div>
                     <div className="field">
-                      <label name="Year">Year</label>
+                      <label name="Year">Graduation Year</label>
                       <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
                     </div>
                   </div>
@@ -475,18 +481,27 @@ class Applicant_profile_form extends Component {
 
                 {/* Previous Positions Held */}
                 <div className="ui segment">
-                  <label name="Company Name">Company Name</label>
-                  <input name="Company_name" value={this.state.company_name} type="text" placeholder="Company Name" onChange={e => this.onCompanyNameChange(e.target.value)}/>
-                  <br/>
                   <div className="two fields">
+                    <div className="field">
+                      <label name="Company Name">Company Name</label>
+                      <input name="Company_name" value={this.state.company_name} type="text" placeholder="Company Name" onChange={e => this.onCompanyNameChange(e.target.value)}/>
+                      <br/>
+                    </div>
                     <div className="field">
                       <label name="job_title">Job Title</label>
                       <input name="job_title" value={this.state.job_title} type="text" placeholder="school"onChange={e => this.onJobTitleChange(e.target.value)}/>
                     </div>
+                  </div>
+                    <div className="two fields">
                     <div className="field">
                       <label name="start_from">From</label>
                       <input name="start_from" value={this.state.start_from} type="date" placeholder="From"onChange={e => this.onStartFromChange(e.target.value)}/>
                     </div>
+                    <div className="field">
+                      <label name="to">To</label>
+                      <input name="to" value={this.state.to} type="date" placeholder="From"onChange={e => this.onToChange(e.target.value)}/>
+                    </div>
+
                   </div>
                   <div>
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
