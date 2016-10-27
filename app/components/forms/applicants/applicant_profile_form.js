@@ -26,10 +26,12 @@ class Applicant_profile_form extends Component {
       phone_number: '',
       job_type: '',
       experience_level:'',
+      experience_companies:[],
       certifications: [],
       languages_spokenArry:[],
       education_level:'',
-      school: '',
+      schools: [],
+      school_name:'',
       year: '',
       company_name: '',
       job_title: '',
@@ -64,7 +66,7 @@ class Applicant_profile_form extends Component {
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
-      companyArry: this.state.companyArry
+      experience_companies: this.state.companyArry
     }
 
     let ApplicantProfileImages = {
@@ -89,6 +91,24 @@ class Applicant_profile_form extends Component {
     })
 
 //****************
+
+//****************
+
+var expArr =  applicantProfileData.experience_companies   // => ["comp.", "cpmp"]
+var final_expArr = "{";
+
+expArr.forEach(function(el){
+   if( el === expArr[langArr.length -1]) {
+     final_expArr = final_expArr + "\"" + el + '\"}';
+   } else {
+     final_expArr = final_expArr + "\"" + el + '\",';
+   }
+   applicantProfileData.experience_companies = final_expArr;
+   console.log("final_expArr", final_expArr)
+})
+
+//****************
+
     var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
     var final_cert = "{";
 
@@ -114,14 +134,13 @@ class Applicant_profile_form extends Component {
      }
      applicantProfileData.desired_location = final_desired_location;
      console.log("locations", final_desired_location)
-     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
   })
 
     console.log("Line 105 - applicantProfileData", applicantProfileData)
     console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
 
 
-    // postOneApplicant(applicantProfileData , ApplicantProfileImages);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages);
 
     // this.setState({
     //   user_id:'',
@@ -157,7 +176,7 @@ class Applicant_profile_form extends Component {
 
     let educationData = {
       education_level: this.state.education_level,
-      school: this.state.school,
+      school_name: this.state.school_name,
       year: this.state.year
     }
     schoolData.push(educationData)
@@ -231,8 +250,8 @@ class Applicant_profile_form extends Component {
     this.setState({education_level});
   }
 
-  onSchoolChange(school){
-    this.setState({school});
+  onSchoolChange(school_name){
+    this.setState({school_name});
   }
 
   onSchoolYearChange(year){
@@ -463,8 +482,8 @@ class Applicant_profile_form extends Component {
                   {/* School & Year */}
                   <div className="two fields">
                     <div className="field">
-                      <label name="School">School</label>
-                      <input name="school" value={this.state.school} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
+                      <label name="school_name">School</label>
+                      <input name="school_name" value={this.state.school_name} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
                     </div>
                     <div className="field">
                       <label name="Year">Graduation Year</label>
@@ -563,7 +582,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 }
 
 function PostImage(id, imgObj){
-
+  console.log('PostImagefired')
   $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
 
   let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
