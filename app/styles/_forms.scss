@@ -31,11 +31,16 @@ $job_primary_background_color: #f2f2f2;
 
 #employer_profile_form, #applicant_profile_form, #applicant_profile_form{
 
-  #industry_experience{
+  #industry_experience, #areas_expertise{
     padding-left: 25px;
     padding-right: 25px;
+    padding-top: 50px;
+
   }
 
+  .ui.floated.button{
+    margin-right: 15%;
+  }
   #eventDropZone{
     height: 200px;
     width: 200px;
