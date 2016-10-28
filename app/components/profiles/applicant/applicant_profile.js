@@ -214,7 +214,7 @@ class Applicant_profile extends Component {
           {/* Optional Information */}
           <div className="twelve wide column">
             <h2>Optional Information:</h2>
-            <p>This section doesn't make sense</p>
+            <p> This section doesn't make sense, where are we getting these data </p>
             <div className="ui horizontal list centered aligned middle">
               <div className="item search_tags">
                 <div className="ui label details">Country of Citizenship</div>
