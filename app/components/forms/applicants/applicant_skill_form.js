@@ -111,7 +111,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        wealth_management_level: "Entry Level"
+        wealth_management_level: "0-2 years"
       });
 
   }
@@ -120,7 +120,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      wealth_management_level: "Mid Level"
+      wealth_management_level: "2-5 years"
     });
   }
 
@@ -128,7 +128,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      wealth_management_level: "High Level"
+      wealth_management_level: "5+ years"
     });
   }
 
@@ -136,7 +136,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        investment_banking_level: "Entry Level"
+        investment_banking_level: "0-2 years"
       });
 
   }
@@ -145,7 +145,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      investment_banking_level: "Mid Level"
+      investment_banking_level: "2-5 years"
     });
   }
 
@@ -161,7 +161,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        asset_management_level: "Entry Level"
+        asset_management_level: "0-2 years"
       });
 
   }
@@ -170,7 +170,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      asset_management_level: "Mid Level"
+      asset_management_level: "2-5 years"
     });
   }
 
@@ -186,7 +186,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        institutional_securities_level: "Entry Level"
+        institutional_securities_level: "0-2 years"
       });
 
   }
@@ -195,7 +195,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      institutional_securities_level: "Mid Level"
+      institutional_securities_level: "2-5 years"
     });
   }
 
@@ -211,7 +211,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        commercial_banking_level: "Entry Level"
+        commercial_banking_level: "0-2 years"
       });
 
   }
@@ -220,7 +220,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      commercial_banking_level: "Mid Level"
+      commercial_banking_level: "2-5 years"
     });
   }
 
@@ -236,7 +236,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        retirement_solutions_level: "Entry Level"
+        retirement_solutions_level: "0-2 years"
       });
 
   }
@@ -245,7 +245,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      retirement_solutions_level: "Mid Level"
+      retirement_solutions_level: "2-5 years"
     });
   }
 
@@ -261,7 +261,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        portfolio_strategy_level: "Entry Level"
+        portfolio_strategy_level: "0-2 years"
       });
 
   }
@@ -270,7 +270,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      portfolio_strategy_level: "Mid Level"
+      portfolio_strategy_level: "2-5 years"
     });
   }
 
@@ -288,7 +288,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        financial_audit_level: "Entry Level"
+        financial_audit_level: "0-2 years"
       });
 
   }
@@ -297,7 +297,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      financial_audit_level: "Mid Level"
+      financial_audit_level: "2-5 years"
     });
   }
 
@@ -313,7 +313,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        tax_preparation_level: "Entry Level"
+        tax_preparation_level: "0-2 years"
       });
 
   }
@@ -322,7 +322,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      tax_preparation_level: "Mid Level"
+      tax_preparation_level: "2-5 years"
     });
   }
 
@@ -338,7 +338,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        consulting_level: "Entry Level"
+        consulting_level: "0-2 years"
       });
 
   }
@@ -347,7 +347,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      consulting_level: "Mid Level"
+      consulting_level: "2-5 years"
     });
   }
 
@@ -363,7 +363,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        advisory_services_level: "Entry Level"
+        advisory_services_level: "0-2 years"
       });
 
   }
@@ -372,7 +372,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      advisory_services_level: "Mid Level"
+      advisory_services_level: "2-5 years"
     });
   }
 
@@ -388,7 +388,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        compliance_level: "Entry Level"
+        compliance_level: "0-2 years"
       });
 
   }
@@ -397,7 +397,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      compliance_level: "Mid Level"
+      compliance_level: "2-5 years"
     });
   }
 
@@ -413,7 +413,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        human_resources_level: "Entry Level"
+        human_resources_level: "0-2 years"
       });
 
   }
@@ -422,7 +422,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      human_resources_level: "Mid Level"
+      human_resources_level: "2-5 years"
     });
   }
 
@@ -438,7 +438,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        underwriting_level: "Entry Level"
+        underwriting_level: "0-2 years"
       });
 
   }
@@ -447,7 +447,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      underwriting_level: "Mid Level"
+      underwriting_level: "2-5 years"
     });
   }
 
@@ -465,7 +465,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        marketing_level: "Entry Level"
+        marketing_level: "0-2 years"
       });
 
   }
@@ -474,7 +474,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      marketing_level: "Mid Level"
+      marketing_level: "2-5 years"
     });
   }
 
@@ -490,7 +490,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        sales_level: "Entry Level"
+        sales_level: "0-2 years"
       });
 
   }
@@ -499,7 +499,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      sales_level: "Mid Level"
+      sales_level: "2-5 years"
     });
   }
 
@@ -515,7 +515,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        financial_analysis_level: "Entry Level"
+        financial_analysis_level: "0-2 years"
       });
 
   }
@@ -524,7 +524,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      financial_analysis_level: "Mid Level"
+      financial_analysis_level: "2-5 years"
     });
   }
 
@@ -540,7 +540,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        derivatives_level: "Entry Level"
+        derivatives_level: "0-2 years"
       });
 
   }
@@ -549,7 +549,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      derivatives_level: "Mid Level"
+      derivatives_level: "2-5 years"
     });
   }
 
@@ -565,7 +565,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        manda_activity_level: "Entry Level"
+        manda_activity_level: "0-2 years"
       });
 
   }
@@ -574,7 +574,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      manda_activity_level: "Mid Level"
+      manda_activity_level: "2-5 years"
     });
   }
 
@@ -590,7 +590,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        venture_capital_level: "Entry Level"
+        venture_capital_level: "0-2 years"
       });
 
   }
@@ -599,7 +599,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      venture_capital_level: "Mid Level"
+      venture_capital_level: "2-5 years"
     });
   }
 
@@ -615,7 +615,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        forensic_accounting_level: "Entry Level"
+        forensic_accounting_level: "0-2 years"
       });
 
   }
@@ -624,7 +624,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      forensic_accounting_level: "Mid Level"
+      forensic_accounting_level: "2-5 years"
     });
   }
 
@@ -643,7 +643,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        client_relationship_level: "Entry Level"
+        client_relationship_level: "0-2 years"
       });
 
   }
@@ -652,7 +652,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      client_relationship_level: "Mid Level"
+      client_relationship_level: "2-5 years"
     });
   }
 
@@ -668,7 +668,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        microsoft_office_level: "Entry Level"
+        microsoft_office_level: "0-2 years"
       });
 
   }
@@ -677,7 +677,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      microsoft_office_level: "Mid Level"
+      microsoft_office_level: "2-5 years"
     });
   }
 
@@ -693,7 +693,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        quickbooks_level: "Entry Level"
+        quickbooks_level: "0-2 years"
       });
 
   }
@@ -702,7 +702,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      quickbooks_level: "Mid Level"
+      quickbooks_level: "2-5 years"
     });
   }
 
@@ -718,7 +718,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        book_keeping_level: "Entry Level"
+        book_keeping_level: "0-2 years"
       });
 
   }
@@ -727,7 +727,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      book_keeping_level: "Mid Level"
+      book_keeping_level: "2-5 years"
     });
   }
 
@@ -743,7 +743,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        tax_software_level: "Entry Level"
+        tax_software_level: "0-2 years"
       });
 
   }
@@ -752,7 +752,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      tax_software_level: "Mid Level"
+      tax_software_level: "2-5 years"
     });
   }
 
@@ -768,7 +768,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        it_level: "Entry Level"
+        it_level: "0-2 years"
       });
 
   }
@@ -777,7 +777,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      it_level: "Mid Level"
+      it_level: "2-5 years"
     });
   }
 
@@ -793,7 +793,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        data_entry_level: "Entry Level"
+        data_entry_level: "0-2 years"
       });
 
   }
@@ -802,7 +802,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      data_entry_level: "Mid Level"
+      data_entry_level: "2-5 years"
     });
   }
 
@@ -820,7 +820,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        financial_statement_level: "Entry Level"
+        financial_statement_level: "0-2 years"
       });
 
   }
@@ -829,7 +829,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      financial_statement_level: "Mid Level"
+      financial_statement_level: "2-5 years"
     });
   }
 
@@ -845,7 +845,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        financial_planning_level: "Entry Level"
+        financial_planning_level: "0-2 years"
       });
 
   }
@@ -854,7 +854,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      financial_planning_level: "Mid Level"
+      financial_planning_level: "2-5 years"
     });
   }
 
@@ -870,7 +870,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        debt_consolidation_level: "Entry Level"
+        debt_consolidation_level: "0-2 years"
       });
 
   }
@@ -879,7 +879,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      debt_consolidation_level: "Mid Level"
+      debt_consolidation_level: "2-5 years"
     });
   }
 
@@ -895,7 +895,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        sales_level: "Entry Level"
+        sales_level: "0-2 years"
       });
 
   }
@@ -904,7 +904,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      sales_level: "Mid Level"
+      sales_level: "2-5 years"
     });
   }
 
@@ -920,7 +920,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        web_development_level: "Entry Level"
+        web_development_level: "0-2 years"
       });
 
   }
@@ -929,7 +929,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      web_development_level: "Mid Level"
+      web_development_level: "2-5 years"
     });
   }
 
@@ -945,7 +945,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        account_reconciliation: "Entry Level"
+        account_reconciliation: "0-2 years"
       });
 
   }
@@ -954,7 +954,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      account_reconciliation_level: "Mid Level"
+      account_reconciliation_level: "2-5 years"
     });
   }
 
@@ -970,7 +970,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        payroll_management_level: "Entry Level"
+        payroll_management_level: "0-2 years"
       });
 
   }
@@ -979,7 +979,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      payroll_management_level: "Mid Level"
+      payroll_management_level: "2-5 years"
     });
   }
 
@@ -997,7 +997,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        budgeting_level: "Entry Level"
+        budgeting_level: "0-2 years"
       });
 
   }
@@ -1006,7 +1006,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      budgeting_level: "Mid Level"
+      budgeting_level: "2-5 years"
     });
   }
 
@@ -1022,7 +1022,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        forecasting_level: "Entry Level"
+        forecasting_level: "0-2 years"
       });
 
   }
@@ -1031,7 +1031,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      forecasting_level: "Mid Level"
+      forecasting_level: "2-5 years"
     });
   }
 
@@ -1047,7 +1047,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        corporate_reporting: "Entry Level"
+        corporate_reporting: "0-2 years"
       });
 
   }
@@ -1056,7 +1056,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      corporate_reporting_level: "Mid Level"
+      corporate_reporting_level: "2-5 years"
     });
   }
 
@@ -1072,7 +1072,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        public_speaking_level: "Entry Level"
+        public_speaking_level: "0-2 years"
       });
 
   }
@@ -1081,7 +1081,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      public_speaking_level: "Mid Level"
+      public_speaking_level: "2-5 years"
     });
   }
 
@@ -1097,7 +1097,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        analytical_writing_level: "Entry Level"
+        analytical_writing_level: "0-2 years"
       });
 
   }
@@ -1106,7 +1106,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      analytical_writing_level: "Mid Level"
+      analytical_writing_level: "2-5 years"
     });
   }
 
@@ -1122,7 +1122,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        cost_accounting_level: "Entry Level"
+        cost_accounting_level: "0-2 years"
       });
 
   }
@@ -1131,7 +1131,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      cost_accounting_level: "Mid Level"
+      cost_accounting_level: "2-5 years"
     });
   }
 
@@ -1147,7 +1147,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        federal_tax_law_level: "Entry Level"
+        federal_tax_law_level: "0-2 years"
       });
 
   }
@@ -1156,7 +1156,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      federal_tax_law_level: "Mid Level"
+      federal_tax_law_level: "2-5 years"
     });
   }
 
@@ -1196,7 +1196,8 @@ class Applicant_skill_form extends Component {
 
                 {/* Wealth Management */}
                 <div className="ui dropdown item">
-                  Wealth Management
+                  <span>Wealth Management</span>
+                  {this.state.wealth_management_level}
                   <i className="dropdown icon"></i>
                   <div className="menu" name="wealth_management">
                     <option className="item" name="entry_level" onClick={this.handleWealthManagementEntryChange.bind(this)}> 0-2 years</option>
@@ -1207,7 +1208,7 @@ class Applicant_skill_form extends Component {
 
                 {/* Investment Banking */}
                 <div className="ui dropdown item">
-                  Investment Banking
+                  Investment Banking : {this.state.investment_banking_level}
                   <i className="dropdown icon"></i>
                   <div className="menu" name="investment_banking">
                     <option className="item" name="entry_level" onClick={this.handleInvestmentBankingEntryChange.bind(this)}> 0-2 years</option>
