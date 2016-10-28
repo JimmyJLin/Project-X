@@ -14,6 +14,7 @@ import Main from 'containers/Main';
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
 import Applicant_skill_form from 'components/forms/applicants/applicant_skill_form';
+import Applicant_skill_form1 from 'components/forms/applicants/skill_form1';
 
 import Employer_profile_form from 'components/forms/employers/employer_profile_form';
 
@@ -59,6 +60,7 @@ export default function(history) {
         {/* Applicant & Employer Profile Forms */}
         <Route path="/applicant_profile_form" component={requireAuth(Applicant_profile_form)} />
         <Route path="/Applicant_skill_form" component={requireAuth(Applicant_skill_form)} />
+        <Route path="/Applicant_skill_form1" component={requireAuth(Applicant_skill_form1)} />
 
         <Route path="/employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />
 

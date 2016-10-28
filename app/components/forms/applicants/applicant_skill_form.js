@@ -96,7 +96,6 @@ class Applicant_skill_form extends Component {
       this.setState({
         wealth_management_level: "Entry Level"
       });
-
   }
 
   handleWealthManagementMidChange(e){

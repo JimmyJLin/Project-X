@@ -65,13 +65,12 @@ class Applicant_profile_form extends Component {
       resume_pdf: this.state.resume_pdf,
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
-      educationArry: this.state.educationArry,
+      schools: this.state.educationArry,
       experience_companies: this.state.companyArry
     }
 
     let ApplicantProfileImages = {
       profile_files: this.state.profile_files
-
     }
     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages)
 
@@ -98,14 +97,30 @@ var expArr =  applicantProfileData.experience_companies   // => ["comp.", "cpmp"
 var final_expArr = "{";
 
 expArr.forEach(function(el){
-   if( el === expArr[langArr.length -1]) {
-     final_expArr = final_expArr + "\"" + el + '\"}';
+   if( el === expArr[expArr.length -1]) {
+     final_expArr = final_expArr + "\"" + JSON.stringify(el) + '\"}';
    } else {
-     final_expArr = final_expArr + "\"" + el + '\",';
+     final_expArr = final_expArr + "\"" +  JSON.stringify(el) + '\",';
    }
    applicantProfileData.experience_companies = final_expArr;
    console.log("final_expArr", final_expArr)
 })
+
+//****************
+
+var schoolArr =  applicantProfileData.schools   // => ["comp.", "cpmp"]
+var final_schoolArr = "{";
+
+schoolArr.forEach(function(el){
+   if( el === schoolArr[schoolArr.length -1]) {
+     final_schoolArr = final_schoolArr + "\"" + JSON.stringify(el) + '\"}';
+   } else {
+     final_schoolArr = final_schoolArr + "\"" +  JSON.stringify(el) + '\",';
+   }
+   applicantProfileData.schools = final_schoolArr;
+   console.log("final_expArr", final_schoolArr)
+})
+
 
 //****************
 
@@ -191,7 +206,6 @@ expArr.forEach(function(el){
 
   handleAddJobExperience(e){
     e.preventDefault();
-    console.log("Add Additional Job Experiences clicked")
 
     let jobData = {
       company_name: this.state.company_name,
@@ -205,6 +219,7 @@ expArr.forEach(function(el){
     this.setState({
       companyArry: companyData
     });
+    console.log("Add Additional Job Experiences clicked",  jobData, this.state.companyArry)
   }
 
   onProfileImageChange(profile_image){
