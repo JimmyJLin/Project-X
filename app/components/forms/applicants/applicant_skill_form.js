@@ -35,7 +35,7 @@ class Applicant_skill_form extends Component {
       client_relationship_level: '',
       microsoft_office_level: '',
       quickbooks_level: '',
-      bookkeeping_level: '',
+      book_keeping_level: '',
       tax_software_level: '',
       it_level: '',
       data_entry_level: '',
@@ -82,8 +82,25 @@ class Applicant_skill_form extends Component {
       forensic_accounting: this.state.forensic_accounting_level,
       client_relations: this.state.client_relationship_level,
       microsoft_office: this.state.microsoft_office_level,
-      quickbooks_level: this.state.quickbooks_level_level,
-
+      quickbooks: this.state.quickbooks_level,
+      book_keeping: this.state.book_keeping_level,
+      tax_software: this.state.tax_software_level,
+      it: this.state.it_level,
+      data_entry: this.state.data_entry_level,
+      financial_statement: this.state.financial_statement_level,
+      financial_planning: this.state.financial_planning_level,
+      debt_consolidation: this.state.debt_consolidation_level,
+      sales: this.state.sales_level,
+      web_development: this.state.web_development_level,
+      account_reconciliation: this.state.account_reconciliation_level,
+      payroll_management: this.state.payroll_management_level,
+      budgeting: this.state.budgeting_level,
+      forecasting: this.state.forecasting_level,
+      corporate_reporting: this.state.corporate_reporting_level,
+      public_speaking: this.state.public_speaking_level,
+      analytical_writing: this.state.analytical_writing_level,
+      cost_accounting: this.state.cost_accounting_level,
+      federal_tax_law: this.state.federal_tax_law_level
     }
 
     console.log("Skill Datas for backend to consume", skillData)
@@ -701,7 +718,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        bookkeeping_level: "Entry Level"
+        book_keeping_level: "Entry Level"
       });
 
   }
@@ -710,7 +727,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      bookkeeping_level: "Mid Level"
+      book_keeping_level: "Mid Level"
     });
   }
 
@@ -718,7 +735,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      bookkeeping_level: "High Level"
+      book_keeping_level: "High Level"
     });
   }
 
@@ -785,7 +802,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      portfolio_data_entry_levelstrategy_level: "Mid Level"
+      data_entry_level: "Mid Level"
     });
   }
 
@@ -928,7 +945,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        account_reconciliation_level: "Entry Level"
+        account_reconciliation: "Entry Level"
       });
 
   }
@@ -949,6 +966,33 @@ class Applicant_skill_form extends Component {
     });
   }
 
+  handlePayrollManagementEntryChange(e){
+    e.preventDefault();
+
+      this.setState({
+        payroll_management_level: "Entry Level"
+      });
+
+  }
+
+  handlePayrollManagementMidChange(e){
+    e.preventDefault();
+
+    this.setState({
+      payroll_management_level: "Mid Level"
+    });
+  }
+
+  handlePayrollManagementHighChange(e){
+    e.preventDefault();
+
+    this.setState({
+      payroll_management_level: "High Level"
+    });
+  }
+
+
+  // Finanice Functions
   handleBudgetingEntryChange(e){
     e.preventDefault();
 
@@ -974,8 +1018,6 @@ class Applicant_skill_form extends Component {
     });
   }
 
-
-  // Finanice Functions
   handleForecastingEntryChange(e){
     e.preventDefault();
 
@@ -1005,7 +1047,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
       this.setState({
-        corporate_reporting_level: "Entry Level"
+        corporate_reporting: "Entry Level"
       });
 
   }
@@ -1097,7 +1139,7 @@ class Applicant_skill_form extends Component {
     e.preventDefault();
 
     this.setState({
-      manda_activity_level: "High Level"
+      cost_accounting_level: "High Level"
     });
   }
 
@@ -1404,162 +1446,80 @@ class Applicant_skill_form extends Component {
             <div className="column">
               <div className="ui vertical menu">
 
-                {/* Wealth Management */}
+                {/* Client Relationship */}
                 <div className="ui dropdown item">
-                  Wealth Management
+                  Client Relationship
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="wealth_management">
-                    <option className="item" name="entry_level" onClick={this.handleWealthManagementEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleWealthManagementMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleWealthManagementHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="client_relations">
+                    <option className="item" name="entry_level" onClick={this.handleClientRelationshipEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleClientRelationshipMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleClientRelationshipHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Investment Banking */}
+                {/* MicroSoft Office */}
                 <div className="ui dropdown item">
-                  Investment Banking
+                  MicroSoft Office
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="investment_banking">
-                    <option className="item" name="entry_level" onClick={this.handleInvestmentBankingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleInvestmentBankingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleInvestmentBankingHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="microsoft_office">
+                    <option className="item" name="entry_level" onClick={this.handleMicrosoftOfficeEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleMicrosoftOfficeMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleMicrosoftOfficeHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Asset Management */}
+                {/* Quickbooks */}
                 <div className="ui dropdown item">
-                  Asset Management
+                  Quickbooks
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="asset_management">
-                    <option className="item" name="entry_level" onClick={this.handleAssetManagementEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleAssetManagementMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleAssetManagementHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="quickbooks_level">
+                    <option className="item" name="entry_level" onClick={this.handleQuickbooksEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleQuickbooksMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleQuickbooksHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Institutional Securities */}
+                {/* Book Keeping */}
                 <div className="ui dropdown item">
-                  Institutional Securities
+                  Book Keeping
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="institutional_securities">
-                    <option className="item" name="entry_level" onClick={this.handleInstitutionalSecuritiesEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleInstitutionalSecuritiesMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleInstitutionalSecuritiesHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="book_keeping">
+                    <option className="item" name="entry_level" onClick={this.handleBookkeepingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleBookkeepingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleBookkeepingHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Commerical Banking */}
+                {/* Tax Software */}
                 <div className="ui dropdown item">
-                  Commerical Banking
+                  Tax Software
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="commercial_banking">
-                    <option className="item" name="entry_level" onClick={this.handleCommercialBankingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleCommercialBankingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleCommercialBankingHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="tax_software">
+                    <option className="item" name="entry_level" onClick={this.handleTaxSoftwareEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleTaxSoftwareMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleTaxSoftwareHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Retirement Solutions */}
+                {/* IT */}
                 <div className="ui dropdown item">
-                  Retirement Solutions
+                  IT
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="retirement_solutions">
-                    <option className="item" name="entry_level" onClick={this.handleRetirementSolutionsEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleRetirementSolutionsMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleRetirementSolutionsHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="it">
+                    <option className="item" name="entry_level" onClick={this.handleITEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleITMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleITHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Portfolio Strategy */}
+                {/* Data Entry */}
                 <div className="ui dropdown item">
-                  Portfolio Strategy
+                  Data Entry
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="portfolio_strategy">
-                    <option className="item" name="entry_level" onClick={this.handlePortfolioStrategyEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handlePortfolioStrategyMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handlePortfolioStrategyHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div className="column">
-              <div className="ui vertical menu">
-
-                {/* Financial Audit */}
-                <div className="ui dropdown item">
-                  Financial Audit
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="financial_audit">
-                    <option className="item" name="entry_level" onClick={this.handleFinancialAuditEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleFinancialAuditMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleFinancialAuditHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Tax Preparation */}
-                <div className="ui dropdown item">
-                  Tax Preparation
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="tax_preparation">
-                    <option className="item" name="entry_level" onClick={this.handleTaxPreparationEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleTaxPreparationMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleTaxPreparationHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Consulting */}
-                <div className="ui dropdown item">
-                  Consulting
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="consulting">
-                    <option className="item" name="entry_level" onClick={this.handleConsultingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleConsultingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleConsultingHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Advisory Services */}
-                <div className="ui dropdown item">
-                  Advisory Services
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="advisory_services">
-                    <option className="item" name="entry_level" onClick={this.handleAdvisoryServicesEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleAdvisoryServicesMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleAdvisoryServicesHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Compliance */}
-                <div className="ui dropdown item">
-                  Compliance
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="compliance">
-                    <option className="item" name="entry_level" onClick={this.handleCommercialBankingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleCommercialBankingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleCommercialBankingHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Human Resources */}
-                <div className="ui dropdown item">
-                  Human Resources
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="human_resources">
-                    <option className="item" name="entry_level" onClick={this.handleHumanResourcesEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleHumanResourcesMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleHumanResourcesHighChange.bind(this)}> 5+ years</option>
-                  </div>
-                </div>
-
-                {/* Underwriting */}
-                <div className="ui dropdown item">
-                  Underwriting
-                  <i className="dropdown icon"></i>
-                  <div className="menu" name="underwriting">
-                    <option className="item" name="entry_level" onClick={this.handleUnderwritingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleUnderwritingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleUnderwritingHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="data_entry">
+                    <option className="item" name="entry_level" onClick={this.handleDataEntryEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleDataEntryMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleDataEntryHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
@@ -1568,14 +1528,36 @@ class Applicant_skill_form extends Component {
             <div className="column">
               <div className="ui vertical menu">
 
-                {/* Marketing */}
+                {/* Financial Statement */}
                 <div className="ui dropdown item">
-                  Marketing
+                  Financial Statement
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="marketing">
-                    <option className="item" name="entry_level" onClick={this.handleMarketingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleMarketingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleMarketingHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="financial_statement">
+                    <option className="item" name="entry_level" onClick={this.handleFinancialStatementEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleFinancialStatementMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleFinancialStatementHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Financial Planning */}
+                <div className="ui dropdown item">
+                  Financial Planning
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="debt_consolidation">
+                    <option className="item" name="entry_level" onClick={this.handleFinancialPlanningEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleFinancialPlanningMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleFinancialPlanningHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Debt Consolidation */}
+                <div className="ui dropdown item">
+                  Debt Consolidation
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="debt_consolidation">
+                    <option className="item" name="entry_level" onClick={this.handleDebtConsolidationEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleDebtConsolidationMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleDebtConsolidationHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
@@ -1590,58 +1572,118 @@ class Applicant_skill_form extends Component {
                   </div>
                 </div>
 
-                {/* Financial Analysis */}
+                {/* Web Development */}
                 <div className="ui dropdown item">
-                  Financial Analysis
+                  Web Development
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="financial_analysis">
-                    <option className="item" name="entry_level" onClick={this.handleFinancialAnalysisEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleFinancialAnalysisMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleFinancialAnalysisHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="web_development">
+                    <option className="item" name="entry_level" onClick={this.handleWebDevelopmentEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleWebDevelopmentMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleWebDevelopmentHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Derivatives */}
+                {/* Account Reconciliation  */}
                 <div className="ui dropdown item">
-                  Derivatives
+                  Account Reconciliation
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="derivatives">
-                    <option className="item" name="entry_level" onClick={this.handleDerivativesEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleDerivativesMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleDerivativesHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="account_reconciliation">
+                    <option className="item" name="entry_level" onClick={this.handleAccountReconciliationEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleAccountReconciliationMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleAccountReconciliationHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* M&A Activity */}
+                {/* Payroll Management */}
                 <div className="ui dropdown item">
-                  M&A Activity
+                  Payroll Management
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="m&a_activity">
-                    <option className="item" name="entry_level" onClick={this.handleMandAActivityEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleMandAActivityeMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleMandAActivityHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="payroll_management">
+                    <option className="item" name="entry_level" onClick={this.handlePayrollManagementEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handlePayrollManagementMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handlePayrollManagementHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Venture Capital */}
+              </div>
+            </div>
+            <div className="column">
+              <div className="ui vertical menu">
+
+                {/* Budgeting */}
                 <div className="ui dropdown item">
-                  Venture Capital
+                  Budgeting
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="venture_capital">
-                    <option className="item" name="entry_level" onClick={this.handleVentureCapitalEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleVentureCapitalMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleVentureCapitalHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="budgeting">
+                    <option className="item" name="entry_level" onClick={this.handleBudgetingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleBudgetingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleBudgetingHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
-                {/* Forensic Accounting */}
+                {/* Forecasting */}
                 <div className="ui dropdown item">
-                  Forensic Accounting
+                  Forecasting
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="forensic_accounting">
-                    <option className="item" name="entry_level" onClick={this.handleForensicAccountingEntryChange.bind(this)}> 0-2 years</option>
-                    <option className="item" name="mid_level" onClick={this.handleForensicAccountingMidChange.bind(this)}> 2-5 years</option>
-                    <option className="item" name="high_level" onClick={ this.handleForensicAccountingHighChange.bind(this)}> 5+ years</option>
+                  <div className="menu" name="forecasting">
+                    <option className="item" name="entry_level" onClick={this.handleForecastingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleForecastingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleForecastingHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Corporate Reporting */}
+                <div className="ui dropdown item">
+                  Corporate Reporting
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="corporate_reporting">
+                    <option className="item" name="entry_level" onClick={this.handleCorporateReportingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleCorporateReportingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleCorporateReportingHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Public Speaking */}
+                <div className="ui dropdown item">
+                  Public Speaking
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="public_speaking">
+                    <option className="item" name="entry_level" onClick={this.handlePublicSpeakingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handlePublicSpeakingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handlePublicSpeakingHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Analytical Writing */}
+                <div className="ui dropdown item">
+                  Analytical Writing
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="analytical_writing">
+                    <option className="item" name="entry_level" onClick={this.handleAnalyticalWritingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleAnalyticalWritingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleAnalyticalWritingHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Cost Accounting */}
+                <div className="ui dropdown item">
+                  Cost Accounting
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="cost_accounting">
+                    <option className="item" name="entry_level" onClick={this.handleCostAccountingEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleMCostAccountingMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleCostAccountingHighChange.bind(this)}> 5+ years</option>
+                  </div>
+                </div>
+
+                {/* Federal Tax Law */}
+                <div className="ui dropdown item">
+                  Federal Tax Law
+                  <i className="dropdown icon"></i>
+                  <div className="menu" name="federal_tax_law">
+                    <option className="item" name="entry_level" onClick={this.handleFederalStateLawEntryChange.bind(this)}> 0-2 years</option>
+                    <option className="item" name="mid_level" onClick={this.handleFederalStateLawMidChange.bind(this)}> 2-5 years</option>
+                    <option className="item" name="high_level" onClick={ this.handleFederalStateLawHighChange.bind(this)}> 5+ years</option>
                   </div>
                 </div>
 
