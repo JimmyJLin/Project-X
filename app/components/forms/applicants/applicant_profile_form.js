@@ -46,7 +46,9 @@ class Applicant_profile_form extends Component {
       companyArry: []
     }
 
+    this.onChange = this.onChange.bind(this);
   }
+
 
 
   handleSubmit(e) {
@@ -141,47 +143,20 @@ schoolArr.forEach(function(el){
   var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
   var final_desired_location = "{";
 
-  desired_locationArr.forEach(function(el){
-     if( el === desired_locationArr[desired_locationArr.length-1] ) {
-       final_desired_location = final_desired_location + "\"" + el + '\"}';
-     } else {
-       final_desired_location = final_desired_location + "\"" + el + '\",';
-     }
-     applicantProfileData.desired_location = final_desired_location;
-     console.log("locations", final_desired_location)
-  })
+    desired_locationArr.forEach(function(el){
+       if( el === desired_locationArr[desired_locationArr.length-1] ) {
+         final_desired_location = final_desired_location + "\"" + el + '\"}';
+       } else {
+         final_desired_location = final_desired_location + "\"" + el + '\",';
+       }
+       applicantProfileData.desired_location = final_desired_location;
+       console.log("locations", final_desired_location)
+    })
 
-    console.log("Line 105 - applicantProfileData", applicantProfileData)
-    console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
-
-
+    console.log("Line 105 - applicantProfileData", applicantProfileData, ApplicantProfileImages)
     postOneApplicant(applicantProfileData , ApplicantProfileImages);
 
-    // this.setState({
-    //   user_id:'',
-    //   profile_files: [],
-    //   desired_locationArry:[],
-    //   desired_industry:'',
-    //   zipcode: '',
-    //   phone_number: '',
-    //   job_type: '',
-    //   experience_level:'',
-    //   certifications: [],
-    //   languages_spokenArry:[],
-    //   education_level:'',
-    //   school: '',
-    //   year: '',
-    //   company_name: '',
-    //   job_title: '',
-    //   start_from: '',
-    //   resume_pdf:'',
-    //   desired_location:[],
-    //   languages_spoken:[],
-    //   profile_image:'',
-    //   certificationsArry: [],
-    //   educationArry: [],
-    //   companyArry: []
-    // })
+    browserHistory.push('/Applicant_skill_form')
 
   }
 
@@ -202,6 +177,8 @@ schoolArr.forEach(function(el){
     });
 
 
+    document.getElementById('SelectedEducations').append(educationData)
+
   }
 
   handleAddJobExperience(e){
@@ -214,7 +191,7 @@ schoolArr.forEach(function(el){
       to:this.state.to
     }
 
-    companyData.push(jobData)
+    companyData.push(jobData.toString())
 
     this.setState({
       companyArry: companyData
@@ -222,79 +199,81 @@ schoolArr.forEach(function(el){
     console.log("Add Additional Job Experiences clicked",  jobData, this.state.companyArry)
   }
 
-  onProfileImageChange(profile_image){
-    this.setState({profile_image})
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  onLocationChange(desired_locationArry){
-    locationState.push(desired_locationArry)
-    this.setState({desired_location: locationState})
-  }
-
-  onDesiredIndustryChange(desired_industry){
-    this.setState({desired_industry});
-  }
-
-  onZipcodeChange(zipcode){
-    this.setState({zipcode});
-  }
-
-  onPhoneNumberChange(phone_number){
-    this.setState({phone_number});
-  }
-
-  onJobTypeChange(job_type){
-    this.setState({job_type});
-  }
-
-  onIndustryExpLevelChange(experience_level){
-    this.setState({experience_level});
-  }
-
-  onCertificationChange(certificationsArry){
-    certificateState.push(certificationsArry)
-    this.setState({certifications: certificateState})
-  }
-
-  onLanguageChange(languages_spokenArry){
-    languageState.push(languages_spokenArry)
-    this.setState({languages_spoken: languageState})
-  }
-
-  onEducationLevelChange(education_level){
-    this.setState({education_level});
-  }
-
-  onSchoolChange(school_name){
-    this.setState({school_name});
-  }
-
-  onSchoolYearChange(year){
-    this.setState({year});
-  }
-
-  onCompanyNameChange(company_name){
-    this.setState({company_name});
-  }
-
-  onJobTitleChange(job_title){
-    this.setState({job_title});
-  }
-
-  onStartFromChange(start_from){
-    this.setState({start_from});
-  }
-
-  onToChange(to){
-    this.setState({to});
-  }
-
-  onresume_pdfChange(resume_pdf){
-    this.setState({resume_pdf})
-  }
-
-
-
+  // onProfileImageChange(profile_image){
+  //   this.setState({profile_image})
+  // }
+  //
+  // onLocationChange(desired_locationArry){
+  //   locationState.push(desired_locationArry)
+  //   this.setState({desired_location: locationState})
+  // }
+  //
+  // onDesiredIndustryChange(desired_industry){
+  //   this.setState({desired_industry});
+  // }
+  //
+  // onZipcodeChange(zipcode){
+  //   this.setState({zipcode});
+  // }
+  //
+  // onPhoneNumberChange(phone_number){
+  //   this.setState({phone_number});
+  // }
+  //
+  // onJobTypeChange(job_type){
+  //   this.setState({job_type});
+  // }
+  //
+  // onIndustryExpLevelChange(experience_level){
+  //   this.setState({experience_level});
+  // }
+  //
+  // onCertificationChange(certificationsArry){
+  //   certificateState.push(certificationsArry)
+  //   this.setState({certifications: certificateState})
+  // }
+  //
+  // onLanguageChange(languages_spokenArry){
+  //   languageState.push(languages_spokenArry)
+  //   this.setState({languages_spoken: languageState})
+  // }
+  //
+  // onEducationLevelChange(education_level){
+  //   this.setState({education_level});
+  // }
+  //
+  // onSchoolChange(school_name){
+  //   this.setState({school_name});
+  // }
+  //
+  // onSchoolYearChange(year){
+  //   this.setState({year});
+  // }
+  //
+  // onCompanyNameChange(company_name){
+  //   this.setState({company_name});
+  // }
+  //
+  // onJobTitleChange(job_title){
+  //   this.setState({job_title});
+  // }
+  //
+  // onStartFromChange(start_from){
+  //   this.setState({start_from});
+  // }
+  //
+  // onToChange(to){
+  //   this.setState({to});
+  // }
+  //
+  // onresume_pdfChange(resume_pdf){
+  //   this.setState({resume_pdf})
+  // }
 
 
   onDrop(acceptedFiles){
@@ -370,7 +349,7 @@ schoolArr.forEach(function(el){
                 <div>
                   <label>Desired Industry</label>
                   <select name="desired_industry" id="" className="ui fluid dropdown" value={this.state.desired_industry}
-                  onChange={e => this.onDesiredIndustryChange(e.target.value)}>
+                  onChange={this.onChange}>
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
@@ -383,7 +362,7 @@ schoolArr.forEach(function(el){
                 {/* Current Zip Code */}
                 <div>
                   <label>Current Zip Code</label>
-                  <input name="zipcode" value={this.state.zipcode} type="text" placeholder="zipcode" onChange={e => this.onZipcodeChange(e.target.value)}/>
+                  <input name="zipcode" value={this.state.zipcode} type="text" placeholder="zipcode" onChange={this.onChange}/>
                 </div>
 
                 <br/>
@@ -391,7 +370,7 @@ schoolArr.forEach(function(el){
                 {/* Phone Number */}
                 <div>
                   <label>Phone Number</label>
-                  <input name="phone_number" value={this.state.phone_number} type="text" placeholder="phone number" onChange={e => this.onPhoneNumberChange(e.target.value)}/>
+                  <input name="phone_number" value={this.state.phone_number} type="text" placeholder="phone number" onChange={this.onChange}/>
                 </div>
 
                 <br/>
@@ -399,7 +378,7 @@ schoolArr.forEach(function(el){
                 {/* Job Type */}
                 <div>
                   <label name="job_type">Job Type</label>
-                  <select name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
+                  <select name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={this.onChange}>
                     <option value="">Please Select</option>
                     <option value="Intern">Intern</option>
                     <option value="Part-Time">Part-Time</option>
@@ -414,7 +393,7 @@ schoolArr.forEach(function(el){
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
-                  onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
+                  onChange={this.onChange}>
                     <option value="">Please Select</option>
                     <option value="Entry Level"> 0-2 Years (Entry Level)</option>
                     <option value="Mid Level">2-5 Years (Mid-Level)</option>
@@ -479,8 +458,10 @@ schoolArr.forEach(function(el){
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
+                  <div id="SelectedEducations"></div>
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
-                  onChange={e => this.onEducationLevelChange(e.target.value)}>
+                  onChange={this.onChange}>
+
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
@@ -498,11 +479,13 @@ schoolArr.forEach(function(el){
                   <div className="two fields">
                     <div className="field">
                       <label name="school_name">School</label>
-                      <input name="school_name" value={this.state.school_name} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
+                      <input name="school_name" value={this.state.school_name} type="text" placeholder="school" onChange={this.onChange}/>
                     </div>
                     <div className="field">
                       <label name="Year">Graduation Year</label>
-                      <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
+                      <input name="year"
+                      value={this.state.year} type="text" placeholder="year"
+                      onChange={this.onChange}/>
                     </div>
                   </div>
                   <div>

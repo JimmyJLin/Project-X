@@ -115,6 +115,10 @@ class Applicant_skill_form extends Component {
     var level = e.target.value;
     console.log(name,level)
 
+    var domEl = e.target.id
+    var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
+    console.log(parentEl)
+
     switch(name){
       case 'Wealth_Wanagement_level': this.setState({ wealth_wanagement_level:level }); break;
       case 'Investment_Banking_level': this.setState({ investment_banking_level:level }); break;
@@ -157,15 +161,17 @@ class Applicant_skill_form extends Component {
       case 'Debt_Consolidation_level': this.setState({ debt_consolidation_level:level }); break;
       case 'Financial_Statement_level': this.setState({ financial_statement_level:level }); break;
 
+
   }
 
 }
 
  handleSubmitData(e){
    e.preventDefault;
-
+   var data = this.state;
+   postSkillDetails(data)
    console.log(this.state)
-
+   browserHistory.push('/applicant_profile')
 
  }
 
@@ -176,7 +182,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" key ={el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -184,7 +190,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -192,7 +198,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" id = {el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -200,7 +206,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -208,7 +214,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" key = {el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -216,7 +222,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -224,7 +230,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" key = {el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -232,7 +238,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -240,7 +246,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" key = {el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -248,7 +254,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -257,7 +263,7 @@ class Applicant_skill_form extends Component {
       var text = el.replace(/_/g,' ')
       var text = text.replace(/level/g,'')
       return (
-      <div className="ui dropdown item" key = {el.id}>
+      <section className="ui dropdown item" key = {el.id}>
          {text}
         <i className="dropdown icon"></i>
         <div className="menu">
@@ -265,7 +271,7 @@ class Applicant_skill_form extends Component {
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
-      </div>
+      </section>
     )
     })
 
@@ -326,6 +332,11 @@ class Applicant_skill_form extends Component {
         <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
       </div>
     )}
+
+}
+
+function postSkillDetails(data){
+    console.log(data)
 
 }
 
