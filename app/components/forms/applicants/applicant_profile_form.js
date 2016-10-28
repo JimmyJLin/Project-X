@@ -26,14 +26,17 @@ class Applicant_profile_form extends Component {
       phone_number: '',
       job_type: '',
       experience_level:'',
+      experience_companies:[],
       certifications: [],
       languages_spokenArry:[],
       education_level:'',
-      school: '',
+      schools: [],
+      school_name:'',
       year: '',
       company_name: '',
       job_title: '',
       start_from: '',
+      to:'',
       resume_pdf:'',
       desired_location:[],
       languages_spoken:[],
@@ -63,7 +66,7 @@ class Applicant_profile_form extends Component {
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
-      companyArry: this.state.companyArry
+      experience_companies: this.state.companyArry
     }
 
     let ApplicantProfileImages = {
@@ -88,6 +91,24 @@ class Applicant_profile_form extends Component {
     })
 
 //****************
+
+//****************
+
+var expArr =  applicantProfileData.experience_companies   // => ["comp.", "cpmp"]
+var final_expArr = "{";
+
+expArr.forEach(function(el){
+   if( el === expArr[langArr.length -1]) {
+     final_expArr = final_expArr + "\"" + el + '\"}';
+   } else {
+     final_expArr = final_expArr + "\"" + el + '\",';
+   }
+   applicantProfileData.experience_companies = final_expArr;
+   console.log("final_expArr", final_expArr)
+})
+
+//****************
+
     var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
     var final_cert = "{";
 
@@ -113,14 +134,13 @@ class Applicant_profile_form extends Component {
      }
      applicantProfileData.desired_location = final_desired_location;
      console.log("locations", final_desired_location)
-     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData)
   })
 
     console.log("Line 105 - applicantProfileData", applicantProfileData)
     console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
 
 
-    // postOneApplicant(applicantProfileData , ApplicantProfileImages);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages);
 
     // this.setState({
     //   user_id:'',
@@ -156,7 +176,7 @@ class Applicant_profile_form extends Component {
 
     let educationData = {
       education_level: this.state.education_level,
-      school: this.state.school,
+      school_name: this.state.school_name,
       year: this.state.year
     }
     schoolData.push(educationData)
@@ -176,7 +196,8 @@ class Applicant_profile_form extends Component {
     let jobData = {
       company_name: this.state.company_name,
       job_title: this.state.job_title,
-      start_from: this.state.start_from
+      start_from: this.state.start_from,
+      to:this.state.to
     }
 
     companyData.push(jobData)
@@ -229,8 +250,8 @@ class Applicant_profile_form extends Component {
     this.setState({education_level});
   }
 
-  onSchoolChange(school){
-    this.setState({school});
+  onSchoolChange(school_name){
+    this.setState({school_name});
   }
 
   onSchoolYearChange(year){
@@ -247,6 +268,10 @@ class Applicant_profile_form extends Component {
 
   onStartFromChange(start_from){
     this.setState({start_from});
+  }
+
+  onToChange(to){
+    this.setState({to});
   }
 
   onresume_pdfChange(resume_pdf){
@@ -457,11 +482,11 @@ class Applicant_profile_form extends Component {
                   {/* School & Year */}
                   <div className="two fields">
                     <div className="field">
-                      <label name="School">School</label>
-                      <input name="school" value={this.state.school} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
+                      <label name="school_name">School</label>
+                      <input name="school_name" value={this.state.school_name} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
                     </div>
                     <div className="field">
-                      <label name="Year">Year</label>
+                      <label name="Year">Graduation Year</label>
                       <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
                     </div>
                   </div>
@@ -475,18 +500,27 @@ class Applicant_profile_form extends Component {
 
                 {/* Previous Positions Held */}
                 <div className="ui segment">
-                  <label name="Company Name">Company Name</label>
-                  <input name="Company_name" value={this.state.company_name} type="text" placeholder="Company Name" onChange={e => this.onCompanyNameChange(e.target.value)}/>
-                  <br/>
                   <div className="two fields">
+                    <div className="field">
+                      <label name="Company Name">Company Name</label>
+                      <input name="Company_name" value={this.state.company_name} type="text" placeholder="Company Name" onChange={e => this.onCompanyNameChange(e.target.value)}/>
+                      <br/>
+                    </div>
                     <div className="field">
                       <label name="job_title">Job Title</label>
                       <input name="job_title" value={this.state.job_title} type="text" placeholder="school"onChange={e => this.onJobTitleChange(e.target.value)}/>
                     </div>
+                  </div>
+                    <div className="two fields">
                     <div className="field">
                       <label name="start_from">From</label>
                       <input name="start_from" value={this.state.start_from} type="date" placeholder="From"onChange={e => this.onStartFromChange(e.target.value)}/>
                     </div>
+                    <div className="field">
+                      <label name="to">To</label>
+                      <input name="to" value={this.state.to} type="date" placeholder="From"onChange={e => this.onToChange(e.target.value)}/>
+                    </div>
+
                   </div>
                   <div>
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
@@ -548,7 +582,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 }
 
 function PostImage(id, imgObj){
-
+  console.log('PostImagefired')
   $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
 
   let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
