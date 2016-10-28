@@ -32,7 +32,7 @@ class Applicant_profile extends Component {
                 <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
               </div>
             </div>
-            <div className="twelve wide column">
+            <div id="profile_title" className="twelve wide column">
               <div className="ui equal width grid">
                 <div id="left_panel" className="column">
                   <h2>Jimmy Lin</h2>
