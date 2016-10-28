@@ -1,10 +1,29 @@
 #applicant_profile, #employer_profile{
   padding-top: 100px;
-  .ui.grid{
-    padding-left: 25px;
-    padding-right: 25px;
+  .ui.grid, #bio{
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 50px;
+
+    h4{
+      text-align: center;
+    }
+    #left_panel{
+      h2{
+        text-align: right;
+      }
+    }
+
+    #right_panel{
+      h2{
+        text-align: left;
+      }
+    }
+
+
   }
+
+
 
   .ui.equal.width.grid{
     .ui.label.details{
@@ -22,20 +41,27 @@
     h2{
       text-align: center;
     }
-    .ui.label.details{
-      width: 100%;
-    }
+
+
+
+  }
+
+  .ui.label.details{
+    text-align: center;
+    width: 100%;
   }
 
   .ui.horizontal.list{
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 50px;
     display: flex;
 
     .item.search_tags{
+      display: flex;
+      width: 100%;
       text-align: center;
-      width: 15%;
     }
   }
+
 }
