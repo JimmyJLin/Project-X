@@ -611,11 +611,11 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('http://localhost:8080/api/applicants/new', applicantProfileData)
+  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
-      // PostImage( data.id, ApplicantProfileImages  );
+      PostImage( data.id, ApplicantProfileImages  );
 
       // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
