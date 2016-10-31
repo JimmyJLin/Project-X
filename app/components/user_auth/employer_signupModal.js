@@ -3,6 +3,7 @@ import EmployerSignupForm from './employer_signup';
 import { connect } from 'react-redux';
 import { employerSignupRequest, isEmployerUserExists } from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages.js';
+import { Link } from 'react-router'
 
 class Employer_signupModel extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class Employer_signupModel extends React.Component {
 
             <br/>
 
-            <p>Aready have an account? <a id="employer_profile_login_button">Sign In</a> </p>
+            <p>Aready have an account? <Link id="employer_profile_login_button">Sign In</Link> </p>
           </div>
 
         </div>

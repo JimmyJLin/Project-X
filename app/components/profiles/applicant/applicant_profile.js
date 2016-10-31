@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import $ from 'jquery'; // requires jQuery for AJAX request
 import auth from '../../../actions/authActions'
+import {browserHistory} from 'react-router';
 
 class Applicant_profile extends Component {
 
@@ -25,20 +26,26 @@ class Applicant_profile extends Component {
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + applicant_id
    $.get(url).done( (data)=>{
      console.log("applicantProfile data: ", data)
+
       this.state.applicantProfile = data;
-      this.state.desired_industry = data.desired_industry
-      this.state.desired_location = data.desired_location;
-      this.state.education_level = data.education_level;
-      this.state.certifications = data.certifications;
+      if(data.education_level == null){
+        // browserHistory.push('/applicant_profile_form'); // redirects to profile
+        window.location.assign('/applicant_profile_form')
+      } else {
+        this.state.desired_industry = data.desired_industry
+        this.state.desired_location = data.desired_location;
+        this.state.education_level = data.education_level;
+        this.state.certifications = data.certifications;
 
-      this.setState({
-        applicantProfile: this.state.applicantProfile,
-        desired_location: this.state.desired_location,
-        certifications: this.state.certifications,
-        search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications
+        this.setState({
+          applicantProfile: this.state.applicantProfile,
+          desired_location: this.state.desired_location,
+          certifications: this.state.certifications,
+          search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications
 
-      })
-      console.log(this.state.applicantProfile)
+        })
+        console.log(this.state.applicantProfile)
+      }
 
     })
   }

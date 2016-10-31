@@ -1,5 +1,6 @@
 import React from 'react';
 import EmploymentLoginForm from './employer_login';
+import { Link } from 'react-router'
 
 class Employment_loginModal extends React.Component {
   render() {
@@ -17,7 +18,7 @@ class Employment_loginModal extends React.Component {
 
           <br/>
 
-          <p>Not a member yet ... <a id="employer_profile_signup_button">Sign Up</a> </p>
+          <p>Not a member yet ... <Link id="employer_profile_signup_button">Sign Up</Link> </p>
 
         </div>
 
