@@ -26,7 +26,7 @@ class Applicant_profile_form extends Component {
       phone_number: '',
       job_type: '',
       experience_level:'',
-      experience_companies:[],
+      companyArry:[],
       certifications: [],
       languages_spokenArry:[],
       education_level:'',
@@ -43,7 +43,7 @@ class Applicant_profile_form extends Component {
       profile_image:'',
       certificationsArry: [],
       educationArry: [],
-      companyArry: []
+      work_historyArry: []
     }
 
   }
@@ -54,7 +54,7 @@ class Applicant_profile_form extends Component {
     console.log("submit clicked")
 
     let applicantProfileData = {
-      user_id: this.props.auth.user.id,
+      user_id: "29",
       profile_image: this.state.profile_image,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
@@ -66,7 +66,8 @@ class Applicant_profile_form extends Component {
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
-      experience_companies: this.state.companyArry
+      companyArry: this.state.companyArry,
+      work_historyArry: this.state.work_historyArry
     }
 
     let ApplicantProfileImages = {
@@ -74,6 +75,48 @@ class Applicant_profile_form extends Component {
 
     }
     console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages)
+
+
+    //****************
+
+    var work_historyArr =  applicantProfileData.work_historyArry   // => ["English", "Turkish"]
+    // console.log("work_historyArry", work_historyArry)
+    var final_work_histories = "{";
+
+    work_historyArr.forEach(function(el){
+       if( el === work_historyArr[work_historyArr.length -1]) {
+         final_work_histories = final_work_histories + "\"" + el + '\"}';
+       } else {
+         final_work_histories = final_work_histories + "\"" + el + '\",';
+       }
+       applicantProfileData.work_historyArry = final_work_histories;
+       console.log("line 92 final_work_histories", final_work_histories)
+       console.log("line 93 applicantProfileData.work_historyArr", applicantProfileData.work_historyArry)
+
+    })
+
+    //****************
+
+
+    //****************
+
+    var educationArr =  applicantProfileData.educationArry   // => ["English", "Turkish"]
+    console.log("educationArr", educationArr)
+    var final_educations = "{";
+
+    educationArr.forEach(function(el){
+       if( el === educationArr[educationArr.length -1]) {
+         final_educations = final_educations + "\"" + el + '\"}';
+       } else {
+         final_educations = final_educations + "\"" + el + '\",';
+       }
+       applicantProfileData.educationArry = final_educations;
+       console.log("line 113 final_educations", final_educations)
+       console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
+
+    })
+
+    //****************
 
     //****************
 
@@ -90,51 +133,51 @@ class Applicant_profile_form extends Component {
        console.log("final_languages", final_languages)
     })
 
-//****************
+    //****************
 
-//****************
+    //****************
 
-var expArr =  applicantProfileData.experience_companies   // => ["comp.", "cpmp"]
-var final_expArr = "{";
+    var expArr =  applicantProfileData.companyArry   // => ["comp.", "cpmp"]
+    var final_expArr = "{";
 
-expArr.forEach(function(el){
-   if( el === expArr[langArr.length -1]) {
-     final_expArr = final_expArr + "\"" + el + '\"}';
-   } else {
-     final_expArr = final_expArr + "\"" + el + '\",';
-   }
-   applicantProfileData.experience_companies = final_expArr;
-   console.log("final_expArr", final_expArr)
-})
-
-//****************
-
-    var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
-    var final_cert = "{";
-
-    certArr.forEach(function(el){
-       if( el === certArr[certArr.length-1]) {
-         final_cert = final_cert + "\"" + el + '\"}';
+    expArr.forEach(function(el){
+       if( el === expArr[langArr.length -1]) {
+         final_expArr = final_expArr + "\"" + el + '\"}';
        } else {
-         final_cert = final_cert + "\"" + el + '\",';
+         final_expArr = final_expArr + "\"" + el + '\",';
        }
-       applicantProfileData.certifications = final_cert;
-       console.log("certifications", final_cert)
+       applicantProfileData.companyArry = final_expArr;
+       console.log("final_expArr", final_expArr)
     })
 
-// ***********
-  var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
-  var final_desired_location = "{";
+    //****************
 
-  desired_locationArr.forEach(function(el){
-     if( el === desired_locationArr[desired_locationArr.length-1] ) {
-       final_desired_location = final_desired_location + "\"" + el + '\"}';
-     } else {
-       final_desired_location = final_desired_location + "\"" + el + '\",';
-     }
-     applicantProfileData.desired_location = final_desired_location;
-     console.log("locations", final_desired_location)
-  })
+        var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
+        var final_cert = "{";
+
+        certArr.forEach(function(el){
+           if( el === certArr[certArr.length-1]) {
+             final_cert = final_cert + "\"" + el + '\"}';
+           } else {
+             final_cert = final_cert + "\"" + el + '\",';
+           }
+           applicantProfileData.certifications = final_cert;
+           console.log("certifications", final_cert)
+        })
+
+    // ***********
+      var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
+      var final_desired_location = "{";
+
+      desired_locationArr.forEach(function(el){
+         if( el === desired_locationArr[desired_locationArr.length-1] ) {
+           final_desired_location = final_desired_location + "\"" + el + '\"}';
+         } else {
+           final_desired_location = final_desired_location + "\"" + el + '\",';
+         }
+         applicantProfileData.desired_location = final_desired_location;
+         console.log("locations", final_desired_location)
+      })
 
     console.log("Line 105 - applicantProfileData", applicantProfileData)
     console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
@@ -174,11 +217,11 @@ expArr.forEach(function(el){
     e.preventDefault();
     console.log("Add Additional Education clicked")
 
-    let educationData = {
-      education_level: this.state.education_level,
-      school_name: this.state.school_name,
-      year: this.state.year
-    }
+    let educationData = [
+      this.state.education_level,
+      this.state.school_name,
+      this.state.year
+    ]
     schoolData.push(educationData)
     console.log("schoolData", schoolData)
 
@@ -193,18 +236,21 @@ expArr.forEach(function(el){
     e.preventDefault();
     console.log("Add Additional Job Experiences clicked")
 
-    let jobData = {
-      company_name: this.state.company_name,
-      job_title: this.state.job_title,
-      start_from: this.state.start_from,
-      to:this.state.to
-    }
+    let jobData = [
+      this.state.company_name,
+      this.state.job_title,
+      this.state.start_from,
+      this.state.to
+    ]
 
     companyData.push(jobData)
+    console.log("companyData", companyData)
 
     this.setState({
-      companyArry: companyData
+      work_historyArry: companyData
     });
+
+    // console.log("work_historyArry", work_historyArry)
   }
 
   onProfileImageChange(profile_image){
@@ -565,13 +611,13 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
+  $.post('http://localhost:8080/api/applicants/new', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
-      PostImage( data.id, ApplicantProfileImages  );
+      // PostImage( data.id, ApplicantProfileImages  );
 
-      browserHistory.push('/applicant_profile'); // redirects to applicant_profile
+      // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
 
     })
