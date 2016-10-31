@@ -54,7 +54,7 @@ class Applicant_profile_form extends Component {
     console.log("submit clicked")
 
     let applicantProfileData = {
-      user_id: "29",
+      user_id: this.props.auth.user.id,
       profile_image: this.state.profile_image,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
