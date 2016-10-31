@@ -6,7 +6,6 @@ import configureStore from 'store/configureStore';
 import requireAuth from '../utils/requireAuth';
 import requireAuth_emp from '../utils/requireAuth_emp';
 
-
 // main
 import App from 'containers/App';
 import Main from 'containers/Main';
