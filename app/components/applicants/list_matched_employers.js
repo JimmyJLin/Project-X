@@ -31,7 +31,7 @@ class List_matched_employers extends Component {
   render(){
     const job_applicants = this.state.job_applicants
     const applicants = job_applicants.map(function(applicant){
-      const url = '/'+ applicant.profile_image
+      const url = 'https://apex-database.herokuapp.com/api/applicants/profile/'+ applicant.profile_image
       console.log("image url ", url)
       const link = `/list_matched_applicants/` + applicant.user_id
       return <Link to={link} className="card" key={applicant.user_id} >

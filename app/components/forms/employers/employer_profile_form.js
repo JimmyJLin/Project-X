@@ -146,7 +146,9 @@ class Employer_profile_form extends Component {
   render(){
     console.log("render this.state.files", this.state.company_files)
 
-    return(
+    const { isAuthenticated } = this.props.auth;
+
+    const employer_form = (
         <div id="employer_profile_form">
 
 
@@ -317,8 +319,20 @@ class Employer_profile_form extends Component {
         </div>
 
     )
-  }
+    const error = (
+      <div className="field">
+      <br/><br/><br/><br/><br/>
+      Please sign in as an Employer to reach this page.
+      </div>
+    )
 
+    return (
+      <div>
+        { isAuthenticated && (localStorage.type =='employer') ? employer_form : error }
+      </div>
+    )
+  }
+  
 }
 
 
@@ -364,8 +378,10 @@ function postEmployerImage( id, imgObj) {
   })
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
 }
 
 export default connect(mapStateToProps)(Employer_profile_form);

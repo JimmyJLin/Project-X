@@ -3,6 +3,7 @@ import ApplicantSignupForm from './applicant_signup';
 import { connect } from 'react-redux';
 import { userSignupRequest, isUserExists } from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages.js';
+import { Link } from 'react-router'
 
 class Applicant_signupModel extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class Applicant_signupModel extends React.Component {
             addFlashMessage={addFlashMessage} />
 
          <br/>
-         <p>Aready have an account? <a id="applicant_profile_login_button">Sign In</a> </p>
+         <p>Aready have an account? <Link id="applicant_profile_login_button">Sign In</Link> </p>
 
        </div>
      </div>
