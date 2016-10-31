@@ -3,7 +3,7 @@
   .ui.grid, #bio{
     padding-left: 50px;
     padding-right: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 15px;
 
     .ui.image{
       margin-left: 15%;
@@ -38,6 +38,10 @@
     .ui.label.details{
       margin-bottom: 5px;
     }
+    h2{
+      text-align: center;
+    }
+
   }
 
   .ui.middle.aligned.divided.list{
