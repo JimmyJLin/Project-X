@@ -337,7 +337,6 @@ class Applicant_skill_form extends Component {
 
 function postSkillDetails(data){
     console.log(data)
-
 }
 
 

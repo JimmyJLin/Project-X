@@ -29,6 +29,10 @@ class ApplicantSignupForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  closeModal(){
+    $('.ui.small.modal.applicant.signup').modal('hide')
+  }
+
 
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -78,6 +82,8 @@ class ApplicantSignupForm extends React.Component {
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     // }
+    this.closeModal();
+
   }
 
 

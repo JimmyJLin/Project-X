@@ -11,7 +11,10 @@ class Applicant_profile extends Component {
     super(props);
 
     this.state = {
-
+      applicantProfile: {},
+      desired_location: [],
+      certifications: [],
+      search_tags: []
     }
 
   }

@@ -210,6 +210,8 @@ class Applicant_profile_form extends Component {
     //   educationArry: [],
     //   companyArry: []
     // })
+    // browserHistory.push('/Applicant_skill_form')
+    window.location.assign('/Applicant_skill_form')
 
   }
 
