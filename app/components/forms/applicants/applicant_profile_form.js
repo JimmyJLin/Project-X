@@ -621,7 +621,6 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
       // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
-
     })
     .error((error) => {
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);

@@ -107,7 +107,6 @@ class Applicant_skill_form extends Component {
       }
     }
 
-
   seeValue(e){
     e.preventDefault;
     console.log( e.target.id, e.target.value)
@@ -160,8 +159,6 @@ class Applicant_skill_form extends Component {
       case 'Corporate_Reporting_level': this.setState({ corporate_reporting_level:level }); break;
       case 'Debt_Consolidation_level': this.setState({ debt_consolidation_level:level }); break;
       case 'Financial_Statement_level': this.setState({ financial_statement_level:level }); break;
-
-
   }
 
 }
@@ -169,8 +166,28 @@ class Applicant_skill_form extends Component {
  handleSubmitData(e){
    e.preventDefault;
    var data = this.state;
-   postSkillDetails(data)
-   console.log(this.state)
+  //  postSkillDetails(data)
+   var keys = Object.keys(data);
+
+   console.log('keys', keys)
+   var skillslevel = {
+     user_id : this.props.auth.user.id,
+   }
+   var industrieslevel = {
+     user_id : this.props.auth.user.id,
+   }
+   for (var i = 0; i< keys.length; i++){
+       if ( data[keys[i] ] !== '' && i <20 ){
+        industrieslevel.industry_name = keys[i];
+        industrieslevel.level = data[keys[i]];
+           postIndustryLevels(industrieslevel)
+      } else if ( data[keys[i] ] !== '' && i > 20 ){
+        skillslevel.skill_name = keys[i];
+        skillslevel.level = data[keys[i]];
+           postSkillsLevels(skillslevel)
+       };
+      }
+
    browserHistory.push('/applicant_profile')
 
  }
@@ -274,7 +291,7 @@ class Applicant_skill_form extends Component {
       </section>
     )
     })
-
+    const { isAuthenticated } = this.props.auth;
 
     return(
       <div id="applicant_profile_form">
@@ -335,9 +352,26 @@ class Applicant_skill_form extends Component {
 
 }
 
-function postSkillDetails(data){
-    console.log(data)
+function postSkillsLevels(data){
+  console.log('posted data postSkillsLevels', data)
+  $.post('https://apex-database.herokuapp.com/api/applicants/new_skillslevels', data)
+}
+
+function postIndustryLevels(data){
+  console.log('posted data postIndustryLevels', data)
+  $.post('https://apex-database.herokuapp.com/api/applicants/new_industrylevels', data)
 }
 
 
-export default Applicant_skill_form
+Applicant_skill_form.propTypes = {
+  auth: React.PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+
+export default connect(mapStateToProps)(Applicant_skill_form);
