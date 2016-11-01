@@ -14,7 +14,6 @@ class Applicant_profile extends Component {
       applicantProfile: {},
       desired_location: [],
       certifications: [],
-      search_tags: [],
       school_data: [],
       work_history: [],
       languages_spoken: [],

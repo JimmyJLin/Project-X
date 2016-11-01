@@ -212,6 +212,8 @@ class Applicant_profile_form extends Component {
     //   educationArry: [],
     //   companyArry: []
     // })
+    // browserHistory.push('/Applicant_skill_form')
+    window.location.assign('/Applicant_skill_form')
 
   }
 
@@ -230,7 +232,6 @@ class Applicant_profile_form extends Component {
     this.setState({
       educationArry: schoolData
     });
-
 
   }
 
@@ -344,6 +345,7 @@ class Applicant_profile_form extends Component {
   }
 
   render(){
+
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
@@ -519,6 +521,7 @@ class Applicant_profile_form extends Component {
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
+                    {AddedEducation}
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
@@ -627,7 +630,6 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
       // PostImage( data.id, ApplicantProfileImages  );
 
       // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
-
 
     })
     .error((error) => {
