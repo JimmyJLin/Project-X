@@ -29,7 +29,7 @@ class Applicant_profile extends Component {
    // this is where you'll get the data from the 'db'
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
    $.get(url).done( (data)=>{
-    //  console.log("applicantProfile data: ", data)
+     console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
       if(data.desired_industry == null){
