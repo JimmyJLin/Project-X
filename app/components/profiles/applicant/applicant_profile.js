@@ -14,16 +14,139 @@ class Applicant_profile extends Component {
       applicantProfile: {},
       desired_location: [],
       certifications: [],
-      search_tags: []
+      school_data: [],
+      work_history: [],
+      languages_spoken: [],
+      job_skills: [],
+      job_industries: []
     }
 
   }
 
   componentDidMount() {
+    const user_id = localStorage.id
+
+   // this is where you'll get the data from the 'db'
+   const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
+   $.get(url).done( (data)=>{
+     console.log("applicantProfile data: ", data)
+
+      this.state.applicantProfile = data;
+      if(data.school == null){
+        // browserHistory.push('/applicant_profile_form'); // redirects to profile
+        window.location.assign('/applicant_profile_form')
+      } else {
+        this.state.desired_industry = data.desired_industry
+        this.state.desired_location = data.desired_location
+        this.state.education_level = data.education_level
+        this.state.certifications = data.certifications
+        this.state.school_data = data.school
+        this.state.work_history = data.work_history
+        this.state.languages_spoken = data.languages_spoken
+
+        this.setState({
+          applicantProfile: this.state.applicantProfile,
+          desired_location: this.state.desired_location,
+          certifications: this.state.certifications,
+          search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications,
+          school_data: this.state.school_data,
+          work_history: this.state.work_history,
+          languages_spoken: this.state.languages_spoken
+
+        })
+      }
+
+    })
+
+
+    // get skill & industry data for profile based on user_id
+
+    const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + '3'
+    $.get(skills_url).done( (data)=>{
+      console.log("skill data: ", data)
+
+       this.state.job_skills = data;
+
+     })
+
+     const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + '3'
+     $.get(industries_url).done( (data)=>{
+       console.log("industries data: ", data)
+
+        this.state.job_industries = data;
+
+      })
+
 
   }
 
   render(){
+
+    let splittedSchoolData = [];
+    let splittedWorkHistory = [];
+
+    this.state.school_data.map(function(school){
+      let split = school.split(",")
+      splittedSchoolData.push(split)
+    })
+
+    let school_data = splittedSchoolData.map(function(el){
+      return <div key="school_data_1">
+              <h2>{el[0]}</h2>
+              <h2>{el[1]} - {el[2]}</h2>
+              <br/>
+            </div>
+    })
+
+    let education_data = splittedSchoolData.map(function(el){
+      return <div key={el[2]} className="ui label details">
+              <p>{el[1]} - {el[2]}</p>
+              <p>{el[0]}</p>
+            </div>
+    })
+
+    this.state.work_history.map(function(work){
+      let split = work.split(",")
+      splittedWorkHistory.push(split)
+    })
+
+    let work_data = splittedWorkHistory.map(function(el){
+      return <div key={el[0]} className="ui label details">
+              <p>{el[0]} - {el[1]}</p>
+              <p>{el[2]} to {el[3]}</p>
+            </div>
+    })
+
+    const desired_location = this.state.desired_location.map(function(location){
+      return <div key={location} className="ui label details">{location}</div>
+    });
+
+
+    const languages_spoken_ = this.state.languages_spoken.map(function(language){
+      return <div key={language} className="ui label details">{language}</div>
+    });
+
+    let profile_image;
+
+    if(this.state.applicantProfile.profile_image == ""){
+      profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+    } else {
+      profile_image = <img className="ui small circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
+    }
+
+    const skills_state = this.state.job_skills
+    console.log("skills_state", skills_state)
+    let skills = skills_state.map(function(skill){
+      console.log("skill", skill)
+      return <div className="ui label details" key={skill.id}>{skill.skill_name}</div>
+    })
+
+    const industries_state = this.state.job_industries
+    console.log("industries_state", industries_state)
+    let industries = industries_state.map(function(industry){
+      console.log("industry", industry)
+      return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
+    })
 
     return(
         <div id="applicant_profile">
@@ -32,23 +155,32 @@ class Applicant_profile extends Component {
           <div className="ui stackable grid">
             <div className="four wide column">
               <div className="ui center aligned basic segment">
-                <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+
+                {profile_image}
+
               </div>
             </div>
             <div id="profile_title" className="twelve wide column">
               <div className="ui equal width grid">
-                <div id="left_panel" className="column">
-                  <h2>Jimmy Lin</h2>
-                </div>
-                <div id="right_panel" className="column">
-                  <h2>MBA</h2>
-                  <h2>Pace University</h2>
+                <div className="column">
+                  <h2>{this.state.applicantProfile.name} {this.state.applicantProfile.last_name}</h2>
+                  <h2></h2>
+                  <h2>{school_data[1]}</h2>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="ui divider"></div>
+
+          {/* Bio */}
+          <div id="bio" className="twelve wide column">
+            <h2>Summary</h2>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+          </div>
+
+          <div className="ui divider"></div>
+
           {/* Contact Info, Inteted in Positions Education & Previous Experiences */}
 
           <div className="ui equal width stackable grid">
@@ -57,14 +189,14 @@ class Applicant_profile extends Component {
 
               <div className="content">
                 <div className="ui label details">
-                  <p>Email: jimmylin@gmail.com</p>
+                  <p>Email: <a href={"mailto:" + this.state.applicantProfile.email} target="_blank">{this.state.applicantProfile.email}</a> </p>
                 </div>
                 <div className="ui label details">
-                  <p>Phone: 212-555-5555 </p>
+                  <p>Phone: <a href={"tel:" + this.state.applicantProfile.phone_number}>{this.state.applicantProfile.phone_number}</a></p>
                 </div>
-                <div className="ui label details">
+                {/*<div className="ui label details">
                   <p>LinkedIn: profilelinkhere</p>
-                </div>
+                </div>*/}
               </div>
 
               <br/>
@@ -73,27 +205,14 @@ class Applicant_profile extends Component {
               <h4>Intested in Position In</h4>
               <div className="content">
                 <div className="ui label details">
-                  <p>Position 1</p>
-                </div>
-                <div className="ui label details">
-                  <p>Position 2</p>
-                </div>
-                <div className="ui label details">
-                  <p>Position 3</p>
+                  <p>{this.state.applicantProfile.job_type}</p>
                 </div>
               </div>
             </div>
             <div className="column">
               <h4> Education </h4>
               <div className="content">
-                <div className="ui label details">
-                  <p>Pace Univeristy</p>
-                  <p>MBA - 2014</p>
-                </div>
-                <div className="ui label details">
-                  <p>Pace Univeristy</p>
-                  <p>Bachelors Degree - 2004</p>
-                </div>
+                {education_data}
               </div>
             </div>
             <div className="column">
@@ -101,61 +220,34 @@ class Applicant_profile extends Component {
 
               <div className="ui left aligned divided list">
                 <div className="content">
-                  <div className="ui label details">
-                    <p>Company A : Title</p>
-                    <p>2012 - 2014</p>
-                  </div>
-                  <div className="ui label details">
-                  <p>Company B : Title</p>
-                  <p>2010 - 2012</p>
-                  </div>
+                  {work_data}
                 </div>
               </div>
             </div>
           </div>
 
           <div className="ui divider"></div>
-          {/* Bio */}
-          <div id="bio" className="twelve wide column">
-            <h2>Bio</h2>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-          </div>
 
-
-          <div className="ui divider"></div>
           {/* Experience In */}
-          <div className="twelve wide column">
-            <h2>Experience:</h2>
 
-            <div className="ui horizontal list centered aligned middle">
-              <div className="item search_tags">
-                <div className="ui label details">Equity Market</div>
-                <div className="ui label details">Marketing</div>
-                <div className="ui label details">Accounting</div>
-                <div className="ui label details">Financial Statement</div>
+          <div className="ui equal width stackable grid">
+            <div className="column">
+              <h2>Experience:</h2>
+              <div className="ui horizontal list centered aligned middle">
+                <div className="content">
+                  {industries}
+                </div>
               </div>
             </div>
-
-          </div>
-
-
-
-          <div className="ui divider"></div>
-          {/* Skills */}
-          <div className="twelve wide column">
-            <h2>Skills: </h2>
-
-            <div className="ui horizontal list centered aligned middle">
-              <div className="item search_tags">
-                <div className="ui label details">Skill 1</div>
-                <div className="ui label details">Skill 2</div>
-                <div className="ui label details">Skill 3</div>
-                <div className="ui label details">Skill 4</div>
+            <div className="column">
+              <h2>Skills: </h2>
+              <div className="ui horizontal list centered aligned middle">
+                <div className="content">
+                  {skills}
+                </div>
               </div>
             </div>
-
           </div>
-
 
           <div className="ui divider"></div>
           {/* Interested In Working In */}
@@ -163,12 +255,7 @@ class Applicant_profile extends Component {
             <h2>Interested in Working in: </h2>
 
             <div className="ui horizontal list centered aligned middle">
-              <div className="item search_tags">
-                <div className="ui label details">New York</div>
-                <div className="ui label details">London</div>
-                <div className="ui label details">Paris</div>
-                <div className="ui label details">Los Angeles</div>
-              </div>
+              {desired_location}
             </div>
 
           </div>
@@ -200,12 +287,7 @@ class Applicant_profile extends Component {
               <h4> Languages </h4>
               <div className="ui left aligned divided list">
                 <div className="content">
-                  <div className="ui label details">
-                    Chinese
-                  </div>
-                  <div className="ui label details">
-                    Spanish
-                  </div>
+                  {languages_spoken_}
                 </div>
               </div>
             </div>
@@ -214,20 +296,6 @@ class Applicant_profile extends Component {
 
 
           <div className="ui divider"></div>
-          {/* Optional Information */}
-          <div className="twelve wide column">
-            <h2>Optional Information:</h2>
-            <p> This section doesn't make sense, where are we getting these data </p>
-            <div className="ui horizontal list centered aligned middle">
-              <div className="item search_tags">
-                <div className="ui label details">Country of Citizenship</div>
-                <div className="ui label details">Interested in Travel for work?</div>
-                <div className="ui label details">Prefer Working</div>
-                <div className="ui label details">Prefer</div>
-              </div>
-            </div>
-
-          </div>
 
 
           {/* Match Button*/}

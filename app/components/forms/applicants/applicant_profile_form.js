@@ -43,7 +43,8 @@ class Applicant_profile_form extends Component {
       profile_image:'',
       certificationsArry: [],
       educationArry: [],
-      work_historyArry: []
+      work_historyArry: [],
+      summary: ''
     }
 
   }
@@ -67,7 +68,8 @@ class Applicant_profile_form extends Component {
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
       companyArry: this.state.companyArry,
-      work_historyArry: this.state.work_historyArry
+      work_historyArry: this.state.work_historyArry,
+      summary: this.state.summary
     }
 
     let ApplicantProfileImages = {
@@ -325,7 +327,9 @@ class Applicant_profile_form extends Component {
     this.setState({resume_pdf})
   }
 
-
+  onSummaryChange(summary){
+    this.setState({summary})
+  }
 
 
 
@@ -367,6 +371,11 @@ class Applicant_profile_form extends Component {
             </div>
 
             <div className="ui divider"></div>
+
+            <div className="field">
+              <div className="label">Short Summary</div>
+              <textarea name="summary" value={this.state.summary} onChange={e => this.onSummaryChange(e.target.value)}></textarea>
+            </div>
 
             <div className="two fields">
               {/* Left Field */}
@@ -618,7 +627,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
-      PostImage( data.id, ApplicantProfileImages  );
+      // PostImage( data.id, ApplicantProfileImages  );
 
       // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
 
