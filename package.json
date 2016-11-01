@@ -50,6 +50,7 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-dropzone": "^3.6.0",
+    "react-filter": "0.0.7",
     "react-redux": "4.3.0",
     "react-router": "^2.4.1",
     "react-select": "^0.9.1",
