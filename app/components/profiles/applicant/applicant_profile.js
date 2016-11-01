@@ -32,7 +32,7 @@ class Applicant_profile extends Component {
      console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
-      if(data.school == null){
+      if(data.school_data == null){
         // browserHistory.push('/applicant_profile_form'); // redirects to profile
         window.location.assign('/applicant_profile_form')
       } else {
@@ -136,8 +136,10 @@ class Applicant_profile extends Component {
     let profile_image;
 
     if(this.state.applicantProfile.profile_image == ""){
+      console.log("no image")
       profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
     } else {
+      console.log("yes image")
       profile_image = <img className="ui small circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
     }
 
