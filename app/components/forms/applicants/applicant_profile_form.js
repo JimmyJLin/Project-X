@@ -168,6 +168,7 @@ class Applicant_profile_form extends Component {
         })
 
     // ***********
+
       var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
       var final_desired_location = "{";
 
@@ -212,6 +213,7 @@ class Applicant_profile_form extends Component {
     //   educationArry: [],
     //   companyArry: []
     // })
+
 
   }
 
@@ -339,7 +341,7 @@ class Applicant_profile_form extends Component {
       profile_files: acceptedFiles , profile_image:acceptedFiles[0].id
     });
 
-    // console.log("onDrop this.state.profile_files", this.state.profile_files)
+    //x console.log("onDrop this.state.profile_files", this.state.profile_files)
     $('#eventDropZone').hide()
   }
 
@@ -624,13 +626,16 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
-      // PostImage( data.id, ApplicantProfileImages  );
+      PostImage( data.id, ApplicantProfileImages  );
 
-      // browserHistory.push('/applicant_profile'); // redirects to applicant_profile
+      browserHistory.push('/Applicant_skill_form')
+      // window.location.assign('/Applicant_skill_form')
 
 
     })
     .error((error) => {
+
+      browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 
