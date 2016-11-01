@@ -7,55 +7,55 @@ import { Link } from 'react-router'
 
 const All_Experiences = [
       [
-      "Wealth_Wanagement_level",
-      "Investment_Banking_level",
-      "Asset_Management_level",
-      "Institutional_Securities_level",
-      "Commercial_Banking_level",
-      "Retirement_Solutions_level",
-      "Portfolio_Strategy_level"],
+      "Wealth_Wanagement",
+      "Investment_Banking",
+      "Asset_Management",
+      "Institutional_Securities",
+      "Commercial_Banking",
+      "Retirement_Solutions",
+      "Portfolio_Strategy"],
       [
-      "Financial_Audit_level",
-      "Tax_Preparation_level",
-      "Consulting_level",
-      "Advisory_Services_level",
-      "Compliance_level",
-      "Human_Resources_level",
-      "Underwriting_level"
+      "Financial_Audit",
+      "Tax_Preparation",
+      "Consulting",
+      "Advisory_Services",
+      "Compliance",
+      "Human_Resources",
+      "Underwriting"
     ],
     [
-      "Marketing_level",
-      "Sales_level",
-      "Financial_Analysis_level",
-      "Derivatives_level",
-      "M_&_A_level",
-      "Venture_Capital_level",
+      "Marketing",
+      "Sales",
+      "Financial_Analysis",
+      "Derivatives",
+      "M_&_A",
+      "Venture_Capital",
       "Forensic Accounting"
     ],
     [
-      "Client_Relationship_level",
-      "Microsoft_Office_level",
-      "Quickbooks_level",
-      "Bookkeeping_level",
-      "Tax_Software_level",
-      "IT_level",
-      "Data_Entry_level"],
+      "Client_Relationship",
+      "Microsoft_Office",
+      "Quickbooks",
+      "Bookkeeping",
+      "Tax_Software",
+      "IT",
+      "Data_Entry"],
       [
-      "Financial_Statement_level",
-      "Financial_Planning_level",
-      "Debt_Consolidation_level",
-      "Sales_level",
-      "Web_Development_level",
-      "Account_Reconciliation_level",
+      "Financial_Statement",
+      "Financial_Planning",
+      "Debt_Consolidation",
+      "Sales",
+      "Web_Development",
+      "Account_Reconciliation",
       "Payroll_Management"],
       [
-      "Budgeting_level",
-      "Forecasting_level",
-      "Corporate_Reporting_level",
-      "Public_Speaking_level",
-      "Analytical_Writing_level",
-      "Cost_Accounting_level",
-      "Federal_Tax_Law_level" ]]
+      "Budgeting",
+      "Forecasting",
+      "Corporate_Reporting",
+      "Public_Speaking",
+      "Analytical_Writing",
+      "Cost_Accounting",
+      "Federal_Tax_Law" ]]
 
 
 class Applicant_skill_form extends Component {
@@ -64,46 +64,46 @@ class Applicant_skill_form extends Component {
     super(props);
 
     this.state = {
-        wealth_wanagement_level: '',
-        investment_banking_level: '',
-        asset_management_level: '',
-        institutional_securities_level: '',
-        commercial_banking_level: '',
-        retirement_solutions_level: '',
-        portfolio_strategy_level: '',
-        financial_audit_level: '',
-        tax_preparation_level: '',
-        consulting_level: '',
-        advisory_services_level: '',
-        compliance_level: '',
-        human_resources_level: '',
-        underwriting_level: '',
-        marketing_level: '',
-        sales_level: '',
-        financial_analysis_level: '',
-        derivatives_level: '',
-        manda_activity_level: '',
-        venture_capital_level: '',
-        client_relationship_level: '',
-        microsoft_office_level: '',
-        quickbooks_level: '',
-        bookkeeping_level: '',
-        tax_software_level: '',
-        it_level: '',
-        data_entry_level: '',
-        financial_statement_level: '',
-        financial_planning_level: '',
-        debt_consolidation_level: '',
-        sales_level: '',
-        web_development_level: '',
-        account_reconciliation_level: '',
-        budgeting_level: '',
-        forecasting_level: '',
-        corporate_reporting_level: '',
-        public_speaking_level: '',
-        analytical_writing_level: '',
-        cost_accounting_level: '',
-        federal_tax_law_level: ''
+        wealth_wanagement: '',
+        investment_banking: '',
+        asset_management: '',
+        institutional_securities: '',
+        commercial_banking: '',
+        retirement_solutions: '',
+        portfolio_strategy: '',
+        financial_audit: '',
+        tax_preparation: '',
+        consulting: '',
+        advisory_services: '',
+        compliance: '',
+        human_resources: '',
+        underwriting: '',
+        marketing: '',
+        sales: '',
+        financial_analysis: '',
+        derivatives: '',
+        manda_activity: '',
+        venture_capital: '',
+        client_relationship: '',
+        microsoft_office: '',
+        quickbooks: '',
+        bookkeeping: '',
+        tax_software: '',
+        it: '',
+        data_entry: '',
+        financial_statement: '',
+        financial_planning: '',
+        debt_consolidation: '',
+        sales: '',
+        web_development: '',
+        account_reconciliation: '',
+        budgeting: '',
+        forecasting: '',
+        corporate_reporting: '',
+        public_speaking: '',
+        analytical_writing: '',
+        cost_accounting: '',
+        federal_tax_law: ''
       }
     }
 
@@ -119,46 +119,46 @@ class Applicant_skill_form extends Component {
     console.log(parentEl)
 
     switch(name){
-      case 'Wealth_Wanagement_level': this.setState({ wealth_wanagement_level:level }); break;
-      case 'Investment_Banking_level': this.setState({ investment_banking_level:level }); break;
-      case 'Asset_Management_level': this.setState({ asset_management_level:level }); break;
-      case 'Institutional_Securities_level': this.setState({ wealth_management_level:level }); break;
-      case 'Commercial_Banking_level': this.setState({ commercial_banking_level:level }); break;
-      case 'Retirement_Solutions_level': this.setState({ retirement_solutions_level:level }); break;
-      case 'Portfolio_Strategy_level': this.setState({ portfolio_strategy_level:level }); break;
-      case 'Financial_Audit_level': this.setState({ financial_audit_level:level }); break;
-      case 'Tax_Preparation_level': this.setState({ tax_preparation_level:level }); break;
-      case 'Consulting_level': this.setState({ consulting_level:level }); break;
-      case 'Advisory_Services_level': this.setState({ advisory_services_level:level }); break;
-      case 'Compliance_level': this.setState({ compliance_level:level }); break;
-      case 'Underwriting_level': this.setState({ underwriting_level:level }); break;
-      case 'Marketing_level': this.setState({ marketing_level:level }); break;
-      case 'Sales_level': this.setState({ sales_level:level }); break;
-      case 'Financial_Analysis_level': this.setState({ financial_analysis_level:level }); break;
-      case 'Derivatives_level': this.setState({ derivatives_level:level }); break;
-      case 'M_&_A_level': this.setState({ manda_activity_level:level }); break;
-      case 'Venture_Capital_level': this.setState({ venture_capital_level:level }); break;
-      case 'Client_Relationship_level': this.setState({ client_relationship_level:level }); break;
-      case 'Microsoft_Office_level': this.setState({ microsoft_office_level:level }); break;
-      case 'Quickbooks_level': this.setState({ quickbooks_level:level }); break;
-      case 'Bookkeeping_level': this.setState({ bookkeeping_level:level }); break;
-      case 'Tax_Software_level': this.setState({ tax_software_level:level }); break;
-      case 'IT_level': this.setState({ it_level:level }); break;
-      case 'Data_Entry_level': this.setState({ data_entry_level:level }); break;
-      case 'Financial_Planning_level': this.setState({ financial_planning_level:level }); break;
-      case 'Sales_level': this.setState({ sales_level:level }); break;
-      case 'Web_Development_level': this.setState({ web_development_level:level }); break;
-      case 'Account_Reconciliation_level': this.setState({ account_reconciliation_level:level }); break;
-      case 'Budgeting_level': this.setState({ budgeting_level:level }); break;
-      case 'Forecasting_level': this.setState({ forecasting_level:level }); break;
-      case 'Public_Speaking_level': this.setState({ public_speaking_level:level }); break;
-      case 'Analytical_Writing_level': this.setState({ analytical_writing_level:level }); break;
-      case 'Cost_Accounting_level': this.setState({ cost_accounting_level:level }); break;
-      case 'Federal_Tax_Law_level': this.setState({ federal_tax_law_level:level }); break;
-      case 'Human_Resources_level': this.setState({ human_resources_level:level }); break;
-      case 'Corporate_Reporting_level': this.setState({ corporate_reporting_level:level }); break;
-      case 'Debt_Consolidation_level': this.setState({ debt_consolidation_level:level }); break;
-      case 'Financial_Statement_level': this.setState({ financial_statement_level:level }); break;
+      case 'Wealth_Wanagement': this.setState({ wealth_wanagement:level }); break;
+      case 'Investment_Banking': this.setState({ investment_banking:level }); break;
+      case 'Asset_Management': this.setState({ asset_management:level }); break;
+      case 'Institutional_Securities': this.setState({ wealth_management:level }); break;
+      case 'Commercial_Banking': this.setState({ commercial_banking:level }); break;
+      case 'Retirement_Solutions': this.setState({ retirement_solutions:level }); break;
+      case 'Portfolio_Strategy': this.setState({ portfolio_strategy:level }); break;
+      case 'Financial_Audit': this.setState({ financial_audit:level }); break;
+      case 'Tax_Preparation': this.setState({ tax_preparation:level }); break;
+      case 'Consulting': this.setState({ consulting:level }); break;
+      case 'Advisory_Services': this.setState({ advisory_services:level }); break;
+      case 'Compliance': this.setState({ compliance:level }); break;
+      case 'Underwriting': this.setState({ underwriting:level }); break;
+      case 'Marketing': this.setState({ marketing:level }); break;
+      case 'Sales': this.setState({ sales:level }); break;
+      case 'Financial_Analysis': this.setState({ financial_analysis:level }); break;
+      case 'Derivatives': this.setState({ derivatives:level }); break;
+      case 'M_&_A': this.setState({ manda_activity:level }); break;
+      case 'Venture_Capital': this.setState({ venture_capital:level }); break;
+      case 'Client_Relationship': this.setState({ client_relationship:level }); break;
+      case 'Microsoft_Office': this.setState({ microsoft_office:level }); break;
+      case 'Quickbooks': this.setState({ quickbooks:level }); break;
+      case 'Bookkeeping': this.setState({ bookkeeping:level }); break;
+      case 'Tax_Software': this.setState({ tax_software:level }); break;
+      case 'IT': this.setState({ it:level }); break;
+      case 'Data_Entry': this.setState({ data_entry:level }); break;
+      case 'Financial_Planning': this.setState({ financial_planning:level }); break;
+      case 'Sales': this.setState({ sales:level }); break;
+      case 'Web_Development': this.setState({ web_development:level }); break;
+      case 'Account_Reconciliation': this.setState({ account_reconciliation:level }); break;
+      case 'Budgeting': this.setState({ budgeting:level }); break;
+      case 'Forecasting': this.setState({ forecasting:level }); break;
+      case 'Public_Speaking': this.setState({ public_speaking:level }); break;
+      case 'Analytical_Writing': this.setState({ analytical_writing:level }); break;
+      case 'Cost_Accounting': this.setState({ cost_accounting:level }); break;
+      case 'Federal_Tax_Law': this.setState({ federal_tax_law:level }); break;
+      case 'Human_Resources': this.setState({ human_resources:level }); break;
+      case 'Corporate_Reporting': this.setState({ corporate_reporting:level }); break;
+      case 'Debt_Consolidation': this.setState({ debt_consolidation:level }); break;
+      case 'Financial_Statement': this.setState({ financial_statement:level }); break;
   }
 
 }
@@ -197,7 +197,7 @@ class Applicant_skill_form extends Component {
 
     var Firstcolumn_skills = All_Experiences[0].map( (el)=>{
       var text = el.replace(/_/g,' ')
-      var text = text.replace(/level/g,'')
+
       return (
       <section className="ui dropdown item" key ={el.id}>
          {text}
