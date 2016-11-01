@@ -135,25 +135,13 @@ class List_matched_applicants extends Component {
                 {/* Industry Experience */}
                 <div>
                   <label name="certifications">Industry Experience</label>
-                  <select multiple="true" name="industry_experience" className="ui fluid normal dropdown"
+                  <select name="industry_experience" className="ui fluid normal dropdown"
                   value={this.state.industry_experience}
                   onChange={e => this.onIndustryExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
-                    <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
-                    <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
-                    <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
-                    <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
-                    <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
-                    <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
-                    <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
-                    <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
-                    <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
-                    <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
-                    <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
-                    <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
-                    <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
-                    <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Health">Health</option>
                   </select>
                 </div>
 
