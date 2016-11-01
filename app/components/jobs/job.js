@@ -69,7 +69,9 @@ class Job extends Component {
     $.post(`https://apex-database.herokuapp.com/api/jobs/archived/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
-        window.location.replace('/employer_profile'); // redirects to profile
+        browserHistory.push('/list_match');
+
+        // window.location.replace('/employer_profile');
       })
       .error((error) => {
         console.error('Posting JobStatus failed', error);
@@ -88,7 +90,8 @@ class Job extends Component {
     $.post(`https://apex-database.herokuapp.com/api/jobs/active/update/${job_id}`)
     .done((data) => {
         console.log('success updating job status', data)
-        window.location.replace('/employer_profile'); // redirects to profile
+        browserHistory.push('/employer_profile');
+        // window.location.replace('/employer_profile'); // redirects to profile
       })
       .error((error) => {
         console.error('Posting JobStatus failed', error);
@@ -111,6 +114,8 @@ class Job extends Component {
     $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       .done((data) => {
         console.log('succesfully applied for a job')
+        browserHistory.push('/employer_profile');
+        
       })
       .error((error) => {
         console.log('unable to apply for a job', error)
@@ -276,10 +281,10 @@ class Job extends Component {
     } else if (localStorage.type == 'applicant'){
       applicantView = <div className="ui segment">
                         <div className="ui grid">
-                          <div id="applicants_buttons">
+                          {/*<div id="applicants_buttons">
                             <label>Connect with the employer </label>
                             <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
-                          </div>
+                          </div>*/}
                           <div id="applicants_buttons">
                             <p>Apply to current job posting</p>
                             <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
