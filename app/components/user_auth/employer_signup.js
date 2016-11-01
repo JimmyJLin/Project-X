@@ -90,9 +90,12 @@ class EmployerSignupForm extends React.Component {
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     // }
+    this.closeModal();
   }
 
-
+  closeModal(){
+    $('.ui.small.modal.employer.signup').modal('hide')
+  }
 
 
 
