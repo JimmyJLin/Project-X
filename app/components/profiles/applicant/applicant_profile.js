@@ -29,10 +29,10 @@ class Applicant_profile extends Component {
    // this is where you'll get the data from the 'db'
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
    $.get(url).done( (data)=>{
-     console.log("applicantProfile data: ", data)
+    //  console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
-      if(data.school_data == null){
+      if(data.desired_industry == null){
         // browserHistory.push('/applicant_profile_form'); // redirects to profile
         window.location.assign('/applicant_profile_form')
       } else {
@@ -63,9 +63,9 @@ class Applicant_profile extends Component {
 
     const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + user_id
     $.get(skills_url).done( (data)=>{
-      console.log("skill data: ", data)
+      // console.log("skill data: ", data)
 
-      //  this.state.job_skills = data;
+       this.state.job_skills = data;
 
        this.setState({
         job_skills: this.state.job_skills
@@ -75,9 +75,9 @@ class Applicant_profile extends Component {
 
      const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + user_id
      $.get(industries_url).done( (data)=>{
-       console.log("industries data: ", data)
+      //  console.log("industries data: ", data)
 
-        // this.state.job_industries = data;
+        this.state.job_industries = data;
         this.setState({
         job_industries: this.state.job_industries
         })
@@ -136,24 +136,24 @@ class Applicant_profile extends Component {
     let profile_image;
 
     if(this.state.applicantProfile.profile_image == ""){
-      console.log("no image")
+      // console.log("no image")
       profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
     } else {
-      console.log("yes image")
+      // console.log("yes image")
       profile_image = <img className="ui small circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
     }
 
     const skills_state = this.state.job_skills
-    console.log("skills_state", skills_state)
+    // console.log("skills_state", skills_state)
     let skills = skills_state.map(function(skill){
-      console.log("skill", skill)
+      // console.log("skill", skill)
       return <div className="ui label details" key={skill.id}>{skill.skill_name}</div>
     })
 
     const industries_state = this.state.job_industries
-    console.log("industries_state", industries_state)
+    // console.log("industries_state", industries_state)
     let industries = industries_state.map(function(industry){
-      console.log("industry", industry)
+      // console.log("industry", industry)
       return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
     })
 
@@ -185,7 +185,7 @@ class Applicant_profile extends Component {
           {/* Bio */}
           <div id="bio" className="twelve wide column">
             <h2>Summary</h2>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+            <p>{this.state.applicantProfile.summary}</p>
           </div>
 
           <div className="ui divider"></div>
