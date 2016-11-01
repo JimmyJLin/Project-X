@@ -101,6 +101,16 @@ class Employer_profile extends Component {
       return  <div className="ui active inverted dimmer"><div className="ui indeterminate medium text loader">Loading</div></div>
     }
 
+    let profile_image;
+
+    if(this.state.company_logo == null){
+      // console.log("no image")
+      profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+    } else {
+      // console.log("yes image")
+      profile_image = <img className="ui small circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
+    }
+
     return(
         <div id="employer_profile">
 
@@ -110,7 +120,7 @@ class Employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
+              {profile_image}
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">
