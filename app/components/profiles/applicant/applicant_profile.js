@@ -62,19 +62,26 @@ class Applicant_profile extends Component {
 
     // get skill & industry data for profile based on user_id
 
-    const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + '3'
+    const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + user_id
     $.get(skills_url).done( (data)=>{
       console.log("skill data: ", data)
 
-       this.state.job_skills = data;
+      //  this.state.job_skills = data;
+
+       this.setState({
+        job_skills: this.state.job_skills
+      })
 
      })
 
-     const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + '3'
+     const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + user_id
      $.get(industries_url).done( (data)=>{
        console.log("industries data: ", data)
 
-        this.state.job_industries = data;
+        // this.state.job_industries = data;
+        this.setState({
+        job_industries: this.state.job_industries
+        })
 
       })
 
