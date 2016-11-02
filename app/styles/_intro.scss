@@ -58,5 +58,52 @@ $secondary_background_color: #f1f1f1;
 }
 
 #footer{
-  padding-top: 200px;
+  background-color: grey;
+  height: auto;
+
+  .ui.equal.width.grid{
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .column{
+      text-align: center;
+    }
+
+    span{
+      color: white;
+      font-size: 1.1em;
+    }
+  }
+
+  #copyrights{
+    text-align: center;
+    padding-bottom: 50px;
+  }
+}
+
+#terms_and_conditions{
+  padding-top: 90px;
+
+  .ui.segment{
+    margin-left: 100px;
+    margin-right: 100px;
+
+    .main_content{
+      padding-top: 50px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+    h1{
+      text-align: center;
+    }
+    h2{
+      text-align: center;
+      color: blue;
+    }
+    h3{
+      text-align: center;
+      padding-bottom: 50px;
+    }
+  }
 }
