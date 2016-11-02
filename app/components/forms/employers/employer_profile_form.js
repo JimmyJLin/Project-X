@@ -28,6 +28,34 @@ class Employer_profile_form extends Component {
     }
   }
 
+componentDidMount(){
+  const employer_id = localStorage.id
+
+  //  get employer profile data
+  const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
+  $.get(employerUrl).done( (data)=>{
+
+     this.state.company_name = data[0].company_name;
+     this.state.company_address = data[0].company_address;
+     this.state.company_city = data[0].company_city;
+     this.state.company_state = data[0].company_state;
+     this.state.company_zip = data[0].company_zip;
+     this.state.company_website = data[0].company_website;
+     this.state.company_phone_number = data[0].company_phone_number;
+
+     this.setState({
+       company_name: this.state.company_name,
+       company_address: this.state.company_address,
+       company_city: this.state.company_city,
+       company_state: this.state.company_state,
+       company_zip: this.state.company_zip,
+       company_phone_number: this.state.company_phone_number,
+     })
+})
+
+}
+
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
@@ -79,6 +107,13 @@ class Employer_profile_form extends Component {
 
 
   }
+
+  onChange(e) {
+    var stateName = e.target.name;
+    var value = e.target.value;
+    this.setState({  stateName : value });
+  }
+
 
   onCompanyNameChange(company_name){
     this.setState({company_name});
@@ -132,6 +167,8 @@ class Employer_profile_form extends Component {
     this.setState({company_logo})
   }
 
+
+
   onDrop(acceptedFiles){
     console.log("acceptedFiles", acceptedFiles)
 
@@ -156,7 +193,45 @@ class Employer_profile_form extends Component {
         <h4>its free.  Only pay when you post.</h4>
 
         <form className="ui form employer_profile_form"
+        onLoad = {this.componentDidMount}
         onSubmit={this.handleSubmit.bind(this)}>
+        <div className="field">
+          <label > Compay Name </label>
+          <input name="company_name" value={this.state.company_name} onChange={e => this.onCompanyNameChange(e.target.value)}></input>
+        </div>
+
+         <div className="three fields">
+
+           <div className="field">
+            <label> Compay Address </label>
+            <input name="company_address" value={this.state.company_address} onChange={e => this.onCompanyAddressChange(e.target.value)}></input>
+          </div>
+
+          <div className="field">
+            <div className="three fields">
+
+              <div className="field">
+                <label > Compay City </label>
+                <input name="company_city"  value={this.state.company_city} onChange={e => this.onCompanyCityChange(e.target.value)}></input>
+              </div>
+              <div className="field">
+                <label> Compay State </label>
+                <input  name="company_state" value={this.state.company_state} onChange={e => this.onCompanyStateChange(e.target.value)}></input>
+              </div>
+              <div className="field">
+                <label > Compay Zip </label>
+                  <input name="company_zip" value={this.state.company_zip} onChange={e =>  this.onCompanyZipChange(e.target.value)}></input>
+              </div>
+            </div>
+          </div>
+
+            <div className="field">
+              <label> Compay Website </label>
+              <input name="company_website" value={this.state.company_website} onChange={e =>  this.onCompanyWebsiteChange(e.target.value)}></input>
+            </div>
+
+          </div>
+
 
           <div className="three fields">
             <div className="field"></div>
@@ -332,7 +407,7 @@ class Employer_profile_form extends Component {
       </div>
     )
   }
-  
+
 }
 
 

@@ -72,6 +72,7 @@ class EmployerSignupForm extends React.Component {
     }
   }
 
+
   onSubmit(e) {
     e.preventDefault();
     console.log('captures state on submit', this.state)
@@ -90,9 +91,12 @@ class EmployerSignupForm extends React.Component {
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     // }
+    this.closeModal();
   }
 
-
+  closeModal(){
+    $('.ui.small.modal.employer.signup').modal('hide')
+  }
 
 
 
