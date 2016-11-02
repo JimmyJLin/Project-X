@@ -150,6 +150,13 @@ class Employer_profile extends Component {
             </div>
           </div>
 
+          {/* Description */}
+          <div id="bio" className="twelve wide column">
+            <h2>Company Description</h2>
+            <p>{this.state.company_description}</p>
+          </div>
+
+
           <div className="ui divider"></div>
 
           {/* Employer Details */}
