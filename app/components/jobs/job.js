@@ -115,11 +115,15 @@ class Job extends Component {
       .done((data) => {
         console.log('succesfully applied for a job')
         browserHistory.push('/employer_profile');
-        
+
       })
       .error((error) => {
         console.log('unable to apply for a job', error)
       })
+
+      var buttonChange = document.getElementById("apply_button")
+
+      buttonChange.className += " disabled"
 
   }
 
@@ -287,7 +291,7 @@ class Job extends Component {
                           </div>*/}
                           <div id="applicants_buttons">
                             <p>Apply to current job posting</p>
-                            <buton onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+                            <buton id="apply_button" onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
                           </div>
                         </div>
                       </div>

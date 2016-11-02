@@ -78,14 +78,15 @@ class List_match extends Component {
 
       console.log("applicationData", applicationData)
       console.log("e-target className", e.target.className)
-      // $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
-      //   .done((data) => {
-      //     console.log('succesfully applied for a job')
-      //
-      //   })
-      //   .error((error) => {
-      //     console.log('unable to apply for a job', error)
-      //   })
+
+      $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
+        .done((data) => {
+          console.log('succesfully applied for a job')
+
+        })
+        .error((error) => {
+          console.log('unable to apply for a job', error)
+        })
 
        var buttonChange = document.getElementById(`job${current_job_id}`)
 
@@ -114,7 +115,6 @@ class List_match extends Component {
                 </div>
               </div>
               <button id={"job"+job.id} value={job.id} className="ui purple button" onClick={change}><i className="icon send"></i>Quick Apply</button>
-              <button id={job.id} className="ui disabled purple button hide" ><i className="icon send"></i>Applied</button>
             </div>
           </Link>
 
