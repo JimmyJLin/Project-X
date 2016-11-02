@@ -62,7 +62,7 @@ componentDidMount(){
     const employer_id = localStorage.id
     console.log("employer_id: ", employer_id)
     let employerProfileData = {
-      id: employer_id,
+      user_id: employer_id,
       company_name: this.state.company_name,
       company_address: this.state.company_address,
       company_city: this.state.company_city,
@@ -181,7 +181,7 @@ componentDidMount(){
   }
 
   render(){
-    // console.log("render this.state.files", this.state.company_files)
+    console.log("render this.state.files", this.state.company_files)
 
     const { isAuthenticated } = this.props.auth;
 
