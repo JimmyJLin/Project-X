@@ -45,11 +45,15 @@ $job_primary_background_color: #f2f2f2;
     margin-right: 15%;
   }
   #eventDropZone{
-    height: 200px;
+    height: 250px;
     width: 200px;
 
     .ui.header{
       text-align: center;
+    }
+
+    .ui.fluid.button{
+      margin-top: 10px;
     }
   }
 

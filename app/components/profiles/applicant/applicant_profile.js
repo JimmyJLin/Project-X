@@ -33,7 +33,7 @@ class Applicant_profile extends Component {
 
       this.state.applicantProfile = data;
       console.log("this.state.applicantProfile", this.state.applicantProfile)
-      if(data.desired_industry == null){
+      if(data.desired_industry == null || data.desired_industry == ""){
         // browserHistory.push('/applicant_profile_form'); // redirects to profile
         window.location.assign('/applicant_profile_form')
       } else {
@@ -107,7 +107,7 @@ class Applicant_profile extends Component {
     })
 
     let education_data = splittedSchoolData.map(function(el){
-      return <div key={el[2]} className="ui label details">
+      return <div key={el[0]+el[1]+el[2]} className="ui label details">
               <p>{el[1]} - {el[2]}</p>
               <p>{el[0]}</p>
             </div>
@@ -119,7 +119,7 @@ class Applicant_profile extends Component {
     })
 
     let work_data = splittedWorkHistory.map(function(el){
-      return <div key={el[0]} className="ui label details">
+      return <div key={el[0]+el[1]+el[2]+el[3]} className="ui label details">
               <p>{el[0]} - {el[1]}</p>
               <p>{el[2]} to {el[3]}</p>
             </div>

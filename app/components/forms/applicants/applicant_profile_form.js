@@ -232,7 +232,10 @@ class Applicant_profile_form extends Component {
     console.log("schoolData", schoolData)
 
     this.setState({
-      educationArry: schoolData
+      educationArry: schoolData,
+      education_level: '',
+      school_name: '',
+      year: ''
     });
 
   }
@@ -252,7 +255,11 @@ class Applicant_profile_form extends Component {
     console.log("companyData", companyData)
 
     this.setState({
-      work_historyArry: companyData
+      work_historyArry: companyData,
+      company_name: '',
+      job_title: '',
+      start_from: '',
+      to: ''
     });
 
     // console.log("work_historyArry", work_historyArry)
@@ -346,6 +353,12 @@ class Applicant_profile_form extends Component {
     $('#eventDropZone').hide()
   }
 
+  openDropzone(){
+    e.preventDefault();
+    console.log("openDropzone")
+    this.dropzone.open();
+  }
+
   render(){
 
     const { currentValue, currentValues } = this.state;
@@ -363,7 +376,8 @@ class Applicant_profile_form extends Component {
               <div className="field">
               <div>
                 <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-                  <h2 className="ui header">Dropping your image here, <br/> or <br/> click to select image to upload.</h2>
+                  <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+                  <div className="ui fluid button" >Upload Image</div>
                 </Dropzone>
                 {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui small circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
               </div>
@@ -389,12 +403,7 @@ class Applicant_profile_form extends Component {
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="New York">New York</option>
-                    <option value="London">London</option>
-                    <option value="Paris">Paris</option>
-                    <option value="Berlin ">Berlin </option>
-                    <option value="Tokyo">Tokyo</option>
-                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="New York">Greater New York City</option>
                     <option value="Nassau County">Nassau County</option>
                     <option value="Suffolk County">Suffolk County</option>
                     <option value="Brooklyn">Brooklyn</option>
