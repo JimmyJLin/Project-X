@@ -10,6 +10,9 @@ import requireAuth_emp from '../utils/requireAuth_emp';
 import App from 'containers/App';
 import Main from 'containers/Main';
 
+// Footer
+import Terms_and_conditions from 'components/menus/terms_and_conditions'
+
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
 import Applicant_skill_form from 'components/forms/applicants/applicant_skill_form';
@@ -81,6 +84,9 @@ export default function(history) {
         <Route path="/list_match" component={List_match} />
         <Route path="/list_matched/job/:id" component={Job} />
 
+
+        {/* footer */}
+        <Route path="/terms_and_conditions" component={Terms_and_conditions} />
 
         <IndexRoute component={Main} />
       </Route>

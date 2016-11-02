@@ -32,6 +32,7 @@ class Applicant_profile extends Component {
      console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
+      console.log("this.state.applicantProfile", this.state.applicantProfile)
       if(data.desired_industry == null){
         // browserHistory.push('/applicant_profile_form'); // redirects to profile
         window.location.assign('/applicant_profile_form')
@@ -303,8 +304,6 @@ class Applicant_profile extends Component {
 
           </div>
 
-
-          <div className="ui divider"></div>
 
 
           {/* Match Button*/}
