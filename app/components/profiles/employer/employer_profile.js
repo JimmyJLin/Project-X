@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
+import {browserHistory} from 'react-router';
 
 
 class Employer_profile extends Component {
@@ -28,7 +29,51 @@ class Employer_profile extends Component {
   }
 
   componentDidMount() {
+
     const employer_id = localStorage.id
+
+    //  get employer profile data
+    const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
+    $.get(employerUrl).done( (data)=>{
+
+      if (data[0].company_industry == null || '') {
+        browserHistory.push('/employer_profile_form');
+
+      } else {
+       this.state.company_name = data[0].company_name;
+       this.state.company_address = data[0].company_address;
+       this.state.company_city = data[0].company_city;
+       this.state.company_state = data[0].company_state;
+       this.state.company_zip = data[0].company_zip;
+       this.state.company_description = data[0].company_description;
+       this.state.company_website = data[0].company_website;
+       this.state.company_phone_number = data[0].company_phone_number;
+       this.state.company_email = data[0].company_email;
+       this.state.company_size = data[0].company_size;
+       this.state.company_industry = data[0].company_industry;
+       this.state.company_branch = data[0].company_branch;
+       this.state.company_logo = data[0].company_logo;
+
+       this.setState({
+         employerProfile: this.state.employerProfile,
+         company_name: this.state.company_name,
+         company_address: this.state.company_address,
+         company_city: this.state.company_city,
+         company_state: this.state.company_state,
+         company_zip: this.state.company_zip,
+         company_description: this.state.company_description,
+         company_website: this.state.company_website,
+         company_phone_number: this.state.company_phone_number,
+         company_email: this.state.company_email,
+         company_size: this.state.company_size,
+         company_industry: this.state.company_industry,
+         company_branch: this.state.company_branch,
+         company_logo: this.state.company_logo
+       })
+
+    }
+  })
+
 
     console.log("employer id", employer_id)
     // fetch employer posted jobs with status active
@@ -58,42 +103,7 @@ class Employer_profile extends Component {
       })
 
 
-   //  get employer profile data
-   const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
-   $.get(employerUrl).done( (data)=>{
-      this.state.company_name = data[0].company_name;
-      this.state.company_address = data[0].company_address;
-      this.state.company_city = data[0].company_city;
-      this.state.company_state = data[0].company_state;
-      this.state.company_zip = data[0].company_zip;
-      this.state.company_description = data[0].company_description;
-      this.state.company_website = data[0].company_website;
-      this.state.company_phone_number = data[0].company_phone_number;
-      this.state.company_email = data[0].company_email;
-      this.state.company_size = data[0].company_size;
-      this.state.company_industry = data[0].company_industry;
-      this.state.company_branch = data[0].company_branch;
-      this.state.company_logo = data[0].company_logo;
-
-      this.setState({
-        employerProfile: this.state.employerProfile,
-        company_name: this.state.company_name,
-        company_address: this.state.company_address,
-        company_city: this.state.company_city,
-        company_state: this.state.company_state,
-        company_zip: this.state.company_zip,
-        company_description: this.state.company_description,
-        company_website: this.state.company_website,
-        company_phone_number: this.state.company_phone_number,
-        company_email: this.state.company_email,
-        company_size: this.state.company_size,
-        company_industry: this.state.company_industry,
-        company_branch: this.state.company_branch,
-        company_logo: this.state.company_logo
-      })
-
-    })
-  }
+ }
 
   render(){
     console.log("this.state.company_logo", this.state.company_logo)
@@ -132,6 +142,7 @@ class Employer_profile extends Component {
               <div className="twelve wide column">
                 <div className="ui four middle aligned cards">
                   <div className="ui label">
+
                     {this.state.company_industry}
                   </div>
                 </div>
