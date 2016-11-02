@@ -77,7 +77,7 @@ class List_match extends Component {
       }
 
       console.log("applicationData", applicationData)
-
+      console.log("e-target className", e.target.className)
       // $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       //   .done((data) => {
       //     console.log('succesfully applied for a job')
@@ -87,9 +87,10 @@ class List_match extends Component {
       //     console.log('unable to apply for a job', error)
       //   })
 
-       var buttonChange = document.getElementsByClassName('.ui.purple.button').find('#'+ e.target.value)
+       var buttonChange = document.getElementById(`job${current_job_id}`)
 
-       buttonChange.classList.toggle('.hide')
+       buttonChange.className += " disabled"
+       buttonChange.innerText = "Applied"
 
 
     }
@@ -112,7 +113,7 @@ class List_match extends Component {
                 <div id="applicants_buttons">
                 </div>
               </div>
-              <button id={job.id} value={job.id} className="ui purple button" onClick={change}><i className="icon send"></i>Quick Apply</button>
+              <button id={"job"+job.id} value={job.id} className="ui purple button" onClick={change}><i className="icon send"></i>Quick Apply</button>
               <button id={job.id} className="ui disabled purple button hide" ><i className="icon send"></i>Applied</button>
             </div>
           </Link>
