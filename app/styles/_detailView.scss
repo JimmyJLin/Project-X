@@ -1,6 +1,9 @@
 
 
 #job_details{
+
+
+
   h1{
     text-align: center;
   }
@@ -10,6 +13,14 @@
 
     .ui.segment.match{
       height: 250px;
+
+      .item.ui.label{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
     }
 
     #field_title{
@@ -21,6 +32,7 @@
       display: inline-flex;
     }
   }
+
 
 
 }

@@ -231,19 +231,19 @@ class Employer_profile extends Component {
                 <h3>Job Postings: </h3>
                   <div className="ui middle aligned divided list">
 
-                    <div className="item">
+                    <Link to="/list_jobs" className="item ui label">
                       <div className="right floated content">
-                        <Link to="/list_jobs">{this.state.active_jobs}</Link>
+                        <div >{this.state.active_jobs}</div>
                       </div>
                       <div className="content">Open</div>
-                    </div>
+                    </Link>
 
-                    <div className="item">
+                    <Link to="/archived_jobs" className="item ui label">
                       <div className="right floated content">
-                        <Link to="/archived_jobs">{this.state.archived_jobs}</Link>
+                        <div >{this.state.archived_jobs}</div>
                       </div>
                       <div className="content">Archived</div>
-                    </div>
+                    </Link>
 
                   </div>
 

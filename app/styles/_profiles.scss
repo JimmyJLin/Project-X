@@ -2,7 +2,14 @@
   padding-top: 100px;
   padding-bottom: 50px;
 
-  
+
+  .item.ui.label{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
   .ui.grid, #bio{
     padding-left: 50px;
     padding-right: 50px;

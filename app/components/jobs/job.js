@@ -240,42 +240,20 @@ class Job extends Component {
       applicantView = <div className="ui segment match">
                         <h3>Applicants: </h3>
                         <div className="ui middle aligned divided list">
-                          <div className="item">
+                          <Link to={"/list_matched_applicants/"} className="item ui label">
                             <div className="right floated content">
-                              <Link to={"/list_matched_applicants/"}>{this.state.job_applicants.length}</Link>
+                              <div>{this.state.job_applicants.length}</div>
                             </div>
                             <div className="content">Matched</div>
-                          </div>
-                          <div className="item">
+                          </Link>
+                          <br/>
+                          <Link to={"/list_applicants_applied/" + jobApplicant_id} className="item ui label">
                             <div className="right floated content">
-                              <Link to={"/list_applicants_applied/" + jobApplicant_id}>{this.state.applicants_applied.length}</Link>
+                              <div >{this.state.applicants_applied.length}</div>
                             </div>
                             <div className="content">Applied</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="#">10</Link>
-                            </div>
-                            <div className="content">Rejected</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="#">5</Link>
-                            </div>
-                            <div className="content">Interviewed</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="#">0</Link>
-                            </div>
-                            <div className="content">Hired</div>
-                          </div>
-                          <div className="item">
-                            <div className="right floated content">
-                              <Link to="#">287</Link>
-                            </div>
-                            <div className="content">Remaining</div>
-                          </div>
+                          </Link>
+
                         </div>
                       </div>
 
