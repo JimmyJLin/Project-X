@@ -21,9 +21,10 @@ class MainMenu extends Component {
   }
 
   logout(e) {
+
     e.preventDefault();
     this.props.logout();
-    browserHistory.push('/'); // redirects to homepage
+    window.location.assign('/'); // redirects to homepage
 
   }
 

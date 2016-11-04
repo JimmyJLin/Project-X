@@ -4,16 +4,33 @@ import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
+let certificateState = [];
+let jobSkillsState = [];
+let jobExperienceState = [];
+
 class List_match extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jobs: []
+      jobs: [],
+      experience_level: '',
+      education_level: '',
+      industry_experience: [],
+      job_skills: [],
+      certifications: [],
+      filteredJobs: []
     }
   }
 
   componentDidMount() {
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+
+    }
+
     // get all matched jobs data
     $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
       this.state.jobs = data
@@ -26,9 +43,88 @@ class List_match extends Component {
 
     })
   }
+  componentWillUpdate(){
+    var dummyValue = false;
+    if (dummyValue == false){
+      window.location.reload()
+      dummyValue = true;
+    }
+  }
 
+  updateTheList(){
+
+        let jobs = this.state.jobs;
+        var intersectionIds =[];
+        var final = [];
+        var exp =  this.state.experience_level;
+        var edu =  this.state.education_level;
+        // console.log('**********',jobs, experience_level_state,education_level_state)
+        if (exp == '' &&  edu == ''){
+             console.log('YAY')
+        } else {
+
+                var newarrExp = jobs.filter(function(obj){
+                  return obj.experience_level === exp ;
+                })
+
+                var newarrEdu = jobs.filter(function(obj){
+                  return obj.education_level === edu ;
+                })
+
+
+                intersectionIds = _.intersection( jobs.map( (el)=>{ return el.id}). newarrEdu.map((el)=>{ return el.id}), newarrExp.map((el)=>{ return el.id}))
+
+
+
+                  for ( var i in intersectionIds ){
+                    jobs.forEach((el)=>{
+                      if ( el.id == i ) {
+                      final.push(el)
+                    }
+                    })
+                    }
+                  console.log('*********', final, newarrExp , newarrEdu)
+        }
+
+  }s
+
+
+  onFilterChange(name, val){
+    console.log('name', 'val', name,val )
+    this.setState({ [name]: val});
+    // console.log(this.state.experience_level)
+    console.log("onIndustryExpLevelChange Clicked")
+    // console.log("this.state.experience_level -->: ", this.state.experience_level)
+    console.log("this.state.jobs", this.state.jobs)
+
+  }
+
+
+
+  onIndustryExperienceChange(industry_experience){
+    jobExperienceState.push(industry_experience)
+    this.setState({industry_experience: jobExperienceState})
+    console.log("onIndustryExperienceChange Clicked")
+
+  }
+
+  onJobSkillsChange(job_skills){
+    jobSkillsState.push(job_skills)
+    this.setState({job_skills: jobSkillsState})
+    console.log("onJobSkillsChange Clicked")
+
+  }
+
+  onCertificationChange(certifications){
+    certificateState.push(certifications)
+    this.setState({certifications: certificateState})
+    console.log("onCertificationChange Clicked")
+
+  }
 
   render(){
+    this.updateTheList()
+
     let change = function(e){
       e.preventDefault();
       console.log(e.target.value)
@@ -86,7 +182,7 @@ class List_match extends Component {
 
     })
 
-    console.log("jobs from state", jobs)
+    // console.log("jobs from state", jobs)
 
     return(
       <div id="list_jobs">
@@ -102,7 +198,7 @@ class List_match extends Component {
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
-                  onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
+                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Entry Level"> 0-2 Years (Entry Level)</option>
                     <option value="Mid Level">2-5 Years (Mid-Level)</option>
@@ -114,7 +210,7 @@ class List_match extends Component {
                 <div>
                   <label name="education_level">Education Level</label>
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
-                  onChange={e => this.onEducationLevelChange(e.target.value)}>
+                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
