@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Main extends Component {
+
+  componentDidMount(){
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
+  }
+  
   render() {
     return (
       <div className="intro">

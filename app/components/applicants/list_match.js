@@ -7,6 +7,7 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
+var final = [];
 
 class List_match extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class List_match extends Component {
     }
 
     // get all matched jobs data
-    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
       this.state.jobs = data
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)
@@ -43,50 +44,57 @@ class List_match extends Component {
 
     })
   }
-  componentWillUpdate(){
-    var dummyValue = false;
-    if (dummyValue == false){
-      window.location.reload()
-      dummyValue = true;
-    }
-  }
+
 
   updateTheList(){
 
-        let jobs = this.state.jobs;
-        var intersectionIds =[];
-        var final = [];
-        var exp =  this.state.experience_level;
-        var edu =  this.state.education_level;
-        // console.log('**********',jobs, experience_level_state,education_level_state)
-        if (exp == '' &&  edu == ''){
-             console.log('YAY')
-        } else {
+    let jobsState = this.state.jobs;
+    var intersectionIds =[];
+    var exp =  this.state.experience_level;
+    var edu =  this.state.education_level;
+    // console.log('**********',jobs, experience_level_state,education_level_state)
+    if (exp == '' &&  edu == ''){
+         console.log('YAY')
+    } else {
+      console.log("else ----------")
+      var newarrExp = jobsState.filter( (obj) =>{
 
-                var newarrExp = jobs.filter(function(obj){
-                  return obj.experience_level === exp ;
-                })
+        return obj.experience_level == exp
 
-                var newarrEdu = jobs.filter(function(obj){
-                  return obj.education_level === edu ;
-                })
+      }) ;
+      console.log("newarrExp ---->", newarrExp)
+      console.log("edu ---->", edu)
+      var newarrEdu = jobsState.filter( (obj) =>{
 
+        return obj.education_level == edu
 
-                intersectionIds = _.intersection( jobs.map( (el)=>{ return el.id}). newarrEdu.map((el)=>{ return el.id}), newarrExp.map((el)=>{ return el.id}))
+      })
 
+      console.log("newarrEdu ---->", newarrEdu)
 
+      intersectionIds = _.intersection(
+        jobsState.map( (el)=>{ return el.id}),
+        newarrEdu.map((el)=>{ return el.id}),
+        newarrExp.map((el)=>{ return el.id}))
 
-                  for ( var i in intersectionIds ){
-                    jobs.forEach((el)=>{
-                      if ( el.id == i ) {
-                      final.push(el)
-                    }
-                    })
-                    }
-                  console.log('*********', final, newarrExp , newarrEdu)
-        }
+      console.log("intersectionIds --->", intersectionIds)
 
-  }s
+      for ( var i in intersectionIds ){
+        jobsState.forEach( (el)=>{
+
+          console.log("el --> ", el)
+          console.log('i --->', intersectionIds[i])
+          if ( el.id == intersectionIds[i] ) {
+            final.push(el)
+          }
+        })
+      }
+
+      // this.setState({ filteredJobs: final });
+
+      console.log("final --> ", final)
+    }
+  }
 
 
   onFilterChange(name, val){
@@ -158,10 +166,30 @@ class List_match extends Component {
 
     }
 
+    console.log("final inside render ----->", final)
+    // if (final.length == 0){
+    //   console.log("final length --> ", final.length)
+    //   final = this.state.jobs
+    // } else {
+    //   console.log("contain data  -->", final)
+    // }
+
     let job_lists = this.state.jobs
-    let jobs = job_lists.map(function(job){
+    let job_lists_before_filter;
+
+    var jobArray;
+    if (final.length == 0 ){
+      jobArray = this.state.jobs
+      console.log("YESSSSSS -----", jobArray)
+    } else {
+      jobArray = final
+      console.log("NOOOOOOO ----", jobArray)
+    }
+
+
+    let jobs = jobArray.map(function(job){
     let url = '/'+ job.company_logo
-    console.log("image url ", url)
+    // console.log("image url ", url)
     let link = `/list_matched/job/` + job.id
     return <Link to={link} key={job.id} className="card">
             <div className="content">
@@ -215,7 +243,7 @@ class List_match extends Component {
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelors Degree">Bachelors Degree</option>
+                    <option value="Bachelor Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
                     <option value="Masters Degree">Masters Degree</option>
                     <option value="MBA Degree">MBA Degree</option>
@@ -239,51 +267,63 @@ class List_match extends Component {
 
                 {/* Skills */}
                 <div>
-                  <label name="certifications">Job Skills</label>
+                  <label name="job_skills">Skills</label>
                   <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
                   value={this.state.job_skills}
                   onChange={e => this.onJobSkillsChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
-                    <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
-                    <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
-                    <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
-                    <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
-                    <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
-                    <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
-                    <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
-                    <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
-                    <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
-                    <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
-                    <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
-                    <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
-                    <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
-                    <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                    <option value="Wealth Management">Wealth Management</option>
+                    <option value="Investment Banking">Investment Banking</option>
+                    <option value="Asset Management">Asset Management</option>
+                    <option value="Institutional Securities">Institutional Securities</option>
+                    <option value="Commericial Banking">Commericial Banking</option>
+                    <option value="Retirement Solutions">Retirement Solutions</option>
+                    <option value="Portfolio Strategy">Portfolio Strategy</option>
+                    <option value="Financial Audit">Financial Audit</option>
+                    <option value="Tax Preparation">Tax Preparation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Advisory Services">Advisory Services</option>
+                    <option value="Compliance">Compliance</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Underwriting">Underwriting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Financial Analysis">Financial Analysis</option>
+                    <option value="Derivatives">Derivatives</option>
+                    <option value="M&A Activity">M&A Activity</option>
+                    <option value="Venture Capitol">Venture Capitol</option>
+                    <option value="Forensice Accounting">Forensice Accounting</option>
                   </select>
                 </div>
 
                 {/* Certifications */}
                 <div>
-                  <label name="certifications">Relevant certifications</label>
-                  <select multiple="true" name="certifications" className="ui fluid normal dropdown"
+                  <label name="job_experiences">Experiences</label>
+                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
                   value={this.state.certifications}
                   onChange={e => this.onCertificationChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
-                    <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
-                    <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
-                    <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
-                    <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
-                    <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
-                    <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
-                    <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
-                    <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
-                    <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
-                    <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
-                    <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
-                    <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
-                    <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
-                    <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                    <option value="Client Relations">Client Relations</option>
+                    <option value="Microsoft Office">Microsoft Office</option>
+                    <option value="Quickbooks">Quickbooks</option>
+                    <option value="Bookkeeping">Bookkeeping</option>
+                    <option value="Tax Software">Tax Software</option>
+                    <option value="IT">IT</option>
+                    <option value="Data Entry">Data Entry</option>
+                    <option value="Financial Statement">Financial Statement</option>
+                    <option value="Financial Planning">Financial Planning</option>
+                    <option value="Debt Consolidation">Debt Consolidation</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Account Reconciliation">Account Reconciliation</option>
+                    <option value="Payroll Management">Payroll Management</option>
+                    <option value="Budgeting">Budgeting</option>
+                    <option value="Forecasting">Forecasting</option>
+                    <option value="Corporate Reporting">Corporate Reporting</option>
+                    <option value="Public Speaking">Public Speaking</option>
+                    <option value="Analytical Writing">Analytical Writing</option>
+                    <option value="Cost Accounting">Cost Accounting</option>
+                    <option value="Federal Tax Law">Federal Tax Law</option>
                   </select>
                 </div>
 
