@@ -25,6 +25,10 @@ class Applicant_profile extends Component {
 
   componentDidMount() {
     const user_id = localStorage.id
+    
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
 
    // this is where you'll get the data from the 'db'
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id

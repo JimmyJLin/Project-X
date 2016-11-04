@@ -107,6 +107,12 @@ class Applicant_skill_form extends Component {
       }
     }
 
+  componentDidMount(){
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
+  }
+
   seeValue(e){
     e.preventDefault;
     console.log( e.target.id, e.target.value)

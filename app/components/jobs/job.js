@@ -23,6 +23,10 @@ class Job extends Component {
     console.log("hello from componentDidMount")
     let job_id = this.props.params.id
 
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
     // job details
     $.get(`https://apex-database.herokuapp.com/api/jobs/${job_id}`).done( (data)=>{
       this.state.job_data = data
