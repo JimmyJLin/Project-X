@@ -9,7 +9,7 @@ class Main extends Component {
       localStorage.setItem('isLoaded', 'no');
     }
   }
-  
+
   render() {
     return (
       <div className="intro">

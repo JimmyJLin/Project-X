@@ -7,7 +7,9 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
-var final = [];
+
+var final= [];
+
 
 class List_match extends Component {
   constructor(props) {
@@ -19,8 +21,10 @@ class List_match extends Component {
       education_level: '',
       industry_experience: [],
       job_skills: [],
+      job_experiences: [],
       certifications: [],
-      filteredJobs: []
+      sortedList : [],
+      filteredJobs: {}
     }
   }
 
@@ -46,67 +50,122 @@ class List_match extends Component {
   }
 
 
-  updateTheList(){
-
-    let jobsState = this.state.jobs;
-    var intersectionIds =[];
-    var exp =  this.state.experience_level;
-    var edu =  this.state.education_level;
-    // console.log('**********',jobs, experience_level_state,education_level_state)
-    if (exp == '' &&  edu == ''){
-         console.log('YAY')
-    } else {
-      console.log("else ----------")
-      var newarrExp = jobsState.filter( (obj) =>{
-
-        return obj.experience_level == exp
-
-      }) ;
-      console.log("newarrExp ---->", newarrExp)
-      console.log("edu ---->", edu)
-      var newarrEdu = jobsState.filter( (obj) =>{
-
-        return obj.education_level == edu
-
-      })
-
-      console.log("newarrEdu ---->", newarrEdu)
-
-      intersectionIds = _.intersection(
-        jobsState.map( (el)=>{ return el.id}),
-        newarrEdu.map((el)=>{ return el.id}),
-        newarrExp.map((el)=>{ return el.id}))
-
-      console.log("intersectionIds --->", intersectionIds)
-
-      for ( var i in intersectionIds ){
-        jobsState.forEach( (el)=>{
-
-          console.log("el --> ", el)
-          console.log('i --->', intersectionIds[i])
-          if ( el.id == intersectionIds[i] ) {
-            final.push(el)
-          }
-        })
-      }
-
-      // this.setState({ filteredJobs: final });
-
-      console.log("final --> ", final)
-    }
-  }
+//   updateTheList(){
+//     var jobsState = this.state.jobs;
+//     var intersectionIds =[] ;
+//     var final = [] ;
+//     var exp =  this.state.experience_level;
+//     var edu =  this.state.education_level;
+//     var newarrExp = jobsState.filter( (obj) =>{
+//               return obj.experience_level == exp }) ;
+//     var newarrEdu = jobsState.filter( (obj) =>{
+//               return obj.education_level == edu }) ;
+//
+//
+//     intersectionIds = _.intersection(
+//         jobsState.map((el)=>{ return el.id}),
+//         newarrEdu.map((el)=>{ return el.id}),
+//         newarrExp.map((el)=>{ return el.id}) )
+//
+//         console.log('jobs', jobsState,
+//                     'newarrEdu', newarrEdu ,
+//                     'newarrExp',newarrExp,
+//                     'intersectionIds', intersectionIds )
+//
+//
+//               for ( var i in intersectionIds ){
+//                   jobsState.forEach( (obj)=>{
+//                     if ( obj.id == intersectionIds[i] ) {
+//                         final.push(obj) }
+//                       })
+//                         console.log(final)
+//                   }
+//
+//                 this.setState({
+//                   filteredJobs:final
+//                 })
+//
+//                 console.log('****************', this.state.filteredJobs)
+//
+// }
 
 
   onFilterChange(name, val){
     console.log('name', 'val', name,val )
     this.setState({ [name]: val});
     // console.log(this.state.experience_level)
-    console.log("onIndustryExpLevelChange Clicked")
+    console.log("onIndustryExpLevelChange Clicked", name, val)
     // console.log("this.state.experience_level -->: ", this.state.experience_level)
-    console.log("this.state.jobs", this.state.jobs)
+    //  this.updateTheList()
+    this.UpdateTheFilter(name, val);
+  }
+
+   UpdateTheFilter(name, val){
+      var filteredArr  = this.state.jobs.filter( (obj) =>{
+                     return obj[name] == val })
+                     console.log('this is my filtered Array', filteredArr)
+     this.state.filteredJobs[name] = filteredArr
 
   }
 
+  updateTheFinalList(){
+    var ffinal = [];
+    var jobsState = this.state.jobs;
+    var finalList = this.state.filteredJobs;
+    var valuessofFilteredJobs = Object.values(finalList);
+    var selectedIds= []; //=> [[],[]]
+
+    for (var i = 0; i <valuessofFilteredJobs.length; i++ ){
+      var arr = [];
+      valuessofFilteredJobs[i].map((el)=>{ arr.push(el.id) })
+      selectedIds.push(arr)
+    }
+    console.log('+++++++++', selectedIds.map( (el)=>{
+      return el
+    }))
+
+
+    var intersectionIds;
+    switch ( selectedIds.length) {
+    case 1:
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0] ); break;
+    case 2:
+    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] ); break;
+    case 3:
+    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] ); break;
+    case 4:
+    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] ); break;
+    case 5:
+    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] ); break;
+    case 6:
+    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  ); break;
+    default:
+    break ;
+    }
+
+
+    console.log('intersectionIds', intersectionIds)
+
+      for ( var i in intersectionIds ){
+          jobsState.forEach( (obj)=>{
+            if ( obj.id == intersectionIds[i] ) {
+                ffinal.push(obj) }
+              })
+                console.log(final)
+          }
+          final = ffinal;
+    console.log(final)
+    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), keysofFilteredJobs.forEach((arr)=> { arr.map((el)=>{ return el.id})}))
+    //
+    // console.log('this state filteredJobs', finalList,keysofFilteredJobs, intersectionIds ,areIDs)
+
+  }
+
+
+
+  componentWillUpdate(){
+    this.updateTheFinalList()
+  }
 
 
   onIndustryExperienceChange(industry_experience){
@@ -119,19 +178,17 @@ class List_match extends Component {
   onJobSkillsChange(job_skills){
     jobSkillsState.push(job_skills)
     this.setState({job_skills: jobSkillsState})
-    console.log("onJobSkillsChange Clicked")
+    console.log("onJobSkillsChange Clicked", this.state.job_skills)
 
   }
 
-  onCertificationChange(certifications){
-    certificateState.push(certifications)
-    this.setState({certifications: certificateState})
-    console.log("onCertificationChange Clicked")
-
+  onExperienceChange(job_experiences){
+    jobExperienceState.push(job_experiences)
+    this.setState({job_experiences: jobExperienceState})
+    console.log("onExperienceChange Clicked", this.state.job_experiences)
   }
 
   render(){
-    this.updateTheList()
 
     let change = function(e){
       e.preventDefault();
@@ -165,31 +222,19 @@ class List_match extends Component {
 
 
     }
-
-    console.log("final inside render ----->", final)
-    // if (final.length == 0){
-    //   console.log("final length --> ", final.length)
-    //   final = this.state.jobs
-    // } else {
-    //   console.log("contain data  -->", final)
-    // }
+    var jobArray;
+      if (final.length == 0 ){
+        jobArray = this.state.jobs
+        // console.log("YESSSSSS -----", jobArray)
+      } else {
+        jobArray = final
+        // console.log("NOOOOOOO ----", jobArray)
+      }
 
     let job_lists = this.state.jobs
-    let job_lists_before_filter;
-
-    var jobArray;
-    if (final.length == 0 ){
-      jobArray = this.state.jobs
-      console.log("YESSSSSS -----", jobArray)
-    } else {
-      jobArray = final
-      console.log("NOOOOOOO ----", jobArray)
-    }
-
-
     let jobs = jobArray.map(function(job){
     let url = '/'+ job.company_logo
-    // console.log("image url ", url)
+    console.log("image url ", url)
     let link = `/list_matched/job/` + job.id
     return <Link to={link} key={job.id} className="card">
             <div className="content">
@@ -243,7 +288,7 @@ class List_match extends Component {
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelor Degree">Bachelors Degree</option>
+                    <option value="Bachelors Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
                     <option value="Masters Degree">Masters Degree</option>
                     <option value="MBA Degree">MBA Degree</option>
@@ -296,12 +341,12 @@ class List_match extends Component {
                   </select>
                 </div>
 
-                {/* Certifications */}
+                {/* Experiences */}
                 <div>
                   <label name="job_experiences">Experiences</label>
                   <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.certifications}
-                  onChange={e => this.onCertificationChange(e.target.value)}>
+                  value={this.state.job_experiences}
+                  onChange={e => this.onExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Client Relations">Client Relations</option>
                     <option value="Microsoft Office">Microsoft Office</option>
