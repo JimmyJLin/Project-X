@@ -18,11 +18,10 @@ class List_match extends Component {
       jobs: [],
       experience_level: '',
       education_level: '',
-      industry: '',
+      industry_experience: [],
       job_skills: [],
-      job_skillsArr: [],
       job_experiences: [],
-      job_experiencesArr:[],
+      certifications: [],
       sortedList : [],
       filteredJobs: {}
     }
@@ -50,46 +49,6 @@ class List_match extends Component {
   }
 
 
-//   updateTheList(){
-//     var jobsState = this.state.jobs;
-//     var intersectionIds =[] ;
-//     var final = [] ;
-//     var exp =  this.state.experience_level;
-//     var edu =  this.state.education_level;
-//     var newarrExp = jobsState.filter( (obj) =>{
-//               return obj.experience_level == exp }) ;
-//     var newarrEdu = jobsState.filter( (obj) =>{
-//               return obj.education_level == edu }) ;
-//
-//
-//     intersectionIds = _.intersection(
-//         jobsState.map((el)=>{ return el.id}),
-//         newarrEdu.map((el)=>{ return el.id}),
-//         newarrExp.map((el)=>{ return el.id}) )
-//
-//         console.log('jobs', jobsState,
-//                     'newarrEdu', newarrEdu ,
-//                     'newarrExp',newarrExp,
-//                     'intersectionIds', intersectionIds )
-//
-//
-//               for ( var i in intersectionIds ){
-//                   jobsState.forEach( (obj)=>{
-//                     if ( obj.id == intersectionIds[i] ) {
-//                         final.push(obj) }
-//                       })
-//                         console.log(final)
-//                   }
-//
-//                 this.setState({
-//                   filteredJobs:final
-//                 })
-//
-//                 console.log('****************', this.state.filteredJobs)
-//
-// }
-
-
   onFilterChange(name, val){
     console.log('name', 'val', name,val )
     this.setState({ [name]: val});
@@ -101,12 +60,11 @@ class List_match extends Component {
   }
 
    UpdateTheFilter(name, val){
-     console.log('line 104 filtered value ', name , val)
       var filteredArr  = this.state.jobs.filter( (obj) =>{
                      return obj[name] == val })
                      console.log('this is my filtered Array', filteredArr)
      this.state.filteredJobs[name] = filteredArr
-     console.log('this.state.filteredJobs', this.state.filteredJobs)
+
   }
 
   updateTheFinalList(){
@@ -163,37 +121,28 @@ class List_match extends Component {
   }
 
 
+
   componentWillUpdate(){
     this.updateTheFinalList()
   }
 
-  // onIndustryExperienceChange(industry){
-  //   jobExperienceState.push(industry)
-  //   this.setState({industry: jobExperienceState})
-  //   console.log("onIndustryExperienceChange Clicked")
-  //
-  // }
 
-  // onJobSkillsChange(job_skillsArr){
-  //   jobSkillsState.push(job_skillsArr)
-  //
-  //   this.setState({job_skills: jobSkillsState})
-  //   console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  //
-  //   /*  this.state.job_skills = > ["Institutional Securities", "Asset Management", "Retirement Solutions", "Financial Audit"] */
-  //
-  //   var filteredArr
-  //   this.state.job_skills.forEach((item)=>{
-  //       console.log('++++++++',this.state.jobs)
-  //       filteredArr = this.state.jobs.filter( (obj) =>{
-  //                    return obj.job_skills == item })
-  //                    console.log('this is my filtered Array', filteredArr)
-  //   })
-  //   console.log('filteredArr', filteredArr)
-  // }
+  onIndustryExperienceChange(industry_experience){
+    jobExperienceState.push(industry_experience)
+    this.setState({industry_experience: jobExperienceState})
+    console.log("onIndustryExperienceChange Clicked")
 
-  onExperienceChange(job_experiencesArr){
-    jobExperienceState.push(job_experiencesArr)
+  }
+
+  onJobSkillsChange(job_skills){
+    jobSkillsState.push(job_skills)
+    this.setState({job_skills: jobSkillsState})
+    console.log("onJobSkillsChange Clicked", this.state.job_skills)
+
+  }
+
+  onExperienceChange(job_experiences){
+    jobExperienceState.push(job_experiences)
     this.setState({job_experiences: jobExperienceState})
     console.log("onExperienceChange Clicked", this.state.job_experiences)
   }
@@ -229,6 +178,7 @@ class List_match extends Component {
 
        buttonChange.className += " disabled"
        buttonChange.innerText = "Applied"
+
 
     }
     var jobArray;
@@ -297,7 +247,7 @@ class List_match extends Component {
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelor Degree">Bachelors Degree</option>
+                    <option value="Bachelors Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
                     <option value="Masters Degree">Masters Degree</option>
                     <option value="MBA Degree">MBA Degree</option>
@@ -309,9 +259,9 @@ class List_match extends Component {
                 {/* Industry Experience */}
                 <div>
                   <label name="certifications">Industry Experience</label>
-                  <select name="industry" className="ui fluid normal dropdown"
-                  value={this.state.industry}
-                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
+                  <select name="industry_experience" className="ui fluid normal dropdown"
+                  value={this.state.industry_experience}
+                  onChange={e => this.onIndustryExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
@@ -320,41 +270,41 @@ class List_match extends Component {
                 </div>
 
                 {/* Skills */}
-                                <div>
-                                  <label name="job_skills">Skills</label>
-                                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
-                                  value={this.state.job_skillsArr}
-                                  onChange={e => this.onJobSkillsChange(e.target.value)}>
-                                    <option value="">Please Select</option>
-                                    <option value="Wealth Management">Wealth Management</option>
-                                    <option value="Investment Banking">Investment Banking</option>
-                                    <option value="Asset Management">Asset Management</option>
-                                    <option value="Institutional Securities">Institutional Securities</option>
-                                    <option value="Commericial Banking">Commericial Banking</option>
-                                    <option value="Retirement Solutions">Retirement Solutions</option>
-                                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                                    <option value="Financial Audit">Financial Audit</option>
-                                    <option value="Tax Preparation">Tax Preparation</option>
-                                    <option value="Consulting">Consulting</option>
-                                    <option value="Advisory Services">Advisory Services</option>
-                                    <option value="Compliance">Compliance</option>
-                                    <option value="Human Resources">Human Resources</option>
-                                    <option value="Underwriting">Underwriting</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Sales">Sales</option>
-                                    <option value="Financial Analysis">Financial Analysis</option>
-                                    <option value="Derivatives">Derivatives</option>
-                                    <option value="M&A Activity">M&A Activity</option>
-                                    <option value="Venture Capitol">Venture Capitol</option>
-                                    <option value="Forensice Accounting">Forensice Accounting</option>
-                                  </select>
-                                </div>
+                <div>
+                  <label name="job_skills">Skills</label>
+                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
+                  value={this.state.job_skills}
+                  onChange={e => this.onJobSkillsChange(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="Wealth Management">Wealth Management</option>
+                    <option value="Investment Banking">Investment Banking</option>
+                    <option value="Asset Management">Asset Management</option>
+                    <option value="Institutional Securities">Institutional Securities</option>
+                    <option value="Commericial Banking">Commericial Banking</option>
+                    <option value="Retirement Solutions">Retirement Solutions</option>
+                    <option value="Portfolio Strategy">Portfolio Strategy</option>
+                    <option value="Financial Audit">Financial Audit</option>
+                    <option value="Tax Preparation">Tax Preparation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Advisory Services">Advisory Services</option>
+                    <option value="Compliance">Compliance</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Underwriting">Underwriting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Financial Analysis">Financial Analysis</option>
+                    <option value="Derivatives">Derivatives</option>
+                    <option value="M&A Activity">M&A Activity</option>
+                    <option value="Venture Capitol">Venture Capitol</option>
+                    <option value="Forensice Accounting">Forensice Accounting</option>
+                  </select>
+                </div>
 
                 {/* Experiences */}
                 <div>
                   <label name="job_experiences">Experiences</label>
                   <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiencesArr}
+                  value={this.state.job_experiences}
                   onChange={e => this.onExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Client Relations">Client Relations</option>
