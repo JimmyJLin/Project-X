@@ -61,9 +61,8 @@ $secondary_background_color: #f1f1f1;
   background-color: grey;
   height: auto;
 
-  .ui.equal.width.grid{
-    padding-top: 50px;
-    padding-bottom: 50px;
+  .ui.grid.top{
+    padding-top: 25px;
 
     .column{
       text-align: center;
@@ -75,9 +74,18 @@ $secondary_background_color: #f1f1f1;
     }
   }
 
+  .social_medias{
+    padding-top: 0px;
+    padding-bottom: 25px;
+
+    .column{
+      text-align: center;
+    }
+  }
+
   #copyrights{
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 25px;
   }
 }
 
