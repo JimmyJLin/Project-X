@@ -8,7 +8,6 @@ let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
 
-
 class List_match extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +19,7 @@ class List_match extends Component {
       industry_experience: [],
       job_skills: [],
       certifications: [],
-      filteredJobs: [],
-      filteredStates: {
-        experience: 'Mid Level',
-        education: 'Associate Degree'
-      }
-
+      filteredJobs: []
     }
   }
 
@@ -38,7 +32,7 @@ class List_match extends Component {
     }
 
     // get all matched jobs data
-    $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
       this.state.jobs = data
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)
@@ -49,6 +43,50 @@ class List_match extends Component {
 
     })
   }
+  componentWillUpdate(){
+    var dummyValue = false;
+    if (dummyValue == false){
+      window.location.reload()
+      dummyValue = true;
+    }
+  }
+
+  updateTheList(){
+
+        let jobs = this.state.jobs;
+        var intersectionIds =[];
+        var final = [];
+        var exp =  this.state.experience_level;
+        var edu =  this.state.education_level;
+        // console.log('**********',jobs, experience_level_state,education_level_state)
+        if (exp == '' &&  edu == ''){
+             console.log('YAY')
+        } else {
+
+                var newarrExp = jobs.filter(function(obj){
+                  return obj.experience_level === exp ;
+                })
+
+                var newarrEdu = jobs.filter(function(obj){
+                  return obj.education_level === edu ;
+                })
+
+
+                intersectionIds = _.intersection( jobs.map( (el)=>{ return el.id}). newarrEdu.map((el)=>{ return el.id}), newarrExp.map((el)=>{ return el.id}))
+
+
+
+                  for ( var i in intersectionIds ){
+                    jobs.forEach((el)=>{
+                      if ( el.id == i ) {
+                      final.push(el)
+                    }
+                    })
+                    }
+                  console.log('*********', final, newarrExp , newarrEdu)
+        }
+
+  }s
 
 
   onFilterChange(name, val){
@@ -58,37 +96,6 @@ class List_match extends Component {
     console.log("onIndustryExpLevelChange Clicked")
     // console.log("this.state.experience_level -->: ", this.state.experience_level)
     console.log("this.state.jobs", this.state.jobs)
-
-    let jobs = this.state.jobs;
-
-    console.log("jobs", jobs)
-
-    let experience_level_state = this.state.experience_level;
-    let education_level_state = this.state.education_level_state;
-
-    var filteredArr = [];
-
-    switch(name) {
-      case 'experience_level':
-          filteredArr = jobs.filter(function(obj){
-            return obj.experience_level === val;
-          })
-          console.log('70', filteredArr)
-          break;
-      case 'education_level' :
-          filteredArr = filteredArr.filter(function(obj){
-            return obj.education_level === val;
-          })
-          console.log('76', filteredArr)
-
-          break;
-     default:
-       console.log(filteredArr)
-     }
-
-
-
-    console.log(filteredArr)
 
   }
 
@@ -116,7 +123,7 @@ class List_match extends Component {
   }
 
   render(){
-
+    this.updateTheList()
 
     let change = function(e){
       e.preventDefault();
