@@ -7,7 +7,6 @@ import $ from 'jquery'; // requires jQuery for AJAX request
 let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
-
 var final= [];
 
 
@@ -49,45 +48,6 @@ class List_match extends Component {
     })
   }
 
-
-//   updateTheList(){
-//     var jobsState = this.state.jobs;
-//     var intersectionIds =[] ;
-//     var final = [] ;
-//     var exp =  this.state.experience_level;
-//     var edu =  this.state.education_level;
-//     var newarrExp = jobsState.filter( (obj) =>{
-//               return obj.experience_level == exp }) ;
-//     var newarrEdu = jobsState.filter( (obj) =>{
-//               return obj.education_level == edu }) ;
-//
-//
-//     intersectionIds = _.intersection(
-//         jobsState.map((el)=>{ return el.id}),
-//         newarrEdu.map((el)=>{ return el.id}),
-//         newarrExp.map((el)=>{ return el.id}) )
-//
-//         console.log('jobs', jobsState,
-//                     'newarrEdu', newarrEdu ,
-//                     'newarrExp',newarrExp,
-//                     'intersectionIds', intersectionIds )
-//
-//
-//               for ( var i in intersectionIds ){
-//                   jobsState.forEach( (obj)=>{
-//                     if ( obj.id == intersectionIds[i] ) {
-//                         final.push(obj) }
-//                       })
-//                         console.log(final)
-//                   }
-//
-//                 this.setState({
-//                   filteredJobs:final
-//                 })
-//
-//                 console.log('****************', this.state.filteredJobs)
-//
-// }
 
 
   onFilterChange(name, val){
