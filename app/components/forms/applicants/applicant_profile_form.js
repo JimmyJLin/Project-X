@@ -49,6 +49,12 @@ class Applicant_profile_form extends Component {
 
   }
 
+  componentDidMount(){
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+    }
+  }
 
   handleSubmit(e) {
     e.preventDefault();

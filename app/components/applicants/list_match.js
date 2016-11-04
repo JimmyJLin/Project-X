@@ -8,6 +8,7 @@ let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
 
+
 class List_match extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +30,15 @@ class List_match extends Component {
   }
 
   componentDidMount() {
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+
+    }
+
     // get all matched jobs data
-    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
       this.state.jobs = data
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)
@@ -41,7 +49,6 @@ class List_match extends Component {
 
     })
   }
-
 
 
   onFilterChange(name, val){
@@ -83,21 +90,6 @@ class List_match extends Component {
 
     console.log(filteredArr)
 
-      // // console.log("-------", el.length)
-      //
-      // // console.log("********", el.experience_level.length)
-      // if(el.experience_level == "Mid Level") {
-      //   console.log("YESSSSSSS")
-      //     console.log("returned el -->: ", el)
-      // } else {
-      //   console.log("NOOOOOOO")
-      // }
-      // // if (el.experience_level == "Mid-Level") {
-      // //   console.log("YESSSSSSSS")
-      // // } else {
-      // //   console.log("NOOOOOOOOO")
-      // // }
-
   }
 
 
@@ -124,6 +116,8 @@ class List_match extends Component {
   }
 
   render(){
+
+
     let change = function(e){
       e.preventDefault();
       console.log(e.target.value)
