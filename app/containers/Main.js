@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 class Main extends Component {
 
+
   componentDidMount(){
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
