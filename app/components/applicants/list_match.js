@@ -50,45 +50,6 @@ class List_match extends Component {
   }
 
 
-//   updateTheList(){
-//     var jobsState = this.state.jobs;
-//     var intersectionIds =[] ;
-//     var final = [] ;
-//     var exp =  this.state.experience_level;
-//     var edu =  this.state.education_level;
-//     var newarrExp = jobsState.filter( (obj) =>{
-//               return obj.experience_level == exp }) ;
-//     var newarrEdu = jobsState.filter( (obj) =>{
-//               return obj.education_level == edu }) ;
-//
-//
-//     intersectionIds = _.intersection(
-//         jobsState.map((el)=>{ return el.id}),
-//         newarrEdu.map((el)=>{ return el.id}),
-//         newarrExp.map((el)=>{ return el.id}) )
-//
-//         console.log('jobs', jobsState,
-//                     'newarrEdu', newarrEdu ,
-//                     'newarrExp',newarrExp,
-//                     'intersectionIds', intersectionIds )
-//
-//
-//               for ( var i in intersectionIds ){
-//                   jobsState.forEach( (obj)=>{
-//                     if ( obj.id == intersectionIds[i] ) {
-//                         final.push(obj) }
-//                       })
-//                         console.log(final)
-//                   }
-//
-//                 this.setState({
-//                   filteredJobs:final
-//                 })
-//
-//                 console.log('****************', this.state.filteredJobs)
-//
-// }
-
 
   onFilterChange(name, val){
     console.log('name', 'val', name,val )
@@ -320,35 +281,35 @@ class List_match extends Component {
                 </div>
 
                 {/* Skills */}
-                                <div>
-                                  <label name="job_skills">Skills</label>
-                                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
-                                  value={this.state.job_skillsArr}
-                                  onChange={e => this.onJobSkillsChange(e.target.value)}>
-                                    <option value="">Please Select</option>
-                                    <option value="Wealth Management">Wealth Management</option>
-                                    <option value="Investment Banking">Investment Banking</option>
-                                    <option value="Asset Management">Asset Management</option>
-                                    <option value="Institutional Securities">Institutional Securities</option>
-                                    <option value="Commericial Banking">Commericial Banking</option>
-                                    <option value="Retirement Solutions">Retirement Solutions</option>
-                                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                                    <option value="Financial Audit">Financial Audit</option>
-                                    <option value="Tax Preparation">Tax Preparation</option>
-                                    <option value="Consulting">Consulting</option>
-                                    <option value="Advisory Services">Advisory Services</option>
-                                    <option value="Compliance">Compliance</option>
-                                    <option value="Human Resources">Human Resources</option>
-                                    <option value="Underwriting">Underwriting</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Sales">Sales</option>
-                                    <option value="Financial Analysis">Financial Analysis</option>
-                                    <option value="Derivatives">Derivatives</option>
-                                    <option value="M&A Activity">M&A Activity</option>
-                                    <option value="Venture Capitol">Venture Capitol</option>
-                                    <option value="Forensice Accounting">Forensice Accounting</option>
-                                  </select>
-                                </div>
+                <div>
+                  <label name="job_skills">Skills</label>
+                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
+                  value={this.state.job_skillsArr}
+                  onChange={e => this.onJobSkillsChange(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="Wealth Management">Wealth Management</option>
+                    <option value="Investment Banking">Investment Banking</option>
+                    <option value="Asset Management">Asset Management</option>
+                    <option value="Institutional Securities">Institutional Securities</option>
+                    <option value="Commericial Banking">Commericial Banking</option>
+                    <option value="Retirement Solutions">Retirement Solutions</option>
+                    <option value="Portfolio Strategy">Portfolio Strategy</option>
+                    <option value="Financial Audit">Financial Audit</option>
+                    <option value="Tax Preparation">Tax Preparation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Advisory Services">Advisory Services</option>
+                    <option value="Compliance">Compliance</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Underwriting">Underwriting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Financial Analysis">Financial Analysis</option>
+                    <option value="Derivatives">Derivatives</option>
+                    <option value="M&A Activity">M&A Activity</option>
+                    <option value="Venture Capitol">Venture Capitol</option>
+                    <option value="Forensice Accounting">Forensice Accounting</option>
+                  </select>
+                </div>
 
                 {/* Experiences */}
                 <div>

@@ -244,7 +244,7 @@ class Job extends Component {
       applicantView = <div className="ui segment match">
                         <h3>Applicants: </h3>
                         <div className="ui middle aligned divided list">
-                          <Link to={"/list_matched_applicants/"} className="item ui label">
+                          <Link to={"/list_matched_applicants"} className="item ui label">
                             <div className="right floated content">
                               <div>{this.state.job_applicants.length}</div>
                             </div>
