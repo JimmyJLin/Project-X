@@ -26,6 +26,7 @@ $secondary_background_color: #f1f1f1;
 }
 
 #main_display_image img{
+  margin-top: 7%;
   width: 100%;
   height: 500px;
 }
@@ -33,8 +34,8 @@ $secondary_background_color: #f1f1f1;
 #about_us_div{
   height: 350px;
   padding-top: 70px;
-  padding-left: 250px;
-  padding-right: 250px;
+  padding-left: 10%;
+  padding-right: 10%;
   padding-bottom: 50px;
   text-align: center;
 
@@ -47,9 +48,14 @@ $secondary_background_color: #f1f1f1;
 }
 
 #main_display_links{
+
   padding-top: 50px;
   padding-bottom: 150px;
   background-color: $secondary_background_color;
+
+  .ui.button{
+    width: 250px;
+  }
 }
 
 #applicant_signup_button, #employer_signup_button, #applicant_profile_signup_button, #applicant_profile_login_button, #employer_profile_login_button, #employer_profile_signup_button{

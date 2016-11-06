@@ -1,5 +1,12 @@
 $(function(){
   console.log('script file loaded')
+
+  // Main Page - on hover change button class
+
+  $('.ui.basic.primary.button').hover(function(){
+
+  })
+
   // loader
   $('.ui.segment.loader').dimmer('show');
 

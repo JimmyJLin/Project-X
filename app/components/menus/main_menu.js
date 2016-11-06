@@ -57,39 +57,44 @@ class MainMenu extends Component {
       const logoimg = 'images/company_logo/apex_logo.png'
 
       const userLinks = (
-        <div className="ui text container">
-          <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
-          <Link id="messages" className="item"><i className="icon comment"></i>Messages</Link>
-          <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
+        <div className="ui top fixed main two item menu">
+          <div id="logo">
+            <Link to="/">
+              <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
+            </Link>
+          </div>
+          <div className="ui text container">
+            <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
+            <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
+          </div>
         </div>
+
       );
 
 
 
       const guestLinks = (
-
-      <div className="ui text container">
-        <Link id="about_us_button" className="item"><i className="icon info circle"></i>About Us</Link>
-        <Link id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</Link>
-        <Link id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</Link>
+      <div className="ui top fixed main three item menu">
+        <div id="logo">
+          <Link to="/">
+            <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
+          </Link>
+        </div>
+        <div className="ui text container">
+          <Link id="about_us_button" className="item"><i className="icon info circle"></i>About Us</Link>
+          <Link id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</Link>
+          <Link id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</Link>
+        </div>
       </div>
+
       );
 
     return(
 
       <div id="MainMenu">
 
-        <div className="ui top fixed main three item menu">
+        { isAuthenticated ? userLinks : guestLinks }
 
-          <div id="logo">
-            <Link to="/">
-              <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
-            </Link>
-          </div>
-
-          { isAuthenticated ? userLinks : guestLinks }
-
-        </div>
 
         <Applicant_signupModel />
         <Applicant_loginModal  />
