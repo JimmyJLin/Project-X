@@ -23,6 +23,11 @@ class Matched_applicant_profile extends Component {
   }
 
   componentDidMount() {
+
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
     let applicant_id = this.props.params.id
     const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + applicant_id
 
