@@ -54,7 +54,7 @@ class MainMenu extends Component {
 
   render(){
       const { isAuthenticated } = this.props.auth;
-
+      const logoimg = 'images/company_logo/apex_logo.png'
 
       const userLinks = (
         <div className="ui text container">
@@ -83,7 +83,7 @@ class MainMenu extends Component {
 
           <div id="logo">
             <Link to="/">
-              <img className="ui centered tiny image" src="images/company_logo/apex_logo.png" alt="Company Logo"/>
+              <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
             </Link>
           </div>
 

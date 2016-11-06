@@ -9,13 +9,12 @@ let jobSkillsState = [];
 let jobExperienceState = [];
 var final= [];
 
-
-class List_match extends Component {
+class List_matched_applicants extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jobs: [],
+      job_applicants: [],
       experience_level: '',
       education_level: '',
       industry: '',
@@ -25,30 +24,26 @@ class List_match extends Component {
       job_experiencesArr:[],
       sortedList : [],
       filteredJobs: {}
+
     }
   }
 
   componentDidMount() {
-
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
-
-    }
-
-    // get all matched jobs data
-    $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
-      this.state.jobs = data
-      console.log("jobs Data:", data)
-      console.log("this.state.jobs", this.state.jobs)
+    console.log("hello from list_matched_applicants componentDidMount")
+    let applicant_id = this.props.params.id
+    let url = "https://apex-database.herokuapp.com/api/applicants/"
+    // get all matched Applicants data
+    $.get(url).done( (data)=>{
+      this.state.job_applicants = data
+      console.log("Applicant Data:", data)
+      console.log("this.state.job_applicants", this.state.job_applicants)
 
       this.setState({
-        jobs: this.state.jobs
+        job_applicants: this.state.job_applicants
       })
 
     })
   }
-
 
 
   onFilterChange(name, val){
@@ -62,12 +57,11 @@ class List_match extends Component {
   }
 
    UpdateTheFilter(name, val){
-     console.log('line 104 filtered value ', name , val)
       var filteredArr  = this.state.jobs.filter( (obj) =>{
                      return obj[name] == val })
                      console.log('this is my filtered Array', filteredArr)
      this.state.filteredJobs[name] = filteredArr
-     console.log('this.state.filteredJobs', this.state.filteredJobs)
+
   }
 
   updateTheFinalList(){
@@ -124,37 +118,28 @@ class List_match extends Component {
   }
 
 
+
   componentWillUpdate(){
     this.updateTheFinalList()
   }
 
-  // onIndustryExperienceChange(industry){
-  //   jobExperienceState.push(industry)
-  //   this.setState({industry: jobExperienceState})
-  //   console.log("onIndustryExperienceChange Clicked")
-  //
-  // }
 
-  // onJobSkillsChange(job_skillsArr){
-  //   jobSkillsState.push(job_skillsArr)
-  //
-  //   this.setState({job_skills: jobSkillsState})
-  //   console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  //
-  //   /*  this.state.job_skills = > ["Institutional Securities", "Asset Management", "Retirement Solutions", "Financial Audit"] */
-  //
-  //   var filteredArr
-  //   this.state.job_skills.forEach((item)=>{
-  //       console.log('++++++++',this.state.jobs)
-  //       filteredArr = this.state.jobs.filter( (obj) =>{
-  //                    return obj.job_skills == item })
-  //                    console.log('this is my filtered Array', filteredArr)
-  //   })
-  //   console.log('filteredArr', filteredArr)
-  // }
+  onIndustryExperienceChange(industry_experience){
+    jobExperienceState.push(industry_experience)
+    this.setState({industry_experience: jobExperienceState})
+    console.log("onIndustryExperienceChange Clicked")
 
-  onExperienceChange(job_experiencesArr){
-    jobExperienceState.push(job_experiencesArr)
+  }
+
+  onJobSkillsChange(job_skills){
+    jobSkillsState.push(job_skills)
+    this.setState({job_skills: jobSkillsState})
+    console.log("onJobSkillsChange Clicked", this.state.job_skills)
+
+  }
+
+  onExperienceChange(job_experiences){
+    jobExperienceState.push(job_experiences)
     this.setState({job_experiences: jobExperienceState})
     console.log("onExperienceChange Clicked", this.state.job_experiences)
   }
@@ -191,45 +176,49 @@ class List_match extends Component {
        buttonChange.className += " disabled"
        buttonChange.innerText = "Applied"
 
+
     }
+
     var jobArray;
       if (final.length == 0 ){
-        jobArray = this.state.jobs
-        // console.log("YESSSSSS -----", jobArray)
+        jobArray = this.state.job_applicants
+        console.log("YESSSSSS -----", jobArray)
       } else {
         jobArray = final
-        // console.log("NOOOOOOO ----", jobArray)
+        console.log("NOOOOOOO ----", jobArray)
       }
 
-    let job_lists = this.state.jobs
-    let jobs = jobArray.map(function(job){
-    let url = '/'+ job.company_logo
-    console.log("image url ", url)
-    let link = `/list_matched/job/` + job.id
-    return <Link to={link} key={job.id} className="card">
-            <div className="content">
-              <div className="header">{job.title} {job.location} </div>
-              <div id="jobid" className="meta" >{job.id}</div>
-              <div className="decription">
-                <span id="labels">Job Type:</span> {job.type}
-                <br/>
-                <span id="labels">Experience:</span> {job.experience_level}
-                <br/>
-                <span id="labels" >Job Description:</span> <p className="truncate">{job.description}</p>
-                <div id="applicants_buttons">
+    const job_applicants = this.state.job_applicants
+    const applicants = jobArray.map(function(applicant){
+      const url = 'https://apex-database.herokuapp.com/api/applicants/profile/'+ applicant.profile_image
+      console.log("image url ", url)
+      const link = `/Matched_applicant/` + applicant.user_id
+      return <Link to={link} className="card" key={applicant.user_id} >
+              <div className="content">
+                <img className="left floated small ui image" src={url} alt="profile pic"/>
+                <div className="header">
+                  {applicant.first_name} {applicant.last_name}
+                </div>
+                <div className="meta">{applicant.id}</div>
+                <div className="decription">
+                  {applicant.education_level}
+                  <br/>
+                  {applicant.school}
+                  <br/>
+                  {applicant.desired_industry}
+                  <br/>
+                  {applicant.experience_level}
                 </div>
               </div>
-              <button id={"job"+job.id} value={job.id} className="ui purple button" onClick={change}><i className="icon send"></i>Quick Apply</button>
-            </div>
-          </Link>
+            </Link>
 
     })
 
-    // console.log("jobs from state", jobs)
+    console.log("job_applicants from state", job_applicants)
 
     return(
       <div id="list_jobs">
-        <h1>Current Matched Job Lists</h1>
+        <h1>Current Matched Applicant Lists</h1>
 
         <div className="ui stackable grid">
           <div className="four wide column">
@@ -258,7 +247,7 @@ class List_match extends Component {
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelor Degree">Bachelors Degree</option>
+                    <option value="Bachelors Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
                     <option value="Masters Degree">Masters Degree</option>
                     <option value="MBA Degree">MBA Degree</option>
@@ -270,9 +259,9 @@ class List_match extends Component {
                 {/* Industry Experience */}
                 <div>
                   <label name="certifications">Industry Experience</label>
-                  <select name="industry" className="ui fluid normal dropdown"
-                  value={this.state.industry}
-                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
+                  <select name="industry_experience" className="ui fluid normal dropdown"
+                  value={this.state.industry_experience}
+                  onChange={e => this.onIndustryExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
@@ -284,7 +273,7 @@ class List_match extends Component {
                 <div>
                   <label name="job_skills">Skills</label>
                   <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
-                  value={this.state.job_skillsArr}
+                  value={this.state.job_skills}
                   onChange={e => this.onJobSkillsChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Wealth Management">Wealth Management</option>
@@ -315,7 +304,7 @@ class List_match extends Component {
                 <div>
                   <label name="job_experiences">Experiences</label>
                   <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiencesArr}
+                  value={this.state.job_experiences}
                   onChange={e => this.onExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Client Relations">Client Relations</option>
@@ -346,11 +335,12 @@ class List_match extends Component {
             </div>
           </div>
           <div id="profile_title" className="twelve wide column">
-            <div className="ui fluid cards">
-                {jobs}
+            <div className="ui cards">
+              {applicants}
             </div>
           </div>
         </div>
+
       </div>
 
     )
@@ -363,4 +353,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps)(List_match);
+export default connect(mapStateToProps)(List_matched_applicants);

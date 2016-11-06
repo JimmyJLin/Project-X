@@ -35,7 +35,7 @@ export default class Footer extends Component {
             <div id="mc_embed_signup" className="column">
               <form action="//atlascv.us14.list-manage.com/subscribe/post?u=4c0f3944ba25c0897e737248b&amp;id=70cb25bb58" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank">
                   <div id="mc_embed_signup_scroll">
-                  <label for="mce-EMAIL" >Subscribe to our mailing list</label>
+                  <label htmlFor="mce-EMAIL" >Subscribe to our mailing list</label>
                   <input type="text" name="EMAIL" className="email" id="mce-EMAIL" placeholder="email address" required />
                   <div className="clear">
                     <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
