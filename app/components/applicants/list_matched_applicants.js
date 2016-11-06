@@ -204,7 +204,7 @@ class List_matched_applicants extends Component {
     const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
-      // console.log("image url  .... ", url)
+      console.log("image url  .... ", url)
       const link = `/Matched_applicant/` + applicant.user_id
       return <Link to={link} className="card" key={applicant.user_id} >
               <div className="content">
@@ -223,7 +223,7 @@ class List_matched_applicants extends Component {
                   {applicant.experience_level}
                 </div>
                 <br/>
-                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button" onClick={change}><i className="icon mail"></i>Contact</button>
+                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button small solid" onClick={change}><i className="icon mail"></i>Contact</button>
 
               </div>
             </Link>

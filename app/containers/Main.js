@@ -27,13 +27,13 @@ class Main extends Component {
           <div className="eight wide column">
             <h3>Applying</h3>
             <Link to="/applicant_profile_form">
-              <button className="ui basic primary button">Begin Your Free Profile Today</button>
+              <button id="mainButton" className="ui button large">Begin Your Free Profile Today</button>
             </Link>
           </div>
           <div className="eight wide column">
             <h3>Posting</h3>
             <Link to="/employer_profile_form">
-              <button className="ui basic primary button">Register & Post Today</button>
+              <button id="mainButton" className="ui button large">Register & Post Today</button>
             </Link>
 
           </div>

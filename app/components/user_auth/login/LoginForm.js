@@ -70,7 +70,7 @@ class LoginForm extends React.Component {
           type="password"
         />
 
-        <button className="ui button" disabled={isLoading}>Login</button>
+        <button className="ui button small" disabled={isLoading}>Login</button>
       </form>
     );
   }

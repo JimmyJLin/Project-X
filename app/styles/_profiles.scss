@@ -1,7 +1,10 @@
+
+$profile_item_detail_background_color: #d5d5d5;
+
 #applicant_profile, #employer_profile{
   padding-top: 100px;
   padding-bottom: 50px;
-
+  background-color: $primary_body_background_color;
 
   .item.ui.label{
     padding-top: 5px;
@@ -70,6 +73,7 @@
   }
 
   .ui.label.details{
+    background-color: $profile_item_detail_background_color;
     text-align: center;
     width: 100%;
   }

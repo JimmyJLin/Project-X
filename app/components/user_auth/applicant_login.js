@@ -63,7 +63,7 @@ class ApplicantLoginForm extends React.Component {
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
-        <h1>Applicant Login</h1>
+        {/*<h1>Applicant Login</h1>*/}
 
         { errors.form && <div className="alert">{errors.form}</div> }
 
@@ -86,7 +86,7 @@ class ApplicantLoginForm extends React.Component {
           type="password"
         />
         </div>
-        <button id="applicant_login_submit_button" className="ui button ok" disabled={isLoading}>Login
+        <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login
         </button>
       </form>
     );

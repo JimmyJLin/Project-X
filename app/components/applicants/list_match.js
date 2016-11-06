@@ -219,7 +219,7 @@ class List_match extends Component {
                 <div id="applicants_buttons">
                 </div>
               </div>
-              <button id={"job"+job.id} value={job.id} className="ui purple button" onClick={change}><i className="icon send"></i>Quick Apply</button>
+              <button id={"job"+job.id} value={job.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
             </div>
           </Link>
 
@@ -281,7 +281,7 @@ class List_match extends Component {
                 </div>
 
                 {/* Skills */}
-                <div>
+                {/*<div>
                   <label name="job_skills">Skills</label>
                   <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
                   value={this.state.job_skillsArr}
@@ -309,10 +309,10 @@ class List_match extends Component {
                     <option value="Venture Capitol">Venture Capitol</option>
                     <option value="Forensice Accounting">Forensice Accounting</option>
                   </select>
-                </div>
+                </div>*/}
 
                 {/* Experiences */}
-                <div>
+                {/*<div>
                   <label name="job_experiences">Experiences</label>
                   <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
                   value={this.state.job_experiencesArr}
@@ -340,7 +340,7 @@ class List_match extends Component {
                     <option value="Cost Accounting">Cost Accounting</option>
                     <option value="Federal Tax Law">Federal Tax Law</option>
                   </select>
-                </div>
+                </div>*/}
 
               </div>
             </div>

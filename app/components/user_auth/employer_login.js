@@ -62,7 +62,7 @@ class EmploymentLoginForm extends React.Component {
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
-        <h1>Employer Login</h1>
+        {/*<h1>Employer Login</h1>*/}
 
         { errors.form && <div className="alert">{errors.form}</div> }
 
@@ -85,7 +85,7 @@ class EmploymentLoginForm extends React.Component {
           type="password"
         />
         </div>
-        <button className="ui button" disabled={isLoading}>Login
+        <button className="ui button small" disabled={isLoading}>Login
         </button>
         <br/><br/>
       </form>

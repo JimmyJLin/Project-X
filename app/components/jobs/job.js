@@ -118,7 +118,7 @@ class Job extends Component {
     $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       .done((data) => {
         console.log('succesfully applied for a job')
-        browserHistory.push('/employer_profile');
+        browserHistory.push('/applicant_profile');
 
       })
       .error((error) => {
@@ -131,13 +131,6 @@ class Job extends Component {
 
   }
 
-  handleConnectChange(e){
-    e.preventDefault();
-    // console.log("Connect button clicked")
-    // console.log("employer_id is: ", this.state.job_data[0].employer_id)
-    // console.log("applicant_id is: ", localStorage.id)
-
-  }
 
   render(){
 
@@ -267,13 +260,9 @@ class Job extends Component {
     } else if (localStorage.type == 'applicant'){
       applicantView = <div className="ui segment">
                         <div className="ui grid">
-                          {/*<div id="applicants_buttons">
-                            <label>Connect with the employer </label>
-                            <buton className="ui blue button" onClick={this.handleConnectChange.bind(this)}><i className="icon talk"></i>Connect</buton>
-                          </div>*/}
                           <div id="applicants_buttons">
                             <p>Apply to current job posting</p>
-                            <buton id="apply_button" onClick={ this.handleApplyJobChange.bind(this)} className="ui purple button"><i className="icon send"></i>Apply</buton>
+                            <buton id="apply_button" onClick={ this.handleApplyJobChange.bind(this)} className="ui button small solid"><i className="icon send"></i>Apply</buton>
                           </div>
                         </div>
                       </div>

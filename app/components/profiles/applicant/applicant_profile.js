@@ -25,7 +25,7 @@ class Applicant_profile extends Component {
 
   componentDidMount() {
     const user_id = localStorage.id
-    
+
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
@@ -313,7 +313,7 @@ class Applicant_profile extends Component {
           {/* Match Button*/}
           <div className="ui two column centered grid">
             <Link to="/list_match">
-              <button className="massive ui button">Match Your Dream Job Today</button>
+              <button className="massive ui button large">Match Your Dream Job Today</button>
             </Link>
           </div>
         </div>

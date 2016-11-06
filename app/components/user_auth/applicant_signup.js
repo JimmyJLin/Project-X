@@ -144,7 +144,7 @@ render() {
               </div>
 
 
-              <button className="ui button" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
+              <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 
             </form>

@@ -1,10 +1,13 @@
+$primary_body_background_color: #ebebeb;
+$secondary_body_background_color: #252339;
 $secondary_background_color: #f1f1f1;
-
-
-
+$footer_primary_background_color: #00b2b6;
+$footer_copyright_background_color: #187e8a;
+$primary_text_color: white;
 
 .intro {
   text-align: center;
+  background-color: $primary_body_background_color;
 
 }
 
@@ -13,16 +16,26 @@ $secondary_background_color: #f1f1f1;
 
 }
 
+
 #logo{
   margin-left: 25px;
 
 }
 
 #loginForm{
+  
   padding-left: 25%;
   padding-right: 25%;
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+
+.forwardlogin{
+  padding-left:20%;
+  padding-right:20%;
+  padding-bottom:20%;
+  padding-top:20%;
 }
 
 #main_display_image img{
@@ -38,6 +51,7 @@ $secondary_background_color: #f1f1f1;
   padding-right: 10%;
   padding-bottom: 50px;
   text-align: center;
+  background-color: $primary_body_background_color;
 
   #about_us_text{
     padding-top: 75px;
@@ -48,13 +62,13 @@ $secondary_background_color: #f1f1f1;
 }
 
 #main_display_links{
-
+  color: $primary_text_color;
   padding-top: 50px;
   padding-bottom: 150px;
-  background-color: $secondary_background_color;
+  background-color: $secondary_body_background_color;
 
-  .ui.button{
-    width: 250px;
+  .ui.button.large{
+    width: 275px;
   }
 }
 
@@ -64,7 +78,7 @@ $secondary_background_color: #f1f1f1;
 }
 
 #footer{
-  background-color: grey;
+  background-color: $footer_primary_background_color;
   height: auto;
 
   .ui.grid.top{
@@ -75,7 +89,7 @@ $secondary_background_color: #f1f1f1;
     }
 
     span{
-      color: white;
+      color: $primary_text_color;
       font-size: 1.1em;
     }
   }
@@ -89,7 +103,15 @@ $secondary_background_color: #f1f1f1;
     }
   }
 
+  #mc-embedded-subscribe{
+    background-color: $footer_copyright_background_color;
+  }
+  #newsletter_label{
+    color: $primary_text_color;
+  }
   #copyrights{
+    color: $primary_text_color;
+    background-color: $footer_copyright_background_color;
     text-align: center;
     padding-bottom: 25px;
   }

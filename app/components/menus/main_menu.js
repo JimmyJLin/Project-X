@@ -50,6 +50,12 @@ class MainMenu extends Component {
         routePath: "/"
       })
     }
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+      // location.reload(true)
+    }
+
   }
 
   render(){
@@ -57,15 +63,15 @@ class MainMenu extends Component {
       const logoimg = 'images/company_logo/apex_logo.png'
 
       const userLinks = (
-        <div className="ui top fixed main two item menu">
+        <div id="menu_top" className="ui top fixed main two item clear menu">
           <div id="logo">
             <Link to="/">
               <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
             </Link>
           </div>
           <div className="ui text container">
-            <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
-            <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
+            <Link id="profile" className="item header" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
+            <Link id="logout" className="item header" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
           </div>
         </div>
 
@@ -74,16 +80,16 @@ class MainMenu extends Component {
 
 
       const guestLinks = (
-      <div className="ui top fixed main three item menu">
+      <div id="menu_top" className="ui top fixed main three item clear menu">
         <div id="logo">
           <Link to="/">
             <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
           </Link>
         </div>
         <div className="ui text container">
-          <Link id="about_us_button" className="item"><i className="icon info circle"></i>About Us</Link>
-          <Link id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</Link>
-          <Link id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</Link>
+          <Link id="about_us_button" className="item header"><i className="icon info circle"></i>About Us</Link>
+          <Link id="applicant_login_button" className="item header"><i className="icon sign in"></i>Applicant Login</Link>
+          <Link id="employer_login_button" className="item header"><i className="icon sign in"></i>Employer Login</Link>
         </div>
       </div>
 
@@ -91,7 +97,7 @@ class MainMenu extends Component {
 
     return(
 
-      <div id="MainMenu">
+      <div id="main_header_menu">
 
         { isAuthenticated ? userLinks : guestLinks }
 
