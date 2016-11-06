@@ -175,19 +175,19 @@ class List_matched_applicants extends Component {
       console.log("applicationData", applicationData)
       console.log("e-target className", e.target.className)
 
-      $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
-        .done((data) => {
-          console.log('succesfully applied for a job')
-
-        })
-        .error((error) => {
-          console.log('unable to apply for a job', error)
-        })
+      // $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
+      //   .done((data) => {
+      //     console.log('succesfully applied for a job')
+      //
+      //   })
+      //   .error((error) => {
+      //     console.log('unable to apply for a job', error)
+      //   })
 
        var buttonChange = document.getElementById(`job${current_job_id}`)
 
        buttonChange.className += " disabled"
-       buttonChange.innerText = "Applied"
+       buttonChange.innerText = "Emailed"
 
 
     }
@@ -208,7 +208,7 @@ class List_matched_applicants extends Component {
       const link = `/Matched_applicant/` + applicant.user_id
       return <Link to={link} className="card" key={applicant.user_id} >
               <div className="content">
-                <img className="left floated tiny ui image" src={url} alt="profile pic"/>
+                <img className="left floated tiny ui middle aligned image" src={url} alt="profile pic"/>
                 <div className="header">
                   {applicant.first_name} {applicant.last_name}
                 </div>
@@ -222,6 +222,9 @@ class List_matched_applicants extends Component {
                   <br/>
                   {applicant.experience_level}
                 </div>
+                <br/>
+                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button" onClick={change}><i className="icon mail"></i>Contact</button>
+
               </div>
             </Link>
 
