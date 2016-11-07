@@ -65,8 +65,6 @@ body {
 
 
 // right panel nav menu
-
-
 #main_header_menu{
   #menu_top{
     background-color: $menu_top_primary_background_color;
@@ -80,4 +78,22 @@ body {
 
 #spinner{
   height: 600px;
+}
+
+// Admin Page
+#Admin{
+  padding-top: 90px;
+  height: 500px;
+
+  margin-left: 50px;
+  margin-right: 50px;
+
+  h1{
+    text-align: center;
+  }
+
+  .ui.teal.labeled.icon.button{
+    width: 200px;
+  }
+
 }
