@@ -134,30 +134,6 @@ class List_match extends Component {
     this.updateTheFinalList()
   }
 
-  // onIndustryExperienceChange(industry){
-  //   jobExperienceState.push(industry)
-  //   this.setState({industry: jobExperienceState})
-  //   console.log("onIndustryExperienceChange Clicked")
-  //
-  // }
-
-  // onJobSkillsChange(job_skillsArr){
-  //   jobSkillsState.push(job_skillsArr)
-  //
-  //   this.setState({job_skills: jobSkillsState})
-  //   console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  //
-  //   /*  this.state.job_skills = > ["Institutional Securities", "Asset Management", "Retirement Solutions", "Financial Audit"] */
-  //
-  //   var filteredArr
-  //   this.state.job_skills.forEach((item)=>{
-  //       console.log('++++++++',this.state.jobs)
-  //       filteredArr = this.state.jobs.filter( (obj) =>{
-  //                    return obj.job_skills == item })
-  //                    console.log('this is my filtered Array', filteredArr)
-  //   })
-  //   console.log('filteredArr', filteredArr)
-  // }
 
   onExperienceChange(job_experiencesArr){
     jobExperienceState.push(job_experiencesArr)
@@ -302,6 +278,7 @@ class List_match extends Component {
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
                     <option value="Health">Health</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
 

@@ -156,14 +156,14 @@ class Job extends Component {
 
     const jobData = this.state.job_data.map(function(job){
       let salary;
-      if (job.salary == ""){
+      if (job.salary == "" || job.salary == null){
         salary = "N/A"
       } else {
         salary = job.salary
       }
 
       let startingDate;
-      if (job.starting_date == ""){
+      if (job.starting_date == "" || job.starting_date == null){
         startingDate = "N/A"
       } else {
         startingDate = job.starting_date

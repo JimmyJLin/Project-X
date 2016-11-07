@@ -273,16 +273,18 @@ class Applicant_profile extends Component {
 
           <div className="ui equal width stackable grid">
             <div className="column">
-              <h2>Experience:</h2>
-              <div className="ui horizontal list centered aligned middle">
+              <h4>Experience:</h4>
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {industries}
                 </div>
               </div>
             </div>
             <div className="column">
-              <h2>Skills: </h2>
-              <div className="ui horizontal list centered aligned middle">
+              <h4>Skills: </h4>
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {skills}
                 </div>
@@ -293,9 +295,9 @@ class Applicant_profile extends Component {
           <div className="ui divider"></div>
           {/* Interested In Working In */}
           <div className="twelve wide column">
-            <h2>Interested in Working in: </h2>
-
-            <div className="ui horizontal list centered aligned middle">
+            <h4>Interested in Working in: </h4>
+            <br/>
+            <div className="ui horizontal list centered aligned middle grid">
               {desired_location}
             </div>
 
@@ -326,7 +328,8 @@ class Applicant_profile extends Component {
             </div>
             <div className="column">
               <h4> Languages </h4>
-              <div className="ui left aligned divided list">
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {languages_spoken_}
                 </div>
