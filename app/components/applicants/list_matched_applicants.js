@@ -23,8 +23,8 @@ class List_matched_applicants extends Component {
       job_experiences: [],
       job_experiencesArr:[],
       sortedList : [],
-      filteredJobs: {}
-
+      filteredJobs: {},
+      isLoading: false
     }
   }
 
@@ -42,11 +42,13 @@ class List_matched_applicants extends Component {
     // get all matched Applicants data
     $.get(url).done( (data)=>{
       this.state.job_applicants = data
+      this.state.isLoading = true
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
 
       this.setState({
-        job_applicants: this.state.job_applicants
+        job_applicants: this.state.job_applicants,
+        isLoading: true
       })
 
     })
@@ -159,6 +161,22 @@ class List_matched_applicants extends Component {
 
   render(){
 
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
+
     let change = function(e){
       e.preventDefault();
       console.log(e.target.value)
@@ -205,15 +223,15 @@ class List_matched_applicants extends Component {
     const applicants = jobArray.map(function(applicant){
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       console.log("image url  .... ", url)
-      const link = `/Matched_applicant/` + applicant.user_id
-      return <Link to={link} className="card" key={applicant.user_id} >
+      const link = `/Matched_applicant/` + applicant.ui
+      return <Link to={link} className="card" key={applicant.ui} >
               <div className="content">
                 <img className="left floated tiny ui middle aligned image" src={url} alt="profile pic"/>
                 <div className="header">
                   {applicant.first_name} {applicant.last_name}
                 </div>
                 <div className="meta">{applicant.id}</div>
-                <div className="decription">
+                <div className="description">
                   {applicant.education_level}
                   <br/>
                   {applicant.school}
@@ -223,7 +241,8 @@ class List_matched_applicants extends Component {
                   {applicant.experience_level}
                 </div>
                 <br/>
-                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button small solid" onClick={change}><i className="icon mail"></i>Contact</button>
+                <br/>
+                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.ui} value={applicant.ui} className="ui blue button small solid contact" onClick={change}><i className="icon mail"></i>Contact</button>
 
               </div>
             </Link>
@@ -234,11 +253,14 @@ class List_matched_applicants extends Component {
 
     return(
       <div id="list_jobs">
+        {/* Spinner Starts */}
+          {spinner}
+        {/* Spinner Ends */}
         <h1>Current Matched Applicant Lists</h1>
 
         <div className="ui stackable grid">
           <div className="four wide column">
-            <div className="ui center aligned basic segment">
+            <div className="ui center aligned raised segment">
               <h2>Filter By:</h2>
               <div className="field">
 
@@ -350,8 +372,9 @@ class List_matched_applicants extends Component {
               </div>
             </div>
           </div>
+
           <div id="profile_title" className="twelve wide column">
-            <div className="ui cards">
+            <div className="ui centered cards">
               {applicants}
             </div>
           </div>

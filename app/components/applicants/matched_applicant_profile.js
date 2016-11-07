@@ -17,13 +17,15 @@ class Matched_applicant_profile extends Component {
       work_history: [],
       languages_spoken: [],
       job_skills: [],
-      job_industries: []
+      job_industries: [],
+      isLoading: false
+
     }
 
   }
 
   componentDidMount() {
-
+    
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
@@ -42,6 +44,7 @@ class Matched_applicant_profile extends Component {
      this.state.school_data = data.school
      this.state.work_history = data.work_history
      this.state.languages_spoken = data.languages_spoken
+     this.state.isLoading = true
 
       this.setState({
         applicantProfile: this.state.applicantProfile,
@@ -50,7 +53,8 @@ class Matched_applicant_profile extends Component {
         search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications,
         school_data: this.state.school_data,
         work_history: this.state.work_history,
-        languages_spoken: this.state.languages_spoken
+        languages_spoken: this.state.languages_spoken,
+        isLoadindg: true
 
       })
       console.log(this.state.applicantProfile)
@@ -85,6 +89,22 @@ class Matched_applicant_profile extends Component {
 
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
 
     let splittedSchoolData = [];
     let splittedWorkHistory = [];
@@ -156,6 +176,10 @@ class Matched_applicant_profile extends Component {
 
     return(
         <div id="applicant_profile">
+
+          {/* Spinner Starts */}
+            {spinner}
+          {/* Spinner Ends */}
 
           {/* Header */}
           <div className="ui stackable grid">
@@ -238,16 +262,18 @@ class Matched_applicant_profile extends Component {
 
           <div className="ui equal width stackable grid">
             <div className="column">
-              <h2>Experience:</h2>
-              <div className="ui horizontal list centered aligned middle">
+              <h4>Experience:</h4>
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {industries}
                 </div>
               </div>
             </div>
             <div className="column">
-              <h2>Skills: </h2>
-              <div className="ui horizontal list centered aligned middle">
+              <h4>Skills: </h4>
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {skills}
                 </div>
@@ -259,8 +285,8 @@ class Matched_applicant_profile extends Component {
           {/* Interested In Working In */}
           <div className="twelve wide column">
             <h2>Interested in Working in: </h2>
-
-            <div className="ui horizontal list centered aligned middle">
+            <br/>
+            <div className="ui horizontal list centered aligned middle grid">
               {desired_location}
             </div>
 

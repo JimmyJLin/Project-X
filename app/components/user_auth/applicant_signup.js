@@ -93,6 +93,11 @@ render() {
 
 
           <form onSubmit={this.onSubmit} className="ui form">
+              <h1>Applicant Signup</h1>
+
+              <br/>
+              <div className=" ui divider"></div>
+              <br/>
 
               <div className="field">
 
@@ -143,7 +148,15 @@ render() {
                 />
               </div>
 
-
+              <br/>
+              <div className="inline field required">
+                <div className="ui toggle checkbox">
+                <input type="checkbox" tabIndex="0" className="hidden" />
+                <label>You agree to the Apex Terms and Conditions</label>
+                </div>
+              </div>
+              <br/>
+              
               <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 

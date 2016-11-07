@@ -9,7 +9,7 @@ import requireAuth_emp from '../utils/requireAuth_emp';
 // main
 import App from 'containers/App';
 import Main from 'containers/Main';
-
+import Admin from 'admin/admin'
 // Footer
 import Terms_and_conditions from 'components/menus/terms_and_conditions'
 
@@ -50,6 +50,8 @@ export default function(history) {
   return (
     <Router history={history}>
       <Route path="/" component={App}>
+        {/* Admin Page for Gareth */}
+        <Route path="admin" component={Admin} />
 
         {/* Applicant / Employer User Auth */}
         <Route path="signup" component={SignupPage} />

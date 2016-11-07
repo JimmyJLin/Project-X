@@ -24,7 +24,9 @@ class List_match extends Component {
       job_experiences: [],
       job_experiencesArr:[],
       sortedList : [],
-      filteredJobs: {}
+      filteredJobs: {},
+      isLoading: false
+
     }
   }
 
@@ -39,11 +41,15 @@ class List_match extends Component {
     // get all matched jobs data
     $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
       this.state.jobs = data
+      this.state.isLoading = true
+
       console.log("jobs Data:", data)
       console.log("this.state.jobs", this.state.jobs)
 
       this.setState({
-        jobs: this.state.jobs
+        jobs: this.state.jobs,
+        isLoading: true
+
       })
 
     })
@@ -128,30 +134,6 @@ class List_match extends Component {
     this.updateTheFinalList()
   }
 
-  // onIndustryExperienceChange(industry){
-  //   jobExperienceState.push(industry)
-  //   this.setState({industry: jobExperienceState})
-  //   console.log("onIndustryExperienceChange Clicked")
-  //
-  // }
-
-  // onJobSkillsChange(job_skillsArr){
-  //   jobSkillsState.push(job_skillsArr)
-  //
-  //   this.setState({job_skills: jobSkillsState})
-  //   console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  //
-  //   /*  this.state.job_skills = > ["Institutional Securities", "Asset Management", "Retirement Solutions", "Financial Audit"] */
-  //
-  //   var filteredArr
-  //   this.state.job_skills.forEach((item)=>{
-  //       console.log('++++++++',this.state.jobs)
-  //       filteredArr = this.state.jobs.filter( (obj) =>{
-  //                    return obj.job_skills == item })
-  //                    console.log('this is my filtered Array', filteredArr)
-  //   })
-  //   console.log('filteredArr', filteredArr)
-  // }
 
   onExperienceChange(job_experiencesArr){
     jobExperienceState.push(job_experiencesArr)
@@ -160,6 +142,22 @@ class List_match extends Component {
   }
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
 
     let change = function(e){
       e.preventDefault();
@@ -206,18 +204,18 @@ class List_match extends Component {
     let url = '/'+ job.company_logo
     console.log("image url ", url)
     let link = `/list_matched/job/` + job.id
-    return <Link to={link} key={job.id} className="card">
+    return <Link to={link} key={job.id} className="card list">
             <div className="content">
               <div className="header">{job.title} {job.location} </div>
-              <div id="jobid" className="meta" >{job.id}</div>
+              <div id="jobid" className="meta" >{job.type}</div>
+              <br/>
               <div className="decription">
-                <span id="labels">Job Type:</span> {job.type}
+                <div>Requirements:</div>
+                <div><span>Location: </span> {job.location}</div>
+                <div><span>Education: </span> {job.education_level}</div>
+                <div><span>Brief Description: </span> <br/> <div className="truncate">{job.description}</div></div>
                 <br/>
-                <span id="labels">Experience:</span> {job.experience_level}
                 <br/>
-                <span id="labels" >Job Description:</span> <p className="truncate">{job.description}</p>
-                <div id="applicants_buttons">
-                </div>
               </div>
               <button id={"job"+job.id} value={job.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
             </div>
@@ -229,11 +227,14 @@ class List_match extends Component {
 
     return(
       <div id="list_jobs">
+        {/* Spinner Starts */}
+          {spinner}
+        {/* Spinner Ends */}
         <h1>Current Matched Job Lists</h1>
 
         <div className="ui stackable grid">
           <div className="four wide column">
-            <div className="ui center aligned basic segment">
+            <div className="ui center aligned raised segment">
               <h2>Filter By:</h2>
               <div className="field">
 
@@ -277,70 +278,9 @@ class List_match extends Component {
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
                     <option value="Health">Health</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
-
-                {/* Skills */}
-                {/*<div>
-                  <label name="job_skills">Skills</label>
-                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
-                  value={this.state.job_skillsArr}
-                  onChange={e => this.onJobSkillsChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="Wealth Management">Wealth Management</option>
-                    <option value="Investment Banking">Investment Banking</option>
-                    <option value="Asset Management">Asset Management</option>
-                    <option value="Institutional Securities">Institutional Securities</option>
-                    <option value="Commericial Banking">Commericial Banking</option>
-                    <option value="Retirement Solutions">Retirement Solutions</option>
-                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                    <option value="Financial Audit">Financial Audit</option>
-                    <option value="Tax Preparation">Tax Preparation</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Advisory Services">Advisory Services</option>
-                    <option value="Compliance">Compliance</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Underwriting">Underwriting</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Financial Analysis">Financial Analysis</option>
-                    <option value="Derivatives">Derivatives</option>
-                    <option value="M&A Activity">M&A Activity</option>
-                    <option value="Venture Capitol">Venture Capitol</option>
-                    <option value="Forensice Accounting">Forensice Accounting</option>
-                  </select>
-                </div>*/}
-
-                {/* Experiences */}
-                {/*<div>
-                  <label name="job_experiences">Experiences</label>
-                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiencesArr}
-                  onChange={e => this.onExperienceChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="Client Relations">Client Relations</option>
-                    <option value="Microsoft Office">Microsoft Office</option>
-                    <option value="Quickbooks">Quickbooks</option>
-                    <option value="Bookkeeping">Bookkeeping</option>
-                    <option value="Tax Software">Tax Software</option>
-                    <option value="IT">IT</option>
-                    <option value="Data Entry">Data Entry</option>
-                    <option value="Financial Statement">Financial Statement</option>
-                    <option value="Financial Planning">Financial Planning</option>
-                    <option value="Debt Consolidation">Debt Consolidation</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Web Development">Web Development</option>
-                    <option value="Account Reconciliation">Account Reconciliation</option>
-                    <option value="Payroll Management">Payroll Management</option>
-                    <option value="Budgeting">Budgeting</option>
-                    <option value="Forecasting">Forecasting</option>
-                    <option value="Corporate Reporting">Corporate Reporting</option>
-                    <option value="Public Speaking">Public Speaking</option>
-                    <option value="Analytical Writing">Analytical Writing</option>
-                    <option value="Cost Accounting">Cost Accounting</option>
-                    <option value="Federal Tax Law">Federal Tax Law</option>
-                  </select>
-                </div>*/}
 
               </div>
             </div>

@@ -9,7 +9,9 @@ class List_jobs extends Component {
     super(props);
 
     this.state = {
-      job_data: []
+      job_data: [],
+      isLoading: false
+
     }
   }
 
@@ -21,9 +23,11 @@ class List_jobs extends Component {
     const url = 'https://apex-database.herokuapp.com/api/jobs/active/' + employer_id
     $.get(url).done( (data)=>{
       this.state.job_data = data
-       this.setState({
-         job_data: this.state.job_data
+      this.state.isLoading = true
 
+       this.setState({
+         job_data: this.state.job_data,
+         isLoading: true
        })
 
      })
@@ -31,6 +35,23 @@ class List_jobs extends Component {
 
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
+
     const jobData = this.state.job_data
 
     const jobs = jobData.map(function(job){
@@ -38,8 +59,8 @@ class List_jobs extends Component {
       return <Link to={ `jobs/job_details/${job.id}`} className="card" key={job.id} >
               <div className="content">
                 <div className="header">{job.title}</div>
-                <div className="meta">{job.id}</div>
-                <div className="decription">{job.location}</div>
+                <div className="meta">{job.type}</div>
+                <div className="description">{job.location}</div>
               </div>
             </Link>
 
@@ -49,8 +70,11 @@ class List_jobs extends Component {
 
     return(
       <div id="list_jobs">
+        {/* Spinner Starts */}
+          {spinner}
+        {/* Spinner Ends */}
         <h1>Current Active Job Lists</h1>
-        <div className="ui fluid cards">
+        <div className="ui fluid centered stackable cards">
           {jobs}
         </div>
       </div>

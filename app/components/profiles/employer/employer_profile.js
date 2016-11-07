@@ -23,7 +23,8 @@ class Employer_profile extends Component {
       company_branch: '',
       company_logo: '',
       active_jobs: '',
-      archived_jobs: ''
+      archived_jobs: '',
+      isLoading: false
     }
 
   }
@@ -53,6 +54,8 @@ class Employer_profile extends Component {
        this.state.company_industry = data[0].company_industry;
        this.state.company_branch = data[0].company_branch;
        this.state.company_logo = data[0].company_logo;
+       this.state.isLoading = true
+
 
        this.setState({
          employerProfile: this.state.employerProfile,
@@ -68,7 +71,9 @@ class Employer_profile extends Component {
          company_size: this.state.company_size,
          company_industry: this.state.company_industry,
          company_branch: this.state.company_branch,
-         company_logo: this.state.company_logo
+         company_logo: this.state.company_logo,
+         isLoadindg: true
+
        })
 
     }
@@ -106,6 +111,24 @@ class Employer_profile extends Component {
  }
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
+
+
     console.log("this.state.company_logo", this.state.company_logo)
     const loader = function(){
       return  <div className="ui active inverted dimmer"><div className="ui indeterminate medium text loader">Loading</div></div>
@@ -124,8 +147,9 @@ class Employer_profile extends Component {
     return(
         <div id="employer_profile">
 
-
-          {/*{loader()}*/}
+          {/* Spinner Starts */}
+            {spinner}
+          {/* Spinner Ends */}
 
           {/* Profile Header */}
           <div className="ui grid">
@@ -140,10 +164,11 @@ class Employer_profile extends Component {
               <div className="ui divider"></div>
 
               <div className="twelve wide column">
-                <div className="ui four middle aligned cards">
-                  <div className="ui label">
-
+                <div className="ui horizontal list centered aligned middle grid">
+                  <div className="content">
+                    <div className="ui label details">
                     {this.state.company_industry}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -216,7 +241,8 @@ class Employer_profile extends Component {
                 </div>
 
               </div>
-
+              <br/>
+              <br/>
               {/* Post Job Button*/}
               <div className="ui two column left grid">
                 <Link to="/new">

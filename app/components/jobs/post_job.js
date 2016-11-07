@@ -103,8 +103,10 @@ class Post_job extends Component {
         <div className="posting_job">
           <h2>Post New Job!</h2>
           <form className="ui form job" onSubmit={this.handleSubmit.bind(this)}>
+            <br/>
+            <h2 className="ui dividing header">Post a Job Today</h2>
+            <br/>
 
-            <h4 className="ui dividing header">Job Description</h4>
             <div className="two fields">
               <div className="field">
                 <label>Brief Official Title</label>
@@ -144,9 +146,10 @@ class Post_job extends Component {
                 <select name="type_of_job" id="" className="ui fluid dropdown" value={this.state.type_of_job}
                 onChange={e => this.onTypeOfJobChange(e.target.value)}>
                   <option value="">Please Select</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Accounting">Accounting</option>
-                  <option value="Health">Insurance</option>
+                  <option value="Intern">Intern</option>
+                  <option value="Part-Time">Part-Time</option>
+                  <option value="Full Time">Full Time</option>
+                  <option value="Temporary Contract">Temporary Contract</option>
                 </select>
               </div>
               <div className="field">
@@ -205,7 +208,7 @@ class Post_job extends Component {
               onChange={e => this.onJobDescriptionChange(e.target.value)}></textarea>
             </div>
 
-            <button className="ui submit button" type="submit"> Submit </button>
+            <button className="ui submit button small" type="submit"> Submit </button>
           </form>
 
         </div>

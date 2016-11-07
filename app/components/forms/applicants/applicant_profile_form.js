@@ -49,11 +49,12 @@ class Applicant_profile_form extends Component {
 
   }
 
-  componentWillMount(){
+  componentDidMount(){
+    localStorage.setItem('key', "key");
 
     if(localStorage.getItem('isLoaded') !== 'yes'){
       localStorage.setItem('isLoaded', 'yes');
-      // window.location.reload(true)
+      window.location.reload(true)
     }
 
   }
@@ -375,7 +376,8 @@ class Applicant_profile_form extends Component {
 
     const applicantForm = (
         <div id="applicant_profile_form">
-
+          <br/>
+          <br/>
           <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
@@ -435,7 +437,7 @@ class Applicant_profile_form extends Component {
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
-                    <option value="Health">Health</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
 
@@ -616,7 +618,12 @@ class Applicant_profile_form extends Component {
 
             </div>
 
-            <button className="ui right floated blue button" type="submit">Add Skills & Experience!</button>
+            <br/>
+            <br/>
+
+            <div>*By activating your profile, you agree to the Apex Terms and Conditions</div>
+            <br/>
+            <button className="ui button large" type="submit">Add Skills & Experience!</button>
 
           </form>
 
@@ -625,9 +632,13 @@ class Applicant_profile_form extends Component {
       )
 
       const error = (
-        <div className="field">
-        <br/><br/><br/><br/><br/>
-        Please sign in as an Applicant to reach this page.
+        <div id="error_page" className="field">
+          <br/><br/><br/><br/><br/>
+          <h2>Please sign in before creating your profile</h2>
+          <br/>
+          <div className="ui two column centered grid">
+            <a className="ui button large" href="/">Click here to go back</a>
+          </div>
         </div>
       )
       return (
