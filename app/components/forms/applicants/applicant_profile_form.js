@@ -636,8 +636,6 @@ class Applicant_profile_form extends Component {
           <br/><br/><br/><br/><br/>
           <h2>Please sign in before creating your profile</h2>
           <br/>
-          <a href="/">Click here to go back</a>
-          <br/>
           <div className="ui two column centered grid">
             <a className="ui button large" href="/">Click here to go back</a>
           </div>
