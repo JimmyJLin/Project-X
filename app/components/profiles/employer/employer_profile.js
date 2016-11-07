@@ -126,7 +126,7 @@ class Employer_profile extends Component {
       console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
-    // spinner starts
+    // spinner ends
 
 
     console.log("this.state.company_logo", this.state.company_logo)
@@ -164,10 +164,11 @@ class Employer_profile extends Component {
               <div className="ui divider"></div>
 
               <div className="twelve wide column">
-                <div className="ui four middle aligned cards">
-                  <div className="ui label">
-
+                <div className="ui horizontal list centered aligned middle grid">
+                  <div className="content">
+                    <div className="ui label details">
                     {this.state.company_industry}
+                    </div>
                   </div>
                 </div>
               </div>

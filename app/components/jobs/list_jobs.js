@@ -50,7 +50,7 @@ class List_jobs extends Component {
       console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
-    // spinner starts
+    // spinner ends
 
     const jobData = this.state.job_data
 

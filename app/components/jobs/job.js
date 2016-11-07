@@ -224,34 +224,16 @@ class Job extends Component {
     // console.log('localStorage.type', localStorage.type)
     if (this.state.job_status == 'active' && localStorage.type == "employer"){
       // console.log("line 151 job status:", this.state.job_status)
-      jobStatus = <div className="ui grid">
-                      <div className="four wide column"></div>
-                      <div className="twelve wide column">
-                          <div className="ui grid">
-                            <div className="four wide column">
-                              <buton className="ui blue button">Update</buton>
-                            </div>
-                            <div className="four wide column">
-                              <buton onClick={ this.handleJobStatusChangeToArchive.bind(this)} className="ui red button">Archive</buton>
-                            </div>
-                          </div>
-                      </div>
-                      <div className=" four widecolumn"></div>
+      jobStatus = <div className="ui two cloumn centered grid">
+                    <div className="column">
+                      <buton onClick={ this.handleJobStatusChangeToArchive.bind(this)} className="ui button large">Archive</buton>
+                    </div>
                   </div>
     } else if (this.state.job_status == 'archived' && localStorage.type == "employer") {
-      jobStatus = <div className="ui grid">
-                      <div className="four wide column"></div>
-                      <div className="twelve wide column">
-                          <div className="ui grid">
-                            <div className="four wide column">
-                              <buton className="ui blue button">Update</buton>
-                            </div>
-                            <div className="four wide column">
-                              <buton onClick={ this.handleJobStatusChangeToActive.bind(this)} className="ui red button">RePost</buton>
-                            </div>
-                          </div>
-                      </div>
-                      <div className=" four widecolumn"></div>
+      jobStatus = <div className="ui centered grid">
+                    <div className="column">
+                      <buton onClick={ this.handleJobStatusChangeToActive.bind(this)} className="ui button large">Re-Post</buton>
+                    </div>
                   </div>
     } else {
 
@@ -307,12 +289,21 @@ class Job extends Component {
         <div className="ui grid stackable">
           <div className="twelve wide column">
             {jobData}
-            {jobStatus}
+
+            <div className="ui right aligned grid">
+              <div className="right floated left aligned six wide column">
+                {jobStatus}
+              </div>
+            </div>
+
           </div>
           <div className="four wide column">
             {applicantView}
           </div>
         </div>
+
+
+
       </div>
 
     )

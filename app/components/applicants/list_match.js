@@ -157,7 +157,7 @@ class List_match extends Component {
       console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
-    // spinner starts
+    // spinner ends
 
     let change = function(e){
       e.preventDefault();
