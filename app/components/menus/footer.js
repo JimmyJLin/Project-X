@@ -13,7 +13,7 @@ export default class Footer extends Component {
           <div className="eleven wide column">
             <div className="ui equal width grid stackable">
               <div className="column">
-              <Link to="/#"><span>Contact Us</span></Link>
+              <a href="mailto:info@atlascv.com"><span>Contact Us</span></a>
               </div>
 
               <div className="column">
