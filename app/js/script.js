@@ -3,57 +3,57 @@ $(function(){
 
   // Main Page - on hover change button class
 
-  $('.ui.button.large').mouseover(
-    function(){
-      $(this).css({"background-color":"white", "color": "#39374c"})
+  // $('.ui.button.large').mouseover(
+  //   function(){
+  //     $(this).css({"background-color":"white", "color": "#39374c"})
+  //
+  //   }
+  // )
+  // $('.ui.button.large').mouseout(
+  //   function(){
+  //     $(this).css({"background-color":"transparent", "color":"#00b2b6"})
+  //
+  //   }
+  // )
+  //
+  // $('.ui.button.medium').mouseover(
+  //   function(){
+  //     $(this).css({"background-color":"white", "color": "#39374c"})
+  //
+  //   }
+  // )
+  // $('.ui.button.medium').mouseout(
+  //   function(){
+  //     $(this).css({"background-color":"transparent", "color":"#00b2b6"})
+  //
+  //   }
+  // )
 
-    }
-  )
-  $('.ui.button.large').mouseout(
-    function(){
-      $(this).css({"background-color":"transparent", "color":"#00b2b6"})
+  // $('.ui.button.small').mouseover(
+  //   function(){
+  //     $(this).css({"background-color":"white", "color": "#39374c"})
+  //
+  //   }
+  // )
+  // $('.ui.button.small').mouseout(
+  //   function(){
+  //     $(this).css({"background-color":"transparent", "color":"#00b2b6"})
+  //
+  //   }
+  // )
 
-    }
-  )
-
-  $('.ui.button.medium').mouseover(
-    function(){
-      $(this).css({"background-color":"white", "color": "#39374c"})
-
-    }
-  )
-  $('.ui.button.medium').mouseout(
-    function(){
-      $(this).css({"background-color":"transparent", "color":"#00b2b6"})
-
-    }
-  )
-
-  $('.ui.button.small').mouseover(
-    function(){
-      $(this).css({"background-color":"white", "color": "#39374c"})
-
-    }
-  )
-  $('.ui.button.small').mouseout(
-    function(){
-      $(this).css({"background-color":"transparent", "color":"#00b2b6"})
-
-    }
-  )
-
-  $('.ui.button.small.solid').mouseover(
-    function(){
-      $(this).css({"background-color":"white", "color": "#39374c"})
-
-    }
-  )
-  $('.ui.button.small.solid').mouseout(
-    function(){
-      $(this).css({"background-color":"transparent", "color":"#00b2b6"})
-
-    }
-  )
+  // $('.ui.button.small.solid').mouseover(
+  //   function(){
+  //     $(this).css({"background-color":"white", "color": "#39374c"})
+  //
+  //   }
+  // )
+  // $('.ui.button.small.solid').mouseout(
+  //   function(){
+  //     $(this).css({"background-color":"transparent", "color":"#00b2b6"})
+  //
+  //   }
+  // )
   // Header on hover change
 
   $('.item.header').mouseover(

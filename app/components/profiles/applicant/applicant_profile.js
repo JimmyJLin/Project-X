@@ -18,12 +18,16 @@ class Applicant_profile extends Component {
       work_history: [],
       languages_spoken: [],
       job_skills: [],
-      job_industries: []
+      job_industries: [],
+      isLoading: false
     }
 
   }
 
   componentDidMount() {
+
+    // spinner
+
     const user_id = localStorage.id
 
     if(localStorage.getItem('isLoaded') == 'yes'){
@@ -48,6 +52,7 @@ class Applicant_profile extends Component {
         this.state.school_data = data.school
         this.state.work_history = data.work_history
         this.state.languages_spoken = data.languages_spoken
+        this.state.isLoading = true
 
         this.setState({
           applicantProfile: this.state.applicantProfile,
@@ -56,7 +61,8 @@ class Applicant_profile extends Component {
           search_tags: this.state.desired_industry + ',' + this.state.desired_location + ',' + this.state.education_level + ',' +  this.state.certifications,
           school_data: this.state.school_data,
           work_history: this.state.work_history,
-          languages_spoken: this.state.languages_spoken
+          languages_spoken: this.state.languages_spoken,
+          isLoadindg: true
 
         })
       }
@@ -73,7 +79,8 @@ class Applicant_profile extends Component {
        this.state.job_skills = data;
 
        this.setState({
-        job_skills: this.state.job_skills
+        job_skills: this.state.job_skills,
+        isLoadindg: true
       })
 
      })
@@ -93,6 +100,22 @@ class Applicant_profile extends Component {
   }
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner starts
 
     let splittedSchoolData = [];
     let splittedWorkHistory = [];
@@ -164,6 +187,10 @@ class Applicant_profile extends Component {
 
     return(
         <div id="applicant_profile">
+
+          {/* Spinner Starts */}
+            {spinner}
+          {/* Spinner Ends */}
 
           {/* Header */}
           <div className="ui stackable grid">
@@ -283,7 +310,7 @@ class Applicant_profile extends Component {
               <div className="ui left aligned divided list">
                 <div className="content">
                   <div className="ui label details">
-                    Linke 1
+                    Linke 4
                   </div>
                   <div className="ui label details">
                     Linke 2
@@ -312,7 +339,7 @@ class Applicant_profile extends Component {
 
           {/* Match Button*/}
           <div className="ui two column centered grid">
-            <Link to="/list_match">
+            <Link to="/list_match#top">
               <button className="massive ui button large">Match Your Dream Job Today</button>
             </Link>
           </div>

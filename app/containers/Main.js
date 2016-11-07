@@ -9,6 +9,8 @@ class Main extends Component {
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
+    // window.location.reload(true)
+
   }
 
   render() {

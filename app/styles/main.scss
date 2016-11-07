@@ -16,7 +16,7 @@ $secondary_body_background_color: #252339;
 $menu_top_primary_background_color: #39374c;
 $primary_text_color: white;
 $button_primary_border_color: #00b2b6;
-
+$button_on_hover_color: pink;
 
 
 
@@ -42,6 +42,11 @@ body {
   width: 50px;
 }
 
+.ui.button.medium:hover, .ui.button.large:hover{
+  background-color: $primary_text_color;
+  color: $menu_top_primary_background_color;
+}
+
 .ui.button.small{
   background-color: $button_primary_border_color;
   color: $primary_text_color;
@@ -53,6 +58,14 @@ body {
   color: $primary_text_color;
   width: 130px;
 }
+.ui.button.small.solid:hover{
+  background-color: $button_on_hover_color;
+}
+
+
+
+// right panel nav menu
+
 
 #main_header_menu{
   #menu_top{
@@ -63,4 +76,8 @@ body {
 
     }
   }
+}
+
+#spinner{
+  height: 600px;
 }

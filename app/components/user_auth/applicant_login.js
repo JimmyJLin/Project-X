@@ -63,7 +63,12 @@ class ApplicantLoginForm extends React.Component {
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
-        {/*<h1>Applicant Login</h1>*/}
+      
+        <h1>Applicant Login</h1>
+
+        <br/>
+        <div className=" ui divider"></div>
+        <br/>
 
         { errors.form && <div className="alert">{errors.form}</div> }
 

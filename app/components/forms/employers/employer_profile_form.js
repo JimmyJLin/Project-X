@@ -186,7 +186,7 @@ componentDidMount(){
     const { isAuthenticated } = this.props.auth;
 
     const employer_form = (
-        <div id="employer_profile_form">
+        <div id="employer_profile_form" className="top">
 
 
         <h1>List Your Company Profile Today</h1>
@@ -381,7 +381,7 @@ componentDidMount(){
                 <option value="">Please Select</option>
                 <option value="Finance">Finance</option>
                 <option value="Accounting">Accounting</option>
-                <option value="Health">Health</option>
+                <option value="Insurance">Insurance</option>
               </select>
             </div>
           </div>
@@ -395,9 +395,9 @@ componentDidMount(){
 
     )
     const error = (
-      <div className="field">
-      <br/><br/><br/><br/><br/>
-      Please sign in as an Employer to reach this page.
+      <div id="error_page" className="field">
+        <br/><br/><br/><br/><br/>
+        <h2>Please sign in before creating your profile</h2>
       </div>
     )
 

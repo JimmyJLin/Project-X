@@ -15,6 +15,7 @@ $job_primary_background_color: #f2f2f2;
     background-color: $job_primary_background_color;
   }
 }
+
 #employer_loginForm{
   padding-top: 15px;
   padding-bottom: 25px;
@@ -26,6 +27,13 @@ $job_primary_background_color: #f2f2f2;
   #employer_signup_form{
     padding-left: 25px;
     padding-right: 25px;
+  }
+}
+
+#error_page{
+  height: 400px;
+  h2{
+    text-align: center;
   }
 }
 
@@ -87,6 +95,7 @@ $job_primary_background_color: #f2f2f2;
   }
 
   .ui.form.employer_profile_form, .ui.form.applicant_profile_form{
+
     margin-left: 25px;
     margin-right: 25px;
     padding-left: 25px;

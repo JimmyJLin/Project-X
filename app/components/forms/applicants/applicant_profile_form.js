@@ -51,10 +51,10 @@ class Applicant_profile_form extends Component {
 
   componentWillMount(){
 
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      // window.location.reload(true)
-    }
+    // if(localStorage.getItem('isLoaded') !== 'yes'){
+    //   localStorage.setItem('isLoaded', 'yes');
+    //   // window.location.reload(true)
+    // }
 
   }
 
@@ -435,7 +435,7 @@ class Applicant_profile_form extends Component {
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
-                    <option value="Health">Health</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
 
