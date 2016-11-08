@@ -1,6 +1,19 @@
 $(function(){
   console.log('script file loaded')
 
+  // Reset Filter
+  $('#reset_button').on('click', function(){
+    $(".ui.fluid.normal.dropdown").dropdown("clear")
+
+  })
+
+  // Reset Applicant Form
+  $('#add_additional').on('click', function(){
+    console.log("clicked")
+    $(".ui.dropdown").dropdown("clear")
+  })
+
+
   // Checkbox toggle
   $('.ui.toggle.checkbox').checkbox()
 

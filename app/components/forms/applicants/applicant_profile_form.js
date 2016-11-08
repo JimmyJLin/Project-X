@@ -593,7 +593,7 @@ class Applicant_profile_form extends Component {
                       <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
                     </div>
                   </div>
-                  <div>
+                  <div id="add_additional">
                     <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
 
@@ -625,7 +625,7 @@ class Applicant_profile_form extends Component {
                     </div>
 
                   </div>
-                  <div>
+                  <div id="add_additional">
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
                 </div>
