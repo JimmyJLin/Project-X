@@ -354,7 +354,7 @@ class Applicant_profile extends Component {
           {/* Match Button*/}
           <div className="ui two column centered grid">
             <Link to="/list_match#top">
-              <button className="massive ui button large">Match Your Dream Job Today</button>
+              <button className="ui button large">Match Your Dream Job Today</button>
             </Link>
           </div>
         </div>
