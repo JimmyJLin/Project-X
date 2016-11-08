@@ -190,7 +190,7 @@ class Matched_applicant_profile extends Component {
 
               </div>
             </div>
-            <div id="profile_title" className="twelve wide column">
+            <div id="profile_title" className="eleven wide column">
               <div className="ui equal width grid">
                 <div className="column">
                   <h2>{this.state.applicantProfile.name} {this.state.applicantProfile.last_name}</h2>

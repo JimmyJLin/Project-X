@@ -206,10 +206,12 @@ class List_match extends Component {
     let link = `/list_matched/job/` + job.id
     return <Link to={link} key={job.id} className="card list">
             <div className="content">
-              <div className="header">{job.title} {job.location} </div>
+              <div className="header">
+                {job.title} {job.location}
+              </div>
               <div id="jobid" className="meta" >{job.type}</div>
               <br/>
-              <div className="decription">
+              <div className="description">
                 <div>Requirements:</div>
                 <div><span>Location: </span> {job.location}</div>
                 <div><span>Education: </span> {job.education_level}</div>
