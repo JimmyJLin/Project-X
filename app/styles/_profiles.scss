@@ -1,15 +1,82 @@
+
+$profile_item_detail_background_color: #d5d5d5;
+$button_primary_border_color: #00b2b6;
+$transparent: transparent;
+$button_on_hover_color: pink;
+
 #applicant_profile, #employer_profile{
+
   padding-top: 100px;
-  .ui.grid{
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 50px;
+  padding-bottom: 50px;
+  background-color: $primary_body_background_color;
+
+  .column{
+    margin-left: 1px;
+    margin-right: 1px;
   }
+
+  .ui.segment{
+    border: 2.5px solid $button_primary_border_color;
+    color: $button_primary_border_color;
+    background-color: $transparent;
+    .item.ui.label{
+      background-color: $button_primary_border_color;
+      color: white;
+    }
+    .item.ui.label:hover{
+      background-color: $button_on_hover_color;
+    }
+  }
+
+  .item.ui.label{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .ui.grid, #bio{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 15px;
+
+    .ui.image{
+      margin-left: 15%;
+    }
+
+    #profile_title{
+      padding-top: 60px;
+    }
+
+    h4, h3, h2{
+      text-align: center;
+    }
+
+    #left_panel{
+      h2{
+        text-align: right;
+      }
+    }
+
+    #right_panel{
+      h2{
+        text-align: left;
+      }
+    }
+
+
+  }
+
+
 
   .ui.equal.width.grid{
     .ui.label.details{
       margin-bottom: 5px;
     }
+    h2{
+      text-align: center;
+    }
+
   }
 
   .ui.middle.aligned.divided.list{
@@ -19,23 +86,32 @@
   }
 
   .twelve.wide.column{
-    h2{
+
+    h4{
       text-align: center;
     }
-    .ui.label.details{
-      width: 100%;
-    }
+
+
+
+  }
+
+  .ui.label.details{
+    background-color: $profile_item_detail_background_color;
+    text-align: center;
+    width: 250px;
   }
 
   .ui.horizontal.list{
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 50px;
     display: flex;
 
     .item.search_tags{
+      display: flex;
+      width: 100%;
       text-align: center;
-      width: 15%;
     }
   }
+
 }

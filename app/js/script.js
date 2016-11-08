@@ -1,5 +1,23 @@
 $(function(){
   console.log('script file loaded')
+
+  // Checkbox toggle
+  $('.ui.toggle.checkbox').checkbox()
+
+  // Header on hover change
+  $('.item.header').mouseover(
+    function(){
+      $(this).css({"background-color":"#2d2b3c"})
+    }
+  )
+
+  $('.item.header').mouseout(
+    function(){
+      $(this).css({"background-color":"#39374c"})
+    }
+  )
+
+
   // loader
   $('.ui.segment.loader').dimmer('show');
 

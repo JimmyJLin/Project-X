@@ -21,9 +21,10 @@ class MainMenu extends Component {
   }
 
   logout(e) {
+
     e.preventDefault();
     this.props.logout();
-    browserHistory.push('/'); // redirects to homepage
+    window.location.assign('/'); // redirects to homepage
 
   }
 
@@ -49,46 +50,57 @@ class MainMenu extends Component {
         routePath: "/"
       })
     }
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+      // location.reload(true)
+    }
+
   }
 
   render(){
       const { isAuthenticated } = this.props.auth;
-
+      const logoimg = 'images/company_logo/apex_logo.png'
 
       const userLinks = (
-        <div className="ui text container">
-          <Link id="profile" className="item" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
-          <Link id="messages" className="item"><i className="icon comment"></i>Messages</Link>
-          <Link id="logout" className="item" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
+        <div id="menu_top" className="ui top fixed main two item clear menu">
+          <div id="logo">
+            <Link to="/">
+              <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
+            </Link>
+          </div>
+          <div className="ui text container">
+            <Link id="profile" className="item header" to={this.state.routePath}><i className="icon user"></i>Profile</Link>
+            <Link id="logout" className="item header" onClick={this.logout.bind(this)}><i className="icon sign out"></i>Logout</Link>
+          </div>
         </div>
+
       );
 
 
 
       const guestLinks = (
-
-      <div className="ui text container">
-        <Link id="about_us_button" className="item"><i className="icon info circle"></i>About Us</Link>
-        <Link id="applicant_login_button" className="item"><i className="icon sign in"></i>Applicant Login</Link>
-        <Link id="employer_login_button" className="item"><i className="icon sign in"></i>Employer Login</Link>
+      <div id="menu_top" className="ui top fixed main three item clear menu">
+        <div id="logo">
+          <Link to="/">
+            <img className="ui centered tiny image" src={logoimg} alt="Company Logo"/>
+          </Link>
+        </div>
+        <div className="ui text container">
+          <Link id="about_us_button" className="item header"><i className="icon info circle"></i>About Us</Link>
+          <Link id="applicant_login_button" className="item header"><i className="icon sign in"></i>Applicant Login</Link>
+          <Link id="employer_login_button" className="item header"><i className="icon sign in"></i>Employer Login</Link>
+        </div>
       </div>
+
       );
 
     return(
 
-      <div id="MainMenu">
+      <div id="main_header_menu">
 
-        <div className="ui top fixed main three item menu">
+        { isAuthenticated ? userLinks : guestLinks }
 
-          <div id="logo">
-            <Link to="/">
-              <img className="ui centered tiny image" src="images/company_logo/apex_logo.png" alt="Company Logo"/>
-            </Link>
-          </div>
-
-          { isAuthenticated ? userLinks : guestLinks }
-
-        </div>
 
         <Applicant_signupModel />
         <Applicant_loginModal  />

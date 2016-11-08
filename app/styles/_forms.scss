@@ -15,6 +15,7 @@ $job_primary_background_color: #f2f2f2;
     background-color: $job_primary_background_color;
   }
 }
+
 #employer_loginForm{
   padding-top: 15px;
   padding-bottom: 25px;
@@ -22,22 +23,56 @@ $job_primary_background_color: #f2f2f2;
   p {
     padding-left: 25px;
   }
-  
+
   #employer_signup_form{
     padding-left: 25px;
     padding-right: 25px;
   }
 }
 
-#employer_profile_form, #applicant_profile_form{
-  .ui.segment{
-    height: 200px;
+#error_page{
+  height: 400px;
+  h2{
+    text-align: center;
+  }
+}
+
+#employer_profile_form, #applicant_profile_form, #applicant_profile_form{
+
+  #industry_experience, #areas_expertise{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 50px;
+
+    span{
+      display:flex;
+    }
+  }
+
+  .ui.floated.button{
+    margin-right: 15%;
+  }
+  #eventDropZone{
+    height: 250px;
     width: 200px;
 
     .ui.header{
       text-align: center;
     }
 
+    .ui.fluid.button{
+      margin-top: 10px;
+    }
+  }
+
+  .field{
+    .ui.segment{
+      width: 100%;
+    }
+
+    p{
+      cursor: pointer;
+    }
   }
 
   .profile-pic {
@@ -47,6 +82,7 @@ $job_primary_background_color: #f2f2f2;
   }
 
   padding-top: 75px;
+
   h1, h4, p{
     text-align: center;
   }
@@ -59,11 +95,12 @@ $job_primary_background_color: #f2f2f2;
   }
 
   .ui.form.employer_profile_form, .ui.form.applicant_profile_form{
+
     margin-left: 25px;
     margin-right: 25px;
     padding-left: 25px;
     padding-right: 25px;
-    padding-bottom: 25px;
+    padding-bottom: 75px;
     padding-top: 25px;
     background-color: $job_primary_background_color;
   }

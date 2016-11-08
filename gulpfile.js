@@ -28,11 +28,11 @@ gulp.task('scripts', function(){
   gulp.src([
     './app/js/script.js'
   ])
-    .pipe(gulp.dest('./dist/js'))
+    .pipe(gulp.dest('./dist/'))
 })
 
 gulp.task('scripts:watch', function() {
-  gulp.watch('app/js/**/*.js', ['scripts']);
+  gulp.watch('app/**/*.js', ['scripts']);
 });
 
 gulp.task('scripts:build', ['scripts'], function() {

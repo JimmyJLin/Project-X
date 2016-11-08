@@ -29,6 +29,10 @@ class ApplicantSignupForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  closeModal(){
+    $('.ui.small.modal.applicant.signup').modal('hide')
+  }
+
 
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -78,6 +82,8 @@ class ApplicantSignupForm extends React.Component {
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     // }
+    this.closeModal();
+
   }
 
 
@@ -87,6 +93,11 @@ render() {
 
 
           <form onSubmit={this.onSubmit} className="ui form">
+              <h1>Applicant Signup</h1>
+
+              <br/>
+              <div className=" ui divider"></div>
+              <br/>
 
               <div className="field">
 
@@ -137,8 +148,16 @@ render() {
                 />
               </div>
 
-
-              <button className="ui button" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
+              <br/>
+              <div className="inline field required">
+                <div className="ui toggle checkbox">
+                <input type="checkbox" tabIndex="0" className="hidden" />
+                <label>You agree to the Apex Terms and Conditions</label>
+                </div>
+              </div>
+              <br/>
+              
+              <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 
             </form>

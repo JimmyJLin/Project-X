@@ -1,10 +1,13 @@
+$primary_body_background_color: #ebebeb;
+$secondary_body_background_color: #252339;
 $secondary_background_color: #f1f1f1;
-
-
-
+$footer_primary_background_color: #00b2b6;
+$footer_copyright_background_color: #187e8a;
+$primary_text_color: white;
 
 .intro {
   text-align: center;
+  background-color: $primary_body_background_color;
 
 }
 
@@ -13,19 +16,30 @@ $secondary_background_color: #f1f1f1;
 
 }
 
+
 #logo{
   margin-left: 25px;
 
 }
 
 #loginForm{
+
   padding-left: 25%;
   padding-right: 25%;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
+
+.forwardlogin{
+  padding-left:20%;
+  padding-right:20%;
+  padding-bottom:20%;
+  padding-top:20%;
+}
+
 #main_display_image img{
+  margin-top: 7%;
   width: 100%;
   height: 500px;
 }
@@ -33,10 +47,11 @@ $secondary_background_color: #f1f1f1;
 #about_us_div{
   height: 350px;
   padding-top: 70px;
-  padding-left: 250px;
-  padding-right: 250px;
+  padding-left: 10%;
+  padding-right: 10%;
   padding-bottom: 50px;
   text-align: center;
+  background-color: $primary_body_background_color;
 
   #about_us_text{
     padding-top: 75px;
@@ -47,9 +62,14 @@ $secondary_background_color: #f1f1f1;
 }
 
 #main_display_links{
+  color: $primary_text_color;
   padding-top: 50px;
   padding-bottom: 150px;
-  background-color: $secondary_background_color;
+  background-color: $secondary_body_background_color;
+
+  .ui.button.large{
+    width: 275px;
+  }
 }
 
 #applicant_signup_button, #employer_signup_button, #applicant_profile_signup_button, #applicant_profile_login_button, #employer_profile_login_button, #employer_profile_signup_button{
@@ -58,5 +78,73 @@ $secondary_background_color: #f1f1f1;
 }
 
 #footer{
-  padding-top: 200px;
+  background-color: $footer_primary_background_color;
+  height: auto;
+
+  .ui.grid.top{
+    padding-top: 25px;
+
+    .column{
+      text-align: center;
+    }
+
+    span{
+      color: $primary_text_color;
+      font-size: 1.1em;
+    }
+  }
+
+  .social_medias{
+    padding-top: 0px;
+    padding-bottom: 25px;
+
+    .column{
+      text-align: center;
+    }
+  }
+
+  #mc_embed_signup{
+    padding-top: 1px !important;
+  }
+
+  #mc-embedded-subscribe{
+    background-color: $footer_copyright_background_color;
+  }
+  #newsletter_label{
+    color: $primary_text_color;
+  }
+  #copyrights{
+    color: $primary_text_color;
+    background-color: $footer_copyright_background_color;
+    text-align: center;
+    padding-bottom: 25px;
+  }
+}
+
+#terms_and_conditions{
+  padding-top: 90px;
+
+  .ui.segment{
+    margin-bottom: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+    .main_content{
+      padding-top: 50px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+    h1{
+      text-align: center;
+    }
+    h2{
+      text-align: center;
+      color: blue;
+    }
+    h3{
+      text-align: center;
+      padding-bottom: 50px;
+    }
+  }
 }

@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 let server = new Express();
 let port = process.env.PORT || 3000;
 let scriptSrcs;
+let javascriptSrc;
 
 let styleSrc;
 if ( process.env.NODE_ENV === 'production' ) {
@@ -25,16 +26,19 @@ if ( process.env.NODE_ENV === 'production' ) {
   let refManifest = require('../../dist/rev-manifest.json');
   scriptSrcs = [
     `/${assets.vendor.js}`,
-    `/${assets.app.js}`
+    `/${assets.app.js}`,
+    `/${assets.script.js}`
   ];
   styleSrc = `/${refManifest['main.css']}`;
+  javascriptSrc = `/${refManifest['script.js']}`
 } else {
   scriptSrcs = [
     'http://localhost:3001/static/vendor.js',
     'http://localhost:3001/static/dev.js',
-    'http://localhost:3001/static/app.js'
+    'http://localhost:3001/static/app.js',
   ];
   styleSrc = '/main.css';
+  javascriptSrc = '/script.js'
 }
 
 
@@ -89,7 +93,7 @@ server.get('*', (req, res, next)=> {
         );
 
         if ( getCurrentUrl() === reqUrl ) {
-          res.render('index', { html, scriptSrcs, reduxState, styleSrc });
+          res.render('index', { html, javascriptSrc, scriptSrcs, reduxState, styleSrc });
         } else {
           res.redirect(302, getCurrentUrl());
         }
@@ -128,6 +132,7 @@ server.use((err, req, res, next)=> {
   console.log(err.stack);
   // TODO report error here or do some further handlings
   res.status(500).send("something went wrong...")
+  location.assign('/')
 })
 
 console.log(`Server is listening to port: ${port}`);

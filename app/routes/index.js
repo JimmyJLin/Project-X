@@ -6,13 +6,17 @@ import configureStore from 'store/configureStore';
 import requireAuth from '../utils/requireAuth';
 import requireAuth_emp from '../utils/requireAuth_emp';
 
-
 // main
 import App from 'containers/App';
 import Main from 'containers/Main';
+import Admin from 'admin/admin'
+// Footer
+import Terms_and_conditions from 'components/menus/terms_and_conditions'
 
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
+import Applicant_skill_form from 'components/forms/applicants/applicant_skill_form';
+
 import Employer_profile_form from 'components/forms/employers/employer_profile_form';
 
 // profiles
@@ -46,6 +50,8 @@ export default function(history) {
   return (
     <Router history={history}>
       <Route path="/" component={App}>
+        {/* Admin Page for Gareth */}
+        <Route path="admin" component={Admin} />
 
         {/* Applicant / Employer User Auth */}
         <Route path="signup" component={SignupPage} />
@@ -53,9 +59,12 @@ export default function(history) {
         <Route path="employer_signup" component={SignupPage_emp} />
         <Route path="employer_login" component={LoginPage_emp} />
 
+
         {/* Applicant & Employer Profile Forms */}
-        <Route path="applicant_profile_form" component={requireAuth(Applicant_profile_form)} />
-        <Route path="employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />
+        <Route path="/applicant_profile_form" component={requireAuth(Applicant_profile_form)} />
+        <Route path="/Applicant_skill_form" component={requireAuth(Applicant_skill_form)} />
+
+        <Route path="/employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />
 
         {/* Applicant & Employer Profile*/}
         <Route path="/applicant_profile" component={Applicant_profile} />
@@ -77,6 +86,9 @@ export default function(history) {
         <Route path="/list_match" component={List_match} />
         <Route path="/list_matched/job/:id" component={Job} />
 
+
+        {/* footer */}
+        <Route path="/terms_and_conditions" component={Terms_and_conditions} />
 
         <IndexRoute component={Main} />
       </Route>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
+import {browserHistory} from 'react-router';
 
 
 class Employer_profile extends Component {
@@ -22,13 +23,62 @@ class Employer_profile extends Component {
       company_branch: '',
       company_logo: '',
       active_jobs: '',
-      archived_jobs: ''
+      archived_jobs: '',
+      isLoading: false
     }
 
   }
 
   componentDidMount() {
+
     const employer_id = localStorage.id
+
+    //  get employer profile data
+    const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
+    $.get(employerUrl).done( (data)=>{
+
+      if (data[0].company_industry == null || '') {
+        browserHistory.push('/employer_profile_form');
+
+      } else {
+       this.state.company_name = data[0].company_name;
+       this.state.company_address = data[0].company_address;
+       this.state.company_city = data[0].company_city;
+       this.state.company_state = data[0].company_state;
+       this.state.company_zip = data[0].company_zip;
+       this.state.company_description = data[0].company_description;
+       this.state.company_website = data[0].company_website;
+       this.state.company_phone_number = data[0].company_phone_number;
+       this.state.company_email = data[0].company_email;
+       this.state.company_size = data[0].company_size;
+       this.state.company_industry = data[0].company_industry;
+       this.state.company_branch = data[0].company_branch;
+       this.state.company_logo = data[0].company_logo;
+       this.state.isLoading = true
+
+
+       this.setState({
+         employerProfile: this.state.employerProfile,
+         company_name: this.state.company_name,
+         company_address: this.state.company_address,
+         company_city: this.state.company_city,
+         company_state: this.state.company_state,
+         company_zip: this.state.company_zip,
+         company_description: this.state.company_description,
+         company_website: this.state.company_website,
+         company_phone_number: this.state.company_phone_number,
+         company_email: this.state.company_email,
+         company_size: this.state.company_size,
+         company_industry: this.state.company_industry,
+         company_branch: this.state.company_branch,
+         company_logo: this.state.company_logo,
+         isLoadindg: true
+
+       })
+
+    }
+  })
+
 
     console.log("employer id", employer_id)
     // fetch employer posted jobs with status active
@@ -58,59 +108,53 @@ class Employer_profile extends Component {
       })
 
 
-   //  get employer profile data
-   const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
-   $.get(employerUrl).done( (data)=>{
-      this.state.company_name = data[0].company_name;
-      this.state.company_address = data[0].company_address;
-      this.state.company_city = data[0].company_city;
-      this.state.company_state = data[0].company_state;
-      this.state.company_zip = data[0].company_zip;
-      this.state.company_description = data[0].company_description;
-      this.state.company_website = data[0].company_website;
-      this.state.company_phone_number = data[0].company_phone_number;
-      this.state.company_email = data[0].company_email;
-      this.state.company_size = data[0].company_size;
-      this.state.company_industry = data[0].company_industry;
-      this.state.company_branch = data[0].company_branch;
-      this.state.company_logo = data[0].company_logo;
-
-      this.setState({
-        employerProfile: this.state.employerProfile,
-        company_name: this.state.company_name,
-        company_address: this.state.company_address,
-        company_city: this.state.company_city,
-        company_state: this.state.company_state,
-        company_zip: this.state.company_zip,
-        company_description: this.state.company_description,
-        company_website: this.state.company_website,
-        company_phone_number: this.state.company_phone_number,
-        company_email: this.state.company_email,
-        company_size: this.state.company_size,
-        company_industry: this.state.company_industry,
-        company_branch: this.state.company_branch,
-        company_logo: this.state.company_logo
-      })
-
-    })
-  }
+ }
 
   render(){
+
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
+
+
     console.log("this.state.company_logo", this.state.company_logo)
     const loader = function(){
       return  <div className="ui active inverted dimmer"><div className="ui indeterminate medium text loader">Loading</div></div>
     }
 
+    let profile_image;
+
+    if(this.state.company_logo == null){
+      // console.log("no image")
+      profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+    } else {
+      // console.log("yes image")
+      profile_image = <img className="ui small circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
+    }
+
     return(
         <div id="employer_profile">
 
-
-          {/*{loader()}*/}
+          {/* Spinner Starts */}
+            {spinner}
+          {/* Spinner Ends */}
 
           {/* Profile Header */}
           <div className="ui grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
+              {profile_image}
             </div>
             <div className="twelve wide column">
               <div className="twelve wide column">
@@ -120,14 +164,23 @@ class Employer_profile extends Component {
               <div className="ui divider"></div>
 
               <div className="twelve wide column">
-                <div className="ui four middle aligned cards">
-                  <div className="ui label">
+                <div className="ui horizontal list centered aligned middle grid">
+                  <div className="content">
+                    <div className="ui label details">
                     {this.state.company_industry}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Description */}
+          <div id="bio" className="twelve wide column">
+            <h2>Company Description</h2>
+            <p>{this.state.company_description}</p>
+          </div>
+
 
           <div className="ui divider"></div>
 
@@ -188,11 +241,12 @@ class Employer_profile extends Component {
                 </div>
 
               </div>
-
+              <br/>
+              <br/>
               {/* Post Job Button*/}
               <div className="ui two column left grid">
                 <Link to="/new">
-                  <button className="massive ui button">Post Job Today!</button>
+                  <button className="massive ui button large">Post Job Today!</button>
                 </Link>
               </div>
 
@@ -203,19 +257,19 @@ class Employer_profile extends Component {
                 <h3>Job Postings: </h3>
                   <div className="ui middle aligned divided list">
 
-                    <div className="item">
+                    <Link to="/list_jobs" className="item ui label">
                       <div className="right floated content">
-                        <Link to="/list_jobs">{this.state.active_jobs}</Link>
+                        <div >{this.state.active_jobs}</div>
                       </div>
                       <div className="content">Open</div>
-                    </div>
+                    </Link>
 
-                    <div className="item">
+                    <Link to="/archived_jobs" className="item ui label">
                       <div className="right floated content">
-                        <Link to="/archived_jobs">{this.state.archived_jobs}</Link>
+                        <div >{this.state.archived_jobs}</div>
                       </div>
                       <div className="content">Archived</div>
-                    </div>
+                    </Link>
 
                   </div>
 

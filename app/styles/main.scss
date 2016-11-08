@@ -5,16 +5,95 @@
 @import "detailView";
 
 
-$primary_background_color: transparent;
+$secondary_background_color: #f1f1f1;
+$button_primary_background_color: white;
+$button_primary_color: #1678c2;
+$transparent: transparent;
+
+// color schemes from Gareth
+$primary_body_background_color: #ebebeb;
+$secondary_body_background_color: #252339;
+$menu_top_primary_background_color: #39374c;
+$primary_text_color: white;
+$button_primary_border_color: #00b2b6;
+$button_on_hover_color: pink;
+
 
 
 
 body {
   font-family: Arial;
+  background-color: $primary_body_background_color;
+
 }
 
-.forwardlogin{
-  padding-left:20%;
-  padding-right:20%;
-  padding-top:10%;
+
+
+.ui.button.large{
+  border: 2.5px solid $button_primary_border_color;
+  color: $button_primary_border_color;
+  background-color: $transparent;
+
+}
+
+.ui.button.medium{
+  background-color: $button_primary_border_color;
+  color: $primary_text_color;
+  width: 50px;
+}
+
+.ui.button.medium:hover, .ui.button.large:hover{
+  background-color: $primary_text_color;
+  color: $menu_top_primary_background_color;
+}
+
+.ui.button.small{
+  background-color: $button_primary_border_color;
+  color: $primary_text_color;
+  width: 90px;
+}
+
+.ui.button.small.solid{
+  background-color: $button_primary_border_color;
+  color: $primary_text_color;
+  width: 130px;
+}
+.ui.button.small.solid:hover{
+  background-color: $button_on_hover_color;
+}
+
+
+
+// right panel nav menu
+#main_header_menu{
+  #menu_top{
+    background-color: $menu_top_primary_background_color;
+
+    .item{
+      color: $primary_text_color;
+
+    }
+  }
+}
+
+#spinner{
+  height: 600px;
+}
+
+// Admin Page
+#Admin{
+  padding-top: 90px;
+  height: 500px;
+
+  margin-left: 50px;
+  margin-right: 50px;
+
+  h1{
+    text-align: center;
+  }
+
+  .ui.teal.labeled.icon.button{
+    width: 200px;
+  }
+
 }

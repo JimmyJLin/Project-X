@@ -72,6 +72,7 @@ class EmployerSignupForm extends React.Component {
     }
   }
 
+
   onSubmit(e) {
     e.preventDefault();
     console.log('captures state on submit', this.state)
@@ -90,9 +91,12 @@ class EmployerSignupForm extends React.Component {
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     // }
+    this.closeModal();
   }
 
-
+  closeModal(){
+    $('.ui.small.modal.employer.signup').modal('hide')
+  }
 
 
 
@@ -117,6 +121,12 @@ render() {
   return (
 
           <form id="employer_signup_form" onSubmit={this.onSubmit} className="ui form">
+          <h1>Employer Signup</h1>
+
+          <br/>
+          <div className=" ui divider"></div>
+          <br/>
+
           <div className="two fields">
               <div className="field">
               <TextFieldGroup
@@ -225,8 +235,17 @@ render() {
                 field="company_website"
               />
               </div>
+              
+              <br/>
+              <div className="inline field required">
+                <div className="ui toggle checkbox">
+                <input type="checkbox" tabIndex="0" className="hidden" />
+                <label>You agree to the Apex Terms and Conditions</label>
+                </div>
+              </div>
+              <br/>
 
-              <button className="ui button" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
+              <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 
             </form>
