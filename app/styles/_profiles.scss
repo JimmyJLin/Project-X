@@ -10,6 +10,11 @@ $button_on_hover_color: pink;
   padding-bottom: 50px;
   background-color: $primary_body_background_color;
 
+  .column{
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+
   .ui.segment{
     border: 2.5px solid $button_primary_border_color;
     color: $button_primary_border_color;
