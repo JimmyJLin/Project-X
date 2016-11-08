@@ -27,7 +27,7 @@ import Employer_profile from 'components/profiles/employer/employer_profile';
 // user auth
 import SignupPage from 'components/user_auth/signup/SignupPage';
 import SignupPage_emp from 'components/user_auth/signup/SignupPage_emp';
-import LoginPage from 'components/user_auth/login/LoginPage';
+import Login_page from 'components/user_auth/login/login_page';
 import LoginPage_emp from 'components/user_auth/login/LoginPage_emp';
 
 // employer jobs
@@ -51,13 +51,13 @@ export default function(history) {
     <Router history={history}>
       <Route path="/" component={App}>
         {/* Admin Page for Gareth */}
-        <Route path="admin" component={Admin} />
+        <Route path="/admin" component={Admin} />
 
         {/* Applicant / Employer User Auth */}
-        <Route path="signup" component={SignupPage} />
-        <Route path="login" component={LoginPage} />
-        <Route path="employer_signup" component={SignupPage_emp} />
-        <Route path="employer_login" component={LoginPage_emp} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/login" component={Login_page} />
+        <Route path="/employer_signup" component={SignupPage_emp} />
+        <Route path="/employer_login" component={LoginPage_emp} />
 
 
         {/* Applicant & Employer Profile Forms */}

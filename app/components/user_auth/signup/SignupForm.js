@@ -125,4 +125,9 @@ SignupForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default SignupForm;
+
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps)(SignupForm);

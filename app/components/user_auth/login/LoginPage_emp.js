@@ -1,5 +1,5 @@
 import React from 'react';
-// import LoginForm from './LoginForm';
+import { connect } from 'react-redux';
 import EmploymentLoginForm from '../employer_login';
 import { Link } from 'react-router'
 
@@ -18,4 +18,9 @@ class LoginPage_emp extends React.Component {
   }
 }
 
-export default LoginPage_emp;
+
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps)(LoginPage_emp);

@@ -1,5 +1,5 @@
 import React from 'react';
-// import LoginForm from './LoginForm';
+import { connect } from 'react-redux';
 import ApplicantLoginForm from '../applicant_login';
 import { Link } from 'react-router'
 
@@ -17,4 +17,9 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps)(LoginPage);
