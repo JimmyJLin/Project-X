@@ -20,6 +20,7 @@ class Applicant_profile_form extends Component {
     this.state = {
       user_id:'',
       profile_files: [],
+      resume_files: [],
       desired_locationArry:[],
       desired_industry:'',
       zipcode: '',
@@ -37,10 +38,11 @@ class Applicant_profile_form extends Component {
       job_title: '',
       start_from: '',
       to:'',
-      resume_pdf:'',
+      resume_pdf:[],
       desired_location:[],
       languages_spoken:[],
       profile_image:'',
+      resume_image: "",
       certificationsArry: [],
       educationArry: [],
       work_historyArry: [],
@@ -66,6 +68,7 @@ class Applicant_profile_form extends Component {
     let applicantProfileData = {
       user_id: this.props.auth.user.id,
       profile_image: this.state.profile_image,
+      resume_image: this.state.resume_image,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
       phone_number: this.state.phone_number,
@@ -85,7 +88,12 @@ class Applicant_profile_form extends Component {
       profile_files: this.state.profile_files
 
     }
-    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages)
+
+    let ApplicantProfilePdf = {
+      resume_files: this.state.resume_files
+    }
+
+    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages, ApplicantProfilePdf)
 
 
     //****************
@@ -193,9 +201,10 @@ class Applicant_profile_form extends Component {
 
     console.log("Line 105 - applicantProfileData", applicantProfileData)
     console.log("Line 105 - applicantProfileData", ApplicantProfileImages)
+    console.log("Line 105 - applicantProfileData", ApplicantProfilePdf)
 
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
     // this.setState({
     //   user_id:'',
@@ -222,8 +231,8 @@ class Applicant_profile_form extends Component {
     //   educationArry: [],
     //   companyArry: []
     // })
-    // browserHistory.push('/Applicant_skill_form')
-    window.location.assign('/Applicant_skill_form')
+
+    // window.location.assign('/Applicant_skill_form')
 
 
   }
@@ -355,12 +364,28 @@ class Applicant_profile_form extends Component {
     // console.log("acceptedFiles", acceptedFiles)
 
     this.setState({
-      profile_files: acceptedFiles , profile_image:acceptedFiles[0].id
+      profile_files: acceptedFiles,
+      profile_image:acceptedFiles[0].id
     });
 
     //x console.log("onDrop this.state.profile_files", this.state.profile_files)
     $('#eventDropZone').hide()
   }
+
+  onResumeDrop(acceptedResumeFiles){
+    console.log("acceptedResumeFiles -->", acceptedResumeFiles)
+    this.setState({
+      resume_files: acceptedResumeFiles,
+      resume_image: acceptedResumeFiles[0].id
+    });
+
+    console.log("resume_files", this.state.resume_files)
+    console.log("resume_image", this.state.resume_image)
+
+    $('#eventDropZone').hide()
+
+  }
+
 
   openDropzone(){
     e.preventDefault();
@@ -384,13 +409,13 @@ class Applicant_profile_form extends Component {
 
             <div className="three fields">
               <div className="field">
-              <div>
-                <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-                  <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
-                  <div className="ui fluid button" >Upload Image</div>
-                </Dropzone>
-                {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui small circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
-              </div>
+                <div>
+                  <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
+                    <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+                    <div className="ui fluid button" >Upload Image</div>
+                  </Dropzone>
+                  {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui small circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
+                </div>
               </div>
               <div className="field"></div>
               <div className="field"></div>
@@ -586,7 +611,7 @@ class Applicant_profile_form extends Component {
                     </div>
                     <div className="field">
                       <label name="job_title">Job Title</label>
-                      <input name="job_title" value={this.state.job_title} type="text" placeholder="school"onChange={e => this.onJobTitleChange(e.target.value)}/>
+                      <input name="job_title" value={this.state.job_title} type="text" placeholder="title"onChange={e => this.onJobTitleChange(e.target.value)}/>
                     </div>
                   </div>
                     <div className="two fields">
@@ -607,11 +632,17 @@ class Applicant_profile_form extends Component {
                 <br/>
 
                 {/* Upload Resume (PDF) */}
-                <div>
+                {/*<div>
                   <label>Upload resume_pdf</label>
                   <input type="file" name="resume_pdf" accept="application/pdf"
                   value={this.state.resume_pdf}
-                  onChange={ e => this.onresume_pdfChange(e.target.value)}/>
+                  onDrop={this.onResumeDrop.bind(this)} />
+                </div>*/}
+
+                <div>
+                  <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
+                    <div className="ui fluid button" >Upload Resume</div>
+                  </Dropzone>
                 </div>
 
               </div>
@@ -648,7 +679,7 @@ class Applicant_profile_form extends Component {
         )}
 }
 
-function postOneApplicant(applicantProfileData, ApplicantProfileImages){
+function postOneApplicant(applicantProfileData, ApplicantProfileImages, ApplicantProfilePdf){
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
@@ -658,16 +689,38 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages){
 
       PostImage( data.id, ApplicantProfileImages  );
 
-      browserHistory.push('/Applicant_skill_form')
+      PostPdf( data.id, ApplicantProfilePdf )
+
+      // browserHistory.push('/Applicant_skill_form')
       // window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
 
-      browserHistory.push('/Applicant_skill_form')
+      // browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 
+}
+
+function PostPdf(id, pdfObj){
+  console.log('PostPDFfired')
+  $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, pdfObj)
+
+  let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_pdf');
+  pdfObj.resume_files.forEach((file) => {
+    // console.log(req)
+    console.log("hello from inside upload pdf forEach()", file)
+    req.attach(file.name, file);
+    req.field('id', id)
+    req.end(function(err, res){
+      if (err || !res.ok) {
+        console.log('Oh no! error')
+      } else {
+        console.log('yay got ' + JSON.stringify(res.body))
+      }
+    })
+  })
 }
 
 function PostImage(id, imgObj){
@@ -677,7 +730,7 @@ function PostImage(id, imgObj){
   let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
   imgObj.profile_files.forEach((file) => {
     // console.log(req)
-    console.log("hello from inside forEach()", file)
+    console.log("hello from inside upload_image forEach()", file)
     req.attach(file.name, file);
     req.field('id', id)
     req.end(function(err, res){

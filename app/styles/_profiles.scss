@@ -15,6 +15,12 @@ $button_on_hover_color: pink;
     margin-right: 1px;
   }
 
+  .ui.center.aligned.basic.segment{
+    img{
+      margin-left: 0;
+    }
+  }
+
   .ui.segment{
     border: 2.5px solid $button_primary_border_color;
     color: $button_primary_border_color;

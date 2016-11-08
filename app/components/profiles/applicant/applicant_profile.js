@@ -165,10 +165,10 @@ class Applicant_profile extends Component {
 
     if(this.state.applicantProfile.profile_image == ""){
       // console.log("no image")
-      profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
     } else {
       // console.log("yes image")
-      profile_image = <img className="ui small circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
+      profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
     }
 
     const skills_state = this.state.job_skills
@@ -184,6 +184,8 @@ class Applicant_profile extends Component {
       // console.log("industry", industry)
       return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
     })
+
+    let resume_pdf = this.state.applicantProfile.resume_pdf
 
     return(
         <div id="applicant_profile">
@@ -333,7 +335,7 @@ class Applicant_profile extends Component {
             <div className="column">
               <h4>Resume</h4>
               <div className="ui center aligned basic segment">
-                <a href="images/jimmy_lin_resume.pdf" className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
+                <a href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
               </div>
             </div>
             <div className="column">
@@ -349,11 +351,10 @@ class Applicant_profile extends Component {
           </div>
 
 
-
           {/* Match Button*/}
           <div className="ui two column centered grid">
             <Link to="/list_match#top">
-              <button className="massive ui button large">Match Your Dream Job Today</button>
+              <button className="ui button large">Match Your Dream Job Today</button>
             </Link>
           </div>
         </div>
