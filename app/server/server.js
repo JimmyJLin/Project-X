@@ -26,8 +26,7 @@ if ( process.env.NODE_ENV === 'production' ) {
   let refManifest = require('../../dist/rev-manifest.json');
   scriptSrcs = [
     `/${assets.vendor.js}`,
-    `/${assets.app.js}`,
-    `/${assets.script.js}`
+    `/${assets.app.js}`
   ];
   styleSrc = `/${refManifest['main.css']}`;
   javascriptSrc = `/${refManifest['script.js']}`
