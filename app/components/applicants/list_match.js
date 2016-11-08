@@ -8,6 +8,7 @@ let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
 var final= [];
+var jobArray;
 
 
 class List_match extends Component {
@@ -141,6 +142,7 @@ class List_match extends Component {
     console.log("onExperienceChange Clicked", this.state.job_experiences)
   }
 
+
   render(){
 
     // spinner starts
@@ -190,7 +192,6 @@ class List_match extends Component {
        buttonChange.innerText = "Applied"
 
     }
-    var jobArray;
       if (final.length == 0 ){
         jobArray = this.state.jobs
         // console.log("YESSSSSS -----", jobArray)
@@ -199,7 +200,7 @@ class List_match extends Component {
         // console.log("NOOOOOOO ----", jobArray)
       }
 
-    let job_lists = this.state.jobs
+    // let job_lists = this.state.jobs
     let jobs = jobArray.map(function(job){
     let url = '/'+ job.company_logo
     console.log("image url ", url)
@@ -240,6 +241,9 @@ class List_match extends Component {
               <h2>Filter By:</h2>
               <div className="field">
 
+                <div id="reset_button" className="ui button small" >Clear Filters</div>
+                <br/>
+                <br/>
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
