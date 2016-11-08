@@ -52,21 +52,6 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
 
 
-// *********************** API ROUTES ****************** //
-// Please check the backend app
-
-
-// mock apis
-// server.get('/api/questions', (req, res)=> {
-//   let { questions } = require('./mock_api');
-//   res.send(questions);
-// });
-// server.get('/api/users/:id', (req, res)=> {
-//   let { getUser } = require('./mock_api')
-//   res.send(getUser(req.params.id))
-// })
-
-
 server.get('*', (req, res, next)=> {
   let history = useRouterHistory(useQueries(createMemoryHistory))();
   let store = configureStore();
