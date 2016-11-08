@@ -225,13 +225,13 @@ class Job extends Component {
     if (this.state.job_status == 'active' && localStorage.type == "employer"){
       // console.log("line 151 job status:", this.state.job_status)
       jobStatus = <div className="ui two cloumn centered grid">
-                    <div className="column">
+                    <div id="archive_repost_buttons" className="column">
                       <buton onClick={ this.handleJobStatusChangeToArchive.bind(this)} className="ui button large">Archive</buton>
                     </div>
                   </div>
     } else if (this.state.job_status == 'archived' && localStorage.type == "employer") {
       jobStatus = <div className="ui centered grid">
-                    <div className="column">
+                    <div  id="archive_repost_buttons" className="column">
                       <buton onClick={ this.handleJobStatusChangeToActive.bind(this)} className="ui button large">Re-Post</buton>
                     </div>
                   </div>

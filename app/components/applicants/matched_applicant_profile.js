@@ -25,7 +25,7 @@ class Matched_applicant_profile extends Component {
   }
 
   componentDidMount() {
-    
+
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
@@ -214,46 +214,54 @@ class Matched_applicant_profile extends Component {
           {/* Contact Info, Inteted in Positions Education & Previous Experiences */}
 
           <div className="ui equal width stackable grid">
+
             <div className="column">
               <h4>contact info</h4>
-
-              <div className="content">
-                <div className="ui label details">
-                  <p>Email: <a href={"mailto:" + this.state.applicantProfile.email} target="_blank">{this.state.applicantProfile.email}</a> </p>
-                </div>
-                <div className="ui label details">
-                  <p>Phone: <a href={"tel:" + this.state.applicantProfile.phone_number}>{this.state.applicantProfile.phone_number}</a></p>
-                </div>
-                {/*<div className="ui label details">
-                  <p>LinkedIn: profilelinkhere</p>
-                </div>*/}
-              </div>
-
               <br/>
-            </div>
-            <div className="column">
-              <h4>Intested in Position In</h4>
-              <div className="content">
-                <div className="ui label details">
-                  <p>{this.state.applicantProfile.job_type}</p>
+              <div className="ui horizontal list centered aligned middle grid">
+                <div className="content">
+                  <div className="ui label details">
+                    <p>Email: <a href={"mailto:" + this.state.applicantProfile.email} target="_blank">{this.state.applicantProfile.email}</a> </p>
+                  </div>
+                  <div className="ui label details">
+                    <p>Phone: <a href={"tel:" + this.state.applicantProfile.phone_number}>{this.state.applicantProfile.phone_number}</a></p>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/*<div className="column">
+              <h4>Intested in Position In</h4>
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
+                <div className="content">
+                  <div className="ui label details">
+                    <p>{this.state.applicantProfile.job_type}</p>
+                  </div>
+                </div>
+              </div>
+            </div>*/}
+
             <div className="column">
               <h4> Education </h4>
-              <div className="content">
-                {education_data}
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
+                <div className="content">
+                  {education_data}
+                </div>
               </div>
             </div>
+
             <div className="column">
               <h4> Previous Positions</h4>
-
-              <div className="ui left aligned divided list">
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {work_data}
                 </div>
               </div>
             </div>
+
           </div>
 
           <div className="ui divider"></div>
@@ -284,12 +292,13 @@ class Matched_applicant_profile extends Component {
           <div className="ui divider"></div>
           {/* Interested In Working In */}
           <div className="twelve wide column">
-            <h2>Interested in Working in: </h2>
+            <h4>Interested in Working in: </h4>
             <br/>
             <div className="ui horizontal list centered aligned middle grid">
-              {desired_location}
+              <div className="content">
+                {desired_location}
+              </div>
             </div>
-
           </div>
 
 
@@ -298,10 +307,11 @@ class Matched_applicant_profile extends Component {
           <div className="ui equal width stackable grid">
             <div className="column">
               <h4>Additional Links</h4>
-              <div className="ui left aligned divided list">
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   <div className="ui label details">
-                    Linke 1
+                    Linke 4
                   </div>
                   <div className="ui label details">
                     Linke 2
@@ -317,7 +327,8 @@ class Matched_applicant_profile extends Component {
             </div>
             <div className="column">
               <h4> Languages </h4>
-              <div className="ui left aligned divided list">
+              <br/>
+              <div className="ui horizontal list centered aligned middle grid">
                 <div className="content">
                   {languages_spoken_}
                 </div>

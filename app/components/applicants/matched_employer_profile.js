@@ -103,11 +103,15 @@ class Matched_employer_profile extends Component {
           {/*{loader()}*/}
 
           {/* Profile Header */}
-          <div className="ui grid">
+          <div className="ui stackable grid">
             <div className="four wide column">
-              <img className="ui small circular image" src={"https://apex-database.herokuapp.com/images/company_logo/" + this.state.company_logo} alt="Company Logo"/>
+              <div className="ui center aligned basic segment">
+                {profile_image}
+              </div>
             </div>
+
             <div className="twelve wide column">
+
               <div className="twelve wide column">
                 <h3>{this.state.company_name}</h3>
               </div>
@@ -123,68 +127,96 @@ class Matched_employer_profile extends Component {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
+
+          {/* Description */}
+          <div id="bio" className="twelve wide column">
+            <h2>Company Description</h2>
+            <p>{this.state.company_description}</p>
+          </div>
+
 
           <div className="ui divider"></div>
 
           {/* Employer Details */}
-          <div className="ui grid">
+          <div className="ui stackable grid">
 
-            <div className="twelve wide column">
+            <div className="eleven wide column">
+
               <h3>Company Information</h3>
-              <div className="ui equal width grid">
-                <div className="equal width row">
-                  <div className="column">
-                    <div className="ui label details">
-                      Company Name:
-                      <div className="detail">{this.state.company_name}</div>
-                    </div>
-                  </div>
-                  <div className="column">
-                    <div className="ui label details">
-                      Company Website:
-                      <div className="detail"><Link to={this.state.company_website} target="_blank">{this.state.company_website}</Link></div>
-                    </div>
-                  </div>
-                </div>
+              <br/>
 
-                <div className="equal width row">
+              <div className="ui equal width stackable grid">
+                <div className="column">
 
-                  <div className="column">
-                    <div className="ui label details">
-                      Address:
-                      <div className="detail">
-                      {this.state.company_address}
-                      <br/>
-                      {this.state.company_city}, {this.state.company_state} {this.state.company_zip}
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Company Name:
+                        <div className="detail">{this.state.company_name}</div>
                       </div>
                     </div>
                   </div>
-                  <div className="column">
-                    <div className="ui label details">
-                      Branch Location:
-                      <div className="detail">{this.state.company_branch}</div>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="equal width row">
-                  <div className="column">
-                    <div className="ui label details">
-                      Hiring Dept Email:
-                      <div className="detail">{this.state.company_email}</div>
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Company Website:
+                        <div className="detail"><Link to={this.state.company_website} target="_blank">{this.state.company_website}</Link></div>
+                      </div>
                     </div>
                   </div>
-                  <div className="column">
-                    <div className="ui label details">
-                      Industry:
-                      <div className="detail">{this.state.company_industry}</div>
-                    </div>
-                  </div>
-                </div>
 
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Hiring Dept Email:
+                        <div className="detail">{this.state.company_email}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div className="column">
+
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Address:
+                        <div className="detail">
+                        {this.state.company_address}
+                        <br/>
+                        {this.state.company_city}, {this.state.company_state} {this.state.company_zip}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Branch Location:
+                        <div className="detail">{this.state.company_branch}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="ui horizontal list centered aligned middle grid">
+                    <div className="content">
+                      <div className="ui label details">
+                        Industry:
+                        <div className="detail">{this.state.company_industry}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
+
+              <br/>
+              <br/>
 
               {/* Post Job Button*/}
               <div className="ui two column left grid">

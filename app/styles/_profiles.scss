@@ -69,8 +69,9 @@ $button_on_hover_color: pink;
 
 
 
-  .ui.equal.width.grid{
+  .ui.equal.width.stackable.grid{
     .ui.label.details{
+      width: 200px;
       margin-bottom: 5px;
     }
     h2{
@@ -104,7 +105,7 @@ $button_on_hover_color: pink;
   .ui.horizontal.list{
     padding-left: 50px;
     padding-right: 50px;
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
     display: flex;
 
     .item.search_tags{

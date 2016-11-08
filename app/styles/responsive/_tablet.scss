@@ -1,0 +1,20 @@
+// This is the css for the tablet
+
+// applicant & employer profiles
+#employer_profile{
+  .ui.grid{
+    padding-left: 25px;
+    padding-right: 25px;
+
+  }
+
+}
+
+
+#job_details{
+  .ui.two.column.centered.grid{
+    .column{
+      padding-right: 75px;
+    }
+  }
+}
