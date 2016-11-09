@@ -18,9 +18,15 @@
   }
 }
 
+#main_display_links{
+  width: 105%;
+}
+
 #main_display_image img{
   margin-top: 15%;
   height: 300px;
+  width: 105%;
+  
 }
 
 #error_page{
@@ -36,4 +42,8 @@
     width: auto;
     padding-left: 5%;
   }
+}
+
+#footer{
+  width: 105%;
 }
