@@ -232,7 +232,7 @@ class Applicant_profile_form extends Component {
     //   companyArry: []
     // })
 
-    window.location.assign('/Applicant_skill_form')
+    // window.location.assign('/Applicant_skill_form')
 
 
   }
@@ -438,7 +438,7 @@ class Applicant_profile_form extends Component {
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="New York">Greater New York City</option>
+                    <option value="Greater New York City">Greater New York City</option>
                     <option value="Nassau County">Nassau County</option>
                     <option value="Suffolk County">Suffolk County</option>
                     <option value="Brooklyn">Brooklyn</option>
@@ -567,7 +567,7 @@ class Applicant_profile_form extends Component {
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
-                  <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
+                  <select name="education_level" id="" className="ui fluid dropdown education" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
@@ -697,7 +697,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
     })
     .error((error) => {
 
-      browserHistory.push('/Applicant_skill_form')
+      // browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 

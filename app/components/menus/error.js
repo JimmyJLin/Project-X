@@ -18,7 +18,7 @@ class ErrorPage extends Component {
           <div className="column">
 
             <h1 id="error_404">404</h1>
-            <h1>Page Not Found</h1>
+            <h1>Page Not Found ... Boo</h1>
             <br/>
             <Link to="/" >Go to the front page --></Link>
 

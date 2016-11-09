@@ -11,7 +11,7 @@ $(function(){
   // Reset Applicant Form
   $('#add_additional').on('click', function(){
     console.log("clicked")
-    $(".ui.dropdown").dropdown("clear")
+    $(".ui.dropdown.education").dropdown("clear")
   })
 
 

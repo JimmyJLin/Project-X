@@ -207,26 +207,26 @@ class List_matched_applicants extends Component {
   //
   // }
 
-  onJobSkillsChange(job_skills){
-    console.log("job_skills --->", job_skills)
+  onJobSkillsChange(job_skills_data){
+    console.log("job_skills --->", job_skills_data)
 
-    jobSkillsState.push(job_skills)
+    jobSkillsState.push(job_skills_data)
     console.log("jobSkillsState --->", jobSkillsState)
 
     this.setState({job_skills: jobSkillsState})
 
     console.log("this.state.job_skills -->", this.state.job_skills)
-    this.UpdateTheFilterForArray(job_skills, this.state.job_skills)
+    this.UpdateTheFilterForArray(job_skills_data, this.state.job_skills)
 
     // console.log("onJobSkillsChange Clicked", this.state.job_skills)
   }
 
 
-  onExperienceChange(job_experiences){
-    jobExperienceState.push(job_experiences)
+  onExperienceChange(job_experiences_data){
+    jobExperienceState.push(job_experiences_data)
     this.setState({job_experiences: jobExperienceState})
     // console.log("onExperienceChange Clicked", this.state.job_experiences)
-    this.UpdateTheFilterForArray(job_experiences, this.state.job_experiences)
+    this.UpdateTheFilterForArray(job_experiences_data, this.state.job_experiences)
   }
 
   render(){
@@ -339,9 +339,9 @@ class List_matched_applicants extends Component {
               <h2>Filter By:</h2>
               <div className="field">
 
-                <div id="reset_button" className="ui button small" >Clear Filters</div>
+                {/*<div id="reset_button" className="ui button small" >Clear Filters</div>
                 <br/>
-                <br/>
+                <br/>*/}
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Work Experience (Full Employment)</label>

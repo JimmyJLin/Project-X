@@ -35,7 +35,7 @@ class Main extends Component {
           </div>
 
           <div id="about_us_text">
-            <h3 id="about_us_title">Why are we Different?</h3>
+            <h3 id="about_us_title">“One Application, To End All Applications”</h3>
             <p>We allow you to do this by creating <span>one</span> profile to serve as your application for <span>all</span> positions, in order to algorithmically match you directly with compatible openings. We streamline your information to include all aspects of the traditional resume, as well as a personal bio sections and customizable skill sets to distinguish yourself.  Once matched, you are placed in direct contact with employers. View a list of all matches and apply at the click of a button. Be contacted directly by interested employers. No extra websites, no spam, no hassle.</p>
             <p>Initially, we are launching our service for business sectors of the Greater Tri-State Area. Create a profile today to instantly see companies that would love to have you onboard. After all, it’s free. What is there to lose?</p>
           </div>
