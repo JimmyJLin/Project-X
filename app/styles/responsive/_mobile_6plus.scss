@@ -17,3 +17,19 @@
     margin-right: 25px;
   }
 }
+
+#error_page{
+  padding-top: 170px;
+  padding-bottom: 50px;
+  height: 500px;
+
+  #error_404{
+    font-size: 3em;
+  }
+  img{
+    height: 140px;
+    width: auto;
+    padding-left: 5%;
+  }
+
+}
