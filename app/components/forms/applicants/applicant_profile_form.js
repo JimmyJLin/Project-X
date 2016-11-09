@@ -691,8 +691,8 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      browserHistory.push('/Applicant_skill_form')
-      // window.location.assign('/Applicant_skill_form')
+      // browserHistory.push('/Applicant_skill_form')
+      window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {

@@ -24,7 +24,7 @@ class Employer_profile extends Component {
       company_logo: '',
       active_jobs: '',
       archived_jobs: '',
-      isLoading: false
+      // isLoading: false
     }
 
   }
@@ -37,7 +37,7 @@ class Employer_profile extends Component {
     const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
     $.get(employerUrl).done( (data)=>{
 
-      if (data[0].company_industry == null || '') {
+      if (data[0].company_name == null || '') {
         bgridserHistory.push('/employer_profile_form');
 
       } else {
@@ -54,7 +54,7 @@ class Employer_profile extends Component {
        this.state.company_industry = data[0].company_industry;
        this.state.company_branch = data[0].company_branch;
        this.state.company_logo = data[0].company_logo;
-       this.state.isLoading = true
+      //  this.state.isLoading = true
 
 
        this.setState({
@@ -72,7 +72,7 @@ class Employer_profile extends Component {
          company_industry: this.state.company_industry,
          company_branch: this.state.company_branch,
          company_logo: this.state.company_logo,
-         isLoadindg: true
+        //  isLoadindg: true
 
        })
 
