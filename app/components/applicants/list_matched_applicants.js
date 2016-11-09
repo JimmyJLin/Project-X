@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
+import _ from 'underscore';
 
 let certificateState = [];
 let jobSkillsState = [];
@@ -23,8 +24,8 @@ class List_matched_applicants extends Component {
       job_experiences: [],
       job_experiencesArr:[],
       sortedList : [],
-      filteredJobs: {},
-      isLoading: false
+      filteredApplicants: {}
+
     }
   }
 
@@ -33,9 +34,10 @@ class List_matched_applicants extends Component {
     if(localStorage.getItem('isLoaded') !== 'yes'){
       localStorage.setItem('isLoaded', 'yes');
       window.location.reload(true)
+
     }
 
-    console.log("hello from List_matched_applicants componentDidMount")
+    console.log("hello from list_matched_applicants componentDidMount")
     let applicant_id = this.props.params.id
     let url = "https://apex-database.herokuapp.com/api/applicants/"
     // get all matched Applicants data
@@ -44,13 +46,8 @@ class List_matched_applicants extends Component {
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
 
-      this.state.isLoading = true
-      console.log("setting this.state.isLoading to -->: ", this.state.isLoading)
-
-
       this.setState({
-        job_applicants: this.state.job_applicants,
-        isLoading: true
+        job_applicants: this.state.job_applicants
       })
 
     })
@@ -71,47 +68,62 @@ class List_matched_applicants extends Component {
     }
   }
 
-  UpdateTheFilter(name, val){
-    var filteredArr;
-      if (val == 'all'){
-        this.state.filteredApplicants[name] = this.state.job_applicants;
-      } else {
-         filteredArr  = this.state.job_applicants.filter( (obj) =>{
-                        return obj[name] == val })
-                        console.log('this is my filtered Array', filteredArr)
-        this.state.filteredApplicants[name] = filteredArr
-    }
-  }
-
-  UpdateTheFilterForEducationLevel(name, val){
-
-     console.log('testttttt', this.state.job_applicants[0].school[0].includes('Current Student')); //=>true
-
+   UpdateTheFilter(name, val){
      var filteredArr;
        if (val == 'all'){
          this.state.filteredApplicants[name] = this.state.job_applicants;
        } else {
-
-      filteredArr  = this.state.job_applicants.filter( (obj) =>{
-                     console.log(obj.id, obj.school)
-                     obj.educationMatching = false;
-                     for (var n in obj.school){
-                       if( obj.school[n].includes(val)){
-                         obj.educationMatching = true;
-                         break;
-                       }
-                     }
-                     return obj.educationMatching == true
-                   })
-
-                     console.log('Line 89 this is my filtered Array', filteredArr)
-     this.state.filteredApplicants[name] = filteredArr
-   }
+          filteredArr  = this.state.job_applicants.filter( (obj) =>{
+                         return obj[name] == val })
+                         console.log('this is my filtered Array', filteredArr)
+         this.state.filteredApplicants[name] = filteredArr
+     }
   }
 
-  UpdateTheFilterForArray(name, val){
-    console.log('testtttttestttttesttttt', name, val)
+  UpdateTheFilterForEducationLevel(name, val){
+
+    console.log('testttttt', this.state.job_applicants[0].school[0].includes('Current Student')); //=>true
+
+    var filteredArr;
+      if (val == 'all'){
+        this.state.filteredApplicants[name] = this.state.job_applicants;
+      } else {
+
+     filteredArr  = this.state.job_applicants.filter( (obj) =>{
+                    console.log(obj.id, obj.school)
+                    obj.educationMatching = false;
+                    for (var n in obj.school){
+                      if( obj.school[n].includes(val)){
+                        obj.educationMatching = true;
+                        break;
+                      }
+                    }
+                    return obj.educationMatching == true
+                  })
+
+                    console.log('Line 89 this is my filtered Array', filteredArr)
+    this.state.filteredApplicants[name] = filteredArr
   }
+ }
+
+ UpdateTheFilterForArray( name , array){
+    console.log('line 110 passed array', array)
+
+      this.state.filteredApplicants[name] =  array
+    }
+
+//  UpdateTheFilter(name, val){
+//    var filteredArr;
+//      if (val == 'all'){
+//        this.state.filteredApplicants[name] = this.state.job_applicants;
+//      } else {
+//         filteredArr  = this.state.job_applicants.filter( (obj) =>{
+//                        return obj[name] == val })
+//                        console.log('this is my filtered Array', filteredArr)
+//        this.state.filteredApplicants[name] = filteredArr
+//    }
+// }
+
 
   updateTheFinalList(){
     var ffinal = [];
@@ -122,39 +134,43 @@ class List_matched_applicants extends Component {
     console.log("finalList --->", finalList)
 
     var valuessoffilteredApplicants = Object.values(finalList);
-    console.log("valuessoffilteredApplicants --->", valuessoffilteredApplicants)
+    console.log("valuessoffilteredApplicants --->", valuessoffilteredApplicants) //=>[ [ [],[],[],[] ] ]
 
     var selectedIds= []; //=> [[],[]]
 
     for (var i = 0; i <valuessoffilteredApplicants.length; i++ ){
       var arr = [];
-      valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.id) })
+      valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
+      console.log('tessssttt arrray ', arr)
       selectedIds.push(arr)
     }
-    console.log('+++++++++', selectedIds.map( (el)=>{
-      return el
+   console.log('+++++++++', selectedIds.map( (el)=>{
+     return el
     }))
 
-
+    console.log('line 136', selectedIds[0])
     var intersectionIds;
     switch ( selectedIds.length) {
+    case 0:
+      console.log('there is no intersection')
+      break;
     case 1:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0] );
       break;
     case 2:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1] );
       break;
     case 3:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2] );
       break;
     case 4:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] );
       break;
     case 5:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
       break;
     case 6:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  );
       break;
     default:
     break ;
@@ -164,18 +180,20 @@ class List_matched_applicants extends Component {
 
       for ( var i in intersectionIds ){
           jobsState.forEach( (obj)=>{
-            if ( obj.id == intersectionIds[i] ) {
+            if ( obj.ui == intersectionIds[i] ) {
                 ffinal.push(obj) }
               })
                 console.log(final)
           }
           final = ffinal;
-    console.log(final)
-    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.id})}))
+    console.log('this is the final', final, ffinal)
+    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.ui})}))
     //
     // console.log('this state filteredApplicants', finalList,keysoffilteredApplicants, intersectionIds ,areIDs)
 
   }
+
+
 
   componentWillUpdate(){
     this.updateTheFinalList()
@@ -190,35 +208,25 @@ class List_matched_applicants extends Component {
   }
 
   onJobSkillsChange(job_skills){
+
     jobSkillsState.push(job_skills)
     this.setState({job_skills: jobSkillsState})
-    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
 
+    console.log("this.state.job_skills -->", this.state.job_skills)
+    this.UpdateTheFilterForArray(this.state.job_skills)
+
+    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
   }
+
 
   onExperienceChange(job_experiences){
     jobExperienceState.push(job_experiences)
     this.setState({job_experiences: jobExperienceState})
     // console.log("onExperienceChange Clicked", this.state.job_experiences)
+    this.UpdateTheFilterForArray(job_experiences, this.state.job_experiences)
   }
 
   render(){
-
-    // spinner starts
-    let spinner;
-    if (this.state.isLoading == false) {
-      console.log("line 208 - this.state.isLoading", this.state.isLoading)
-      spinner = <div className="ui segment">
-                  <div id="spinner" className="ui active dimmer">
-                    <div className="ui massive text loader"> Loading ...</div>
-                  </div>
-                </div>
-
-    } else if (this.state.isLoading == true) {
-      console.log("line 216 - this.state.isLoading", this.state.isLoading)
-      spinner = <div></div>
-    }
-    // spinner ends
 
     let change = function(e){
       e.preventDefault();
@@ -254,6 +262,7 @@ class List_matched_applicants extends Component {
     }
 
     var jobArray;
+    console.log('this is my final', final)
       if (final.length == 0 ){
         jobArray = this.state.job_applicants
         console.log("YESSSSSS -----", jobArray)
@@ -262,19 +271,19 @@ class List_matched_applicants extends Component {
         console.log("NOOOOOOO ----", jobArray)
       }
 
-    const job_applicants = this.state.job_applicants
+    // const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
-      console.log("image url  .... ", url)
-      const link = `/Matched_applicant/` + applicant.ui
-      return <Link to={link} className="card" key={applicant.ui} >
+      // console.log("image url  .... ", url)
+      const link = `/Matched_applicant/` + applicant.user_id
+      return <Link to={link} className="card" key={applicant.user_id} >
               <div className="content">
                 <img className="left floated tiny ui middle aligned image" src={url} alt="profile pic"/>
                 <div className="header">
                   {applicant.first_name} {applicant.last_name}
                 </div>
                 <div className="meta">{applicant.id}</div>
-                <div className="description">
+                <div className="decription">
                   {applicant.education_level}
                   <br/>
                   {applicant.school}
@@ -284,26 +293,22 @@ class List_matched_applicants extends Component {
                   {applicant.experience_level}
                 </div>
                 <br/>
-                <br/>
-                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.ui} value={applicant.ui} className="ui blue button small solid contact" onClick={change}><i className="icon mail"></i>Contact</button>
+                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button" onClick={change}><i className="icon mail"></i>Contact</button>
 
               </div>
             </Link>
 
     })
 
-    console.log("job_applicants from state", job_applicants)
+    // console.log("job_applicants from state", job_applicants)
 
     return(
       <div id="list_jobs">
-        {/* Spinner Starts */}
-          {/*{spinner}*/}
-        {/* Spinner Ends */}
         <h1>Current Matched Applicant Lists</h1>
 
         <div className="ui stackable grid">
           <div className="four wide column">
-            <div className="ui center aligned raised segment">
+            <div className="ui center aligned basic segment">
               <h2>Filter By:</h2>
               <div className="field">
 
@@ -313,6 +318,7 @@ class List_matched_applicants extends Component {
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Entry Level"> 0-2 Years (Entry Level)</option>
                     <option value="Mid Level">2-5 Years (Mid-Level)</option>
                     <option value="High Level">5+ Years (High-Level)</option>
@@ -325,6 +331,7 @@ class List_matched_applicants extends Component {
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Current Student">Current Student</option>
                     <option value="High School/GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
@@ -344,6 +351,7 @@ class List_matched_applicants extends Component {
                   value={this.state.industry}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
                     <option value="Health">Health</option>
@@ -357,6 +365,7 @@ class List_matched_applicants extends Component {
                   value={this.state.job_skills}
                   onChange={e => this.onJobSkillsChange(e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Wealth Management">Wealth Management</option>
                     <option value="Investment Banking">Investment Banking</option>
                     <option value="Asset Management">Asset Management</option>
@@ -388,6 +397,7 @@ class List_matched_applicants extends Component {
                   value={this.state.job_experiences}
                   onChange={e => this.onExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Client Relations">Client Relations</option>
                     <option value="Microsoft Office">Microsoft Office</option>
                     <option value="Quickbooks">Quickbooks</option>
@@ -415,9 +425,8 @@ class List_matched_applicants extends Component {
               </div>
             </div>
           </div>
-
           <div id="profile_title" className="twelve wide column">
-            <div className="ui centered cards">
+            <div className="ui cards">
               {applicants}
             </div>
           </div>
