@@ -232,7 +232,7 @@ class Applicant_profile_form extends Component {
     //   companyArry: []
     // })
 
-    // window.location.assign('/Applicant_skill_form')
+    window.location.assign('/Applicant_skill_form')
 
 
   }
@@ -691,13 +691,13 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      // browserHistory.push('/Applicant_skill_form')
+      browserHistory.push('/Applicant_skill_form')
       // window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
 
-      // browserHistory.push('/Applicant_skill_form')
+      browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 

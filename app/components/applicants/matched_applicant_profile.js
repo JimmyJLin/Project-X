@@ -174,6 +174,8 @@ class Matched_applicant_profile extends Component {
       return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
     })
 
+    let resume_pdf = this.state.applicantProfile.resume_pdf
+
     return(
         <div id="applicant_profile">
 
@@ -322,7 +324,7 @@ class Matched_applicant_profile extends Component {
             <div className="column">
               <h4>Resume</h4>
               <div className="ui center aligned basic segment">
-                <a href="images/jimmy_lin_resume.pdf" className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
+                <a href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
               </div>
             </div>
             <div className="column">
