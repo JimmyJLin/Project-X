@@ -115,8 +115,8 @@ server.get('*', (req, res, next)=> {
 server.use((err, req, res, next)=> {
   console.log(err.stack);
   // TODO report error here or do some further handlings
-  res.status(500).send("something went wrong...")
-  window.location.assign('/')
+  // res.status(500).send("something went wrong...")
+  res.redirect('/error')
 })
 
 console.log(`Server is listening to port: ${port}`);

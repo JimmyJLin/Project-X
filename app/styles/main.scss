@@ -98,6 +98,24 @@ body {
 
 }
 
+#error_page{
+  padding-left: 25%;
+  padding-top: 150px;
+  padding-bottom: 50px;
+  margin-bottom: 25%;
+  height: 500px;
+
+  #error_404{
+    font-size: 8em;
+  }
+  img{
+    height: 340px;
+    width: auto;
+    padding-left: 25%;
+  }
+
+}
+
 // Mobile & Tablet @media imports
 
 // iPhone 4

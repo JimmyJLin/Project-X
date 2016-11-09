@@ -18,3 +18,21 @@
     }
   }
 }
+
+
+#error_page{
+  padding-top: 190px;
+  padding-bottom: 50px;
+  margin-bottom: 25%;
+  height: 500px;
+
+  #error_404{
+    font-size: 8em;
+  }
+  img{
+    height: 340px;
+    width: auto;
+    padding-left: 5%;
+  }
+
+}
