@@ -33,7 +33,6 @@ class List_matched_applicants extends Component {
     if(localStorage.getItem('isLoaded') !== 'yes'){
       localStorage.setItem('isLoaded', 'yes');
       window.location.reload(true)
-
     }
 
     console.log("hello from list_matched_applicants componentDidMount")
@@ -198,7 +197,7 @@ class List_matched_applicants extends Component {
 
     // console.log("onJobSkillsChange Clicked", this.state.job_skills)
   }
-  
+
 
   onExperienceChange(job_experiences){
     jobExperienceState.push(job_experiences)
