@@ -225,7 +225,7 @@ function postJob(jobData){
   $.post('https://apex-database.herokuapp.com/api/jobs/new', jobData)
     .done((data) => {
       console.log('success', data)
-      browserHistory.push('/employer_profile'); // redirects to profile
+      browserHistory.push('/list_jobs'); // redirects to profile
     })
     .error((error) => {
       console.error('Posting action is failed', error);
