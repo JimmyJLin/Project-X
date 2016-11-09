@@ -86,7 +86,7 @@ class EmployerSignupForm extends React.Component {
             type: 'success',
             text: 'You signed up successfully. Welcome!'
           });
-          this.context.router.push('/login');
+          this.context.router.push('/employer_login');
         },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
@@ -235,7 +235,7 @@ render() {
                 field="company_website"
               />
               </div>
-              
+
               <br/>
               <div className="inline field required">
                 <div className="ui toggle checkbox">
