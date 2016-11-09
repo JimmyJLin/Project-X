@@ -3,9 +3,10 @@ $(function(){
 
   // Reset Filter
   $('#reset_button').on('click', function(){
-    $(".ui.fluid.normal.dropdown").dropdown("clear")
+    $(".ui.fluid.dropdown").dropdown("clear")
 
   })
+
 
   // Reset Applicant Form
   $('#add_additional').on('click', function(){

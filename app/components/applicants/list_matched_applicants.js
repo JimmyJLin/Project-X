@@ -200,20 +200,23 @@ class List_matched_applicants extends Component {
   }
 
 
-  onIndustryExperienceChange(industry_experience){
-    jobExperienceState.push(industry_experience)
-    this.setState({industry_experience: jobExperienceState})
-    // console.log("onIndustryExperienceChange Clicked")
-
-  }
+  // onIndustryExperienceChange(industry_experience){
+  //   jobExperienceState.push(industry_experience)
+  //   this.setState({industry_experience: jobExperienceState})
+  //   // console.log("onIndustryExperienceChange Clicked")
+  //
+  // }
 
   onJobSkillsChange(job_skills){
+    console.log("job_skills --->", job_skills)
 
     jobSkillsState.push(job_skills)
+    console.log("jobSkillsState --->", jobSkillsState)
+
     this.setState({job_skills: jobSkillsState})
 
     console.log("this.state.job_skills -->", this.state.job_skills)
-    this.UpdateTheFilterForArray(this.state.job_skills)
+    this.UpdateTheFilterForArray(job_skills, this.state.job_skills)
 
     // console.log("onJobSkillsChange Clicked", this.state.job_skills)
   }
@@ -273,32 +276,56 @@ class List_matched_applicants extends Component {
 
     // const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
+
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
-      const link = `/Matched_applicant/` + applicant.user_id
-      return <Link to={link} className="card" key={applicant.user_id} >
+      const link = `/Matched_applicant/` + applicant.ui
+      return <Link to={link} className="card list" key={applicant.ui} >
               <div className="content">
-                <img className="left floated tiny ui middle aligned image" src={url} alt="profile pic"/>
+                <img className="right floated tiny ui image" src={url} alt="profile pic"/>
                 <div className="header">
-                  {applicant.first_name} {applicant.last_name}
+                  {applicant.name} {applicant.last_name}
                 </div>
-                <div className="meta">{applicant.id}</div>
-                <div className="decription">
-                  {applicant.education_level}
+                <div className="meta">
+                  {applicant.desired_industry}
+                </div>
+                <div className="description">
+                  {applicant.experience_level}
                   <br/>
                   {applicant.school}
                   <br/>
-                  {applicant.desired_industry}
-                  <br/>
-                  {applicant.experience_level}
                 </div>
-                <br/>
-                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button" onClick={change}><i className="icon mail"></i>Contact</button>
-
               </div>
+              <br/>
+              <br/>
+              <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
             </Link>
 
     })
+
+    // <div className="card">
+    //
+    //   <div className="content">
+    //     <img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg" />
+    //     <div className="header">
+    //       Elliot Fu
+    //     </div>
+    //     <div className="meta">
+    //       Friends of Veronika
+    //     </div>
+    //     <div className="description">
+    //       Elliot requested permission to view your contact details
+    //     </div>
+    //   </div>
+    //
+    //   <div class="extra content">
+    //     <div class="ui two buttons">
+    //       <div class="ui basic green button">Approve</div>
+    //       <div class="ui basic red button">Decline</div>
+    //     </div>
+    //   </div>
+    //
+    // </div>
 
     // console.log("job_applicants from state", job_applicants)
 
@@ -312,6 +339,9 @@ class List_matched_applicants extends Component {
               <h2>Filter By:</h2>
               <div className="field">
 
+                <div id="reset_button" className="ui button small" >Clear Filters</div>
+                <br/>
+                <br/>
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Work Experience (Full Employment)</label>
