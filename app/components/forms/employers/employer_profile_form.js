@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import $ from 'jquery';
+import {browserHistory} from 'react-router';
 
 class Employer_profile_form extends Component {
 
@@ -343,6 +344,7 @@ function postOneEmployer(employerProfileData, employerProfileImage) {
       console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
       postEmployerImage(data.id, employerProfileImage)
 
+      browserHistory.push('/employer_profile');
 
     })
     .error((error) => {
@@ -363,9 +365,9 @@ function postEmployerImage( id, imgObj) {
   })
   req.end(function(err, res){
     if (err || !res.ok) {
-      alert('Oh no! error');
+      // alert('Oh no! error');
     } else {
-      alert('yay got ' + JSON.stringify(res.body));
+      // alert('yay got ' + JSON.stringify(res.body));
     }
   })
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
-import {bgridserHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 
 class Employer_profile extends Component {
@@ -37,8 +37,8 @@ class Employer_profile extends Component {
     const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
     $.get(employerUrl).done( (data)=>{
 
-      if (data[0].company_name == null || '') {
-        bgridserHistory.push('/employer_profile_form');
+      if (data[0].company_logo == null || '') {
+        browserHistory.push('/employer_profile_form');
 
       } else {
        this.state.company_name = data[0].company_name;
@@ -110,6 +110,8 @@ class Employer_profile extends Component {
 
  }
 
+
+
   render(){
 
     // spinner starts
@@ -128,6 +130,19 @@ class Employer_profile extends Component {
     }
     // spinner ends
 
+    let branch_location;
+    if (this.state.company_branch == null || this.state.company_branch == ''){
+      console.log("oh nooooo")
+      branch_location = <div className="ui label details">
+                          Add Location
+                        </div>
+    } else {
+      console.log("oh yessss")
+
+      branch_location = <div className="ui label details">
+                          {this.state.company_branch}
+                        </div>
+    }
 
     console.log("this.state.company_logo", this.state.company_logo)
     const loader = function(){
@@ -172,9 +187,7 @@ class Employer_profile extends Component {
               <div className="twelve wide column">
                 <div className="ui horizontal list centered aligned middle grid">
                   <div className="content">
-                    <div className="ui label details">
-                    {this.state.company_industry}
-                    </div>
+                    {branch_location}
                   </div>
                 </div>
               </div>

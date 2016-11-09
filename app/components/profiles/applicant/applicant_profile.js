@@ -62,7 +62,7 @@ class Applicant_profile extends Component {
           school_data: this.state.school_data,
           work_history: this.state.work_history,
           languages_spoken: this.state.languages_spoken,
-          isLoadindg: true
+          isLoading: true
 
         })
       }
@@ -79,8 +79,7 @@ class Applicant_profile extends Component {
        this.state.job_skills = data;
 
        this.setState({
-        job_skills: this.state.job_skills,
-        isLoadindg: true
+        job_skills: this.state.job_skills
       })
 
      })
