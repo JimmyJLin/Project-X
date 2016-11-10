@@ -17,7 +17,7 @@ export default class Footer extends Component {
               </div>
 
               <div className="column">
-              <Link to="/terms_and_conditions#main_content"><span>Terms and Conditions</span></Link>
+              <Link to="/terms_and_conditions"><span>Terms and Conditions</span></Link>
               </div>
 
               <div className="column">

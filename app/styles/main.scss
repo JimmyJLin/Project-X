@@ -63,9 +63,14 @@ body {
 }
 
 
+#applicant_signup_button, #employer_profile_signup_button{
+  font-size: 1.5em;
+}
 
 // right panel nav menu
 #main_header_menu{
+
+
   #menu_top{
     background-color: $menu_top_primary_background_color;
 

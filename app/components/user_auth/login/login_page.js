@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
       <div className="forwardlogin">
           <ApplicantLoginForm  />
           <br/>
-          <p>Not a member yet ... <Link to="/signup">Sign Up</Link></p>
+          <p>Not a member yet ... <Link to="/signup" id="applicant_signup_button"><span id="signup">Sign Up</span></Link></p>
     </div>
     );
   }

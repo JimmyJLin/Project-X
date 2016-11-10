@@ -282,8 +282,9 @@ class List_matched_applicants extends Component {
       const link = `/Matched_applicant/` + applicant.ui
       return <Link to={link} className="card list" key={applicant.ui} >
               <div className="content">
-                <img className="right floated tiny ui image" src={url} alt="profile pic"/>
+                <img className="left floated tiny ui image" src={url} alt="profile pic"/>
                 <div className="header">
+                  <br/>
                   {applicant.name} {applicant.last_name}
                 </div>
                 <div className="meta">
@@ -292,7 +293,7 @@ class List_matched_applicants extends Component {
                 <div className="description">
                   {applicant.experience_level}
                   <br/>
-                  {applicant.school}
+                  {applicant.certifications}
                   <br/>
                 </div>
               </div>

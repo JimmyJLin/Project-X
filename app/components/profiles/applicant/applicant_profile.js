@@ -162,7 +162,7 @@ class Applicant_profile extends Component {
 
     let profile_image;
 
-    if(this.state.applicantProfile.profile_image == ""){
+    if(this.state.applicantProfile.profile_image == "" || this.state.applicantProfile.profile_image == null){
       // console.log("no image")
       profile_image = <img className="ui medium circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
     } else {

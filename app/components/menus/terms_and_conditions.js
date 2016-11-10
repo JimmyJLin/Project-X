@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import { connect } from 'react-redux';
 
-export default class TermsAndConditions extends Component {
+class TermsAndConditions extends Component {
+
+  componentDidMount(){
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+    }
+
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  }
 
   render(){
     return(
 
       <div id="terms_and_conditions">
-
+        <div className="top" id="top"></div>
         <div className="ui segment">
           <div className="main_content">
             <h1>Terms and Conditions</h1>
@@ -246,3 +265,10 @@ export default class TermsAndConditions extends Component {
   }
 
 }
+
+
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps)(TermsAndConditions);

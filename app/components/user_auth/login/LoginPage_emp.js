@@ -11,7 +11,7 @@ class LoginPage_emp extends React.Component {
       <div className="forwardlogin">
           <EmploymentLoginForm  />
           <br/>
-          <p>Not a member yet ... <Link to="employer_signup">Sign Up</Link> </p>
+          <p>Not a member yet ... <Link to="employer_signup" id="employer_profile_signup_button"><span id="signup">Sign Up</span></Link> </p>
 
     </div>
     );

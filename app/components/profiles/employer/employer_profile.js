@@ -132,16 +132,67 @@ class Employer_profile extends Component {
 
     let branch_location;
     if (this.state.company_branch == null || this.state.company_branch == ''){
-      console.log("oh nooooo")
       branch_location = <div className="ui label details">
-                          Add Location
+                          Missing Branch Information
+                          <br/>
+                          <br/>
+                          <Link to="employer_profile_form"><button className="ui button small solid">Update Profile</button></Link>
                         </div>
     } else {
-      console.log("oh yessss")
-
       branch_location = <div className="ui label details">
                           {this.state.company_branch}
                         </div>
+    }
+
+    let industry;
+    if (this.state.company_industry == null || this.state.company_industry == ''){
+      industry = <div className="ui label details">
+                          Missing Industry Information
+                          <br/>
+                          <br/>
+                          <Link to="employer_profile_form"><button className="ui button small solid">Update Profile</button></Link>
+                        </div>
+    } else {
+      industry = <div className="ui label details">
+                  Hiring Dept Email:
+                  <div className="detail">{this.state.company_industry}</div>
+                </div>
+    }
+
+
+
+    let hiringEmail;
+    if (this.state.company_email == null || this.state.company_email == ''){
+      hiringEmail = <div className="ui label details">
+                          Missing Email Information
+                          <br/>
+                          <br/>
+                          <Link to="employer_profile_form"><button className="ui button small solid">Update Profile</button></Link>
+                        </div>
+    } else {
+      hiringEmail = <div className="ui label details">
+                      Hiring Dept Email:
+                      <div className="detail">{this.state.company_email}</div>
+                    </div>
+    }
+
+    let companyDescription;
+    if (this.state.company_description == null || this.state.company_description == ''){
+      companyDescription = <div className="ui horizontal list centered aligned middle grid">
+                            <div className="content">
+                              <div className="ui label details">
+                                Missing Company Bio
+                              </div>
+                              <br/>
+                              <br/>
+                              <Link to="employer_profile_form"><button className="ui button small solid">Update Profile</button></Link>
+                            </div>
+                          </div>
+    } else {
+      companyDescription = <div>
+                            <h2>Company Description</h2>
+                            <p>{this.state.company_description}</p>
+                          </div>
     }
 
     console.log("this.state.company_logo", this.state.company_logo)
@@ -151,12 +202,12 @@ class Employer_profile extends Component {
 
     let profile_image;
 
-    if(this.state.company_logo == null){
+    if(this.state.company_logo == null || this.state.company_logo == ''){
       // console.log("no image")
-      profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
     } else {
       // console.log("yes image")
-      profile_image = <img className="ui small circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
+      profile_image = <img className="ui medium circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
     }
 
     return(
@@ -198,7 +249,8 @@ class Employer_profile extends Component {
           {/* Description */}
           <div id="bio" className="twelve wide column">
             <h2>Company Description</h2>
-            <p>{this.state.company_description}</p>
+            <br/>
+            {companyDescription}
           </div>
 
 
@@ -235,10 +287,7 @@ class Employer_profile extends Component {
 
                   <div className="ui horizontal list centered aligned middle grid">
                     <div className="content">
-                      <div className="ui label details">
-                        Hiring Dept Email:
-                        <div className="detail">{this.state.company_email}</div>
-                      </div>
+                      {hiringEmail}
                     </div>
                   </div>
 
@@ -260,19 +309,7 @@ class Employer_profile extends Component {
 
                   <div className="ui horizontal list centered aligned middle grid">
                     <div className="content">
-                      <div className="ui label details">
-                        Branch Location:
-                        <div className="detail">{this.state.company_branch}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="ui horizontal list centered aligned middle grid">
-                    <div className="content">
-                      <div className="ui label details">
-                        Industry:
-                        <div className="detail">{this.state.company_industry}</div>
-                      </div>
+                      {industry}
                     </div>
                   </div>
 

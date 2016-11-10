@@ -111,6 +111,7 @@ class Applicant_skill_form extends Component {
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
+
   }
 
   seeValue(e){
@@ -171,6 +172,13 @@ class Applicant_skill_form extends Component {
 
  handleSubmitData(e){
    e.preventDefault;
+
+   modalState = true;
+   this.setState({
+     modal: true
+   })
+
+
    var data = this.state;
   //  postSkillDetails(data)
    var keys = Object.keys(data);
@@ -194,12 +202,16 @@ class Applicant_skill_form extends Component {
        };
       }
 
+  alert("Application Form Submitted, Press OK to continue")
+
    browserHistory.push('/applicant_profile')
 
  }
 
 
+
   render(){
+
 
     var Firstcolumn_skills = All_Experiences[0].map( (el)=>{
       var text = el.replace(/_/g,' ')

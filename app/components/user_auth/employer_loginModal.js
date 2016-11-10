@@ -18,7 +18,7 @@ class Employment_loginModal extends React.Component {
 
           <br/>
 
-          <p>Not a member yet ... <Link id="employer_profile_signup_button">Sign Up</Link> </p>
+          <p>Not a member yet ... <Link id="employer_profile_signup_button"><span id="signup">Sign Up</span></Link> </p>
 
         </div>
 

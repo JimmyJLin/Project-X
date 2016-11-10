@@ -59,6 +59,12 @@ class Applicant_profile_form extends Component {
       window.location.reload(true)
     }
 
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
   }
 
   handleSubmit(e) {
@@ -433,7 +439,7 @@ class Applicant_profile_form extends Component {
               <div className="field">
                 {/* Interested in Jobs in */}
                 <div>
-                  <label>Interested In Working</label>
+                  <label>Prefered Location</label>
                   <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
@@ -504,9 +510,9 @@ class Applicant_profile_form extends Component {
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Entry Level"> 0-2 Years (Entry Level)</option>
-                    <option value="Mid Level">2-5 Years (Mid-Level)</option>
-                    <option value="High Level">5+ Years (High-Level)</option>
+                    <option value="0-2 Years Entry Level"> 0-2 Years (Entry Level)</option>
+                    <option value="2-5 Years Mid Level">2-5 Years (Mid-Level)</option>
+                    <option value="5+ Years High Level">5+ Years (High-Level)</option>
                   </select>
                 </div>
 

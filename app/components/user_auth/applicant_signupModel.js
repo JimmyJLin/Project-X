@@ -24,7 +24,7 @@ class Applicant_signupModel extends React.Component {
             addFlashMessage={addFlashMessage} />
 
          <br/>
-         <p>Aready have an account? <Link id="applicant_profile_login_button">Sign In</Link> </p>
+         <p>Aready have an account? <Link id="applicant_profile_login_button"><span id="signup">Sign Up</span></Link> </p>
 
        </div>
      </div>
