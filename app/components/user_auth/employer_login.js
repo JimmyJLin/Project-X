@@ -44,7 +44,7 @@ class EmploymentLoginForm extends React.Component {
         (err) => this.setState({ errors: true, isLoading: false })
       );
 
-      if (this.state.errors == true){
+      if (this.state.errors == false){
       } else {
         this.closeModal();
       }

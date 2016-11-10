@@ -47,7 +47,7 @@ class ApplicantLoginForm extends React.Component {
 
       console.log("error", this.state.error)
 
-      if (this.state.errors == true){
+      if (this.state.errors == false){
       } else {
         this.closeModal();
       }
@@ -74,7 +74,7 @@ class ApplicantLoginForm extends React.Component {
 
     }
 
-    console.log("this.state.errors", this.state.errors)
+    console.log("line 77 - this.state.errors", this.state.errors)
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
