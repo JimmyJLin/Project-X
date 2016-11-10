@@ -15,6 +15,7 @@ class ApplicantLoginForm extends React.Component {
       password: '',
       errors: false,
       type:'applicant',
+      authenticated: false,
       isLoading: false
     };
 
@@ -36,31 +37,40 @@ class ApplicantLoginForm extends React.Component {
   onSubmit(e) {
     console.log('login this.state before validate', this.state)
       e.preventDefault();
-
-      console.log('login this.state', this.state)
-      this.setState({ errors: false, isLoading: false });
+      // this.setState({ errors: false, isLoading: false });
 
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
-        (err) => this.setState({ errors: true, isLoading: false })
-      );
+        this.setState({authenticated: true}),
+        (err) => this.setState({authenticated: false, errors: true, isLoading: false })
+      )
 
-      console.log("error", this.state.error)
+      console.log("errors after submit --->", this.state.errors)
+      console.log("authenticated after submit --->", this.state.authenticated)
 
-      if (this.state.errors == false){
-      } else {
-        this.closeModal();
+
+      if (this.state.errors == false && this.state.authenticated == true){
+        this.hideModal();
+      } else if (this.state.errors == true && this.state.authenticated == false) {
+        this.showModal();
       }
-
+      // original = false false
+      // success = false false
+      // failed = false false
   }
 
     onChange(e) {
       this.setState({ [e.target.name]: e.target.value });
     }
 
-    closeModal(){
+    hideModal(e){
       $('.ui.small.modal.applicant.login').modal('hide')
     }
+
+    showModal(e){
+      $('.ui.small.modal.applicant.login').modal('show')
+    }
+
 
   render() {
     const { errors, email, password, isLoading } = this.state;
@@ -68,13 +78,14 @@ class ApplicantLoginForm extends React.Component {
     let authEror;
 
     if(this.state.errors == true){
-      console.log("ERROR")
       authEror = <div id="login_error_texts">Sorry, either your email or password was incorrect. Please double-check your email or password.</div>
     } else {
 
     }
 
-    console.log("line 77 - this.state.errors", this.state.errors)
+    console.log("errors before submit -->", this.state.errors)
+    console.log("authenticated before submit --->", this.state.authenticated)
+
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
