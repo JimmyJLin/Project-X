@@ -6,9 +6,22 @@ class Main extends Component {
 
 
   componentDidMount(){
-    if(localStorage.getItem('isLoaded') == 'yes'){
-      localStorage.setItem('isLoaded', 'no');
-    }
+
+      if(localStorage.getItem('isLoaded') !== 'yes'){
+        localStorage.setItem('isLoaded', 'yes');
+        window.location.reload(true)
+      }
+
+      window.setInterval(changeLoaded, 500)
+
+      function changeLoaded(){
+        localStorage.setItem('isLoaded', 'no');
+      }
+
+      window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+      }
+
     // window.location.reload(true)
 
   }

@@ -317,7 +317,7 @@ class Applicant_profile extends Component {
           <div className="ui divider"></div>
           {/* Additional Links , PDF Download, Languages */}
           <div className="ui equal width stackable grid">
-            <div className="column">
+            {/*<div className="column">
               <h4>Additional Links</h4>
               <br/>
               <div className="ui horizontal list centered aligned middle grid">
@@ -330,7 +330,7 @@ class Applicant_profile extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>*/}
             <div className="column">
               <h4>Resume</h4>
               <div className="ui center aligned basic segment">
@@ -352,7 +352,7 @@ class Applicant_profile extends Component {
 
           {/* Match Button*/}
           <div className="ui two column centered grid">
-            <Link to="/list_match#top">
+            <Link to="/list_match">
               <button className="ui button large">Match Your Dream Job Today</button>
             </Link>
           </div>

@@ -23,6 +23,26 @@ class Post_job extends Component {
     }
   }
 
+  componentDidMount() {
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+
+    }
+
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
@@ -120,11 +140,6 @@ class Post_job extends Component {
                 onChange={e => this.onJobLocationChange(e.target.value)}>
                   <option value="">Please Select</option>
                   <option value="New York">New York</option>
-                  <option value="London">London</option>
-                  <option value="Paris">Paris</option>
-                  <option value="Berlin ">Berlin </option>
-                  <option value="Tokyo">Tokyo</option>
-                  <option value="Los Angeles">Los Angeles</option>
                   <option value="Nassau County">Nassau County</option>
                   <option value="Suffolk County">Suffolk County</option>
                   <option value="Brooklyn">Brooklyn</option>

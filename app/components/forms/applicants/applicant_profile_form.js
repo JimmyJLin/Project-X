@@ -65,6 +65,10 @@ class Applicant_profile_form extends Component {
       localStorage.setItem('isLoaded', 'no');
     }
 
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
   }
 
   handleSubmit(e) {

@@ -108,8 +108,19 @@ class Applicant_skill_form extends Component {
     }
 
   componentDidMount(){
-    if(localStorage.getItem('isLoaded') == 'yes'){
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+    }
+
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
       localStorage.setItem('isLoaded', 'no');
+    }
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
     }
 
   }

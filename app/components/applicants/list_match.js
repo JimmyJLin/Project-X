@@ -39,6 +39,16 @@ class List_match extends Component {
 
     }
 
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
+      localStorage.setItem('isLoaded', 'no');
+    }
+    
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
     // get all matched jobs data
     $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
       this.state.jobs = data
