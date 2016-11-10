@@ -38,7 +38,7 @@ class ApplicantLoginForm extends React.Component {
       e.preventDefault();
 
       console.log('login this.state', this.state)
-      this.setState({ errors: true, isLoading: false });
+      this.setState({ errors: false, isLoading: false });
 
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
@@ -48,9 +48,8 @@ class ApplicantLoginForm extends React.Component {
       console.log("error", this.state.error)
 
       if (this.state.errors == true){
-        this.closeModal();
       } else {
-        
+        this.closeModal();
       }
 
   }

@@ -78,7 +78,7 @@ class EmployerSignupForm extends React.Component {
     e.preventDefault();
     console.log('captures state on submit', this.state)
     // if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errorsState: false, isLoading: true });
 
       this.props.employerSignupRequest(this.state).then(
         () => {
@@ -95,8 +95,8 @@ class EmployerSignupForm extends React.Component {
     console.log("this.state.errorsState", this.state.errorsState)
 
     if (this.state.errors == true){
-      this.closeModal();
     } else {
+      this.closeModal();
     }
 
   }

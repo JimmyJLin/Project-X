@@ -127,14 +127,15 @@ class Applicant_skill_form extends Component {
 
   seeValue(e){
     e.preventDefault;
-    console.log( e.target.id, e.target.value)
+    console.log("line 130", e.target.id, e.target.value)
     var name = e.target.id;
     var level = e.target.value;
-    console.log(name,level)
+    console.log("line 133", name,level)
 
     var domEl = e.target.id
+    console.log("line 136", parentEl)
     var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
-    console.log(parentEl)
+    console.log("line 138", parentEl)
 
     switch(name){
       case 'Wealth_Wanagement': this.setState({ wealth_wanagement:level }); break;

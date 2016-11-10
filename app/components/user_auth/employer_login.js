@@ -38,16 +38,15 @@ class EmploymentLoginForm extends React.Component {
 
     // if (this.isValid()) {
       console.log('login this.state', this.state)
-      this.setState({ errors: true, isLoading: true });
+      this.setState({ errors: false, isLoading: true });
       this.props.login_employer(this.state).then(
         (res) => this.context.router.push('/employer_profile'),
         (err) => this.setState({ errors: true, isLoading: false })
       );
 
       if (this.state.errors == true){
-        this.closeModal();
       } else {
-
+        this.closeModal();
       }
     // }
   }
