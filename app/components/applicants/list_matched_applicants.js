@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
+import _ from 'underscore';
 
 let certificateState = [];
 let jobSkillsState = [];
 let jobExperienceState = [];
 var final= [];
+var filteredArrSkills=[];
+
 
 class List_matched_applicants extends Component {
   constructor(props) {
@@ -18,7 +21,7 @@ class List_matched_applicants extends Component {
       experience_level: '',
       education_level: '',
       industry: '',
-      job_skills: [],
+      job_skills: ["Bookkeeping"],
       job_skillsArr: [],
       job_experiences: [],
       job_experiencesArr:[],
@@ -33,6 +36,7 @@ class List_matched_applicants extends Component {
     if(localStorage.getItem('isLoaded') !== 'yes'){
       localStorage.setItem('isLoaded', 'yes');
       window.location.reload(true)
+
     }
 
     console.log("hello from list_matched_applicants componentDidMount")
@@ -51,7 +55,7 @@ class List_matched_applicants extends Component {
     })
   }
 
-
+//{***** On Change Functions *******}
   onFilterChange(name, val){
 
     console.log('name', 'val', name,val )
@@ -65,6 +69,38 @@ class List_matched_applicants extends Component {
       this.UpdateTheFilter(name, val);
     }
   }
+
+  onJobSkillsChange(job_skills_data){
+
+    if (jobSkillsState.includes(job_skills_data)){
+        jobSkillsState.push(job_skills_data) // this should delete selection
+    } else {
+        jobSkillsState.push(job_skills_data) // this should add selection
+   }
+    // job_skills are the selected skills.
+    this.setState({job_skills: jobSkillsState})
+
+    console.log(" line 214 this.state.job_skills -->", this.state.job_skills)
+    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
+    this.UpdateTheFilterForSkillsSelections( this.state.job_skills )
+  }
+
+  onExperienceChange(job_experiences_data){
+    if (jobExperienceState.includes(job_skills_data)){
+    jobExperienceState.push(job_experiences_data) // this should delete selection
+  } else {
+    jobExperienceState.push(job_experiences_data) // this should add selection
+  }
+
+    this.setState({job_experiences: jobExperienceState})
+    // console.log("onExperienceChange Clicked", this.state.job_experiences)
+
+  }
+
+
+
+
+  // { ******* UPDATE THE RENDERED APPLICANTS FUNCTIONS ************** }
 
    UpdateTheFilter(name, val){
      var filteredArr;
@@ -80,15 +116,13 @@ class List_matched_applicants extends Component {
 
   UpdateTheFilterForEducationLevel(name, val){
 
-    console.log('testttttt', this.state.job_applicants[0].school[0].includes('Current Student')); //=>true
-
     var filteredArr;
       if (val == 'all'){
         this.state.filteredApplicants[name] = this.state.job_applicants;
       } else {
 
      filteredArr  = this.state.job_applicants.filter( (obj) =>{
-                    console.log(obj.id, obj.school)
+
                     obj.educationMatching = false;
                     for (var n in obj.school){
                       if( obj.school[n].includes(val)){
@@ -100,58 +134,104 @@ class List_matched_applicants extends Component {
                   })
 
                     console.log('Line 89 this is my filtered Array', filteredArr)
-    this.state.filteredApplicants[name] = filteredArr
+                    this.state.filteredApplicants[name] = filteredArr
   }
  }
 
- UpdateTheFilterForArray(name, val){
-   console.log('testtttttestttttesttttt', name, val)
- }
+ UpdateTheFilterForSkillsSelections(array){
+   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
 
+    if (array.length == 0){
+       this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
+     } else {
+
+    array.forEach((skill)=>{
+
+      var tempArr   = this.state.job_applicants.filter( (obj) =>{
+
+                     obj.skillMatching = false;
+                     for (var n in obj.skills){
+                       if( obj.skills[n].includes(skill)){
+                         obj.skillMatching = true;
+                         break;
+                       }
+                     }
+                     return obj.skillMatching == true
+                   })
+          console.log('160', tempArr)
+          if (tempArr.length !== 0) {
+          filteredArrSkills.push(tempArr) }
+    })
+    this.state.filteredApplicants['job_skills'] = filteredArrSkills
+
+
+
+                   console.log('Line 89 this is my filtered Array', filteredArrSkills)
+ }
+}
+
+
+
+
+ // UpdateTheFilterForArray( name , array){
+ //
+ //      this.state.filteredApplicants[name] =  array
+ //    }
+
+//  UpdateTheFilter(name, val){
+//    var filteredArr;
+//      if (val == 'all'){
+//        this.state.filteredApplicants[name] = this.state.job_applicants;
+//      } else {
+//         filteredArr  = this.state.job_applicants.filter( (obj) =>{
+//                        return obj[name] == val })
+//                        console.log('this is my filtered Array', filteredArr)
+//        this.state.filteredApplicants[name] = filteredArr
+//    }
+// }
 
 
   updateTheFinalList(){
     var ffinal = [];
     var jobsState = this.state.job_applicants;
-    console.log("jobsState --->", jobsState)
 
     var finalList = this.state.filteredApplicants;
-    console.log("finalList --->", finalList)
 
     var valuessoffilteredApplicants = Object.values(finalList);
-    console.log("valuessoffilteredApplicants --->", valuessoffilteredApplicants)
 
     var selectedIds= []; //=> [[],[]]
 
     for (var i = 0; i <valuessoffilteredApplicants.length; i++ ){
       var arr = [];
-      valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.id) })
+      valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
       selectedIds.push(arr)
     }
-    console.log('+++++++++', selectedIds.map( (el)=>{
-      return el
+   console.log('+++++++++', selectedIds.map( (el)=>{
+     return el
     }))
-
 
     var intersectionIds;
     switch ( selectedIds.length) {
+    case 0:
+      console.log('there is no intersection')
+      break;
     case 1:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0] );
       break;
     case 2:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1] );
       break;
     case 3:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2] );
       break;
     case 4:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] );
       break;
     case 5:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
       break;
     case 6:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  );
       break;
     default:
     break ;
@@ -161,14 +241,14 @@ class List_matched_applicants extends Component {
 
       for ( var i in intersectionIds ){
           jobsState.forEach( (obj)=>{
-            if ( obj.id == intersectionIds[i] ) {
+            if ( obj.ui == intersectionIds[i] ) {
                 ffinal.push(obj) }
               })
-                console.log(final)
+                // console.log(final)
           }
           final = ffinal;
-    console.log(final)
-    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.id})}))
+    // console.log('this is the final', final, ffinal)
+    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.ui})}))
     //
     // console.log('this state filteredApplicants', finalList,keysoffilteredApplicants, intersectionIds ,areIDs)
 
@@ -181,31 +261,13 @@ class List_matched_applicants extends Component {
   }
 
 
-  onIndustryExperienceChange(industry_experience){
-    jobExperienceState.push(industry_experience)
-    this.setState({industry_experience: jobExperienceState})
-    // console.log("onIndustryExperienceChange Clicked")
+  // onIndustryExperienceChange(industry_experience){
+  //   jobExperienceState.push(industry_experience)
+  //   this.setState({industry_experience: jobExperienceState})
+  //   // console.log("onIndustryExperienceChange Clicked")
+  //
+  // }
 
-  }
-
-  onJobSkillsChange(job_skills){
-
-    jobSkillsState.push(job_skills)
-    this.setState({job_skills: jobSkillsState})
-
-    this.UpdateTheFilterForArray(job_skills, this.state.job_skills)
-
-    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  }
-
-
-  onExperienceChange(job_experiences){
-    jobExperienceState.push(job_experiences)
-    this.setState({job_experiences: jobExperienceState})
-    // console.log("onExperienceChange Clicked", this.state.job_experiences)
-    this.UpdateTheFilterForArray(job_experiences, this.state.job_experiences)
-
-  }
 
   render(){
 
@@ -243,44 +305,70 @@ class List_matched_applicants extends Component {
     }
 
     var jobArray;
+    // console.log('this is my final', final)
       if (final.length == 0 ){
         jobArray = this.state.job_applicants
-        console.log("YESSSSSS -----", jobArray)
+        // console.log("YESSSSSS -----", jobArray)
       } else {
         jobArray = final
-        console.log("NOOOOOOO ----", jobArray)
+        // console.log("NOOOOOOO ----", jobArray)
       }
 
-    const job_applicants = this.state.job_applicants
+    // const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
+
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
-      const link = `/Matched_applicant/` + applicant.user_id
-      return <Link to={link} className="card" key={applicant.user_id} >
+      const link = `/Matched_applicant/` + applicant.ui
+      return <Link to={link} className="card list" key={applicant.ui} >
               <div className="content">
-                <img className="left floated tiny ui middle aligned image" src={url} alt="profile pic"/>
+                <img className="left floated tiny ui image" src={url} alt="profile pic"/>
                 <div className="header">
-                  {applicant.first_name} {applicant.last_name}
+                  <br/>
+                  {applicant.name} {applicant.last_name}
                 </div>
-                <div className="meta">{applicant.id}</div>
-                <div className="decription">
-                  {applicant.education_level}
-                  <br/>
-                  {applicant.school}
-                  <br/>
+                <div className="meta">
                   {applicant.desired_industry}
-                  <br/>
-                  {applicant.experience_level}
                 </div>
-                <br/>
-                <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui blue button" onClick={change}><i className="icon mail"></i>Contact</button>
-
+                <div className="description">
+                  {applicant.experience_level}
+                  <br/>
+                  {applicant.certifications}
+                  <br/>
+                </div>
               </div>
+              <br/>
+              <br/>
+              <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
             </Link>
 
     })
 
-    console.log("job_applicants from state", job_applicants)
+    // <div className="card">
+    //
+    //   <div className="content">
+    //     <img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg" />
+    //     <div className="header">
+    //       Elliot Fu
+    //     </div>
+    //     <div className="meta">
+    //       Friends of Veronika
+    //     </div>
+    //     <div className="description">
+    //       Elliot requested permission to view your contact details
+    //     </div>
+    //   </div>
+    //
+    //   <div class="extra content">
+    //     <div class="ui two buttons">
+    //       <div class="ui basic green button">Approve</div>
+    //       <div class="ui basic red button">Decline</div>
+    //     </div>
+    //   </div>
+    //
+    // </div>
+
+    // console.log("job_applicants from state", job_applicants)
 
     return(
       <div id="list_jobs">
@@ -292,6 +380,9 @@ class List_matched_applicants extends Component {
               <h2>Filter By:</h2>
               <div className="field">
 
+                {/*<div id="reset_button" className="ui button small" >Clear Filters</div>
+                <br/>
+                <br/>*/}
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Work Experience (Full Employment)</label>
@@ -346,38 +437,6 @@ class List_matched_applicants extends Component {
                   onChange={e => this.onJobSkillsChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
-                    <option value="Wealth Management">Wealth Management</option>
-                    <option value="Investment Banking">Investment Banking</option>
-                    <option value="Asset Management">Asset Management</option>
-                    <option value="Institutional Securities">Institutional Securities</option>
-                    <option value="Commericial Banking">Commericial Banking</option>
-                    <option value="Retirement Solutions">Retirement Solutions</option>
-                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                    <option value="Financial Audit">Financial Audit</option>
-                    <option value="Tax Preparation">Tax Preparation</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Advisory Services">Advisory Services</option>
-                    <option value="Compliance">Compliance</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Underwriting">Underwriting</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Financial Analysis">Financial Analysis</option>
-                    <option value="Derivatives">Derivatives</option>
-                    <option value="M&A Activity">M&A Activity</option>
-                    <option value="Venture Capitol">Venture Capitol</option>
-                    <option value="Forensice Accounting">Forensice Accounting</option>
-                  </select>
-                </div>
-
-                {/* Experiences */}
-                <div>
-                  <label name="job_experiences">Experiences</label>
-                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiences}
-                  onChange={e => this.onExperienceChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="all">All</option>
                     <option value="Client Relations">Client Relations</option>
                     <option value="Microsoft Office">Microsoft Office</option>
                     <option value="Quickbooks">Quickbooks</option>
@@ -399,6 +458,38 @@ class List_matched_applicants extends Component {
                     <option value="Analytical Writing">Analytical Writing</option>
                     <option value="Cost Accounting">Cost Accounting</option>
                     <option value="Federal Tax Law">Federal Tax Law</option>
+                  </select>
+                </div>
+
+                {/* Experiences */}
+                <div>
+                  <label name="job_experiences">Experiences</label>
+                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
+                  value={this.state.job_experiences}
+                  onChange={e => this.onExperienceChange(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="all">All</option>
+                    <option value="Wealth Management">Wealth Management</option>
+                    <option value="Investment Banking">Investment Banking</option>
+                    <option value="Asset Management">Asset Management</option>
+                    <option value="Institutional Securities">Institutional Securities</option>
+                    <option value="Commericial Banking">Commericial Banking</option>
+                    <option value="Retirement Solutions">Retirement Solutions</option>
+                    <option value="Portfolio Strategy">Portfolio Strategy</option>
+                    <option value="Financial Audit">Financial Audit</option>
+                    <option value="Tax Preparation">Tax Preparation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Advisory Services">Advisory Services</option>
+                    <option value="Compliance">Compliance</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Underwriting">Underwriting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Financial Analysis">Financial Analysis</option>
+                    <option value="Derivatives">Derivatives</option>
+                    <option value="M&A Activity">M&A Activity</option>
+                    <option value="Venture Capitol">Venture Capitol</option>
+                    <option value="Forensice Accounting">Forensice Accounting</option>
                   </select>
                 </div>
 

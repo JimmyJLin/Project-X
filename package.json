@@ -11,8 +11,8 @@
     "postinstall": "npm run build"
   },
   "engines": {
-    "node": "6.1.0",
-    "npm": "3.8.6"
+    "node": "7.0.0",
+    "npm": "3.10.8"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-jwt": "^5.0.0",
+    "graceful-fs": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.4.tgz",
     "history": "^1.17.0",
     "humps": "^0.6.0",
     "immutable": "^3.8.1",
