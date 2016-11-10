@@ -12,7 +12,7 @@ class EmploymentLoginForm extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errors: {},
+      errors: false,
       type:'employer',
       isLoading: false
     };
@@ -38,12 +38,17 @@ class EmploymentLoginForm extends React.Component {
 
     // if (this.isValid()) {
       console.log('login this.state', this.state)
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errors: true, isLoading: true });
       this.props.login_employer(this.state).then(
         (res) => this.context.router.push('/employer_profile'),
-        (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
+        (err) => this.setState({ errors: true, isLoading: false })
       );
-      this.closeModal();
+
+      if (this.state.errors == true){
+        this.closeModal();
+      } else {
+
+      }
     // }
   }
 
@@ -58,6 +63,14 @@ class EmploymentLoginForm extends React.Component {
   render() {
     const { errors, email, password, isLoading } = this.state;
     const { isAuthenticated } = this.props.auth;
+    let authEror;
+
+    if(this.state.errors == true){
+      console.log("ERROR")
+      authEror = <div id="login_error_texts">Sorry, either your email or password was incorrect. Please double-check your email or password.</div>
+    } else {
+
+    }
 
     return (
 
@@ -89,6 +102,7 @@ class EmploymentLoginForm extends React.Component {
           type="password"
         />
         </div>
+        {authEror}
         <button className="ui button small" disabled={isLoading}>Login
         </button>
         <br/><br/>

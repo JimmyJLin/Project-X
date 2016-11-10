@@ -24,8 +24,14 @@ class Job extends Component {
     console.log("hello from componentDidMount")
     let job_id = this.props.params.id
 
-    if(localStorage.getItem('isLoaded') == 'yes'){
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
       localStorage.setItem('isLoaded', 'no');
+    }
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
     }
 
     // job details

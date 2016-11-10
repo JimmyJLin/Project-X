@@ -16,6 +16,7 @@ class ApplicantSignupForm extends React.Component {
       last_name:'',
       type:'applicant',
       errors: {},
+      errorsState: false,
       isLoading: false,
       invalid: false
     }
@@ -79,16 +80,29 @@ class ApplicantSignupForm extends React.Component {
           });
           this.context.router.push('/login');
         },
-        (err) => this.setState({ errors: err.response.data, isLoading: false })
+        (err) => this.setState({ errorsState: true, isLoading: false })
       );
     // }
-    this.closeModal();
+    console.log("this.state.errorsState", this.state.errorsState)
+    if (this.state.errors == true){
+      this.closeModal();
+    } else {
+    }
 
   }
 
 
 render() {
   const { errors } = this.state;
+
+  let authEror;
+
+  if(this.state.errorsState == true){
+    console.log("ERROR")
+    authEror = <div id="login_error_texts">Sorry, either your email or password was invalid. Please double-check your email or password.</div>
+  } else {
+  }
+
   return (
 
 
@@ -154,7 +168,7 @@ render() {
                 <label>You agree to the Apex Terms and Conditions</label>
               </div>
               <br/>
-
+              {authEror}
               <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 

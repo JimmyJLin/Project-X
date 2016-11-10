@@ -27,6 +27,7 @@ class EmployerSignupForm extends React.Component {
       company_branch:'',
       company_logo:'',
       errors: {},
+      errorsState: false,
       isLoading: false,
       invalid: false
     }
@@ -88,10 +89,16 @@ class EmployerSignupForm extends React.Component {
           });
           this.context.router.push('/employer_login');
         },
-        (err) => this.setState({ errors: err.response.data, isLoading: false })
+        (err) => this.setState({ errorsState: true, isLoading: false })
       );
     // }
-    this.closeModal();
+    console.log("this.state.errorsState", this.state.errorsState)
+
+    if (this.state.errors == true){
+      this.closeModal();
+    } else {
+    }
+
   }
 
   closeModal(){
@@ -118,6 +125,16 @@ class EmployerSignupForm extends React.Component {
 
 render() {
   const { errors } = this.state;
+
+
+    let authEror;
+
+    if(this.state.errorsState == true){
+      console.log("ERROR")
+      authEror = <div id="login_error_texts">Sorry, either your email or password was invalid. Please double-check your email or password.</div>
+    } else {
+    }
+
   return (
 
           <form id="employer_signup_form" onSubmit={this.onSubmit} className="ui form">
@@ -242,7 +259,7 @@ render() {
                 <label>You agree to the Apex Terms and Conditions</label>
               </div>
               <br/>
-
+              {authEror}
               <button className="ui button small" action="submit" disabled={this.state.isLoading || this.state.invalid}>Sign Up
               </button>
 

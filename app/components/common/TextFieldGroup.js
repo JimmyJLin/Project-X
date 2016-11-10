@@ -11,6 +11,7 @@ const TextFieldGroup = ({ field, value, label, error, type, onChange, checkUserE
         value={value}
         type={type}
         name={field}
+        id="login_fields"
         className=""
       />
     {error && <span className="help-block">{error}</span>}

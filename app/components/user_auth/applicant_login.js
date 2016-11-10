@@ -13,7 +13,7 @@ class ApplicantLoginForm extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errors: {},
+      errors: false,
       type:'applicant',
       isLoading: false
     };
@@ -38,14 +38,21 @@ class ApplicantLoginForm extends React.Component {
       e.preventDefault();
 
       console.log('login this.state', this.state)
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errors: true, isLoading: false });
 
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
-        (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
+        (err) => this.setState({ errors: true, isLoading: false })
       );
 
-      this.closeModal();
+      console.log("error", this.state.error)
+
+      if (this.state.errors == true){
+        this.closeModal();
+      } else {
+        
+      }
+
   }
 
     onChange(e) {
@@ -59,11 +66,20 @@ class ApplicantLoginForm extends React.Component {
   render() {
     const { errors, email, password, isLoading } = this.state;
     const { isAuthenticated } = this.props.auth;
+    let authEror;
 
+    if(this.state.errors == true){
+      console.log("ERROR")
+      authEror = <div id="login_error_texts">Sorry, either your email or password was incorrect. Please double-check your email or password.</div>
+    } else {
+
+    }
+
+    console.log("this.state.errors", this.state.errors)
     return (
 
       <form className="ui form" onSubmit={this.onSubmit}>
-      
+
         <h1>Applicant Login</h1>
 
         <br/>
@@ -91,6 +107,7 @@ class ApplicantLoginForm extends React.Component {
           type="password"
         />
         </div>
+        {authEror}
         <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login
         </button>
       </form>
