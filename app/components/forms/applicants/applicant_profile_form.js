@@ -637,17 +637,12 @@ class Applicant_profile_form extends Component {
                 </div>
                 <br/>
 
-                {/* Upload Resume (PDF) */}
-                {/*<div>
-                  <label>Upload resume_pdf</label>
-                  <input type="file" name="resume_pdf" accept="application/pdf"
-                  value={this.state.resume_pdf}
-                  onDrop={this.onResumeDrop.bind(this)} />
-                </div>*/}
-
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
+                    <h4>Please submit valid pdf formated resume</h4>
                     <div className="ui fluid button" >Upload Resume</div>
+                    <br/>
+                    {this.state.resume_files.length > 0 ? <div><i className="icon check"></i>resume uploaded</div> : null}
                   </Dropzone>
                 </div>
 
