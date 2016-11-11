@@ -15,7 +15,6 @@ class ApplicantLoginForm extends React.Component {
       password: '',
       errors: false,
       type:'applicant',
-      authenticated: false,
       isLoading: false
     };
 
@@ -33,30 +32,38 @@ class ApplicantLoginForm extends React.Component {
     return isValid;
   }
 
+  componentDidMount(){
+    localStorage.setItem('isAuthen', 'no');
+    localStorage.setItem('error', "");
+    localStorage.setItem('type', "");
+  }
 
   onSubmit(e) {
     console.log('login this.state before validate', this.state)
       e.preventDefault();
       // this.setState({ errors: false, isLoading: false });
-
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
-        this.setState({authenticated: true}),
-        (err) => this.setState({authenticated: false, errors: true, isLoading: false })
+        (err) => this.setState({errors: true, isLoading: false }),
       )
 
-      console.log("errors after submit --->", this.state.errors)
-      console.log("authenticated after submit --->", this.state.authenticated)
+      this.hideModal()
 
+      window.setTimeout(modalPopup, 500)
 
-      if (this.state.errors == false && this.state.authenticated == true){
-        this.hideModal();
-      } else if (this.state.errors == true && this.state.authenticated == false) {
-        this.showModal();
+      function modalPopup(){
+        if(localStorage.error == "Unauthorized" && localStorage.type == ""){
+          console.log("show")
+          $('.ui.small.modal.applicant.login').modal('show')
+        } else if (localStorage.error == "Unauthorized" && localStorage.type == "applicant"){
+          console.log("hide")
+          $('.ui.small.modal.applicant.login').modal('hide')
+
+        }
+
       }
-      // original = false false
-      // success = false false
-      // failed = false false
+
+
   }
 
     onChange(e) {
@@ -75,6 +82,7 @@ class ApplicantLoginForm extends React.Component {
   render() {
     const { errors, email, password, isLoading } = this.state;
     const { isAuthenticated } = this.props.auth;
+
     let authEror;
 
     if(this.state.errors == true){
@@ -118,7 +126,7 @@ class ApplicantLoginForm extends React.Component {
         />
         </div>
         {authEror}
-        <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login
+        <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login-X
         </button>
       </form>
     );

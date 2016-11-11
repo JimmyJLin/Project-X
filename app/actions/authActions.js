@@ -46,7 +46,11 @@ export function login(data) {
       localStorage.setItem('id', id);
       localStorage.setItem('type', type);
       localStorage.setItem('fullname', fullname);
-    });
+    })
+    .error( (error) => {
+      localStorage.setItem('error', error.statusText)
+      console.log("this is the error -->", error)
+    })
   }
 }
 

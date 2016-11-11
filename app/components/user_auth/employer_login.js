@@ -31,12 +31,16 @@ class EmploymentLoginForm extends React.Component {
     return isValid;
   }
 
+  componentDidMount(){
+    localStorage.setItem('isAuthen', 'no');
+    localStorage.setItem('error', "");
+    localStorage.setItem('type', "");
+  }
 
   onSubmit(e) {
     e.preventDefault();
     console.log('login this.state vefore validate', this.state)
 
-    // if (this.isValid()) {
       console.log('login this.state', this.state)
       this.setState({ errors: false, isLoading: true });
       this.props.login_employer(this.state).then(
@@ -44,11 +48,22 @@ class EmploymentLoginForm extends React.Component {
         (err) => this.setState({ errors: true, isLoading: false })
       );
 
-      if (this.state.errors == false){
-      } else {
-        this.closeModal();
+      this.hideModal()
+
+      window.setTimeout(modalPopup, 500)
+
+      function modalPopup(){
+        if(localStorage.error == "Unauthorized" && localStorage.type == ""){
+          console.log("show")
+          $('.ui.small.modal.applicant.login').modal('show')
+        } else if (localStorage.error == "Unauthorized" && localStorage.type == "applicant"){
+          console.log("hide")
+          $('.ui.small.modal.applicant.login').modal('hide')
+
+        }
+
       }
-    // }
+
   }
 
   onChange(e) {
