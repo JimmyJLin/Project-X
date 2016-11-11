@@ -58,7 +58,7 @@ const All_Experiences = [
       "Federal_Tax_Law" ]]
 
 
-class Applicant_skill_form extends Component {
+class Applicant_skill_form_backup_backup extends Component {
 
   constructor(props) {
     super(props);
@@ -127,14 +127,14 @@ class Applicant_skill_form extends Component {
 
   seeValue(e){
     e.preventDefault;
-    // console.log("line 130", e.target.id, e.target.value)
+    console.log("line 130", e.target.id, e.target.value)
     var name = e.target.id;
     var level = e.target.value;
     console.log("line 133", name,level)
 
     var domEl = e.target.id
-    console.log("line 136", domEl)
-    var parentEl = document.getElementById(domEl).closest('section').html(' ' + level)
+    console.log("line 136", parentEl)
+    var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
     console.log("line 138", parentEl)
 
     switch(name){
@@ -393,7 +393,7 @@ function postIndustryLevels(data){
 }
 
 
-Applicant_skill_form.propTypes = {
+Applicant_skill_form_backup.propTypes = {
   auth: React.PropTypes.object.isRequired
 }
 
@@ -404,4 +404,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(Applicant_skill_form);
+export default connect(mapStateToProps)(Applicant_skill_form_backup_backup);

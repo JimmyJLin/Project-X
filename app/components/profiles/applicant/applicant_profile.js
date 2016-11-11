@@ -78,7 +78,7 @@ class Applicant_profile extends Component {
       // console.log("skill data: ", data)
 
        this.state.job_skills = data;
-
+      console.log("skills data", data)
        this.setState({
         job_skills: this.state.job_skills
       })
@@ -88,6 +88,7 @@ class Applicant_profile extends Component {
      const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + user_id
      $.get(industries_url).done( (data)=>{
       //  console.log("industries data: ", data)
+      console.log("experience data", data)
 
         this.state.job_industries = data;
         this.setState({

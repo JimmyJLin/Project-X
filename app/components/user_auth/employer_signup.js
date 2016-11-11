@@ -256,7 +256,7 @@ render() {
               <br/>
               <div className="inline field required">
                 <input type="checkbox" tabIndex="0" className="hidden" required/>
-                <label>You agree to the Apex Terms and Conditions</label>
+                <label>You agree to the AtlasCV Terms and Conditions</label>
               </div>
               <br/>
               {authEror}
