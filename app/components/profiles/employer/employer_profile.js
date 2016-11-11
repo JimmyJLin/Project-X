@@ -33,18 +33,18 @@ class Employer_profile extends Component {
 
     if(localStorage.getItem('isLoaded') !== 'yes'){
       localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
+      // window.location.reload(true)
     }
 
-    window.setInterval(changeLoaded, 500)
-
-    function changeLoaded(){
-      localStorage.setItem('isLoaded', 'no');
-    }
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    }
+    // window.setInterval(changeLoaded, 500)
+    //
+    // function changeLoaded(){
+    //   localStorage.setItem('isLoaded', 'no');
+    // }
+    //
+    // window.onbeforeunload = function () {
+    //   window.scrollTo(0, 0);
+    // }
 
     const employer_id = localStorage.id
 
@@ -70,6 +70,7 @@ class Employer_profile extends Component {
        this.state.company_branch = data[0].company_branch;
        this.state.company_logo = data[0].company_logo;
        this.state.isLoading = true
+       localStorage.setItem('isAuthen', 'yes');
 
 
        this.setState({
@@ -205,7 +206,6 @@ class Employer_profile extends Component {
                           </div>
     } else {
       companyDescription = <div>
-                            <h2>Company Description</h2>
                             <p>{this.state.company_description}</p>
                           </div>
     }
@@ -219,7 +219,7 @@ class Employer_profile extends Component {
 
     if(this.state.company_logo == null || this.state.company_logo == ''){
       // console.log("no image")
-      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
     } else {
       // console.log("yes image")
       profile_image = <img className="ui medium circular image" src={'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Logo"/>
@@ -359,7 +359,7 @@ class Employer_profile extends Component {
                       <div className="right floated content">
                         <div >{this.state.archived_jobs}</div>
                       </div>
-                      <div className="content">Archived</div>
+                      <div className="content">Archived </div>
                     </Link>
 
                   </div>

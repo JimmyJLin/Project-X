@@ -53,6 +53,7 @@ class Applicant_profile extends Component {
         this.state.work_history = data.work_history
         this.state.languages_spoken = data.languages_spoken
         this.state.isLoading = true
+        localStorage.setItem('isAuthen', 'yes');
 
         this.setState({
           applicantProfile: this.state.applicantProfile,
@@ -164,7 +165,7 @@ class Applicant_profile extends Component {
 
     if(this.state.applicantProfile.profile_image == "" || this.state.applicantProfile.profile_image == null){
       // console.log("no image")
-      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
+      profile_image = <img className="ui medium circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
     } else {
       // console.log("yes image")
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>

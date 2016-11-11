@@ -34,18 +34,18 @@ export function login(data) {
     return $.post('https://apex-database.herokuapp.com/api/users/applicants/login', data)
       .done( (data)=> {
         console.log('agent data', data)
-      let token = data.token;
-      setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwtDecode(token)));
+        let token = data.token;
+        setAuthorizationToken(token);
+        dispatch(setCurrentUser(jwtDecode(token)));
 
-      let user = data.agent;
-      let id = user.id;
-      let type = 'applicant';
-      let fullname = user.name + ' ' + user.last_name
-      localStorage.setItem('jwtToken', token);
-      localStorage.setItem('id', id);
-      localStorage.setItem('type', type);
-      localStorage.setItem('fullname', fullname);
+        let user = data.agent;
+        let id = user.id;
+        let type = 'applicant';
+        let fullname = user.name + ' ' + user.last_name
+        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('id', id);
+        localStorage.setItem('type', type);
+        localStorage.setItem('fullname', fullname);
     })
     .error( (error) => {
       localStorage.setItem('error', error.statusText)
@@ -59,20 +59,25 @@ export function login_employer(data) {
   return dispatch => {
     return $.post('https://apex-database.herokuapp.com/api/users/employers/login', data)
     .done( (data)=> {
-    console.log('agent data', data.agent)
+      console.log('agent data', data.agent)
       let token = data.token;
-      let user = data.agent;
-        let id = user.id;
-        let type = 'employer';
-        let first_name = user.first_name || '';
-        let last_name = user.last_name || ''
-      localStorage.setItem('jwtToken', token);
-      localStorage.setItem('id', id);
-      localStorage.setItem('type', type);
-      localStorage.setItem('first_name', first_name);
-      localStorage.setItem('last_name', last_name);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
-    });
+      
+      let user = data.agent;
+      let id = user.id;
+      let type = 'employer';
+      let first_name = user.first_name || '';
+      let last_name = user.last_name || ''
+      localStorage.setItem('jwtToken', token);
+      localStorage.setItem('id', id);
+      localStorage.setItem('type', "employer");
+      localStorage.setItem('first_name', first_name);
+      localStorage.setItem('last_name', last_name);
+    })
+    .error( (error) => {
+      localStorage.setItem('error', error.statusText)
+      console.log("this is the error -->", error)
+    })
   }
 }

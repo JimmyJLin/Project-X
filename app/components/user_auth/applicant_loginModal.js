@@ -34,7 +34,6 @@ class Applicant_loginModal extends React.Component {
   componentDidMount(){
     localStorage.setItem('isAuthen', 'no');
     localStorage.setItem('error', "");
-    localStorage.setItem('type', "");
   }
 
   onSubmit(e) {
@@ -51,14 +50,17 @@ class Applicant_loginModal extends React.Component {
       window.setTimeout(modalPopup, 500)
 
       function modalPopup(){
-        if(localStorage.error == "Unauthorized" && localStorage.type == ""){
+
+        if(localStorage.error == "Unauthorized" && localStorage.isAuthen == "no"){
           console.log("show")
           $('.ui.small.modal.applicant.login').modal('show')
-        } else if (localStorage.error == "Unauthorized" && localStorage.type == "applicant"){
+        }
+
+        if(localStorage.type == "employer") {
           console.log("hide")
           $('.ui.small.modal.applicant.login').modal('hide')
-
         }
+
 
       }
 
@@ -98,7 +100,7 @@ class Applicant_loginModal extends React.Component {
         <div className="ui small modal applicant login">
           <i className="close icon"></i>
           <div className="header">
-            Employer Login
+            Applicant Login
           </div>
 
           <div id="loginForm">
@@ -138,7 +140,7 @@ class Applicant_loginModal extends React.Component {
             </form>
           <br/>
 
-          <p>Not a member yet ... <Link id="employer_profile_signup_button"><span id="signup">Sign Up</span></Link> </p>
+          <p>Not a member yet ... <Link id="applicant_profile_signup_button"><span id="signup">Sign Up</span></Link> </p>
 
         </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import TextFieldGroup from '../common/TextFieldGroup';
 import validateInput from './../../server/shared/validations/login';
 import { connect } from 'react-redux';
-import { login } from '../../actions/authActions';
+import { login_employer } from '../../actions/authActions';
 import { Link } from 'react-router'
 
 class Employment_loginModal extends React.Component {
@@ -13,7 +13,7 @@ class Employment_loginModal extends React.Component {
       email: '',
       password: '',
       errors: false,
-      type:'applicant',
+      type:'employer',
       isLoading: false
     };
 
@@ -34,30 +34,32 @@ class Employment_loginModal extends React.Component {
   componentDidMount(){
     localStorage.setItem('isAuthen', 'no');
     localStorage.setItem('error', "");
-    localStorage.setItem('type', "");
   }
 
   onSubmit(e) {
     console.log('login this.state before validate', this.state)
       e.preventDefault();
+
       // this.setState({ errors: false, isLoading: false });
-      this.props.login(this.state).then(
+      this.props.login_employer(this.state).then(
         (res) => this.context.router.push('/employer_profile'),
         (err) => this.setState({errors: true, isLoading: false }),
       )
 
       this.hideModal()
 
-      window.setTimeout(modalPopup, 500)
+      window.setTimeout(employerModalPopup, 500)
 
-      function modalPopup(){
-        if(localStorage.error == "Unauthorized" && localStorage.type == ""){
+      function employerModalPopup(){
+
+        if(localStorage.error == "Unauthorized" && localStorage.isAuthen == "no"){
           console.log("show")
           $('.ui.small.modal.employer.login').modal('show')
-        } else if (localStorage.error == "Unauthorized" && localStorage.type == "employer"){
+        }
+
+        if(localStorage.type == "employer") {
           console.log("hide")
           $('.ui.small.modal.employer.login').modal('hide')
-
         }
 
       }
@@ -163,4 +165,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { login })(Employment_loginModal);
+export default connect(mapStateToProps, { login_employer })(Employment_loginModal);

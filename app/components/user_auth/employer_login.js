@@ -34,7 +34,6 @@ class EmploymentLoginForm extends React.Component {
   componentDidMount(){
     localStorage.setItem('isAuthen', 'no');
     localStorage.setItem('error', "");
-    localStorage.setItem('type', "");
   }
 
   onSubmit(e) {
@@ -53,13 +52,15 @@ class EmploymentLoginForm extends React.Component {
       window.setTimeout(modalPopup, 500)
 
       function modalPopup(){
-        if(localStorage.error == "Unauthorized" && localStorage.type == ""){
-          console.log("show")
-          $('.ui.small.modal.applicant.login').modal('show')
-        } else if (localStorage.error == "Unauthorized" && localStorage.type == "applicant"){
-          console.log("hide")
-          $('.ui.small.modal.applicant.login').modal('hide')
 
+        if(localStorage.error == "Unauthorized" && localStorage.isAuthen == "no"){
+          console.log("show")
+          $('.ui.small.modal.employer.login').modal('show')
+        }
+
+        if(localStorage.type == "employer") {
+          console.log("hide")
+          $('.ui.small.modal.employer.login').modal('hide')
         }
 
       }
