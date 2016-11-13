@@ -57,3 +57,23 @@
 #footer{
   width: 105%;
 }
+
+// Applicant_skill_form
+#applicant_profile_form{
+
+  #industry_experience, #areas_expertise{
+    padding-left: 0%;
+
+  }
+
+  h1{
+    margin-left: 10%;
+    font-size: 1.1em;
+    padding-bottom: 5%;
+  }
+
+  .ui.floated.button{
+    margin-right: 8%;
+  }
+
+}

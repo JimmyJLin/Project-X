@@ -107,23 +107,23 @@ class Applicant_skill_form extends Component {
       }
     }
 
-  componentDidMount(){
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
-    }
-
-    window.setInterval(changeLoaded, 500)
-
-    function changeLoaded(){
-      localStorage.setItem('isLoaded', 'no');
-    }
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    }
-
-  }
+  // componentDidMount(){
+  //   if(localStorage.getItem('isLoaded') !== 'yes'){
+  //     localStorage.setItem('isLoaded', 'yes');
+  //     window.location.reload(true)
+  //   }
+  //
+  //   window.setInterval(changeLoaded, 500)
+  //
+  //   function changeLoaded(){
+  //     localStorage.setItem('isLoaded', 'no');
+  //   }
+  //
+  //   window.onbeforeunload = function () {
+  //     window.scrollTo(0, 0);
+  //   }
+  //
+  // }
 
   seeValue(e){
     e.preventDefault;
@@ -327,7 +327,7 @@ class Applicant_skill_form extends Component {
       <div id="applicant_profile_form">
         <div id="industry_experience">
           <h1> Do you hold Industry experience in any of the following areas? </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -352,7 +352,7 @@ class Applicant_skill_form extends Component {
         </div>
         <div id="industry_experience">
           <h1> Select Your Skills / Areas of Expertise </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -376,7 +376,7 @@ class Applicant_skill_form extends Component {
           </div>
         </div>
         <br/>
-        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
+        <button className="ui right floated button large" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
       </div>
     )}
 

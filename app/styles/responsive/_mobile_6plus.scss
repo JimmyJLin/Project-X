@@ -8,10 +8,6 @@
 }
 
 // Main Body
-#about_us_div{
-
-}
-
 #job_details{
   #archive_repost_buttons{
     margin-right: 25px;
@@ -26,7 +22,7 @@
   margin-top: 15%;
   height: 300px;
   width: 105%;
-  
+
 }
 
 #error_page{
@@ -46,4 +42,20 @@
 
 #footer{
   width: 105%;
+}
+
+// Applicant_skill_form
+#applicant_profile_form{
+
+  #industry_experience, #areas_expertise{
+    padding-left: 20%;
+
+  }
+
+  h1{
+    margin-left: -17%;
+    font-size: 1.25em;
+    padding-bottom: 5%;
+  }
+
 }
