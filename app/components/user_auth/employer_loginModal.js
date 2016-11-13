@@ -153,7 +153,7 @@ class Employment_loginModal extends React.Component {
 
 Employment_loginModal.propTypes = {
   auth: React.PropTypes.object.isRequired,
-  login: React.PropTypes.func.isRequired
+  login_employer: React.PropTypes.func.isRequired
   }
 
 Employment_loginModal.contextTypes = {
