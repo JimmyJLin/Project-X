@@ -28,10 +28,7 @@ export function employerSignupRequest(userData) {
     return $.post('https://apex-database.herokuapp.com/api/users/employers/signup', userData)
       .done(()=>{
         console.log('employerUser is added')
-      })
-      .error( (error) => {
-        localStorage.setItem('error', error.statusText)
-        console.log("this is the error -->", error)
+        localStorage.setItem('loadingModal', "yes")
       })
   }
 }

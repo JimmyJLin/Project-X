@@ -82,6 +82,7 @@ class EmployerSignupForm extends React.Component {
         console.log('this is coming from isuserexist', res)
         let errors = this.state.errors;
         let invalid;
+        let loadingModal = this.state.loadingModal;
         if (res.data) {
           errors[field] = 'There is user with such ' + field;
           invalid = true;
@@ -106,22 +107,26 @@ class EmployerSignupForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('captures state on submit', this.state)
-    // if (this.isValid()) {
-      this.setState({ errorsState: false, isLoading: true });
+      console.log('captures state on submit', this.state)
+
+      this.setState({ errorsState: false, isLoading: false, loadingModal: true });
+
+      console.log("After submit loadingModal state ----", this.state.loadingModal)
 
       this.props.employerSignupRequest(this.state).then(
         () => {
           console.log('you signed up correctly', this.state)
-          this.props.addFlashMessage({
-            type: 'success',
-            text: 'You signed up successfully. Welcome!'
-          });
+
+          this.setState({
+            loadingModal: false
+          })
+
+          this.hideModal();
+
           this.context.router.push('/employer_login');
         },
-        (err) => this.setState({ errorsState: true, isLoading: false })
+        (err) => this.setState({ errorsState: true, isLoading: false, loadingModal: false })
       );
-    // }
 
     // this.hideModal()
     window.setTimeout(modalPopup, 33000)
@@ -132,6 +137,11 @@ class EmployerSignupForm extends React.Component {
       if(localStorage.error == "error" && localStorage.isAuthen == "no" && localStorage.type == "none"){
 
         $('.ui.small.modal.employer.signup').modal('show')
+
+        this.setState({
+          loadingModal: false
+        })
+
       }
 
       if(localStorage.type == "employer") {
@@ -143,6 +153,11 @@ class EmployerSignupForm extends React.Component {
         // })
 
         $('.ui.small.modal.employer.signup').modal('hide')
+
+        this.setState({
+          loadingModal: false
+        })
+
       }
 
     }
@@ -150,24 +165,8 @@ class EmployerSignupForm extends React.Component {
   }
 
 
-//
-//   handleSubmit: function(e){
-//     e.preventDefault();
-//
-//     const signupInfo = {
-//     email: this.refs.email.value,
-//     password: this.refs.password.value,
-//     type: "applicant"
-//     }
-//
-//   signUpRequest(signupInfo);
-//
-//   this.refs.createUserForm.reset();
-// },
-
 render() {
   const { errors } = this.state;
-
 
     let authEror;
 
@@ -177,9 +176,30 @@ render() {
     } else {
     }
 
+    // spinner starts
+    let spinner
+    if (this.state.loadingModal == true) {
+      console.log("Spinner this.state.loadingModal -----", this.state.loadingModal)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else {
+      console.log("Spinner this.state.loadingModal", this.state.loadingModal)
+      spinner = <div></div>
+    }
+    // spinner starts
+
   return (
 
           <form id="employer_signup_form" onSubmit={this.onSubmit} className="ui form">
+          
+          {/* Spinner Starts */}
+            {spinner}
+          {/* Spinner Ends */}
+
           <h1>Employer Signup</h1>
 
           <br/>
