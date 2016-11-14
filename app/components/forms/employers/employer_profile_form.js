@@ -52,14 +52,20 @@ componentDidMount(){
   //  get employer profile data
   const employerUrl = "https://apex-database.herokuapp.com/api/employers/" + employer_id
   $.get(employerUrl).done( (data)=>{
-
+      console.log("employer profile data --->", data)
      this.state.company_name = data[0].company_name;
      this.state.company_address = data[0].company_address;
      this.state.company_city = data[0].company_city;
      this.state.company_state = data[0].company_state;
      this.state.company_zip = data[0].company_zip;
+     this.state.company_description = data[0].company_description;
      this.state.company_website = data[0].company_website;
      this.state.company_phone_number = data[0].company_phone_number;
+     this.state.company_email = data[0].company_email;
+     this.state.company_size = data[0].company_size;
+     this.state.company_industry = data[0].company_industry;
+     this.state.company_branch = data[0].company_branch;
+     this.state.company_logo = data[0].company_logo;
 
      this.setState({
        company_name: this.state.company_name,
@@ -67,7 +73,14 @@ componentDidMount(){
        company_city: this.state.company_city,
        company_state: this.state.company_state,
        company_zip: this.state.company_zip,
+       company_description: this.state.company_description,
+       company_website: this.state.company_website,
        company_phone_number: this.state.company_phone_number,
+       company_email: this.state.company_email,
+       company_size: this.state.company_size,
+       company_industry: this.state.company_industry,
+       company_branch: this.state.company_branch,
+       company_logo: this.state.company_logo,
      })
 })
 
@@ -200,6 +213,15 @@ componentDidMount(){
 
   render(){
     // console.log("render this.state.files", this.state.company_files)
+    let company_logo;
+
+    if(this.state.company_logo == "" || this.state.company_logo == null){
+      // console.log("no image")
+      company_logo = <img className="ui medium circular center image" src="images/img_placeholders/user_img.png" alt="Company Picture"/>
+    } else {
+      // console.log("yes image")
+      company_logo = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/company_logo/' + this.state.company_logo} alt="Company Picture"/>
+    }
 
     const { isAuthenticated } = this.props.auth;
 
@@ -217,7 +239,7 @@ componentDidMount(){
         <div className="three fields">
           <div className="field">
             <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-              <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+              {company_logo}
               <div className="ui fluid button" >Upload Image</div>
             </Dropzone>
             {this.state.company_files.length > 0 ? <div>

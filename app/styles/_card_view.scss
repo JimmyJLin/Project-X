@@ -8,6 +8,19 @@ $transparent: transparent;
   width: 102%;
   background-color: $primary_body_background_color;
 
+  // list Matched Applicants
+  #profile_title{
+    .ui.cards{
+      .content{
+        margin-bottom: 5%;
+        span{
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+
   // Filter By
   .ui.center.aligned.raised.segment{
     margin-left: 5%;

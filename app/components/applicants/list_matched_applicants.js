@@ -422,6 +422,53 @@ updatetheJobSkillsFinal(){
     // const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
 
+      // rendering each certifications
+      var certificationArry = applicant.certifications
+      let certifications;
+      if (applicant.certifications == "" || applicant.certifications == null){
+        certifications = <div>"N/A"</div>
+      } else {
+        certifications = certificationArry.map((el)=>{
+          return <div className="ui list">
+                    <div className="item">{el}</div>
+                  </div>
+        })
+      }
+
+      // rendering each school
+      var schoolArry = applicant.school
+      let school;
+      if (applicant.school == "" || applicant.school == null){
+        school = <div>"N/A"</div>
+      } else {
+        school = schoolArry.map((el)=>{
+          var splitedArry = el.split(",").map((el)=>{return el})
+          return <div className="ui list">
+                    <div className="item">
+                    {splitedArry[0]}
+                    <br/>
+                    {splitedArry[1]}-{splitedArry[2]}</div>
+                  </div>
+        })
+      }
+
+      // rendering each work history
+      var workArry = applicant.work_history
+      let work;
+      if (applicant.work_history == "" || applicant.work_history == null){
+        work = <div>"N/A"</div>
+      } else {
+        work = workArry.map((el)=>{
+          var workArry = el.split(",").map((el)=>{return el})
+          return <div className="ui list">
+                    <div className="item">
+                    {workArry[0]}
+                    <br/>
+                    {workArry[1]}</div>
+                  </div>
+        })
+      }
+
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
       const link = `/Matched_applicant/` + applicant.ui
@@ -436,10 +483,12 @@ updatetheJobSkillsFinal(){
                   {applicant.desired_industry}
                 </div>
                 <div className="description">
-                  {applicant.experience_level}
-                  <br/>
-                  {applicant.certifications}
-                  <br/>
+                  <span>Education:</span>
+                  {school}
+                  <span>Experience:</span>
+                  {work}
+                  <span>Certifications:</span>
+                  {certifications}
                 </div>
               </div>
               <br/>
