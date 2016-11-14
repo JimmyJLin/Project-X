@@ -10,6 +10,7 @@ let jobSkillsState = [];
 let jobExperienceState = [];
 var final= [];
 
+
 class List_matched_applicants extends Component {
   constructor(props) {
     super(props);
@@ -23,12 +24,14 @@ class List_matched_applicants extends Component {
       job_skillsArr: [],
       job_experiences: [],
       job_experiencesArr:[],
-      sortedList : [],
+      selectedSkillsFromFilter: {},
+      selectedExperiencesFromFilter: {},
+      selectedskillsIds:[],
+      selectedExperiencesIds:[],
       filteredApplicants: {}
-
     }
   }
-
+s
   componentDidMount() {
 
     if(localStorage.getItem('isLoaded') !== 'yes'){
@@ -53,7 +56,7 @@ class List_matched_applicants extends Component {
     })
   }
 
-
+//{***** On Change Functions *******}
   onFilterChange(name, val){
 
     console.log('name', 'val', name,val )
@@ -67,6 +70,40 @@ class List_matched_applicants extends Component {
       this.UpdateTheFilter(name, val);
     }
   }
+
+  onJobSkillsChange(job_skills_data){
+
+    if (jobSkillsState.includes(job_skills_data)){
+        // jobSkillsState.remove(jobSkillsState.indexOf(job_skills_data)) // this should delete selection
+    } else {
+        jobSkillsState.push(job_skills_data) // this should add selection
+   }
+    // job_skills are the selected skills.
+    this.setState({job_skills: jobSkillsState})
+
+    console.log(" line 214 this.state.job_skills -->", this.state.job_skills)
+    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
+    this.UpdateTheFilterForSkillsSelections( this.state.job_skills )
+  }
+
+  onExperienceChange(job_experiences_data){
+    if (jobExperienceState.includes(job_experiences_data)){
+    // jobExperienceState.remove(jobSkillsState.indexOf(job_experiences_data)) // this should delete selection
+  } else {
+    jobExperienceState.push(job_experiences_data) // this should add selection
+
+  }
+
+    this.setState({job_experiences: jobExperienceState})
+    console.log("onExperienceChange Clicked", this.state.job_experiences)
+
+    this.UpdateTheFilterForExperienceSelections( this.state.job_experiences )
+  }
+
+
+
+
+  // { ******* UPDATE THE RENDERED APPLICANTS FUNCTIONS ************** }
 
    UpdateTheFilter(name, val){
      var filteredArr;
@@ -82,15 +119,13 @@ class List_matched_applicants extends Component {
 
   UpdateTheFilterForEducationLevel(name, val){
 
-    console.log('testttttt', this.state.job_applicants[0].school[0].includes('Current Student')); //=>true
-
     var filteredArr;
       if (val == 'all'){
         this.state.filteredApplicants[name] = this.state.job_applicants;
       } else {
 
      filteredArr  = this.state.job_applicants.filter( (obj) =>{
-                    console.log(obj.id, obj.school)
+
                     obj.educationMatching = false;
                     for (var n in obj.school){
                       if( obj.school[n].includes(val)){
@@ -102,15 +137,101 @@ class List_matched_applicants extends Component {
                   })
 
                     console.log('Line 89 this is my filtered Array', filteredArr)
-    this.state.filteredApplicants[name] = filteredArr
+                    this.state.filteredApplicants[name] = filteredArr
   }
  }
 
- UpdateTheFilterForArray( name , array){
-    console.log('line 110 passed array', array)
+ UpdateTheFilterForSkillsSelections(array){
+   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
 
-      this.state.filteredApplicants[name] =  array
+
+    // if (array.length == 0){
+    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
+    //  }
+
+
+    array.forEach( (skill)=>{
+      var tempArr;
+      var realSkill =  skill.replace(/ /g,'_')
+        if( skill === 'All' ) {
+          this.state.selectedSkillsFromFilter['sk_jobs'] = this.state.job_applicants;
+        } else {
+
+         tempArr = this.state.job_applicants.filter( (obj) =>{
+
+                     obj.skillMatching = false;
+
+                     for (var n in obj.skills){
+                       if ( obj.skills[n].includes(realSkill.toLowerCase() )){
+                         obj.skillMatching = true;
+                         break;
+                       }
+                     }
+
+                     return obj.skillMatching == true
+                   })
+          console.log('160', tempArr)
+          if(tempArr.length !== 0) {
+          this.state.selectedSkillsFromFilter['sk_'+ skill ] = tempArr;
+        }
     }
+
+ })
+
+ console.log('line 178',  this.state.selectedSkillsFromFilter)
+ }
+
+
+
+ UpdateTheFilterForExperienceSelections(array){
+   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
+
+
+    // if (array.length == 0){
+    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
+    //  }
+
+
+    array.forEach( (exp)=>{
+      var tempArr;
+      var realIndustryExp =  exp.replace(/ /g,'_')
+        if( exp === 'All' ) {
+          this.state.selectedExperiencesFromFilter['ex_jobs'] = this.state.job_applicants;
+        } else {
+
+         tempArr = this.state.job_applicants.filter( (obj) =>{
+
+                     obj.expMatching = false;
+
+                     for (var n in obj.industries){
+                       if ( obj.industries[n].includes(realIndustryExp.toLowerCase() )){
+                         obj.expMatching = true;
+                         break;
+                       }
+                     }
+
+                     return obj.expMatching == true
+                   })
+          console.log('160', tempArr)
+
+          if(tempArr.length !== 0) {
+          this.state.selectedExperiencesFromFilter['ex_'+ exp] = tempArr;
+        }
+    }
+
+ })
+
+ console.log('line 178',  this.state.selectedExperiencesFromFilter)
+ }
+
+
+
+
+
+ // UpdateTheFilterForArray( name , array){
+ //
+ //      this.state.filteredApplicants[name] =  array
+ //    }
 
 //  UpdateTheFilter(name, val){
 //    var filteredArr;
@@ -124,31 +245,74 @@ class List_matched_applicants extends Component {
 //    }
 // }
 
+updatetheJobSkillsFinal(){
+  var JobSkills_all = Object.values(this.state.selectedSkillsFromFilter);
+
+  var selectedIdsForSkills= []; //=> [[],[]]
+
+  for (var i = 0; i < JobSkills_all.length; i++ ){
+    var arr = [];
+    JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
+    selectedIdsForSkills.push(arr)
+  }
+  console.log('this is the final skills', selectedIdsForSkills)
+
+  var finalSkills = _.flatten(selectedIdsForSkills);
+  console.log('this is the final skills', finalSkills)
+
+  this.state.selectedskillsIds = finalSkills;
+
+ }
+
+
+ updatetheIndExpFinal(){
+   var IndustryExp_all = Object.values(this.state.selectedExperiencesFromFilter);
+
+   var selectedIdsForExperiences= []; //=> [[],[]]
+
+   for (var i = 0; i < IndustryExp_all.length; i++ ){
+     var arr = [];
+     JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
+     selectedIdsForExperiences.push(arr)
+   }
+   console.log('this is the final Experiences', selectedIdsForExperiences)
+
+   var finalExp = _.flatten(selectedIdsForExperiences);
+   console.log('this is the final Experiences', finalExp)
+
+   this.state.selectedExperiencesIds = finalExp;
+
+  }
 
   updateTheFinalList(){
+
     var ffinal = [];
     var jobsState = this.state.job_applicants;
-    console.log("jobsState --->", jobsState)
 
     var finalList = this.state.filteredApplicants;
-    console.log("finalList --->", finalList)
 
     var valuessoffilteredApplicants = Object.values(finalList);
-    console.log("valuessoffilteredApplicants --->", valuessoffilteredApplicants) //=>[ [ [],[],[],[] ] ]
 
     var selectedIds= []; //=> [[],[]]
 
     for (var i = 0; i <valuessoffilteredApplicants.length; i++ ){
       var arr = [];
       valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
-      console.log('tessssttt arrray ', arr)
       selectedIds.push(arr)
     }
    console.log('+++++++++', selectedIds.map( (el)=>{
      return el
     }))
 
-    console.log('line 136', selectedIds[0])
+    if (this.state.selectedskillsIds.length !== 0 ) {
+      selectedIds.push(this.state.selectedskillsIds)
+    }
+
+    if (this.state.selectedExperiencesIds.length !== 0 ) {
+      selectedIds.push(this.state.selectedExperiencesIds)
+    }
+    console.log('this is the final selectidIDS to intersect', selectedIds)
+
     var intersectionIds;
     switch ( selectedIds.length) {
     case 0:
@@ -170,7 +334,7 @@ class List_matched_applicants extends Component {
       intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
       break;
     case 6:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  );
+      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4], selectedIds[5]  );
       break;
     default:
     break ;
@@ -183,10 +347,10 @@ class List_matched_applicants extends Component {
             if ( obj.ui == intersectionIds[i] ) {
                 ffinal.push(obj) }
               })
-                console.log(final)
+                // console.log(final)
           }
           final = ffinal;
-    console.log('this is the final', final, ffinal)
+    // console.log('this is the final', final, ffinal)
     // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.ui})}))
     //
     // console.log('this state filteredApplicants', finalList,keysoffilteredApplicants, intersectionIds ,areIDs)
@@ -196,6 +360,8 @@ class List_matched_applicants extends Component {
 
 
   componentWillUpdate(){
+    this.updatetheJobSkillsFinal();
+
     this.updateTheFinalList()
   }
 
@@ -207,27 +373,6 @@ class List_matched_applicants extends Component {
   //
   // }
 
-  onJobSkillsChange(job_skills_data){
-    console.log("job_skills --->", job_skills_data)
-
-    jobSkillsState.push(job_skills_data)
-    console.log("jobSkillsState --->", jobSkillsState)
-
-    this.setState({job_skills: jobSkillsState})
-
-    console.log("this.state.job_skills -->", this.state.job_skills)
-    this.UpdateTheFilterForArray(job_skills_data, this.state.job_skills)
-
-    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
-  }
-
-
-  onExperienceChange(job_experiences_data){
-    jobExperienceState.push(job_experiences_data)
-    this.setState({job_experiences: jobExperienceState})
-    // console.log("onExperienceChange Clicked", this.state.job_experiences)
-    this.UpdateTheFilterForArray(job_experiences_data, this.state.job_experiences)
-  }
 
   render(){
 
@@ -265,13 +410,13 @@ class List_matched_applicants extends Component {
     }
 
     var jobArray;
-    console.log('this is my final', final)
+    // console.log('this is my final', final)
       if (final.length == 0 ){
         jobArray = this.state.job_applicants
-        console.log("YESSSSSS -----", jobArray)
+        // console.log("YESSSSSS -----", jobArray)
       } else {
         jobArray = final
-        console.log("NOOOOOOO ----", jobArray)
+        // console.log("NOOOOOOO ----", jobArray)
       }
 
     // const job_applicants = this.state.job_applicants
@@ -337,16 +482,13 @@ class List_matched_applicants extends Component {
         <div className="ui stackable grid">
           <div className="four wide column">
             <div className="ui center aligned basic segment">
+
               <h2>Filter By:</h2>
               <div className="field">
-
-                {/*<div id="reset_button" className="ui button small" >Clear Filters</div>
-                <br/>
-                <br/>*/}
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Work Experience (Full Employment)</label>
-                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
+                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.rience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
@@ -375,7 +517,7 @@ class List_matched_applicants extends Component {
                   </select>
                 </div>
 
-                {/* Industry Experience */}
+                {/* Industry rience */}
                 <div>
                   <label name="certifications">Industry</label>
                   <select name="desired_industry" className="ui fluid normal dropdown"
@@ -395,38 +537,6 @@ class List_matched_applicants extends Component {
                   <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
                   value={this.state.job_skills}
                   onChange={e => this.onJobSkillsChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="all">All</option>
-                    <option value="Wealth Management">Wealth Management</option>
-                    <option value="Investment Banking">Investment Banking</option>
-                    <option value="Asset Management">Asset Management</option>
-                    <option value="Institutional Securities">Institutional Securities</option>
-                    <option value="Commericial Banking">Commericial Banking</option>
-                    <option value="Retirement Solutions">Retirement Solutions</option>
-                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                    <option value="Financial Audit">Financial Audit</option>
-                    <option value="Tax Preparation">Tax Preparation</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Advisory Services">Advisory Services</option>
-                    <option value="Compliance">Compliance</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Underwriting">Underwriting</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Financial Analysis">Financial Analysis</option>
-                    <option value="Derivatives">Derivatives</option>
-                    <option value="M&A Activity">M&A Activity</option>
-                    <option value="Venture Capitol">Venture Capitol</option>
-                    <option value="Forensice Accounting">Forensice Accounting</option>
-                  </select>
-                </div>
-
-                {/* Experiences */}
-                <div>
-                  <label name="job_experiences">Experiences</label>
-                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiences}
-                  onChange={e => this.onExperienceChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
                     <option value="Client Relations">Client Relations</option>
@@ -453,6 +563,38 @@ class List_matched_applicants extends Component {
                   </select>
                 </div>
 
+                {/* Experiences */}
+                <div>
+                  <label name="job_riences">Experiences</label>
+                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
+                  value={this.state.job_experiences}
+                  onChange={e => this.onExperienceChange(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="all">All</option>
+                    <option value="Wealth Management">Wealth Management</option>
+                    <option value="Investment Banking">Investment Banking</option>
+                    <option value="Asset Management">Asset Management</option>
+                    <option value="Institutional Securities">Institutional Securities</option>
+                    <option value="Commericial Banking">Commericial Banking</option>
+                    <option value="Retirement Solutions">Retirement Solutions</option>
+                    <option value="Portfolio Strategy">Portfolio Strategy</option>
+                    <option value="Financial Audit">Financial Audit</option>
+                    <option value="Tax Preparation">Tax Preparation</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Advisory Services">Advisory Services</option>
+                    <option value="Compliance">Compliance</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Underwriting">Underwriting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Financial Analysis">Financial Analysis</option>
+                    <option value="Derivatives">Derivatives</option>
+                    <option value="M&A Activity">M&A Activity</option>
+                    <option value="Venture Capitol">Venture Capitol</option>
+                    <option value="Forensice Accounting">Forensice Accounting</option>
+                  </select>
+                </div>
+
               </div>
             </div>
           </div>
@@ -462,7 +604,6 @@ class List_matched_applicants extends Component {
             </div>
           </div>
         </div>
-
       </div>
 
     )

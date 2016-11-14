@@ -58,7 +58,7 @@ const All_Experiences = [
       "Federal_Tax_Law" ]]
 
 
-class Applicant_skill_form_backup_backup extends Component {
+class Applicant_skill_form_backup extends Component {
 
   constructor(props) {
     super(props);
@@ -84,6 +84,7 @@ class Applicant_skill_form_backup_backup extends Component {
         derivatives: '',
         manda_activity: '',
         venture_capital: '',
+        forensic_accounting: '',
         client_relationship: '',
         microsoft_office: '',
         quickbooks: '',
@@ -107,34 +108,34 @@ class Applicant_skill_form_backup_backup extends Component {
       }
     }
 
-  componentDidMount(){
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
-    }
-
-    window.setInterval(changeLoaded, 500)
-
-    function changeLoaded(){
-      localStorage.setItem('isLoaded', 'no');
-    }
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    }
-
-  }
+  // componentDidMount(){
+  //   if(localStorage.getItem('isLoaded') !== 'yes'){
+  //     localStorage.setItem('isLoaded', 'yes');
+  //     window.location.reload(true)
+  //   }
+  //
+  //   window.setInterval(changeLoaded, 500)
+  //
+  //   function changeLoaded(){
+  //     localStorage.setItem('isLoaded', 'no');
+  //   }
+  //
+  //   window.onbeforeunload = function () {
+  //     window.scrollTo(0, 0);
+  //   }
+  //
+  // }
 
   seeValue(e){
     e.preventDefault;
-    console.log("line 130", e.target.id, e.target.value)
+    // console.log("line 130", e.target.id, e.target.value)
     var name = e.target.id;
     var level = e.target.value;
     console.log("line 133", name,level)
 
     var domEl = e.target.id
-    console.log("line 136", parentEl)
-    var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
+    console.log("line 136", domEl)
+    var parentEl = document.getElementById(domEl).closest('section').html(' ' + level)
     console.log("line 138", parentEl)
 
     switch(name){
@@ -157,6 +158,7 @@ class Applicant_skill_form_backup_backup extends Component {
       case 'Derivatives': this.setState({ derivatives:level }); break;
       case 'M_&_A': this.setState({ manda_activity:level }); break;
       case 'Venture_Capital': this.setState({ venture_capital:level }); break;
+      case 'Forensic_Accounting': this.setState({ forensic_accounting:level }); break;
       case 'Client_Relationship': this.setState({ client_relationship:level }); break;
       case 'Microsoft_Office': this.setState({ microsoft_office:level }); break;
       case 'Quickbooks': this.setState({ quickbooks:level }); break;
@@ -327,7 +329,7 @@ class Applicant_skill_form_backup_backup extends Component {
       <div id="applicant_profile_form">
         <div id="industry_experience">
           <h1> Do you hold Industry experience in any of the following areas? </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -352,7 +354,7 @@ class Applicant_skill_form_backup_backup extends Component {
         </div>
         <div id="industry_experience">
           <h1> Select Your Skills / Areas of Expertise </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -376,7 +378,7 @@ class Applicant_skill_form_backup_backup extends Component {
           </div>
         </div>
         <br/>
-        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
+        <button className="ui right floated button large" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
       </div>
     )}
 
@@ -404,4 +406,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(Applicant_skill_form_backup_backup);
+export default connect(mapStateToProps)(Applicant_skill_form_backup);

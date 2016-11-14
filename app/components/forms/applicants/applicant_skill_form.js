@@ -107,35 +107,29 @@ class Applicant_skill_form extends Component {
       }
     }
 
-  // componentDidMount(){
-  //   if(localStorage.getItem('isLoaded') !== 'yes'){
-  //     localStorage.setItem('isLoaded', 'yes');
-  //     window.location.reload(true)
-  //   }
-  //
-  //   window.setInterval(changeLoaded, 500)
-  //
-  //   function changeLoaded(){
-  //     localStorage.setItem('isLoaded', 'no');
-  //   }
-  //
-  //   window.onbeforeunload = function () {
-  //     window.scrollTo(0, 0);
-  //   }
-  //
-  // }
+  componentDidMount(){
+    if(localStorage.getItem('isLoaded') == 'yes'){
+      localStorage.setItem('isLoaded', 'no');
+    }
+  }
+
 
   seeValue(e){
     e.preventDefault;
-    // console.log("line 130", e.target.id, e.target.value)
+    console.log( e.target.id, e.target.value)
     var name = e.target.id;
     var level = e.target.value;
-    console.log("line 133", name,level)
+    console.log("name: ", name, ", level: ", level)
 
     var domEl = e.target.id
-    console.log("line 136", domEl)
-    var parentEl = document.getElementById(domEl).closest('section').html(' ' + level)
-    console.log("line 138", parentEl)
+    console.log("domEl", domEl)
+
+    // var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
+
+    var parentEl = document.getElementById(domEl).closest('section').append(' ' + level)
+
+
+    console.log("parentEL------")
 
     switch(name){
       case 'Wealth_Wanagement': this.setState({ wealth_wanagement:level }); break;
@@ -183,25 +177,21 @@ class Applicant_skill_form extends Component {
 }
 
  handleSubmitData(e){
-   e.preventDefault;
-
-   modalState = true;
-   this.setState({
-     modal: true
-   })
-
+   e.preventDefault();
 
    var data = this.state;
   //  postSkillDetails(data)
    var keys = Object.keys(data);
 
-   console.log('keys', keys)
+   console.log('this is the keys from inside handleSubmitData-------', keys)
    var skillslevel = {
      user_id : this.props.auth.user.id,
    }
+
    var industrieslevel = {
      user_id : this.props.auth.user.id,
    }
+
    for (var i = 0; i< keys.length; i++){
        if ( data[keys[i] ] !== '' && i <20 ){
         industrieslevel.industry_name = keys[i];
@@ -214,16 +204,12 @@ class Applicant_skill_form extends Component {
        };
       }
 
-  alert("Application Form Submitted, Press OK to continue")
-
-  browserHistory.push('/applicant_profile')
+  //  browserHistory.push('/applicant_profile')
 
  }
 
 
-
   render(){
-
 
     var Firstcolumn_skills = All_Experiences[0].map( (el)=>{
       var text = el.replace(/_/g,' ')
@@ -327,7 +313,7 @@ class Applicant_skill_form extends Component {
       <div id="applicant_profile_form">
         <div id="industry_experience">
           <h1> Do you hold Industry experience in any of the following areas? </h1>
-          <div className="ui equal width grid stackable">
+          <div className="ui equal width grid">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -352,7 +338,7 @@ class Applicant_skill_form extends Component {
         </div>
         <div id="industry_experience">
           <h1> Select Your Skills / Areas of Expertise </h1>
-          <div className="ui equal width grid stackable">
+          <div className="ui equal width grid">
             <div className="column">
               <div className="ui vertical menu">
               {/* FIRST COLUMN SKILLS */}
@@ -376,7 +362,7 @@ class Applicant_skill_form extends Component {
           </div>
         </div>
         <br/>
-        <button className="ui right floated button large" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
+        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
       </div>
     )}
 
@@ -384,12 +370,12 @@ class Applicant_skill_form extends Component {
 
 function postSkillsLevels(data){
   console.log('posted data postSkillsLevels', data)
-  $.post('https://apex-database.herokuapp.com/api/applicants/new_skillslevels', data)
+  // $.post('https://apex-database.herokuapp.com/api/applicants/new_skillslevels', data)
 }
 
 function postIndustryLevels(data){
   console.log('posted data postIndustryLevels', data)
-  $.post('https://apex-database.herokuapp.com/api/applicants/new_industrylevels', data)
+  // $.post('https://apex-database.herokuapp.com/api/applicants/new_industrylevels', data)
 }
 
 

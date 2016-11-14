@@ -29,7 +29,8 @@ class EmployerSignupForm extends React.Component {
       errors: {},
       errorsState: false,
       isLoading: false,
-      invalid: false
+      invalid: false,
+      loadingModal: false
     }
 
     this.onChange = this.onChange.bind(this);
@@ -37,10 +38,30 @@ class EmployerSignupForm extends React.Component {
     this.checkUserExists = this.checkUserExists.bind(this);
   }
 
+  componentDidMount(){
+    localStorage.setItem('isAuthen', 'no');
+    localStorage.setItem('error', "");
+    localStorage.setItem('loadingModal', "no");
+
+    console.log("Modal loading ---------", this.state.loadingModal)
+    // localStorage.setItem('type', "none");
+
+    if(localStorage.type == "employer"){
+      console.log("YESSSSSSSS from inside componentDidMount")
+      this.state.loadingModal = false
+      this.setState({
+        loadingModal: false
+      })
+    }
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  hideModal(){
+    $('.ui.small.modal.employer.signup').modal('hide')
+  }
 
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -64,15 +85,24 @@ class EmployerSignupForm extends React.Component {
         if (res.data) {
           errors[field] = 'There is user with such ' + field;
           invalid = true;
+          loadingModal = true;
         } else {
           errors[field] = '';
           invalid = false;
+          loadingModal = false;
         }
-        this.setState({ errors, invalid });
+        this.setState({ errors, invalid, loadingModal });
       });
     }
   }
 
+  changeLoadingModalState(){
+    console.log("changeLoadingModalState ------", this.state.loadingModal)
+    this.state.loadingModal = false
+    this.setState({
+      loadingModal: false
+    })
+  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -92,20 +122,32 @@ class EmployerSignupForm extends React.Component {
         (err) => this.setState({ errorsState: true, isLoading: false })
       );
     // }
-    console.log("this.state.errorsState", this.state.errorsState)
 
-    if (this.state.errors == true){
-    } else {
-      this.closeModal();
+    // this.hideModal()
+    window.setTimeout(modalPopup, 33000)
+
+
+    function modalPopup(){
+      console.log("-------- Running setTimeout ----------")
+      if(localStorage.error == "error" && localStorage.isAuthen == "no" && localStorage.type == "none"){
+
+        $('.ui.small.modal.employer.signup').modal('show')
+      }
+
+      if(localStorage.type == "employer") {
+        console.log("hide")
+        //
+        // this.state.loadingModal = false
+        // this.setState({
+        //   loadingModal: false
+        // })
+
+        $('.ui.small.modal.employer.signup').modal('hide')
+      }
+
     }
 
   }
-
-  closeModal(){
-    $('.ui.small.modal.employer.signup').modal('hide')
-  }
-
-
 
 
 //
