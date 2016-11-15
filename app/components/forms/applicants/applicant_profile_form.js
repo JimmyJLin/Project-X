@@ -59,16 +59,6 @@ class Applicant_profile_form extends Component {
       window.location.reload(true)
     }
 
-    window.setInterval(changeLoaded, 500)
-
-    function changeLoaded(){
-      localStorage.setItem('isLoaded', 'no');
-    }
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    }
-
   }
 
   handleSubmit(e) {
@@ -242,7 +232,7 @@ class Applicant_profile_form extends Component {
     //   companyArry: []
     // })
 
-    // window.location.assign('/Applicant_skill_form')
+    window.location.assign('/Applicant_skill_form')
 
 
   }
@@ -405,6 +395,26 @@ class Applicant_profile_form extends Component {
 
   render(){
 
+    let schoolData = this.state.educationArry
+    let school;
+    if (this.state.educationArry == "" || this.state.educationArry == null){
+      school = <div></div>
+    } else {
+      school = schoolData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]}</div>
+      })
+    }
+
+    let workData = this.state.work_historyArry
+    let work;
+    if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
+      work = <div></div>
+    } else {
+      work = workData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]}</div>
+      })
+    }
+
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
@@ -443,12 +453,12 @@ class Applicant_profile_form extends Component {
               <div className="field">
                 {/* Interested in Jobs in */}
                 <div>
-                  <label>Prefered Location</label>
+                  <label>Interested In Working</label>
                   <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Greater New York City">Greater New York City</option>
+                    <option value="New York">Greater New York City</option>
                     <option value="Nassau County">Nassau County</option>
                     <option value="Suffolk County">Suffolk County</option>
                     <option value="Brooklyn">Brooklyn</option>
@@ -507,16 +517,16 @@ class Applicant_profile_form extends Component {
                 </div>
 
                 <br/>
-                
+
                 {/* Industry Work Experience */}
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="0-2 Years Entry Level">Entry (0-2 years)</option>
-                    <option value="2-5 Years Mid Level">Mid (2-5 years)</option>
-                    <option value="5+ Years High Level">High (5+ years)</option>
+                    <option value="Entry Level"> 0-2 Years (Entry Level)</option>
+                    <option value="Mid Level">2-5 Years (Mid-Level)</option>
+                    <option value="High Level">5+ Years (High-Level)</option>
                   </select>
                 </div>
 
@@ -577,7 +587,7 @@ class Applicant_profile_form extends Component {
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
-                  <select name="education_level" id="" className="ui fluid dropdown education" value={this.state.education_level}
+                  <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
@@ -600,12 +610,76 @@ class Applicant_profile_form extends Component {
                     </div>
                     <div className="field">
                       <label name="Year">Graduation Year</label>
-                      <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
+                      <select name="year" id="" className="ui fluid dropdown" value={this.state.year} onChange={e => this.onSchoolYearChange(e.target.value)}>
+                        <option value="">Please Select</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                        <option value="1993">1993</option>
+                        <option value="1992">1992</option>
+                        <option value="1991">1991</option>
+                        <option value="1990">1990</option>
+                        <option value="1989">1989</option>
+                        <option value="1988">1988</option>
+                        <option value="1987">1987</option>
+                        <option value="1986">1986</option>
+                        <option value="1985">1985</option>
+                        <option value="1984">1984</option>
+                        <option value="1983">1983</option>
+                        <option value="1982">1982</option>
+                        <option value="1981">1981</option>
+                        <option value="1980">1980</option>
+                        <option value="1979">1979</option>
+                        <option value="1978">1978</option>
+                        <option value="1977">1977</option>
+                        <option value="1976">1976</option>
+                        <option value="1975">1975</option>
+                        <option value="1974">1974</option>
+                        <option value="1973">1973</option>
+                        <option value="1972">1972</option>
+                        <option value="1971">1971</option>
+                        <option value="1970">1970</option>
+                        <option value="1969">1969</option>
+                        <option value="1968">1968</option>
+                        <option value="1967">1967</option>
+                        <option value="1966">1966</option>
+                        <option value="1965">1965</option>
+                        <option value="1964">1964</option>
+                        <option value="1963">1963</option>
+                        <option value="1962">1962</option>
+                        <option value="1961">1961</option>
+                        <option value="1960">1960</option>
+                      </select>
                     </div>
                   </div>
                   <div id="add_additional">
                     <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {school}
 
                 </div>
 
@@ -638,15 +712,21 @@ class Applicant_profile_form extends Component {
                   <div id="add_additional">
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {work}
                 </div>
                 <br/>
 
+                {/* Upload Resume (PDF) */}
+                {/*<div>
+                  <label>Upload resume_pdf</label>
+                  <input type="file" name="resume_pdf" accept="application/pdf"
+                  value={this.state.resume_pdf}
+                  onDrop={this.onResumeDrop.bind(this)} />
+                </div>*/}
+
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
-                    <h4>Please submit valid pdf formated resume</h4>
                     <div className="ui fluid button" >Upload Resume</div>
-                    <br/>
-                    {this.state.resume_files.length > 0 ? <div><i className="icon check"></i>resume uploaded</div> : null}
                   </Dropzone>
                 </div>
 
@@ -696,13 +776,13 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      // browserHistory.push('/Applicant_skill_form')
-      window.location.assign('/Applicant_skill_form')
+      browserHistory.push('/Applicant_skill_form')
+      // window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
 
-      // browserHistory.push('/Applicant_skill_form')
+      browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 
