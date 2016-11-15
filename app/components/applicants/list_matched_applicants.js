@@ -19,15 +19,8 @@ class List_matched_applicants extends Component {
       job_applicants: [],
       experience_level: '',
       education_level: '',
-      industry: '',
-      job_skills: [],
-      job_skillsArr: [],
-      job_experiences: [],
-      job_experiencesArr:[],
-      selectedSkillsFromFilter: {},
-      selectedExperiencesFromFilter: {},
-      selectedskillsIds:[],
-      selectedExperiencesIds:[],
+      job_experiences :'',
+      job_skills : '',
       filteredApplicants: {}
     }
   }
@@ -64,43 +57,12 @@ s
     // console.log(this.state.experience_level)
     console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
-    if (name == 'education_level'){
-      this.UpdateTheFilterForEducationLevel('education_level', val);
+    if (name == 'education_level' || name == 'job_experiences' || name == 'job_skills'){
+      this.UpdateTheFilterForArrays(name, val);
     } else {
       this.UpdateTheFilter(name, val);
     }
   }
-
-  onJobSkillsChange(job_skills_data){
-
-    if (jobSkillsState.includes(job_skills_data)){
-        // jobSkillsState.remove(jobSkillsState.indexOf(job_skills_data)) // this should delete selection
-    } else {
-        jobSkillsState.push(job_skills_data) // this should add selection
-   }
-    // job_skills are the selected skills.
-    this.setState({job_skills: jobSkillsState})
-
-    console.log(" line 214 this.state.job_skills -->", this.state.job_skills)
-    // console.log("onJobSkillsChange Clicked", this.state.job_skills)
-    this.UpdateTheFilterForSkillsSelections( this.state.job_skills )
-  }
-
-  onExperienceChange(job_experiences_data){
-    if (jobExperienceState.includes(job_experiences_data)){
-    // jobExperienceState.remove(jobSkillsState.indexOf(job_experiences_data)) // this should delete selection
-  } else {
-    jobExperienceState.push(job_experiences_data) // this should add selection
-
-  }
-
-    this.setState({job_experiences: jobExperienceState})
-    console.log("onExperienceChange Clicked", this.state.job_experiences)
-
-    this.UpdateTheFilterForExperienceSelections( this.state.job_experiences )
-  }
-
-
 
 
   // { ******* UPDATE THE RENDERED APPLICANTS FUNCTIONS ************** }
@@ -117,172 +79,66 @@ s
      }
   }
 
-  UpdateTheFilterForEducationLevel(name, val){
+  UpdateTheFilterForArrays(name, val){
 
     var filteredArr;
       if (val == 'all'){
         this.state.filteredApplicants[name] = this.state.job_applicants;
       } else {
 
-     filteredArr  = this.state.job_applicants.filter( (obj) =>{
+         switch (name){
+         case 'education_level':
+           filteredArr  = this.state.job_applicants.filter( (obj) =>{
 
-                    obj.educationMatching = false;
-                    for (var n in obj.school){
-                      if( obj.school[n].includes(val)){
-                        obj.educationMatching = true;
-                        break;
-                      }
-                    }
-                    return obj.educationMatching == true
-                  })
+                          obj.Matching = false;
+                          for (var n in obj.school){
+                            if( obj.school[n].includes(val)){
+                              obj.Matching = true;
+                              break;
+                            }
+                          }
+                          return obj.Matching == true
+                        })
+            break;
+          case 'job_experiences' :
+          filteredArr  = this.state.job_applicants.filter( (obj) =>{
 
-                    console.log('Line 89 this is my filtered Array', filteredArr)
-                    this.state.filteredApplicants[name] = filteredArr
-  }
- }
-
- UpdateTheFilterForSkillsSelections(array){
-   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
-
-
-    // if (array.length == 0){
-    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
-    //  }
-
-
-    array.forEach( (skill)=>{
-      var tempArr;
-      var realSkill =  skill.replace(/ /g,'_')
-        if( skill === 'All' ) {
-          this.state.selectedSkillsFromFilter['sk_jobs'] = this.state.job_applicants;
-        } else {
-
-         tempArr = this.state.job_applicants.filter( (obj) =>{
-
-                     obj.skillMatching = false;
-
-                     for (var n in obj.skills){
-                       if ( obj.skills[n].includes(realSkill.toLowerCase() )){
-                         obj.skillMatching = true;
-                         break;
-                       }
-                     }
-
-                     return obj.skillMatching == true
-                   })
-          console.log('160', tempArr)
-          if(tempArr.length !== 0) {
-          this.state.selectedSkillsFromFilter['sk_'+ skill ] = tempArr;
+                         obj.Matching = false;
+                         for (var m in obj.industries){
+                           console.log('job_experiences', obj.industries[m], val )
+                           if( obj.industries[m], val.includes(val)){
+                             obj.Matching = true;
+                             break;
+                           }
+                         }
+                         return obj.Matching == true
+                       })
+          break;
+          case 'job_skills' :
+          filteredArr  = this.state.job_applicants.filter( (obj) =>{
+                         obj.Matching = false;
+                         for (var s in obj.skills){
+                           console.log('job_experiences', obj.skills[s], val )
+                           if( obj.skills[s].includes(val)){
+                             obj.Matching = true;
+                             break;
+                           }
+                         }
+                         return obj.Matching == true
+                       })
+          break;
+          default:
+          console.log('none')
+          break;
         }
-    }
+                     console.log('Line 89 this is my filtered Array', filteredArr)
 
- })
-
- console.log('line 178',  this.state.selectedSkillsFromFilter)
- }
-
-
-
- UpdateTheFilterForExperienceSelections(array){
-   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
-
-
-    // if (array.length == 0){
-    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
-    //  }
-
-
-    array.forEach( (exp)=>{
-      var tempArr;
-      var realIndustryExp =  exp.replace(/ /g,'_')
-        if( exp === 'All' ) {
-          this.state.selectedExperiencesFromFilter['ex_jobs'] = this.state.job_applicants;
-        } else {
-
-         tempArr = this.state.job_applicants.filter( (obj) =>{
-
-                     obj.expMatching = false;
-
-                     for (var n in obj.industries){
-                       if ( obj.industries[n].includes(realIndustryExp.toLowerCase() )){
-                         obj.expMatching = true;
-                         break;
-                       }
+                     if (filteredArr.length > 0){
+                       this.state.filteredApplicants[name] = filteredArr
                      }
-
-                     return obj.expMatching == true
-                   })
-          console.log('160', tempArr)
-
-          if(tempArr.length !== 0) {
-          this.state.selectedExperiencesFromFilter['ex_'+ exp] = tempArr;
-        }
-    }
-
- })
-
- console.log('line 178',  this.state.selectedExperiencesFromFilter)
- }
-
-
-
-
-
- // UpdateTheFilterForArray( name , array){
- //
- //      this.state.filteredApplicants[name] =  array
- //    }
-
-//  UpdateTheFilter(name, val){
-//    var filteredArr;
-//      if (val == 'all'){
-//        this.state.filteredApplicants[name] = this.state.job_applicants;
-//      } else {
-//         filteredArr  = this.state.job_applicants.filter( (obj) =>{
-//                        return obj[name] == val })
-//                        console.log('this is my filtered Array', filteredArr)
-//        this.state.filteredApplicants[name] = filteredArr
-//    }
-// }
-
-updatetheJobSkillsFinal(){
-  var JobSkills_all = Object.values(this.state.selectedSkillsFromFilter);
-
-  var selectedIdsForSkills= []; //=> [[],[]]
-
-  for (var i = 0; i < JobSkills_all.length; i++ ){
-    var arr = [];
-    JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
-    selectedIdsForSkills.push(arr)
   }
-  console.log('this is the final skills', selectedIdsForSkills)
+}
 
-  var finalSkills = _.flatten(selectedIdsForSkills);
-  console.log('this is the final skills', finalSkills)
-
-  this.state.selectedskillsIds = finalSkills;
-
- }
-
-
- updatetheIndExpFinal(){
-   var IndustryExp_all = Object.values(this.state.selectedExperiencesFromFilter);
-
-   var selectedIdsForExperiences= []; //=> [[],[]]
-
-   for (var i = 0; i < IndustryExp_all.length; i++ ){
-     var arr = [];
-     JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
-     selectedIdsForExperiences.push(arr)
-   }
-   console.log('this is the final Experiences', selectedIdsForExperiences)
-
-   var finalExp = _.flatten(selectedIdsForExperiences);
-   console.log('this is the final Experiences', finalExp)
-
-   this.state.selectedExperiencesIds = finalExp;
-
-  }
 
   updateTheFinalList(){
 
@@ -304,14 +160,6 @@ updatetheJobSkillsFinal(){
      return el
     }))
 
-    if (this.state.selectedskillsIds.length !== 0 ) {
-      selectedIds.push(this.state.selectedskillsIds)
-    }
-
-    if (this.state.selectedExperiencesIds.length !== 0 ) {
-      selectedIds.push(this.state.selectedExperiencesIds)
-    }
-    console.log('this is the final selectidIDS to intersect', selectedIds)
 
     var intersectionIds;
     switch ( selectedIds.length) {
@@ -360,8 +208,6 @@ updatetheJobSkillsFinal(){
 
 
   componentWillUpdate(){
-    this.updatetheJobSkillsFinal();
-
     this.updateTheFinalList()
   }
 
@@ -488,7 +334,7 @@ updatetheJobSkillsFinal(){
                 {/* Years of Experience */}
                 <div>
                   <label name="experience_level">Work Experience (Full Employment)</label>
-                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.rience_level}
+                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
@@ -534,64 +380,64 @@ updatetheJobSkillsFinal(){
                 {/* Skills */}
                 <div>
                   <label name="job_skills">Skills</label>
-                  <select multiple="true" name="job_skills" className="ui fluid normal dropdown"
+                  <select name="job_skills" className="ui fluid  dropdown"
                   value={this.state.job_skills}
-                  onChange={e => this.onJobSkillsChange(e.target.value)}>
+                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
-                    <option value="Client Relations">Client Relations</option>
-                    <option value="Microsoft Office">Microsoft Office</option>
-                    <option value="Quickbooks">Quickbooks</option>
-                    <option value="Bookkeeping">Bookkeeping</option>
-                    <option value="Tax Software">Tax Software</option>
-                    <option value="IT">IT</option>
-                    <option value="Data Entry">Data Entry</option>
-                    <option value="Financial Statement">Financial Statement</option>
-                    <option value="Financial Planning">Financial Planning</option>
-                    <option value="Debt Consolidation">Debt Consolidation</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Web Development">Web Development</option>
-                    <option value="Account Reconciliation">Account Reconciliation</option>
-                    <option value="Payroll Management">Payroll Management</option>
-                    <option value="Budgeting">Budgeting</option>
-                    <option value="Forecasting">Forecasting</option>
-                    <option value="Corporate Reporting">Corporate Reporting</option>
-                    <option value="Public Speaking">Public Speaking</option>
-                    <option value="Analytical Writing">Analytical Writing</option>
-                    <option value="Cost Accounting">Cost Accounting</option>
-                    <option value="Federal Tax Law">Federal Tax Law</option>
+                    <option value="client_relations">Client Relations</option>
+                    <option value="microsoft_office">Microsoft Office</option>
+                    <option value="quickbooks">Quickbooks</option>
+                    <option value="bookkeeping">Bookkeeping</option>
+                    <option value="tax_software">Tax Software</option>
+                    <option value="it">IT</option>
+                    <option value="data_entry">Data Entry</option>
+                    <option value="financial_statement">Financial Statement</option>
+                    <option value="financial_planning">Financial Planning</option>
+                    <option value="debt_consolidation">Debt Consolidation</option>
+                    <option value="sales">Sales</option>
+                    <option value="web_development">Web Development</option>
+                    <option value="account_reconciliation">Account Reconciliation</option>
+                    <option value="payroll_management">Payroll Management</option>
+                    <option value="budgeting">Budgeting</option>
+                    <option value="forecasting">Forecasting</option>
+                    <option value="corporate_reporting">Corporate Reporting</option>
+                    <option value="public_speaking">Public Speaking</option>
+                    <option value="analytical_writing">Analytical Writing</option>
+                    <option value="cost_accounting">Cost Accounting</option>
+                    <option value="federal_tax_law">Federal Tax Law</option>
                   </select>
                 </div>
 
                 {/* Experiences */}
                 <div>
-                  <label name="job_riences">Experiences</label>
-                  <select multiple="true" name="job_experiences" className="ui fluid normal dropdown"
-                  value={this.state.job_experiences}
-                  onChange={e => this.onExperienceChange(e.target.value)}>
+                  <label name="job_experiences">Experiences</label>
+                  <select name="job_experiences" className="ui fluid  dropdown"
+                    value={this.state.job_experiences}
+                    onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
-                    <option value="Wealth Management">Wealth Management</option>
-                    <option value="Investment Banking">Investment Banking</option>
-                    <option value="Asset Management">Asset Management</option>
-                    <option value="Institutional Securities">Institutional Securities</option>
-                    <option value="Commericial Banking">Commericial Banking</option>
-                    <option value="Retirement Solutions">Retirement Solutions</option>
-                    <option value="Portfolio Strategy">Portfolio Strategy</option>
-                    <option value="Financial Audit">Financial Audit</option>
-                    <option value="Tax Preparation">Tax Preparation</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Advisory Services">Advisory Services</option>
-                    <option value="Compliance">Compliance</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Underwriting">Underwriting</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Financial Analysis">Financial Analysis</option>
-                    <option value="Derivatives">Derivatives</option>
-                    <option value="M&A Activity">M&A Activity</option>
-                    <option value="Venture Capitol">Venture Capitol</option>
-                    <option value="Forensice Accounting">Forensice Accounting</option>
+                    <option value="wealth_management">Wealth Management</option>
+                    <option value="investment_banking">Investment Banking</option>
+                    <option value="asset_management">Asset Management</option>
+                    <option value="institutional_securities">Institutional Securities</option>
+                    <option value="commericial_banking">Commericial Banking</option>
+                    <option value="retirement_solutions">Retirement Solutions</option>
+                    <option value="portfolio_strategy">Portfolio Strategy</option>
+                    <option value="financial_audit">Financial Audit</option>
+                    <option value="tax_preparation">Tax Preparation</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="advisory_services">Advisory Services</option>
+                    <option value="compliance">Compliance</option>
+                    <option value="human_resources">Human Resources</option>
+                    <option value="underwriting">Underwriting</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="sales">Sales</option>
+                    <option value="financial_analysis">Financial Analysis</option>
+                    <option value="derivatives">Derivatives</option>
+                    <option value="manda_activity">M&A Activity</option>
+                    <option value="venture_capitol">Venture Capitol</option>
+                    <option value="forensice_acounting">Forensice Accounting</option>
                   </select>
                 </div>
 

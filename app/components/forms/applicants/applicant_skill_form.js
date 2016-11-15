@@ -120,9 +120,10 @@ class Applicant_skill_form extends Component {
     var level = e.target.value;
     console.log(name,level)
 
-    var domEl = e.target.id
-
-    document.getElementById(domEl).closest('section').append(' ' + level)
+    var domEl = e.target.id // id like name
+    var main = document.querySelector('.ui.dropdown.item')
+    var title = main.closest('.title')
+    console.log(title)
 
     switch(name){
       case 'Wealth_Wanagement': this.setState({ wealth_wanagement:level }); break;
@@ -288,12 +289,14 @@ class Applicant_skill_form extends Component {
       return (
       <section className="ui dropdown item" key = {el.id}>
          {text}
+        <div className="title">test</div>
         <i className="dropdown icon"></i>
         <div className="menu">
           <option className="item" id={el} value ="0-2 years" onClick={ this.seeValue.bind(this)}>0-2 years</option>
           <option className="item"  id={el} value ="2-5 years" onClick={ this.seeValue.bind(this)}> 2-5 years</option>
           <option className="item"  id={el}  value ="5+ years" onClick={ this.seeValue.bind(this)} > 5+ years</option>
         </div>
+
       </section>
     )
     })
