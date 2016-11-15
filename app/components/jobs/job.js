@@ -176,7 +176,7 @@ class Job extends Component {
       }
 
       return <div key={job.id} className="ui raised padded segment">
-                <h2 className="ui header">
+                <h2 className="ui header truncate">
                   {job.title}
                 </h2>
                 <div className="ui grid">
