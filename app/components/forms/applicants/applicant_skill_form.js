@@ -41,7 +41,7 @@ const All_Experiences = [
       "IT",
       "Data_Entry"],
       [
-      "Financial_Statement",
+      "Financial_Statement_Analysis",
       "Financial_Planning",
       "Debt_Consolidation",
       "Sales",
@@ -362,7 +362,7 @@ class Applicant_skill_form extends Component {
           </div>
         </div>
         <br/>
-        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
+        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Activate Profile</button>
       </div>
     )}
 

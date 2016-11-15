@@ -507,16 +507,16 @@ class Applicant_profile_form extends Component {
                 </div>
 
                 <br/>
-
+                
                 {/* Industry Work Experience */}
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="0-2 Years Entry Level"> 0-2 Years (Entry Level)</option>
-                    <option value="2-5 Years Mid Level">2-5 Years (Mid-Level)</option>
-                    <option value="5+ Years High Level">5+ Years (High-Level)</option>
+                    <option value="0-2 Years Entry Level">Entry (0-2 years)</option>
+                    <option value="2-5 Years Mid Level">Mid (2-5 years)</option>
+                    <option value="5+ Years High Level">High (5+ years)</option>
                   </select>
                 </div>
 

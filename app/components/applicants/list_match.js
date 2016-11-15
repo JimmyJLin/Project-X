@@ -361,18 +361,7 @@ class List_match extends Component {
 
               <h2>Filter By:</h2>
               <div className="field">
-                {/* Years of Experience */}
-                <div>
-                  <label name="experience_level">Work Experience (Full Employment)</label>
-                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
-                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="all">All</option>
-                    <option value="Entry Level"> 0-2 Years (Entry Level)</option>
-                    <option value="Mid Level">2-5 Years (Mid-Level)</option>
-                    <option value="High Level">5+ Years (High-Level)</option>
-                  </select>
-                </div>
+
 
                 {/* Industry rience */}
                 <div>
@@ -384,10 +373,23 @@ class List_match extends Component {
                     <option value="all">All</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
-                    <option value="Health">Health</option>
                     <option value="Insurance">Insurance</option>
                   </select>
                 </div>
+
+                {/* Years of Experience */}
+                <div>
+                  <label name="experience_level">Work Experience (Full Employment)</label>
+                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
+                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="all">All</option>
+                    <option value="Entry Level">Entry (0-2 years) </option>
+                    <option value="Mid Level">Mid (2-5 years)</option>
+                    <option value="High Level">High (5+ years)</option>
+                  </select>
+                </div>
+
 
                 {/* Education */}
                 <div>

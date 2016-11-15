@@ -595,7 +595,7 @@ updatetheJobSkillsFinal(){
                     <option value="Tax Software">Tax Software</option>
                     <option value="IT">IT</option>
                     <option value="Data Entry">Data Entry</option>
-                    <option value="Financial Statement">Financial Statement</option>
+                    <option value="Financial Statement">Financial Statement Analysis</option>
                     <option value="Financial Planning">Financial Planning</option>
                     <option value="Debt Consolidation">Debt Consolidation</option>
                     <option value="Sales">Sales</option>

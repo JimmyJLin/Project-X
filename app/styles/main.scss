@@ -48,6 +48,7 @@ body {
 }
 
 .ui.button.small{
+  border-radius: 5px;
   background-color: $button_primary_border_color;
   color: $primary_text_color;
   width: 90px;
