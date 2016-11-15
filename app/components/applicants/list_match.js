@@ -37,7 +37,7 @@ class List_match extends Component {
 
     console.log("hello from list_matched_applicants componentDidMount")
     let applicant_id = this.props.params.id
-    let url = "https://apex-database.herokuapp.com/api/applicants/"
+    let url = "https://apex-database.herokuapp.com/api/jobs/active"
     // get all matched Applicants data
     $.get(url).done( (data)=>{
       this.state.job_applicants = data
@@ -61,7 +61,7 @@ class List_match extends Component {
     // console.log(this.state.experience_level)
     console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
-    if (name == 'education_level' || name == 'job_experiences' || name == 'job_skills'){
+    if (name == 'education_level' || name == 'experience_level' || name == 'desired_industry'){
       this.UpdateTheFilterForArrays(name, val);
     } else {
       this.UpdateTheFilter(name, val);
@@ -104,12 +104,12 @@ class List_match extends Component {
                           return obj.Matching == true
                         })
             break;
-          case 'job_experiences' :
+          case 'experience_level' :
           filteredArr  = this.state.job_applicants.filter( (obj) =>{
 
                          obj.Matching = false;
                          for (var m in obj.industries){
-                           console.log('job_experiences', obj.industries[m], val )
+                           console.log('experience_level', obj.industries[m], val )
                            if( obj.industries[m], val.includes(val)){
                              obj.Matching = true;
                              break;
@@ -118,11 +118,11 @@ class List_match extends Component {
                          return obj.Matching == true
                        })
           break;
-          case 'job_skills' :
+          case 'desired_industry' :
           filteredArr  = this.state.job_applicants.filter( (obj) =>{
                          obj.Matching = false;
                          for (var s in obj.skills){
-                           console.log('job_experiences', obj.skills[s], val )
+                           console.log('desired_industry', obj.skills[s], val )
                            if( obj.skills[s].includes(val)){
                              obj.Matching = true;
                              break;
@@ -135,11 +135,11 @@ class List_match extends Component {
           console.log('none')
           break;
         }
-                     console.log('Line 89 this is my filtered Array', filteredArr)
+         console.log('Line 138 this is my filtered Array', filteredArr)
 
-                     if (filteredArr.length > 0){
-                       this.state.filteredApplicants[name] = filteredArr
-                     }
+         if (filteredArr.length > 0){
+           this.state.filteredApplicants[name] = filteredArr
+         }
   }
   }
 
@@ -274,74 +274,57 @@ class List_match extends Component {
 
     // const job_applicants = this.state.job_applicants
     const applicants = jobArray.map(function(applicant){
-
-      // rendering each certifications
-      var certificationArry = applicant.certifications
-      let certifications;
-      if (applicant.certifications == "" || applicant.certifications == null){
-        certifications = <div>"N/A"</div>
+      // rendering location
+      var location;
+      if(applicant.location == "" || applicant.location == null){
+        location = <div></div>
       } else {
-        certifications = certificationArry.map((el)=>{
-          return <div className="ui list">
-                    <div className="item">{el}</div>
-                  </div>
-        })
+        location = <div className="ui list">
+                  <div className="item">{applicant.location}</div>
+                </div>
       }
+
 
       // rendering each school
-      var schoolArry = applicant.school
-      let school;
-      if (applicant.school == "" || applicant.school == null){
-        school = <div>"N/A"</div>
+      var educationRequirement;
+      if(applicant.education_level == "" || applicant.education_level == null){
+        educationRequirement = <div></div>
       } else {
-        school = schoolArry.map((el)=>{
-          var splitedArry = el.split(",").map((el)=>{return el})
-          return <div className="ui list">
-                    <div className="item">
-                    {splitedArry[0]}
-                    <br/>
-                    {splitedArry[1]}-{splitedArry[2]}</div>
-                  </div>
-        })
+        educationRequirement = <div className="ui list">
+                  <div className="item">{applicant.education_level}</div>
+                </div>
       }
 
-      // rendering each work history
-      var workArry = applicant.work_history
-      let work;
-      if (applicant.work_history == "" || applicant.work_history == null){
-        work = <div>"N/A"</div>
+      // rendering each description
+      var description;
+      if(applicant.description == "" || applicant.description == null){
+        description = <div></div>
       } else {
-        work = workArry.map((el)=>{
-          var workArry = el.split(",").map((el)=>{return el})
-          return <div className="ui list">
-                    <div className="item">
-                    {workArry[0]}
-                    <br/>
-                    {workArry[1]}</div>
-                  </div>
-        })
+        description = <div className="ui list">
+                  <div className="item">{applicant.description}</div>
+                </div>
       }
+
 
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
-      const link = `/Matched_applicant/` + applicant.ui
-      return <Link to={link} className="card list" key={applicant.ui} >
+      const link = `/list_matched/job/` + applicant.id
+      return <Link to={link} className="card list" key={applicant.id} >
               <div className="content">
-                <img className="left floated tiny ui image" src={url} alt="profile pic"/>
+                {/*<img className="left floated tiny ui image" src={url} alt="profile pic"/>*/}
                 <div className="header">
-                  <br/>
-                  {applicant.name} {applicant.last_name}
+                  {applicant.title}
                 </div>
                 <div className="meta">
-                  {applicant.desired_industry}
+                  {applicant.type}
                 </div>
                 <div className="description">
+                  <span>Location: </span>
+                  {location}
                   <span>Education:</span>
-                  {school}
-                  <span>Experience:</span>
-                  {work}
-                  <span>Certifications:</span>
-                  {certifications}
+                  {educationRequirement}
+                  <span>Description:</span>
+                  {description}
                 </div>
               </div>
               <br/>

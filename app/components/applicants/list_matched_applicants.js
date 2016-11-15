@@ -376,6 +376,7 @@ class List_matched_applicants extends Component {
                     <option value="all">All</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
 
