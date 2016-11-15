@@ -238,6 +238,7 @@ class Applicant_profile extends Component {
           {/* Bio */}
           <div id="bio" className="twelve wide column">
             <h2>Summary</h2>
+            <h4 id="hint"> - his is your personal Bio. It will serve as a brief cover letter to distinguish you from other applicants. Let employers know what makes you unique - </h4>
             <p>{this.state.applicantProfile.summary}</p>
           </div>
 

@@ -423,7 +423,7 @@ class Applicant_profile_form extends Component {
         <div id="applicant_profile_form">
           <br/>
           <br/>
-          <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
+          <h1> Tell Us About Yourself, and We'll Tell You Whos Looking to Hire You</h1>
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
