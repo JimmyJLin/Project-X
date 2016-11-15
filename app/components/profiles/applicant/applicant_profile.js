@@ -24,7 +24,13 @@ class Applicant_profile extends Component {
 
   }
 
+
+
+
   componentDidMount() {
+
+    // settimeout to remove spinner after 5 seconds
+    window.setTimeout(this.resetSpinner(), 5000)
 
     // spinner
 
@@ -64,7 +70,6 @@ class Applicant_profile extends Component {
           work_history: this.state.work_history,
           languages_spoken: this.state.languages_spoken,
           isLoading: true
-
         })
       }
 
@@ -98,6 +103,19 @@ class Applicant_profile extends Component {
       })
 
 
+  }
+
+
+
+
+  resetSpinner(){
+    console.log("Running resetSpinner")
+
+    if(this.state.isLoading == false){
+      console.log("inside conidtioning state of resetSpinner")
+      this.state.isLoading = true
+      this.setState({isLoading: true})
+    }
   }
 
   render(){

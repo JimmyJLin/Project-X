@@ -354,7 +354,7 @@ class List_match extends Component {
     return(
       <div id="list_jobs">
         <h1>Current Matched Applicant Lists</h1>
-
+        {spinner}
         <div className="ui stackable grid">
           <div className="four wide column">
             <div className="ui center aligned basic segment">

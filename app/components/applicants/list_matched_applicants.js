@@ -21,7 +21,8 @@ class List_matched_applicants extends Component {
       education_level: '',
       job_experiences :'',
       job_skills : '',
-      filteredApplicants: {}
+      filteredApplicants: {},
+      isLoading: false
     }
   }
 
@@ -41,9 +42,11 @@ class List_matched_applicants extends Component {
       this.state.job_applicants = data
       console.log("Applicant Data:", data)
       console.log("this.state.job_applicants", this.state.job_applicants)
+      this.state.isLoading = true
 
       this.setState({
-        job_applicants: this.state.job_applicants
+        job_applicants: this.state.job_applicants,
+        isLoading: true
       })
 
     })
@@ -214,6 +217,22 @@ class List_matched_applicants extends Component {
 
   render(){
 
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner ends
+
     let change = function(e){
       e.preventDefault();
       console.log(e.target.value)
@@ -339,7 +358,7 @@ class List_matched_applicants extends Component {
     return(
       <div id="list_jobs">
         <h1>Current Matched Applicant Lists</h1>
-
+        {spinner}
         <div className="ui stackable grid">
           <div className="four wide column">
             <div className="ui center aligned basic segment">
