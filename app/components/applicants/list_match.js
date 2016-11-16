@@ -226,7 +226,7 @@ class List_match extends Component {
         description = <div></div>
       } else {
         description = <div className="ui list">
-                  <div className="item">{applicant.description}</div>
+                  <div className="item ellipsis">{applicant.description}</div>
                 </div>
       }
 
