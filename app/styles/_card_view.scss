@@ -3,6 +3,11 @@ $button_primary_border_color: #00b2b6;
 $button_on_hover_color: pink;
 $transparent: transparent;
 
+// variables for ellipsis
+$font-size: 1em;
+$line-height: 1;
+$lines-to-show: 5;
+
 #list_jobs, #job_details{
   padding-bottom: 75px;
   width: 102%;
@@ -88,6 +93,8 @@ $transparent: transparent;
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+
     }
 
     .card.list{
@@ -100,6 +107,8 @@ $transparent: transparent;
       //   overflow: hidden;
       //   text-overflow: ellipsis;
       // }
+
+
     }
 
     .card:hover{
@@ -116,6 +125,21 @@ $transparent: transparent;
     .truncate{
       width: 90%;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    // truncate string 
+    .ellipsis{
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      max-width: 100%;
+      height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+      margin: 0 auto;
+      font-size: $font-size;
+      line-height: $line-height;
+      -webkit-line-clamp: $lines-to-show;
+      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
     }
