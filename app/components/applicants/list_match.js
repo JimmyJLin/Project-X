@@ -4,11 +4,7 @@ import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
-let certificateState = [];
-let jobSkillsState = [];
-let jobExperienceState = [];
 var final= [];
-var jobArray;
 
 
 class List_match extends Component {
@@ -16,14 +12,12 @@ class List_match extends Component {
     super(props);
 
     this.state = {
-      job_applicants: [],
-      experience_level: '',
+      jobs: [],
+      industry: '',
       education_level: '',
-      job_experiences :'',
-      job_skills : '',
-      filteredApplicants: {},
+      experience_level :'',
+      filtered_jobs: {},
       isLoading: false
-
     }
   }
 
@@ -40,15 +34,16 @@ class List_match extends Component {
     let url = "https://apex-database.herokuapp.com/api/jobs/active"
     // get all matched Applicants data
     $.get(url).done( (data)=>{
-      this.state.job_applicants = data
+      this.state.jobs = data
       console.log("Applicant Data:", data)
-      console.log("this.state.job_applicants", this.state.job_applicants)
       this.state.isLoading = true
 
       this.setState({
-        job_applicants: this.state.job_applicants,
+        jobs: this.state.jobs,
         isLoading: true
       })
+
+      console.log('line 52 after initial set', this.state.jobs)
 
     })
   }
@@ -57,15 +52,12 @@ class List_match extends Component {
   onFilterChange(name, val){
 
     console.log('name', 'val', name,val )
+
     this.setState({ [name]: val});
     // console.log(this.state.experience_level)
     console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
-    if (name == 'education_level' || name == 'experience_level' || name == 'desired_industry'){
-      this.UpdateTheFilterForArrays(name, val);
-    } else {
       this.UpdateTheFilter(name, val);
-    }
   }
 
 
@@ -74,90 +66,33 @@ class List_match extends Component {
    UpdateTheFilter(name, val){
      var filteredArr;
        if (val == 'all'){
-         this.state.filteredApplicants[name] = this.state.job_applicants;
+         this.state.filtered_jobs[name] = this.state.jobs;
        } else {
-          filteredArr  = this.state.job_applicants.filter( (obj) =>{
+          filteredArr  = this.state.jobs.filter( (obj) =>{
+            console.log('this is my line72', obj[name], val)
                          return obj[name] == val })
-                         console.log('this is my filtered Array', filteredArr)
-         this.state.filteredApplicants[name] = filteredArr
+
+          this.state.filtered_jobs[name] = filteredArr
      }
-  }
-
-  UpdateTheFilterForArrays(name, val){
-
-    var filteredArr;
-      if (val == 'all'){
-        this.state.filteredApplicants[name] = this.state.job_applicants;
-      } else {
-
-         switch (name){
-         case 'education_level':
-           filteredArr  = this.state.job_applicants.filter( (obj) =>{
-
-                          obj.Matching = false;
-                          for (var n in obj.school){
-                            if( obj.school[n].includes(val)){
-                              obj.Matching = true;
-                              break;
-                            }
-                          }
-                          return obj.Matching == true
-                        })
-            break;
-          case 'experience_level' :
-          filteredArr  = this.state.job_applicants.filter( (obj) =>{
-
-                         obj.Matching = false;
-                         for (var m in obj.industries){
-                           console.log('experience_level', obj.industries[m], val )
-                           if( obj.industries[m], val.includes(val)){
-                             obj.Matching = true;
-                             break;
-                           }
-                         }
-                         return obj.Matching == true
-                       })
-          break;
-          case 'desired_industry' :
-          filteredArr  = this.state.job_applicants.filter( (obj) =>{
-                         obj.Matching = false;
-                         for (var s in obj.skills){
-                           console.log('desired_industry', obj.skills[s], val )
-                           if( obj.skills[s].includes(val)){
-                             obj.Matching = true;
-                             break;
-                           }
-                         }
-                         return obj.Matching == true
-                       })
-          break;
-          default:
-          console.log('none')
-          break;
-        }
-         console.log('Line 138 this is my filtered Array', filteredArr)
-
-         if (filteredArr.length > 0){
-           this.state.filteredApplicants[name] = filteredArr
-         }
-  }
   }
 
 
   updateTheFinalList(){
 
     var ffinal = [];
-    var jobsState = this.state.job_applicants;
 
-    var finalList = this.state.filteredApplicants;
+    var jobstate = this.state.jobs;
 
-    var valuessoffilteredApplicants = Object.values(finalList);
+    var finalList = this.state.filtered_jobs;
+
+    console.log('finalList line 143', finalList)
+    var valuessoffiltered_jobs = Object.values(finalList);
 
     var selectedIds= []; //=> [[],[]]
 
-    for (var i = 0; i <valuessoffilteredApplicants.length; i++ ){
+    for (var i = 0; i <valuessoffiltered_jobs.length; i++ ){
       var arr = [];
-      valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
+      valuessoffiltered_jobs[i].map((el)=>{ arr.push(el.id) })
       selectedIds.push(arr)
     }
    console.log('+++++++++', selectedIds.map( (el)=>{
@@ -171,32 +106,23 @@ class List_match extends Component {
       console.log('there is no intersection')
       break;
     case 1:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0] );
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0] );
       break;
     case 2:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1] );
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] );
       break;
     case 3:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2] );
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] );
       break;
-    case 4:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] );
-      break;
-    case 5:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] );
-      break;
-    case 6:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4], selectedIds[5]  );
-      break;
-    default:
+        default:
     break ;
     }
 
     console.log('intersectionIds', intersectionIds)
 
       for ( var i in intersectionIds ){
-          jobsState.forEach( (obj)=>{
-            if ( obj.ui == intersectionIds[i] ) {
+          jobstate.forEach( (obj)=>{
+            if ( obj.id == intersectionIds[i] ) {
                 ffinal.push(obj) }
               })
                 // console.log(final)
@@ -238,10 +164,10 @@ class List_match extends Component {
       let current_job_id = e.target.value
 
       let applicationData = {
-        applicant_id: applicant_id,
-        job_id: current_job_id,
-        status: 'applied'
-      }
+          applicant_id: applicant_id,
+          job_id: current_job_id,
+          status: 'applied'
+        }
 
       console.log("applicationData", applicationData)
       console.log("e-target className", e.target.className)
@@ -249,7 +175,6 @@ class List_match extends Component {
       $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
         .done((data) => {
           console.log('succesfully applied for a job')
-
         })
         .error((error) => {
           console.log('unable to apply for a job', error)
@@ -265,14 +190,14 @@ class List_match extends Component {
     var jobArray;
     // console.log('this is my final', final)
       if (final.length == 0 ){
-        jobArray = this.state.job_applicants
+        jobArray = this.state.jobs
         // console.log("YESSSSSS -----", jobArray)
       } else {
         jobArray = final
         // console.log("NOOOOOOO ----", jobArray)
       }
 
-    // const job_applicants = this.state.job_applicants
+    // const jobs = this.state.jobs
     const applicants = jobArray.map(function(applicant){
       // rendering location
       var location;
@@ -316,7 +241,7 @@ class List_match extends Component {
                   {applicant.title}
                 </div>
                 <div className="meta">
-                  {applicant.type}
+                  {applicant.industry}
                 </div>
                 <div className="description">
                   <span>Location: </span>
@@ -329,7 +254,7 @@ class List_match extends Component {
               </div>
               <br/>
               <br/>
-              <button id={"job"+applicant.ui} value={applicant.ui} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
+              <button id={"job"+applicant.id} value={applicant.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
             </Link>
 
     })
@@ -348,15 +273,15 @@ class List_match extends Component {
 
                 {/* Industry rience */}
                 <div>
-                  <label name="certifications">Industry</label>
-                  <select name="desired_industry" className="ui fluid normal dropdown"
+                  <label name="industry">Industry</label>
+                  <select name="industry" className="ui fluid normal dropdown"
                   value={this.state.industry}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
-                    <option value="Insurance">Insurance</option>
+                    <option value="Health">Health</option>
                   </select>
                 </div>
 
@@ -367,12 +292,11 @@ class List_match extends Component {
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="all">All</option>
-                    <option value="Entry Level">Entry (0-2 years) </option>
-                    <option value="Mid Level">Mid (2-5 years)</option>
-                    <option value="High Level">High (5+ years)</option>
+                    <option value="Entry Level"> Entry (0-2 years) </option>
+                    <option value="Mid Level"> Mid (2-5 years)</option>
+                    <option value="High Level"> High (5+ years)</option>
                   </select>
                 </div>
-
 
                 {/* Education */}
                 <div>
@@ -382,9 +306,9 @@ class List_match extends Component {
                     <option value="">Please Select</option>
                     <option value="all">All</option>
                     <option value="Current Student">Current Student</option>
-                    <option value="High School/GED">High School/GED</option>
+                    <option value="High School / GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelors Degree">Bachelors Degree</option>
+                    <option value="Bachelor Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
                     <option value="Masters Degree">Masters Degree</option>
                     <option value="MBA Degree">MBA Degree</option>
