@@ -4,11 +4,7 @@ import { Link } from 'react-router'
 import {browserHistory} from 'react-router';
 import $ from 'jquery'; // requires jQuery for AJAX request
 
-let certificateState = [];
-let jobSkillsState = [];
-let jobExperienceState = [];
 var final= [];
-var jobArray;
 
 
 class List_match extends Component {
@@ -17,17 +13,11 @@ class List_match extends Component {
 
     this.state = {
       jobs: [],
-      experience_level: '',
-      education_level: '',
       industry: '',
-      job_skills: [],
-      job_skillsArr: [],
-      job_experiences: [],
-      job_experiencesArr:[],
-      sortedList : [],
-      filteredJobs: {},
+      education_level: '',
+      experience_level :'',
+      filtered_jobs: {},
       isLoading: false
-
     }
   }
 
@@ -39,107 +29,112 @@ class List_match extends Component {
 
     }
 
-    // get all matched jobs data
-    $.get('https://apex-database.herokuapp.com/api/jobs/active').done( (data)=>{
+    console.log("hello from list_matched_applicants componentDidMount")
+    let applicant_id = this.props.params.id
+    let url = "https://apex-database.herokuapp.com/api/jobs/active"
+    // get all matched Applicants data
+    $.get(url).done( (data)=>{
       this.state.jobs = data
+      console.log("Applicant Data:", data)
       this.state.isLoading = true
-
-      console.log("jobs Data:", data)
-      console.log("this.state.jobs", this.state.jobs)
 
       this.setState({
         jobs: this.state.jobs,
         isLoading: true
-
       })
+
+      console.log('line 52 after initial set', this.state.jobs)
 
     })
   }
 
-
-
+  //{***** On Change Functions *******}
   onFilterChange(name, val){
+
     console.log('name', 'val', name,val )
+
     this.setState({ [name]: val});
     // console.log(this.state.experience_level)
-    console.log("onIndustryExpLevelChange Clicked", name, val)
-    // console.log("this.state.experience_level -->: ", this.state.experience_level)
+    console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
-    this.UpdateTheFilter(name, val);
+      this.UpdateTheFilter(name, val);
   }
+
+
+  // { ******* UPDATE THE RENDERED APPLICANTS FUNCTIONS ************** }
 
    UpdateTheFilter(name, val){
-     console.log('line 104 filtered value ', name , val)
-      var filteredArr  = this.state.jobs.filter( (obj) =>{
-                     return obj[name] == val })
-                     console.log('this is my filtered Array', filteredArr)
-     this.state.filteredJobs[name] = filteredArr
-     console.log('this.state.filteredJobs', this.state.filteredJobs)
+     var filteredArr;
+       if (val == 'all'){
+         this.state.filtered_jobs[name] = this.state.jobs;
+       } else {
+          filteredArr  = this.state.jobs.filter( (obj) =>{
+            console.log('this is my line72', obj[name], val)
+                         return obj[name] == val })
+
+          this.state.filtered_jobs[name] = filteredArr
+     }
   }
 
+
   updateTheFinalList(){
+
     var ffinal = [];
-    var jobsState = this.state.jobs;
-    var finalList = this.state.filteredJobs;
-    var valuessofFilteredJobs = Object.values(finalList);
+
+    var jobstate = this.state.jobs;
+
+    var finalList = this.state.filtered_jobs;
+
+    console.log('finalList line 143', finalList)
+    var valuessoffiltered_jobs = Object.values(finalList);
+
     var selectedIds= []; //=> [[],[]]
 
-    for (var i = 0; i <valuessofFilteredJobs.length; i++ ){
+    for (var i = 0; i <valuessoffiltered_jobs.length; i++ ){
       var arr = [];
-      valuessofFilteredJobs[i].map((el)=>{ arr.push(el.id) })
+      valuessoffiltered_jobs[i].map((el)=>{ arr.push(el.id) })
       selectedIds.push(arr)
     }
-    console.log('+++++++++', selectedIds.map( (el)=>{
-      return el
+   console.log('+++++++++', selectedIds.map( (el)=>{
+     return el
     }))
 
 
     var intersectionIds;
     switch ( selectedIds.length) {
+    case 0:
+      console.log('there is no intersection')
+      break;
     case 1:
-      intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0] ); break;
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0] );
+      break;
     case 2:
-    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] ); break;
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1] );
+      break;
     case 3:
-    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] ); break;
-    case 4:
-    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3] ); break;
-    case 5:
-    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}),selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4] ); break;
-    case 6:
-    intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2], selectedIds[3],  selectedIds[4]  ); break;
-    default:
+      intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0], selectedIds[1], selectedIds[2] );
+      break;
+        default:
     break ;
     }
-
 
     console.log('intersectionIds', intersectionIds)
 
       for ( var i in intersectionIds ){
-          jobsState.forEach( (obj)=>{
+          jobstate.forEach( (obj)=>{
             if ( obj.id == intersectionIds[i] ) {
                 ffinal.push(obj) }
               })
-                console.log(final)
+                // console.log(final)
           }
           final = ffinal;
-    console.log(final)
-    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.id}), keysofFilteredJobs.forEach((arr)=> { arr.map((el)=>{ return el.id})}))
-    //
-    // console.log('this state filteredJobs', finalList,keysofFilteredJobs, intersectionIds ,areIDs)
 
   }
+
 
 
   componentWillUpdate(){
     this.updateTheFinalList()
-  }
-
-
-  onExperienceChange(job_experiencesArr){
-    jobExperienceState.push(job_experiencesArr)
-    this.setState({job_experiences: jobExperienceState})
-    console.log("onExperienceChange Clicked", this.state.job_experiences)
   }
 
 
@@ -169,10 +164,10 @@ class List_match extends Component {
       let current_job_id = e.target.value
 
       let applicationData = {
-        applicant_id: applicant_id,
-        job_id: current_job_id,
-        status: 'applied'
-      }
+          applicant_id: applicant_id,
+          job_id: current_job_id,
+          status: 'applied'
+        }
 
       console.log("applicationData", applicationData)
       console.log("e-target className", e.target.className)
@@ -180,7 +175,6 @@ class List_match extends Component {
       $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
         .done((data) => {
           console.log('succesfully applied for a job')
-
         })
         .error((error) => {
           console.log('unable to apply for a job', error)
@@ -192,6 +186,9 @@ class List_match extends Component {
        buttonChange.innerText = "Applied"
 
     }
+
+    var jobArray;
+    // console.log('this is my final', final)
       if (final.length == 0 ){
         jobArray = this.state.jobs
         // console.log("YESSSSSS -----", jobArray)
@@ -200,59 +197,104 @@ class List_match extends Component {
         // console.log("NOOOOOOO ----", jobArray)
       }
 
-    // let job_lists = this.state.jobs
-    let jobs = jobArray.map(function(job){
-    let url = '/'+ job.company_logo
-    console.log("image url ", url)
-    let link = `/list_matched/job/` + job.id
-    return <Link to={link} key={job.id} className="card list">
-            <div className="content">
-              <div className="header">
-                {job.title} {job.location}
+    // const jobs = this.state.jobs
+    const applicants = jobArray.map(function(applicant){
+      // rendering location
+      var location;
+      if(applicant.location == "" || applicant.location == null){
+        location = <div></div>
+      } else {
+        location = <div className="ui list">
+                  <div className="item">{applicant.location}</div>
+                </div>
+      }
+
+
+      // rendering each school
+      var educationRequirement;
+      if(applicant.education_level == "" || applicant.education_level == null){
+        educationRequirement = <div></div>
+      } else {
+        educationRequirement = <div className="ui list">
+                  <div className="item">{applicant.education_level}</div>
+                </div>
+      }
+
+      // rendering each description
+      var description;
+      if(applicant.description == "" || applicant.description == null){
+        description = <div></div>
+      } else {
+        description = <div className="ui list">
+                  <div className="item">{applicant.description}</div>
+                </div>
+      }
+
+
+      const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
+      // console.log("image url  .... ", url)
+      const link = `/list_matched/job/` + applicant.id
+      return <Link to={link} className="card list" key={applicant.id} >
+              <div className="content">
+                {/*<img className="left floated tiny ui image" src={url} alt="profile pic"/>*/}
+                <div className="header">
+                  {applicant.title}
+                </div>
+                <div className="meta">
+                  {applicant.type}
+                </div>
+                <div className="description">
+                  <span>Location: </span>
+                  {location}
+                  <span>Education:</span>
+                  {educationRequirement}
+                  <span>Description:</span>
+                  {description}
+                </div>
               </div>
-              <div id="jobid" className="meta" >{job.type}</div>
               <br/>
-              <div className="description">
-                <div>Requirements:</div>
-                <div><span>Location: </span> {job.location}</div>
-                <div><span>Education: </span> {job.education_level}</div>
-                <div><span>Brief Description: </span> <br/> <div className="truncate">{job.description}</div></div>
-                <br/>
-                <br/>
-              </div>
-              <button id={"job"+job.id} value={job.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
-            </div>
-          </Link>
+              <br/>
+              <button id={"job"+applicant.id} value={applicant.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
+            </Link>
 
     })
 
-    // console.log("jobs from state", jobs)
-
     return(
       <div id="list_jobs">
-        {/* Spinner Starts */}
-          {spinner}
-        {/* Spinner Ends */}
-        <h1>Current Matched Job Lists</h1>
-
+        <h1>Current Matched Applicant Lists</h1>
+        {spinner}
         <div className="ui stackable grid">
           <div className="four wide column">
-            <div className="ui center aligned raised segment">
+            <div className="ui center aligned basic segment">
+
               <h2>Filter By:</h2>
               <div className="field">
 
-                <div id="reset_button" className="ui button small" >Clear Filters</div>
-                <br/>
-                <br/>
+
+                {/* Industry rience */}
+                <div>
+                  <label name="industry">Industry</label>
+                  <select name="industry" className="ui fluid normal dropdown"
+                  value={this.state.industry}
+                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="all">All</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Health">Health</option>
+                  </select>
+                </div>
+
                 {/* Years of Experience */}
                 <div>
-                  <label name="experience_level">Industry Work Experience (Full Employment)</label>
+                  <label name="experience_level">Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="Entry Level"> 0-2 Years (Entry Level)</option>
-                    <option value="Mid Level">2-5 Years (Mid-Level)</option>
-                    <option value="High Level">5+ Years (High-Level)</option>
+                    <option value="all">All</option>
+                    <option value="Entry Level"> Entry (0-2 years) </option>
+                    <option value="Mid Level"> Mid (2-5 years)</option>
+                    <option value="High Level"> High (5+ years)</option>
                   </select>
                 </div>
 
@@ -262,8 +304,9 @@ class List_match extends Component {
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
                     <option value="">Please Select</option>
+                    <option value="all">All</option>
                     <option value="Current Student">Current Student</option>
-                    <option value="High School/GED">High School/GED</option>
+                    <option value="High School / GED">High School/GED</option>
                     <option value="Associate Degree">Associate Degree</option>
                     <option value="Bachelor Degree">Bachelors Degree</option>
                     <option value="JD Degree">JD Degree</option>
@@ -274,26 +317,12 @@ class List_match extends Component {
                   </select>
                 </div>
 
-                {/* Industry Experience */}
-                <div>
-                  <label name="certifications">Industry Experience</label>
-                  <select name="industry" className="ui fluid normal dropdown"
-                  value={this.state.industry}
-                  onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Accounting">Accounting</option>
-                    <option value="Health">Health</option>
-                    <option value="Insurance">Insurance</option>
-                  </select>
-                </div>
-
               </div>
             </div>
           </div>
           <div id="profile_title" className="twelve wide column">
-            <div className="ui fluid cards">
-                {jobs}
+            <div className="ui cards">
+              {applicants}
             </div>
           </div>
         </div>
