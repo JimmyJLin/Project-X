@@ -296,7 +296,7 @@ class List_matched_applicants extends Component {
       var schoolArry = applicant.school
       let school;
       if (applicant.school == "" || applicant.school == null){
-        school = <div>"N/A"</div>
+        school = <div>N/A</div>
       } else {
         school = schoolArry.map((el)=>{
           var splitedArry = el.split(",").map((el)=>{return el})
@@ -309,6 +309,35 @@ class List_matched_applicants extends Component {
         })
       }
 
+      let schoolList;
+      switch (school.length){
+        case 0 :
+          schoolList = <div>N/A</div>
+          break;
+        case 1 :
+          schoolList = school[0]
+          break;
+        case 2 :
+          schoolList = school[1]
+          break;
+        case 3 :
+          schoolList = school[2]
+          break;
+        case 4 :
+          schoolList = school[3]
+          break;
+        case 5 :
+          schoolList = school[4]
+          break;
+        case 6 :
+          schoolList = school[5]
+          break;
+        default :
+          schoolList = <div>N/A</div>
+          break;
+      }
+
+      console.log("schoolList", schoolList)
       // rendering each work history
       var workArry = applicant.work_history
       let work;
@@ -326,6 +355,34 @@ class List_matched_applicants extends Component {
         })
       }
 
+      let workList;
+      switch (work.length){
+        case 0 :
+          workList = <div>N/A</div>
+          break;
+        case 1 :
+          workList = work[0]
+          break;
+        case 2 :
+          workList = work[1]
+          break;
+        case 3 :
+          workList = work[2]
+          break;
+        case 4 :
+          workList = work[3]
+          break;
+        case 5 :
+          workList = work[4]
+          break;
+        case 6 :
+          workList = work[5]
+          break;
+        default :
+          workList = <div>N/A</div>
+          break;
+      }
+
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
       const link = `/Matched_applicant/` + applicant.ui
@@ -341,11 +398,13 @@ class List_matched_applicants extends Component {
                 </div>
                 <div className="description">
                   <span>Education:</span>
-                  {school}
+                  {/*{school}*/}
+                  {schoolList}
                   <span>Experience:</span>
-                  {work}
+                  {/*{work[0]}*/}
+                  {workList}
                   <span>Certifications:</span>
-                  {certifications}
+                  {certifications[0]}
                 </div>
               </div>
               <br/>

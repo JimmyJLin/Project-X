@@ -554,6 +554,9 @@ class Applicant_profile_form extends Component {
                     <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
                     <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
                     <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                    <option value="Series 7">Series 7</option>
+                    <option value="Series 63">Series 63</option>
+                    <option value="Series 66">Series 66</option>
                   </select>
                 </div>
 

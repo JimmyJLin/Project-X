@@ -55,7 +55,7 @@ $lines-to-show: 5;
   }
 
 
-  h1{
+  h1, h3{
     text-align: center;
   }
   padding-top: 90px;
@@ -129,7 +129,7 @@ $lines-to-show: 5;
       text-overflow: ellipsis;
     }
 
-    // truncate string 
+    // truncate string
     .ellipsis{
       display: block; /* Fallback for non-webkit */
       display: -webkit-box;

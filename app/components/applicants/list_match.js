@@ -261,7 +261,8 @@ class List_match extends Component {
 
     return(
       <div id="list_jobs">
-        <h1>Current Matched Applicant Lists</h1>
+        <h1>Congratulations, you profile matched with {this.state.jobs.length} jobs!</h1>
+        <h3>Apply directly with one click</h3>
         {spinner}
         <div className="ui stackable grid">
           <div className="four wide column">
@@ -281,7 +282,6 @@ class List_match extends Component {
                     <option value="all">All</option>
                     <option value="Finance">Finance</option>
                     <option value="Accounting">Accounting</option>
-                    <option value="Health">Health</option>
                   </select>
                 </div>
 
