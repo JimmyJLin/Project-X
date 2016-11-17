@@ -49,7 +49,10 @@ class Applicant_profile_form extends Component {
       summary: '',
       applicantProfile: {},
       school_data: [],
-      work_history: []
+      work_history: [],
+      diryEducationArry:[],
+      dirtyWork_history: [],
+      isLoading: false
     }
 
   }
@@ -64,11 +67,14 @@ class Applicant_profile_form extends Component {
 
     const user_id = localStorage.id
 
+
+
     // this is where you'll get the data from the 'db'
     const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
     $.get(url).done( (data)=>{
       console.log("applicantProfile data: ", data)
-      console.log("school data", data.school)
+      // console.log("school data from backend ---", data.school)
+
        this.state.applicantProfile = data;
        this.state.profile_image = data.profile_image
        this.state.summary = data.summary
@@ -79,9 +85,9 @@ class Applicant_profile_form extends Component {
        this.state.experience_level = data.experience_level
        this.state.desired_locationArry = data.desired_location
        this.state.certificationsArry = data.certifications
-
+       this.state.diryEducationArry = data.school
        this.state.education_level = data.education_level
-       this.state.work_history = data.work_history
+       this.state.dirtyWork_history = data.work_history
        this.state.languages_spokenArry = data.languages_spoken
        this.state.isLoading = true
        localStorage.setItem('isAuthen', 'yes');
@@ -97,12 +103,40 @@ class Applicant_profile_form extends Component {
          experience_level: this.state.experience_level,
          desired_locationArry: this.state.desired_locationArry,
          certificationsArry: this.state.certificationsArry,
-         work_history: this.state.work_history,
+         diryEducationArry: this.state.diryEducationArry,
+         dirtyWork_history: this.state.dirtyWork_history,
          languages_spokenArry: this.state.languages_spokenArry,
          isLoading: true
        })
 
+      //  console.log("school data from this.state.diryEducationArry", this.state.diryEducationArry)
+
+       this.state.diryEducationArry.map((el)=>{
+         console.log("---------------------", el)
+         console.log("split ------", el.split(","))
+         let split = el.split(",")
+
+         schoolData.push(split)
+         console.log("line 116 schoolData", schoolData)
+         this.setState({
+           educationArry: schoolData,
+         })
+       })
+
+       this.state.dirtyWork_history.map((el)=>{
+         console.log("---------------------", el)
+         console.log("split ------", el.split(","))
+         let split = el.split(",")
+
+         companyData.push(split)
+         console.log("line 116 companyData", companyData)
+         this.setState({
+           work_historyArry: companyData,
+         })
+       })
+
      })
+
 
     //  console.log("educationArry", this.state.educationArry)
   }
@@ -165,21 +199,21 @@ class Applicant_profile_form extends Component {
 
     //****************
 
-    var educationArr =  applicantProfileData.educationArry   // => ["English", "Turkish"]
-    console.log("educationArr", educationArr)
-    var final_educations = "{";
-
-    educationArr.forEach(function(el){
-       if( el === educationArr[educationArr.length -1]) {
-         final_educations = final_educations + "\"" + el + '\"}';
-       } else {
-         final_educations = final_educations + "\"" + el + '\",';
-       }
-       applicantProfileData.educationArry = final_educations;
-       console.log("line 113 final_educations", final_educations)
-       console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
-
-    })
+    // var educationArr =  applicantProfileData.educationArry   // => ["English", "Turkish"]
+    // console.log("educationArr", educationArr)
+    // var final_educations = "{";
+    //
+    // educationArr.forEach(function(el){
+    //    if( el === educationArr[educationArr.length -1]) {
+    //      final_educations = final_educations + "\"" + el + '\"}';
+    //    } else {
+    //      final_educations = final_educations + "\"" + el + '\",';
+    //    }
+    //    applicantProfileData.educationArry = final_educations;
+    //    console.log("line 113 final_educations", final_educations)
+    //    console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
+    //
+    // })
 
     //****************
 
@@ -415,8 +449,24 @@ class Applicant_profile_form extends Component {
   }
 
   render(){
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner starts
 
     let schoolData = this.state.educationArry
+    console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
       school = <div></div>
@@ -453,6 +503,10 @@ class Applicant_profile_form extends Component {
 
     const applicantForm = (
         <div id="applicant_profile_form">
+        {/* Spinner Starts */}
+          {spinner}
+        {/* Spinner Ends */}
+
           <br/>
           <br/>
           <h1> Tell Us About Yourself, and We'll Tell You Whos Looking to Hire You</h1>
