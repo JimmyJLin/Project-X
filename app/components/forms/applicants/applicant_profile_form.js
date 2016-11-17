@@ -46,7 +46,10 @@ class Applicant_profile_form extends Component {
       certificationsArry: [],
       educationArry: [],
       work_historyArry: [],
-      summary: ''
+      summary: '',
+      applicantProfile: {},
+      school_data: [],
+      work_history: []
     }
 
   }
@@ -59,6 +62,49 @@ class Applicant_profile_form extends Component {
       window.location.reload(true)
     }
 
+    const user_id = localStorage.id
+
+    // this is where you'll get the data from the 'db'
+    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
+    $.get(url).done( (data)=>{
+      console.log("applicantProfile data: ", data)
+      console.log("school data", data.school)
+       this.state.applicantProfile = data;
+       this.state.profile_image = data.profile_image
+       this.state.summary = data.summary
+       this.state.zipcode = data.zipcode
+       this.state.phone_number = data.phone_number
+       this.state.job_type = data.job_type
+       this.state.desired_industry = data.desired_industry
+       this.state.experience_level = data.experience_level
+       this.state.desired_locationArry = data.desired_location
+       this.state.certificationsArry = data.certifications
+
+       this.state.education_level = data.education_level
+       this.state.work_history = data.work_history
+       this.state.languages_spokenArry = data.languages_spoken
+       this.state.isLoading = true
+       localStorage.setItem('isAuthen', 'yes');
+
+       this.setState({
+         applicantProfile: this.state.applicantProfile,
+         profile_image: this.state.profile_image,
+         summary: this.state.summary,
+         zipcode: this.state.zipcode,
+         phone_number: this.state.phone_number,
+         job_type: this.state.job_type,
+         desired_industry: this.state.desired_industry,
+         experience_level: this.state.experience_level,
+         desired_locationArry: this.state.desired_locationArry,
+         certificationsArry: this.state.certificationsArry,
+         work_history: this.state.work_history,
+         languages_spokenArry: this.state.languages_spokenArry,
+         isLoading: true
+       })
+
+     })
+
+    //  console.log("educationArry", this.state.educationArry)
   }
 
   handleSubmit(e) {
@@ -206,31 +252,6 @@ class Applicant_profile_form extends Component {
 
     postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
-    // this.setState({
-    //   user_id:'',
-    //   profile_files: [],
-    //   desired_locationArry:[],
-    //   desired_industry:'',
-    //   zipcode: '',
-    //   phone_number: '',
-    //   job_type: '',
-    //   experience_level:'',
-    //   certifications: [],
-    //   languages_spokenArry:[],
-    //   education_level:'',
-    //   school: '',
-    //   year: '',
-    //   company_name: '',
-    //   job_title: '',
-    //   start_from: '',
-    //   resume_pdf:'',
-    //   desired_location:[],
-    //   languages_spoken:[],
-    //   profile_image:'',
-    //   certificationsArry: [],
-    //   educationArry: [],
-    //   companyArry: []
-    // })
 
     window.location.assign('/Applicant_skill_form')
 
@@ -415,9 +436,20 @@ class Applicant_profile_form extends Component {
       })
     }
 
+    let profile_image;
+
+    if(this.state.profile_image == "" || this.state.profile_image == null){
+      // console.log("no image")
+      profile_image = <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+    } else {
+      // console.log("yes image")
+      profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
+    }
+
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
+
 
     const applicantForm = (
         <div id="applicant_profile_form">
@@ -431,7 +463,7 @@ class Applicant_profile_form extends Component {
               <div className="field">
                 <div>
                   <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-                    <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+                    {profile_image}
                     <div className="ui fluid button" >Upload Image</div>
                   </Dropzone>
                   {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui small circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
@@ -454,7 +486,7 @@ class Applicant_profile_form extends Component {
                 {/* Interested in Jobs in */}
                 <div>
                   <label>Interested In Working</label>
-                  <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
+                  <select id="desired_location" multiple="true" name="desired_location" className="ui fluid normal dropdown"
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
                     <option value="">Please Select</option>
@@ -477,7 +509,8 @@ class Applicant_profile_form extends Component {
                 {/* Desired Location */}
                 <div>
                   <label>Desired Industry</label>
-                  <select name="desired_industry" id="" className="ui fluid dropdown" value={this.state.desired_industry}
+                  <div className="menu"></div>
+                  <select id="desired_industry" name="desired_industry" className="ui fluid dropdown" value={this.state.desired_industry}
                   onChange={e => this.onDesiredIndustryChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
@@ -507,7 +540,7 @@ class Applicant_profile_form extends Component {
                 {/* Job Type */}
                 <div>
                   <label name="job_type">Job Type</label>
-                  <select name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
+                  <select id="job_type" name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Intern">Intern</option>
                     <option value="Part-Time">Part-Time</option>
@@ -521,7 +554,7 @@ class Applicant_profile_form extends Component {
                 {/* Industry Work Experience */}
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
-                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
+                  <select id="experience_level" name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Entry Level"> 0-2 Years (Entry Level)</option>
