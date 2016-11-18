@@ -233,7 +233,7 @@ class Applicant_profile extends Component {
             </div>
           </div>
 
-          {/* Match Button*/}
+          {/* Update Profile */}
           <div className="ui two column centered grid">
             <Link to="/applicant_profile_update">
               <button className="ui button large">Udate Profile</button>
@@ -327,6 +327,13 @@ class Applicant_profile extends Component {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Add Experience & Skills */}
+          <div className="ui two column centered grid">
+            <Link to="/applicant_skill_form">
+              <button className="ui button large">Add More Experience or Skills</button>
+            </Link>
           </div>
 
           <div className="ui divider"></div>

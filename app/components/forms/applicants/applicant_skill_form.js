@@ -58,6 +58,24 @@ class Applicant_skill_form extends Component {
 
   }
 
+  componentDidMount(){
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+    }
+
+    window.setInterval(changeLoaded, 500)
+
+    function changeLoaded(){
+      localStorage.setItem('isLoaded', 'no');
+    }
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  }
+
   handleSubmitData(e){
     e.preventDefault();
     let user_id = localStorage.id
@@ -1752,7 +1770,7 @@ class Applicant_skill_form extends Component {
 
         <br/>
 
-        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Active Profile</button>
+        <button className="ui right floated blue button" onClick={this.handleSubmitData.bind(this)}>Activate Profile</button>
 
       </div>
     )
