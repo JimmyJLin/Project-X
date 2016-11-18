@@ -144,17 +144,21 @@ class Applicant_skill_form extends Component {
       } else if ( data[keys[i] ] !== '' && i >= 20 ){
        skillslevel.skill_name = keys[i];
        skillslevel.level = data[keys[i]];
-          postSkillsLevels(skillslevel)
           console.log("data to submit", skillslevel)
+          postSkillsLevels(skillslevel)
 
       };
     }
-
-    browserHistory.push('/applicant_profile')
+    // set timeout to accomodate slower compputer processing data, 4000 = 4 seconds
+    window.setTimeout(this.redirect(), 4000)
 
   }
 
 
+  redirect(){
+    alert("Applicant Experiences & Skills Added, Please press OK to continue")
+    browserHistory.push('/applicant_profile')
+  }
 
 
   // Industries functions

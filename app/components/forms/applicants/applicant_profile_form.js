@@ -46,7 +46,9 @@ class Applicant_profile_form extends Component {
       certificationsArry: [],
       educationArry: [],
       work_historyArry: [],
-      summary: ''
+      summary: '',
+      isLoading: true
+
     }
 
   }
@@ -64,6 +66,7 @@ class Applicant_profile_form extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
+
 
     let applicantProfileData = {
       user_id: this.props.auth.user.id,
@@ -201,7 +204,7 @@ class Applicant_profile_form extends Component {
     console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
     console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
 
-    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
     // window.location.assign('/Applicant_skill_form')
 
@@ -231,26 +234,25 @@ class Applicant_profile_form extends Component {
 
   handleDeleteSchool(e){
     e.preventDefault();
-
     console.log("delete school icon clicked")
-    // console.log("target value", e.target.value)
     let schoolId = e.target.value
 
     let newSchoolData = schoolData
-    console.log("schoolId", schoolId)
-    // let data = this.state.educationArry
-    console.log("schoolData before splice", newSchoolData)
-    newSchoolData.splice(schoolId, 1)
 
-    // this.state.educationArry = newSchoolData
+    console.log("schoolId selected for splice", schoolId)
+
+    console.log("schoolData before splice", newSchoolData)
+
+    newSchoolData.splice(schoolId, 1)
+    console.log("schoolData", schoolData)
 
     this.setState({
       educationArry: newSchoolData
     })
-    // console.log("spliced item", schoolData.splice(schoolId, 1))
     console.log("schoolData after splice", newSchoolData)
 
   }
+
 
   handleAddJobExperience(e){
     e.preventDefault();
@@ -275,6 +277,27 @@ class Applicant_profile_form extends Component {
     });
 
     // console.log("work_historyArry", work_historyArry)
+  }
+
+  handleDeleteWork(e){
+    e.preventDefault();
+    console.log("delete work icon clicked")
+    let workId = e.target.value
+
+    let newWorkData = companyData
+
+    console.log("workId selected for splice", workId)
+
+    console.log("workData before splice", newWorkData)
+
+    newWorkData.splice(workId, 1)
+    console.log("workData", companyData)
+
+    this.setState({
+      work_historyArry: newWorkData
+    })
+    console.log("newWorkData after splice", newWorkData)
+
   }
 
   onProfileImageChange(profile_image){
@@ -387,62 +410,44 @@ class Applicant_profile_form extends Component {
     this.dropzone.open();
   }
 
-  handleDeleteWork(e){
-    e.preventDefault();
-    console.log("delete work icon clicked")
-
-  }
-
-  // handleDeleteSchool(e){
-  //   e.preventDefault();
-  //   console.log("delete school icon clicked")
-  //
-  //   let schoolId = e.target.value
-  //   console.log("schoolId", schoolId)
-  // }
-
 
 
   render(){
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
 
-    // let handleDeleteSchool = function(e){
-    //   e.preventDefault();
-    //   console.log("delete school icon clicked")
-    //   // console.log("target value", e.target.value)
-    //   let schoolId = e.target.value
-    //   console.log("schoolId", schoolId)
-    //   console.log("schoolData before splice", schoolData)
-    //   // schoolData.splice(schoolId, 1)
-    //   // this.setState({
-    //   //   educationArry: schoolData
-    //   // })
-    //   // console.log("spliced item", schoolData.splice(schoolId, 1))
-    //   this.updateEducationArryState()
-    //   console.log("schoolData after splice", schoolData)
-    //
-    // }
+    } else if (this.state.isLoading == true) {
+      console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner starts
 
-    // let schoolData = this.state.educationArry
+    let schoolData = this.state.educationArry
     // console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
-      school = <div></div>
+      school = <div>No Education Added</div>
     } else {
       school = schoolData.map((el)=>{
         console.log("index of", schoolData.indexOf(el))
-        return <div id={"school"+schoolData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={schoolData.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteSchool}> - </button></div>
+        return <div id={"school"+schoolData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={schoolData.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteSchool.bind(this)}> - </button></div>
       })
     }
-  // onClick={e => this.handleDeleteSchool.bind(e.target.value)}
- // onChange={e => this.onSummaryChange(e.target.value)}
 
     let workData = this.state.work_historyArry
     let work;
     if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
-      work = <div></div>
+      work = <div>No Work Experience Added</div>
     } else {
       work = workData.map((el)=>{
-        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteWork.bind(this)}></i></div>
+        return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
       })
     }
 
@@ -718,6 +723,7 @@ class Applicant_profile_form extends Component {
                   <div id="add_additional">
                     <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  <br/>
                   {school}
 
                 </div>
@@ -751,18 +757,11 @@ class Applicant_profile_form extends Component {
                   <div id="add_additional">
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  <br/>
                   {work}
 
                 </div>
                 <br/>
-
-                {/* Upload Resume (PDF) */}
-                {/*<div>
-                  <label>Upload resume_pdf</label>
-                  <input type="file" name="resume_pdf" accept="application/pdf"
-                  value={this.state.resume_pdf}
-                  onDrop={this.onResumeDrop.bind(this)} />
-                </div>*/}
 
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
@@ -802,6 +801,10 @@ class Applicant_profile_form extends Component {
       )
       return (
             <div>
+            {/* Spinner Starts */}
+              {spinner}
+            {/* Spinner Ends */}
+
               { isAuthenticated && this.props.auth.user.type =='applicant' ? applicantForm : error }
             </div>
         )}
@@ -815,9 +818,19 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
+      window.setTimeout(PostImage, 2000)
+
+      window.setTimeout(PostPdf, 3000)
+
       PostImage( data.id, ApplicantProfileImages  );
 
       PostPdf( data.id, ApplicantProfilePdf )
+
+      // console.log("line 830 this.state.isLoading", this.state.isLoading)
+      // this.state.isLoading = true
+      // this.setState({isLoading: this.state.isLoading})
+
+      alert("Applicant Profile Created, Please press OK to continue")
 
       window.location.assign('/Applicant_skill_form')
 
@@ -843,9 +856,9 @@ function PostPdf(id, pdfObj){
     req.field('id', id)
     req.end(function(err, res){
       if (err || !res.ok) {
-        console.log('Oh no! error')
+        // console.log('Oh no! error')
       } else {
-        console.log('yay got ' + JSON.stringify(res.body))
+        // console.log('yay got ' + JSON.stringify(res.body))
       }
     })
   })
@@ -863,9 +876,9 @@ function PostImage(id, imgObj){
     req.field('id', id)
     req.end(function(err, res){
       if (err || !res.ok) {
-        console.log('Oh no! error')
+        // console.log('Oh no! error')
       } else {
-        console.log('yay got ' + JSON.stringify(res.body))
+        // console.log('yay got ' + JSON.stringify(res.body))
       }
     })
   })
