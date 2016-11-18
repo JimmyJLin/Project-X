@@ -201,7 +201,7 @@ class Applicant_profile_form extends Component {
     console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
     console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
     // window.location.assign('/Applicant_skill_form')
 
@@ -226,6 +226,29 @@ class Applicant_profile_form extends Component {
       school_name: '',
       year: ''
     });
+
+  }
+
+  handleDeleteSchool(e){
+    e.preventDefault();
+
+    console.log("delete school icon clicked")
+    // console.log("target value", e.target.value)
+    let schoolId = e.target.value
+
+    let newSchoolData = schoolData
+    console.log("schoolId", schoolId)
+    // let data = this.state.educationArry
+    console.log("schoolData before splice", newSchoolData)
+    newSchoolData.splice(schoolId, 1)
+
+    // this.state.educationArry = newSchoolData
+
+    this.setState({
+      educationArry: newSchoolData
+    })
+    // console.log("spliced item", schoolData.splice(schoolId, 1))
+    console.log("schoolData after splice", newSchoolData)
 
   }
 
@@ -367,25 +390,51 @@ class Applicant_profile_form extends Component {
   handleDeleteWork(e){
     e.preventDefault();
     console.log("delete work icon clicked")
+
   }
 
-  handleDeleteSchool(e){
-    e.preventDefault();
-    console.log("delete school icon clicked")
-  }
+  // handleDeleteSchool(e){
+  //   e.preventDefault();
+  //   console.log("delete school icon clicked")
+  //
+  //   let schoolId = e.target.value
+  //   console.log("schoolId", schoolId)
+  // }
+
+
 
   render(){
 
-    let schoolData = this.state.educationArry
+    // let handleDeleteSchool = function(e){
+    //   e.preventDefault();
+    //   console.log("delete school icon clicked")
+    //   // console.log("target value", e.target.value)
+    //   let schoolId = e.target.value
+    //   console.log("schoolId", schoolId)
+    //   console.log("schoolData before splice", schoolData)
+    //   // schoolData.splice(schoolId, 1)
+    //   // this.setState({
+    //   //   educationArry: schoolData
+    //   // })
+    //   // console.log("spliced item", schoolData.splice(schoolId, 1))
+    //   this.updateEducationArryState()
+    //   console.log("schoolData after splice", schoolData)
+    //
+    // }
+
+    // let schoolData = this.state.educationArry
     // console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
       school = <div></div>
     } else {
       school = schoolData.map((el)=>{
-        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteSchool.bind(this)}></i></div>
+        console.log("index of", schoolData.indexOf(el))
+        return <div id={"school"+schoolData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={schoolData.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteSchool}> - </button></div>
       })
     }
+  // onClick={e => this.handleDeleteSchool.bind(e.target.value)}
+ // onChange={e => this.onSummaryChange(e.target.value)}
 
     let workData = this.state.work_historyArry
     let work;
