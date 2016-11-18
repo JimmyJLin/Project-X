@@ -826,10 +826,6 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      // console.log("line 830 this.state.isLoading", this.state.isLoading)
-      // this.state.isLoading = true
-      // this.setState({isLoading: this.state.isLoading})
-
       alert("Applicant Profile Created, Please press OK to continue")
 
       window.location.assign('/Applicant_skill_form')

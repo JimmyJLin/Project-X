@@ -58,12 +58,12 @@ class Applicant_profile_update extends Component {
   }
 
   componentDidMount(){
-    localStorage.setItem('key', "key");
-
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
-    }
+    // localStorage.setItem('key', "key");
+    //
+    // if(localStorage.getItem('isLoaded') !== 'yes'){
+    //   localStorage.setItem('isLoaded', 'yes');
+    //   window.location.reload(true)
+    // }
 
     const user_id = localStorage.id
 
@@ -294,7 +294,7 @@ class Applicant_profile_update extends Component {
     console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
 
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -323,9 +323,30 @@ class Applicant_profile_update extends Component {
 
   }
 
+  handleDeleteSchool(e){
+    e.preventDefault();
+    // console.log("delete school icon clicked")
+    let schoolId = e.target.value
+
+    let newSchoolData = schoolData
+
+    // console.log("schoolId selected for splice", schoolId)
+
+    // console.log("schoolData before splice", newSchoolData)
+
+    newSchoolData.splice(schoolId, 1)
+    // console.log("schoolData", schoolData)
+
+    this.setState({
+      educationArry: newSchoolData
+    })
+    // console.log("schoolData after splice", newSchoolData)
+
+  }
+
   handleAddJobExperience(e){
     e.preventDefault();
-    console.log("Add Additional Job Experiences clicked")
+    // console.log("Add Additional Job Experiences clicked")
 
     let jobData = [
       this.state.company_name,
@@ -335,7 +356,7 @@ class Applicant_profile_update extends Component {
     ]
 
     companyData.push(jobData)
-    console.log("companyData", companyData)
+    // console.log("companyData", companyData)
 
     this.setState({
       work_historyArry: companyData,
@@ -346,6 +367,27 @@ class Applicant_profile_update extends Component {
     });
 
     // console.log("work_historyArry", work_historyArry)
+  }
+
+  handleDeleteWork(e){
+    e.preventDefault();
+    // console.log("delete work icon clicked")
+    let workId = e.target.value
+
+    let newWorkData = companyData
+
+    // console.log("workId selected for splice", workId)
+
+    // console.log("workData before splice", newWorkData)
+
+    newWorkData.splice(workId, 1)
+    // console.log("workData", companyData)
+
+    this.setState({
+      work_historyArry: newWorkData
+    })
+    // console.log("newWorkData after splice", newWorkData)
+
   }
 
   onProfileImageChange(profile_image){
@@ -458,15 +500,6 @@ class Applicant_profile_update extends Component {
     this.dropzone.open();
   }
 
-  handleDeleteWork(e){
-    e.preventDefault();
-    console.log("delete work icon clicked")
-  }
-
-  handleDeleteSchool(e){
-    e.preventDefault();
-    console.log("delete school icon clicked")
-  }
 
   render(){
     // spinner starts
@@ -489,30 +522,30 @@ class Applicant_profile_update extends Component {
     // console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
-      school = <div></div>
+      school = <div>No Education Added</div>
     } else {
       school = schoolData.map((el)=>{
-        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteSchool.bind(this)}></i></div>
+        return <div id={"school"+schoolData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={schoolData.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteSchool.bind(this)}> - </button></div>
       })
     }
 
     let workData = this.state.work_historyArry
     let work;
     if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
-      work = <div></div>
+      work = <div>No Work Experience Added</div>
     } else {
       work = workData.map((el)=>{
-        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteWork.bind(this)}></i></div>
+        return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
       })
     }
 
     let profile_image;
 
     if(this.state.profile_image == "" || this.state.profile_image == null){
-      console.log("no image")
+      // console.log("no image")
       profile_image = <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
     } else {
-      console.log("yes image")
+      // console.log("yes image")
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
     }
 
@@ -883,16 +916,21 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
+      window.setTimeout(PostImage, 2000)
+
+      window.setTimeout(PostPdf, 3000)
+
       PostImage( data.id, ApplicantProfileImages  );
 
       PostPdf( data.id, ApplicantProfilePdf )
+
+      alert("Applicant Profile Created, Please press OK to continue")
 
       window.location.assign('/applicant_profile')
 
     })
     .error((error) => {
 
-      // window.location.assign('/Applicant_skill_form')
 
       alert("Applicant Profile Update Failed ...")
 
