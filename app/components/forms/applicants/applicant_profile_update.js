@@ -847,7 +847,7 @@ class Applicant_profile_update extends Component {
 
             <div>*By activating your profile, you agree to the Apex Terms and Conditions</div>
             <br/>
-            <button className="ui button large" type="submit">Add Skills & Experience!</button>
+            <button className="ui button large" type="submit">Update Profile!</button>
 
           </form>
 
@@ -887,16 +887,15 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      // browserHistory.push('/Applicant_skill_form')
-      window.location.assign('/Applicant_skill_form')
+      window.location.assign('/applicant_profile')
 
     })
     .error((error) => {
 
-      window.location.assign('/Applicant_skill_form')
+      // window.location.assign('/Applicant_skill_form')
 
-      // browserHistory.push('/Applicant_skill_form')
-      // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
+      alert("Applicant Profile Update Failed ...")
+
     })
 
 }

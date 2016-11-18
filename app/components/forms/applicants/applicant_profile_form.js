@@ -67,8 +67,6 @@ class Applicant_profile_form extends Component {
 
     let applicantProfileData = {
       user_id: this.props.auth.user.id,
-      profile_image: this.state.profile_image,
-      resume_image: this.state.resume_image,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
       phone_number: this.state.phone_number,
@@ -203,6 +201,7 @@ class Applicant_profile_form extends Component {
     console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
     console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
 
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
     // window.location.assign('/Applicant_skill_form')
 
@@ -365,7 +364,46 @@ class Applicant_profile_form extends Component {
     this.dropzone.open();
   }
 
+  handleDeleteWork(e){
+    e.preventDefault();
+    console.log("delete work icon clicked")
+  }
+
+  handleDeleteSchool(e){
+    e.preventDefault();
+    console.log("delete school icon clicked")
+  }
+
   render(){
+
+    let schoolData = this.state.educationArry
+    // console.log("line 424 schoolData", schoolData)
+    let school;
+    if (this.state.educationArry == "" || this.state.educationArry == null){
+      school = <div></div>
+    } else {
+      school = schoolData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteSchool.bind(this)}></i></div>
+      })
+    }
+
+    let workData = this.state.work_historyArry
+    let work;
+    if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
+      work = <div></div>
+    } else {
+      work = workData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteWork.bind(this)}></i></div>
+      })
+    }
+
+    let resumeUpload;
+    console.log("this.state.resume_files", this.state.resume_files.length)
+    if (this.state.resume_files.length == 0){
+      resumeUpload = <div></div>
+    } else if (this.state.resume_files.length > 0) {
+      resumeUpload = <dive>{this.state.resume_files.length} files pending to upload</dive>
+    }
 
     const { currentValue, currentValues } = this.state;
 
@@ -562,12 +600,76 @@ class Applicant_profile_form extends Component {
                     </div>
                     <div className="field">
                       <label name="Year">Graduation Year</label>
-                      <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
+                      <select name="year" id="" className="ui fluid dropdown" value={this.state.year} onChange={e => this.onSchoolYearChange(e.target.value)}>
+                        <option value="">Please Select</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                        <option value="1993">1993</option>
+                        <option value="1992">1992</option>
+                        <option value="1991">1991</option>
+                        <option value="1990">1990</option>
+                        <option value="1989">1989</option>
+                        <option value="1988">1988</option>
+                        <option value="1987">1987</option>
+                        <option value="1986">1986</option>
+                        <option value="1985">1985</option>
+                        <option value="1984">1984</option>
+                        <option value="1983">1983</option>
+                        <option value="1982">1982</option>
+                        <option value="1981">1981</option>
+                        <option value="1980">1980</option>
+                        <option value="1979">1979</option>
+                        <option value="1978">1978</option>
+                        <option value="1977">1977</option>
+                        <option value="1976">1976</option>
+                        <option value="1975">1975</option>
+                        <option value="1974">1974</option>
+                        <option value="1973">1973</option>
+                        <option value="1972">1972</option>
+                        <option value="1971">1971</option>
+                        <option value="1970">1970</option>
+                        <option value="1969">1969</option>
+                        <option value="1968">1968</option>
+                        <option value="1967">1967</option>
+                        <option value="1966">1966</option>
+                        <option value="1965">1965</option>
+                        <option value="1964">1964</option>
+                        <option value="1963">1963</option>
+                        <option value="1962">1962</option>
+                        <option value="1961">1961</option>
+                        <option value="1960">1960</option>
+                      </select>
                     </div>
                   </div>
                   <div id="add_additional">
                     <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {school}
 
                 </div>
 
@@ -600,6 +702,8 @@ class Applicant_profile_form extends Component {
                   <div id="add_additional">
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {work}
+
                 </div>
                 <br/>
 
@@ -613,7 +717,10 @@ class Applicant_profile_form extends Component {
 
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
+                    <p>Please upload only pdf formated resume</p>
                     <div className="ui fluid button" >Upload Resume</div>
+                    <br/>
+                    {resumeUpload}
                   </Dropzone>
                 </div>
 
@@ -663,13 +770,13 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      browserHistory.push('/Applicant_skill_form')
-      // window.location.assign('/Applicant_skill_form')
+      window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
 
-      browserHistory.push('/Applicant_skill_form')
+      // window.location.assign('/Applicant_skill_form')
+      alert("Applicant Profile Update Failed ...")
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 
