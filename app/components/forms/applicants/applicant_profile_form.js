@@ -516,6 +516,13 @@ class Applicant_profile_form extends Component {
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
     }
 
+    let resumeUploaded;
+    if (this.state.profile_files.length == 0 ){
+      resumeUploaded = <div></div>
+    } else {
+      resumeUploaded = <div>{this.state.profile_files.length} files uploaded</div>
+    }
+
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
@@ -827,7 +834,7 @@ class Applicant_profile_form extends Component {
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
                     <div className="ui fluid button" >Upload Resume</div>
-                    <p>{this.state.profile_files.length} files uploaded</p>
+                    {resumeUploaded}
                   </Dropzone>
                 </div>
 
