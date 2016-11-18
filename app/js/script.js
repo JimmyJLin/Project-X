@@ -2,7 +2,6 @@ $(function(){
   console.log('script file loaded')
 
 
-
   // Reset Filter
   $('#reset_button').on('click', function(){
     $(".ui.fluid.dropdown").dropdown("clear")

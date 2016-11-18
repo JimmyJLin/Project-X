@@ -12,7 +12,7 @@ let locationState = [];
 let schoolData = []
 let companyData = []
 
-class Applicant_profile_form extends Component {
+class Applicant_profile_form_backup extends Component {
 
   constructor(props) {
     super(props);
@@ -74,75 +74,66 @@ class Applicant_profile_form extends Component {
     $.get(url).done( (data)=>{
       console.log("applicantProfile data: ", data)
       // console.log("school data from backend ---", data.school)
-      if(data.desired_industry == null || data.desired_industry == ""){
-        console.log("no existing profile")
-        this.state.isLoading = true
-        this.setState({
-          isLoading: true
-        })
-      } else {
-        console.log("existing profile")
-        this.state.applicantProfile = data;
-        this.state.profile_image = data.profile_image
-        this.state.summary = data.summary
-        this.state.zipcode = data.zipcode
-        this.state.phone_number = data.phone_number
-        this.state.job_type = data.job_type
-        this.state.desired_industry = data.desired_industry
-        this.state.experience_level = data.experience_level
-        this.state.desired_locationArry = data.desired_location
-        this.state.certificationsArry = data.certifications
-        this.state.diryEducationArry = data.school
-        this.state.education_level = data.education_level
-        this.state.dirtyWork_history = data.work_history
-        this.state.languages_spokenArry = data.languages_spoken
-        this.state.isLoading = true
-        localStorage.setItem('isAuthen', 'yes');
 
-        this.setState({
-          applicantProfile: this.state.applicantProfile,
-          profile_image: this.state.profile_image,
-          summary: this.state.summary,
-          zipcode: this.state.zipcode,
-          phone_number: this.state.phone_number,
-          job_type: this.state.job_type,
-          desired_industry: this.state.desired_industry,
-          experience_level: this.state.experience_level,
-          desired_locationArry: this.state.desired_locationArry,
-          certificationsArry: this.state.certificationsArry,
-          diryEducationArry: this.state.diryEducationArry,
-          dirtyWork_history: this.state.dirtyWork_history,
-          languages_spokenArry: this.state.languages_spokenArry,
-          isLoading: true
-        })
+       this.state.applicantProfile = data;
+       this.state.profile_image = data.profile_image
+       this.state.summary = data.summary
+       this.state.zipcode = data.zipcode
+       this.state.phone_number = data.phone_number
+       this.state.job_type = data.job_type
+       this.state.desired_industry = data.desired_industry
+       this.state.experience_level = data.experience_level
+       this.state.desired_locationArry = data.desired_location
+       this.state.certificationsArry = data.certifications
+       this.state.diryEducationArry = data.school
+       this.state.education_level = data.education_level
+       this.state.dirtyWork_history = data.work_history
+       this.state.languages_spokenArry = data.languages_spoken
+       this.state.isLoading = true
+       localStorage.setItem('isAuthen', 'yes');
 
-       //  console.log("school data from this.state.diryEducationArry", this.state.diryEducationArry)
+       this.setState({
+         applicantProfile: this.state.applicantProfile,
+         profile_image: this.state.profile_image,
+         summary: this.state.summary,
+         zipcode: this.state.zipcode,
+         phone_number: this.state.phone_number,
+         job_type: this.state.job_type,
+         desired_industry: this.state.desired_industry,
+         experience_level: this.state.experience_level,
+         desired_locationArry: this.state.desired_locationArry,
+         certificationsArry: this.state.certificationsArry,
+         diryEducationArry: this.state.diryEducationArry,
+         dirtyWork_history: this.state.dirtyWork_history,
+         languages_spokenArry: this.state.languages_spokenArry,
+         isLoading: true
+       })
 
-        this.state.diryEducationArry.map((el)=>{
-         //  console.log("---------------------", el)
-         //  console.log("split ------", el.split(","))
-          let split = el.split(",")
+      //  console.log("school data from this.state.diryEducationArry", this.state.diryEducationArry)
 
-          schoolData.push(split)
-         //  console.log("line 116 schoolData", schoolData)
-          this.setState({
-            educationArry: schoolData,
-          })
-        })
+       this.state.diryEducationArry.map((el)=>{
+        //  console.log("---------------------", el)
+        //  console.log("split ------", el.split(","))
+         let split = el.split(",")
 
-        this.state.dirtyWork_history.map((el)=>{
-         //  console.log("---------------------", el)
-         //  console.log("split ------", el.split(","))
-          let split = el.split(",")
+         schoolData.push(split)
+        //  console.log("line 116 schoolData", schoolData)
+         this.setState({
+           educationArry: schoolData,
+         })
+       })
 
-          companyData.push(split)
-         //  console.log("line 116 companyData", companyData)
-          this.setState({
-            work_historyArry: companyData,
-          })
-        })
+       this.state.dirtyWork_history.map((el)=>{
+        //  console.log("---------------------", el)
+        //  console.log("split ------", el.split(","))
+         let split = el.split(",")
 
-      }
+         companyData.push(split)
+        //  console.log("line 116 companyData", companyData)
+         this.setState({
+           work_historyArry: companyData,
+         })
+       })
 
      })
 
@@ -162,6 +153,7 @@ class Applicant_profile_form extends Component {
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
+      resume_pdf: this.state.resume_pdf,
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
@@ -259,7 +251,6 @@ class Applicant_profile_form extends Component {
     //****************
 
     var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
-    console.log("line 255 - applicantProfileData.certifications", applicantProfileData.certifications)
     var final_cert = "{";
 
     certArr.forEach(function(el){
@@ -294,7 +285,7 @@ class Applicant_profile_form extends Component {
     console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
 
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -509,10 +500,10 @@ class Applicant_profile_form extends Component {
     let profile_image;
 
     if(this.state.profile_image == "" || this.state.profile_image == null){
-      console.log("no image")
+      // console.log("no image")
       profile_image = <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
     } else {
-      console.log("yes image")
+      // console.log("yes image")
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
     }
 
@@ -522,14 +513,14 @@ class Applicant_profile_form extends Component {
 
 
     const applicantForm = (
-        <div id="applicant_profile_form">
+        <div id="Applicant_profile_form_backup">
 
 
           <br/>
           <br/>
           <h1> Tell Us About Yourself, and We'll Tell You Whos Looking to Hire You</h1>
 
-          <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
+          <form className="ui form Applicant_profile_form_backup" onSubmit={this.handleSubmit.bind(this)}>
 
             <div className="three fields">
               <div className="field">
@@ -695,7 +686,7 @@ class Applicant_profile_form extends Component {
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
-                  <select name="education_level" id="" className="ui fluid dropdown education" value={this.state.education_level}
+                  <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
@@ -824,10 +815,17 @@ class Applicant_profile_form extends Component {
                 </div>
                 <br/>
 
+                {/* Upload Resume (PDF) */}
+                {/*<div>
+                  <label>Upload resume_pdf</label>
+                  <input type="file" name="resume_pdf" accept="application/pdf"
+                  value={this.state.resume_pdf}
+                  onDrop={this.onResumeDrop.bind(this)} />
+                </div>*/}
+
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
                     <div className="ui fluid button" >Upload Resume</div>
-                    <p>{this.state.profile_files.length} files uploaded</p>
                   </Dropzone>
                 </div>
 
@@ -881,12 +879,10 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
       PostPdf( data.id, ApplicantProfilePdf )
 
       // browserHistory.push('/Applicant_skill_form')
-      window.location.assign('/Applicant_skill_form')
+      // window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
-
-      window.location.assign('/Applicant_skill_form')
 
       // browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
@@ -940,4 +936,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Applicant_profile_form);
+export default connect(mapStateToProps)(Applicant_profile_form_backup);

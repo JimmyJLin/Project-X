@@ -39,6 +39,11 @@ $job_primary_background_color: #f2f2f2;
 
 #employer_profile_form, #applicant_profile_form, #applicant_profile_form{
 
+  .icon.minus.circle:hover{
+    cursor: pointer;
+  }
+
+
   #industry_experience, #areas_expertise{
     padding-left: 25px;
     padding-right: 25px;
