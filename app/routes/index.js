@@ -17,6 +17,7 @@ import Terms_and_conditions from 'components/menus/terms_and_conditions'
 
 // forms
 import Applicant_profile_form from 'components/forms/applicants/applicant_profile_form';
+import Applicant_profile_update from 'components/forms/applicants/applicant_profile_update';
 import Applicant_skill_form from 'components/forms/applicants/applicant_skill_form';
 
 import Employer_profile_form from 'components/forms/employers/employer_profile_form';
@@ -65,6 +66,7 @@ export default function(history) {
 
         {/* Applicant & Employer Profile Forms */}
         <Route path="/applicant_profile_form" component={requireAuth(Applicant_profile_form)} />
+        <Route path="/applicant_profile_update" component={requireAuth(Applicant_profile_update)} />
         <Route path="/Applicant_skill_form" component={requireAuth(Applicant_skill_form)} />
 
         <Route path="/employer_profile_form" component={requireAuth_emp(Employer_profile_form)} />

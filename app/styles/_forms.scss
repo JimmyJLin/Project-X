@@ -37,7 +37,7 @@ $job_primary_background_color: #f2f2f2;
   }
 }
 
-#employer_profile_form, #applicant_profile_form, #applicant_profile_form{
+#employer_profile_form, #applicant_profile_form, #applicant_profile_form, #applicant_profile_update{
 
   .icon.minus.circle:hover{
     cursor: pointer;
@@ -102,7 +102,7 @@ $job_primary_background_color: #f2f2f2;
     margin-bottom: 50px;
   }
 
-  .ui.form.employer_profile_form, .ui.form.applicant_profile_form{
+  .ui.form.employer_profile_form, .ui.form.applicant_profile_form, .ui.form.applicant_profile_update{
 
     margin-left: 25px;
     margin-right: 25px;

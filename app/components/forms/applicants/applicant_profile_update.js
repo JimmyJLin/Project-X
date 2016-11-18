@@ -12,7 +12,7 @@ let locationState = [];
 let schoolData = []
 let companyData = []
 
-class Applicant_profile_form extends Component {
+class Applicant_profile_update extends Component {
 
   constructor(props) {
     super(props);
@@ -46,7 +46,13 @@ class Applicant_profile_form extends Component {
       certificationsArry: [],
       educationArry: [],
       work_historyArry: [],
-      summary: ''
+      summary: '',
+      applicantProfile: {},
+      school_data: [],
+      work_history: [],
+      diryEducationArry:[],
+      dirtyWork_history: [],
+      isLoading: false
     }
 
   }
@@ -59,6 +65,89 @@ class Applicant_profile_form extends Component {
       window.location.reload(true)
     }
 
+    const user_id = localStorage.id
+
+
+
+    // this is where you'll get the data from the 'db'
+    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
+    $.get(url).done( (data)=>{
+      console.log("applicantProfile data: ", data)
+      // console.log("school data from backend ---", data.school)
+      if(data.desired_industry == null || data.desired_industry == ""){
+        console.log("no existing profile")
+        this.state.isLoading = true
+        this.setState({
+          isLoading: true
+        })
+      } else {
+        console.log("existing profile")
+        this.state.applicantProfile = data;
+        this.state.profile_image = data.profile_image
+        this.state.summary = data.summary
+        this.state.zipcode = data.zipcode
+        this.state.phone_number = data.phone_number
+        this.state.job_type = data.job_type
+        this.state.desired_industry = data.desired_industry
+        this.state.experience_level = data.experience_level
+        this.state.desired_locationArry = data.desired_location
+        this.state.certificationsArry = data.certifications
+        this.state.diryEducationArry = data.school
+        this.state.education_level = data.education_level
+        this.state.dirtyWork_history = data.work_history
+        this.state.languages_spokenArry = data.languages_spoken
+        this.state.isLoading = true
+        localStorage.setItem('isAuthen', 'yes');
+
+        this.setState({
+          applicantProfile: this.state.applicantProfile,
+          profile_image: this.state.profile_image,
+          summary: this.state.summary,
+          zipcode: this.state.zipcode,
+          phone_number: this.state.phone_number,
+          job_type: this.state.job_type,
+          desired_industry: this.state.desired_industry,
+          experience_level: this.state.experience_level,
+          desired_locationArry: this.state.desired_locationArry,
+          certificationsArry: this.state.certificationsArry,
+          diryEducationArry: this.state.diryEducationArry,
+          dirtyWork_history: this.state.dirtyWork_history,
+          languages_spokenArry: this.state.languages_spokenArry,
+          isLoading: true
+        })
+
+       //  console.log("school data from this.state.diryEducationArry", this.state.diryEducationArry)
+
+        this.state.diryEducationArry.map((el)=>{
+         //  console.log("---------------------", el)
+         //  console.log("split ------", el.split(","))
+          let split = el.split(",")
+
+          schoolData.push(split)
+         //  console.log("line 116 schoolData", schoolData)
+          this.setState({
+            educationArry: schoolData,
+          })
+        })
+
+        this.state.dirtyWork_history.map((el)=>{
+         //  console.log("---------------------", el)
+         //  console.log("split ------", el.split(","))
+          let split = el.split(",")
+
+          companyData.push(split)
+         //  console.log("line 116 companyData", companyData)
+          this.setState({
+            work_historyArry: companyData,
+          })
+        })
+
+      }
+
+     })
+
+
+    //  console.log("educationArry", this.state.educationArry)
   }
 
   handleSubmit(e) {
@@ -67,15 +156,12 @@ class Applicant_profile_form extends Component {
 
     let applicantProfileData = {
       user_id: this.props.auth.user.id,
-      profile_image: this.state.profile_image,
-      resume_image: this.state.resume_image,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
       phone_number: this.state.phone_number,
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
-      resume_pdf: this.state.resume_pdf,
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
@@ -140,6 +226,7 @@ class Applicant_profile_form extends Component {
     //****************
 
     var langArr =  applicantProfileData.languages_spoken   // => ["English", "Turkish"]
+    console.log("line 223 - applicantProfileData.languages_spoken", applicantProfileData.languages_spoken)
     var final_languages = "{";
 
     langArr.forEach(function(el){
@@ -171,37 +258,43 @@ class Applicant_profile_form extends Component {
 
     //****************
 
-        var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
-        var final_cert = "{";
+    var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
+    console.log("line 255 - applicantProfileData.certifications", applicantProfileData.certifications)
+    var final_cert = "{";
 
-        certArr.forEach(function(el){
-           if( el === certArr[certArr.length-1]) {
-             final_cert = final_cert + "\"" + el + '\"}';
-           } else {
-             final_cert = final_cert + "\"" + el + '\",';
-           }
-           applicantProfileData.certifications = final_cert;
-           console.log("certifications", final_cert)
-        })
+    certArr.forEach(function(el){
+       if( el === certArr[certArr.length-1]) {
+         final_cert = final_cert + "\"" + el + '\"}';
+       } else {
+         final_cert = final_cert + "\"" + el + '\",';
+       }
+       applicantProfileData.certifications = final_cert;
+       console.log("certifications", final_cert)
+    })
 
     // ***********
 
-      var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
-      var final_desired_location = "{";
 
-      desired_locationArr.forEach(function(el){
-         if( el === desired_locationArr[desired_locationArr.length-1] ) {
-           final_desired_location = final_desired_location + "\"" + el + '\"}';
-         } else {
-           final_desired_location = final_desired_location + "\"" + el + '\",';
-         }
-         applicantProfileData.desired_location = final_desired_location;
-         console.log("locations", final_desired_location)
-      })
+    var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
+    var final_desired_location = "{";
+    console.log("line 272 - applicantProfileData.desired_location", applicantProfileData.desired_location)
 
-    console.log("Line 105 - applicantProfileData", applicantProfileData)
-    console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
-    console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
+    desired_locationArr.forEach(function(el){
+       if( el === desired_locationArr[desired_locationArr.length-1] ) {
+         final_desired_location = final_desired_location + "\"" + el + '\"}';
+       } else {
+         final_desired_location = final_desired_location + "\"" + el + '\",';
+       }
+       applicantProfileData.desired_location = final_desired_location;
+       console.log("locations", final_desired_location)
+    })
+
+    console.log("Line 285 - applicantProfileData", applicantProfileData)
+    console.log("Line 286 - ApplicantProfileImages", ApplicantProfileImages)
+    console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
+
+
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -365,25 +458,91 @@ class Applicant_profile_form extends Component {
     this.dropzone.open();
   }
 
+  handleDeleteWork(e){
+    e.preventDefault();
+    console.log("delete work icon clicked")
+  }
+
+  handleDeleteSchool(e){
+    e.preventDefault();
+    console.log("delete school icon clicked")
+  }
+
   render(){
+    // spinner starts
+    let spinner
+    if (this.state.isLoading == false) {
+      // console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div className="ui segment">
+                  <div id="spinner" className="ui active dimmer">
+                    <div className="ui massive text loader"> Loading ...</div>
+                  </div>
+                </div>
+
+    } else if (this.state.isLoading == true) {
+      // console.log("this.state.isLoading", this.state.isLoading)
+      spinner = <div></div>
+    }
+    // spinner starts
+
+    let schoolData = this.state.educationArry
+    // console.log("line 424 schoolData", schoolData)
+    let school;
+    if (this.state.educationArry == "" || this.state.educationArry == null){
+      school = <div></div>
+    } else {
+      school = schoolData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteSchool.bind(this)}></i></div>
+      })
+    }
+
+    let workData = this.state.work_historyArry
+    let work;
+    if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
+      work = <div></div>
+    } else {
+      work = workData.map((el)=>{
+        return <div key={el}>{el[0]} - {el[1]} <i className="icon minus circle" onClick={ this.handleDeleteWork.bind(this)}></i></div>
+      })
+    }
+
+    let profile_image;
+
+    if(this.state.profile_image == "" || this.state.profile_image == null){
+      console.log("no image")
+      profile_image = <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+    } else {
+      console.log("yes image")
+      profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
+    }
+
+    let resumeUploaded;
+    if (this.state.profile_files.length == 0 ){
+      resumeUploaded = <div></div>
+    } else {
+      resumeUploaded = <div>{this.state.profile_files.length} files uploaded</div>
+    }
 
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
 
-    const applicantForm = (
-        <div id="applicant_profile_form">
-          <br/>
-          <br/>
-          <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
 
-          <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
+    const applicantForm = (
+        <div id="applicant_profile_update">
+
+
+          <br/>
+          <br/>
+          <h1> Tell Us About Yourself, and We'll Tell You Whos Looking to Hire You</h1>
+
+          <form className="ui form applicant_profile_update" onSubmit={this.handleSubmit.bind(this)}>
 
             <div className="three fields">
               <div className="field">
                 <div>
                   <Dropzone className="ui segment" onDrop={this.onDrop.bind(this)} id="eventDropZone">
-                    <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+                    {profile_image}
                     <div className="ui fluid button" >Upload Image</div>
                   </Dropzone>
                   {this.state.profile_files.length > 0 ? <div>{this.state.profile_files.map((file) => <img className="ui small circular image" key ={file.lastModified} src={file.preview} /> )}</div> : null}
@@ -406,7 +565,7 @@ class Applicant_profile_form extends Component {
                 {/* Interested in Jobs in */}
                 <div>
                   <label>Interested In Working</label>
-                  <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
+                  <select id="desired_location" multiple="true" name="desired_location" className="ui fluid normal dropdown"
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
                     <option value="">Please Select</option>
@@ -429,7 +588,8 @@ class Applicant_profile_form extends Component {
                 {/* Desired Location */}
                 <div>
                   <label>Desired Industry</label>
-                  <select name="desired_industry" id="" className="ui fluid dropdown" value={this.state.desired_industry}
+                  <div className="menu"></div>
+                  <select id="desired_industry" name="desired_industry" className="ui fluid dropdown" value={this.state.desired_industry}
                   onChange={e => this.onDesiredIndustryChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Finance">Finance</option>
@@ -459,7 +619,7 @@ class Applicant_profile_form extends Component {
                 {/* Job Type */}
                 <div>
                   <label name="job_type">Job Type</label>
-                  <select name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
+                  <select id="job_type" name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Intern">Intern</option>
                     <option value="Part-Time">Part-Time</option>
@@ -473,7 +633,7 @@ class Applicant_profile_form extends Component {
                 {/* Industry Work Experience */}
                 <div>
                   <label name="experience_level">Industry Work Experience (Full Employment)</label>
-                  <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
+                  <select id="experience_level" name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Entry Level"> 0-2 Years (Entry Level)</option>
@@ -506,6 +666,9 @@ class Applicant_profile_form extends Component {
                     <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
                     <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
                     <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                    <option value="Series 7">Series 7</option>
+                    <option value="Series 63">Series 63</option>
+                    <option value="Series 66">Series 66</option>
                   </select>
                 </div>
 
@@ -539,7 +702,7 @@ class Applicant_profile_form extends Component {
                 {/* Education Level */}
                 <div className="ui segment">
                   <label name="education_level">Education Level</label>
-                  <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
+                  <select name="education_level" id="" className="ui fluid dropdown education" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Current Student">Current Student</option>
@@ -562,12 +725,76 @@ class Applicant_profile_form extends Component {
                     </div>
                     <div className="field">
                       <label name="Year">Graduation Year</label>
-                      <input name="year" value={this.state.year} type="text" placeholder="year"onChange={e => this.onSchoolYearChange(e.target.value)}/>
+                      <select name="year" id="" className="ui fluid dropdown" value={this.state.year} onChange={e => this.onSchoolYearChange(e.target.value)}>
+                        <option value="">Please Select</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                        <option value="1993">1993</option>
+                        <option value="1992">1992</option>
+                        <option value="1991">1991</option>
+                        <option value="1990">1990</option>
+                        <option value="1989">1989</option>
+                        <option value="1988">1988</option>
+                        <option value="1987">1987</option>
+                        <option value="1986">1986</option>
+                        <option value="1985">1985</option>
+                        <option value="1984">1984</option>
+                        <option value="1983">1983</option>
+                        <option value="1982">1982</option>
+                        <option value="1981">1981</option>
+                        <option value="1980">1980</option>
+                        <option value="1979">1979</option>
+                        <option value="1978">1978</option>
+                        <option value="1977">1977</option>
+                        <option value="1976">1976</option>
+                        <option value="1975">1975</option>
+                        <option value="1974">1974</option>
+                        <option value="1973">1973</option>
+                        <option value="1972">1972</option>
+                        <option value="1971">1971</option>
+                        <option value="1970">1970</option>
+                        <option value="1969">1969</option>
+                        <option value="1968">1968</option>
+                        <option value="1967">1967</option>
+                        <option value="1966">1966</option>
+                        <option value="1965">1965</option>
+                        <option value="1964">1964</option>
+                        <option value="1963">1963</option>
+                        <option value="1962">1962</option>
+                        <option value="1961">1961</option>
+                        <option value="1960">1960</option>
+                      </select>
                     </div>
                   </div>
                   <div id="add_additional">
                     <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {school}
 
                 </div>
 
@@ -600,20 +827,14 @@ class Applicant_profile_form extends Component {
                   <div id="add_additional">
                     <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
                   </div>
+                  {work}
                 </div>
                 <br/>
-
-                {/* Upload Resume (PDF) */}
-                {/*<div>
-                  <label>Upload resume_pdf</label>
-                  <input type="file" name="resume_pdf" accept="application/pdf"
-                  value={this.state.resume_pdf}
-                  onDrop={this.onResumeDrop.bind(this)} />
-                </div>*/}
 
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
                     <div className="ui fluid button" >Upload Resume</div>
+                    {resumeUploaded}
                   </Dropzone>
                 </div>
 
@@ -646,6 +867,9 @@ class Applicant_profile_form extends Component {
       )
       return (
             <div>
+            {/* Spinner Starts */}
+              {spinner}
+            {/* Spinner Ends */}
               { isAuthenticated && this.props.auth.user.type =='applicant' ? applicantForm : error }
             </div>
         )}
@@ -663,13 +887,15 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      browserHistory.push('/Applicant_skill_form')
-      // window.location.assign('/Applicant_skill_form')
+      // browserHistory.push('/Applicant_skill_form')
+      window.location.assign('/Applicant_skill_form')
 
     })
     .error((error) => {
 
-      browserHistory.push('/Applicant_skill_form')
+      window.location.assign('/Applicant_skill_form')
+
+      // browserHistory.push('/Applicant_skill_form')
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
 
@@ -721,4 +947,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Applicant_profile_form);
+export default connect(mapStateToProps)(Applicant_profile_update);

@@ -235,7 +235,7 @@ class Applicant_profile extends Component {
 
           {/* Match Button*/}
           <div className="ui two column centered grid">
-            <Link to="/applicant_profile_form">
+            <Link to="/applicant_profile_update">
               <button className="ui button large">Udate Profile</button>
             </Link>
           </div>
