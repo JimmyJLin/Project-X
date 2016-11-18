@@ -1226,7 +1226,7 @@ class Applicant_skill_form extends Component {
       <div id="applicant_profile_form">
         <div id="industry_experience">
           <h1> Do you hold Industry experience in any of the following areas? </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
 
@@ -1498,7 +1498,7 @@ class Applicant_skill_form extends Component {
 
         <div id="areas_expertise">
           <h1> Select Your Skills / Areas of Expertise </h1>
-          <div className="ui equal width grid">
+          <div className="ui equal width grid stackable">
             <div className="column">
               <div className="ui vertical menu">
 
