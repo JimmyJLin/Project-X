@@ -89,7 +89,8 @@ class List_jobs extends Component {
         {/* Spinner Starts */}
           {spinner}
         {/* Spinner Ends */}
-        <h1>Current Active Job Lists</h1>
+        <h1>Current Active Postings</h1>
+        <h3>Click your posting to instantly view matches</h3>
         <div className="ui fluid centered stackable cards">
           {jobs}
         </div>

@@ -33,7 +33,7 @@ export function login(data) {
   return dispatch => {
     return $.post('https://apex-database.herokuapp.com/api/users/applicants/login', data)
       .done( (data)=> {
-        console.log('agent data', data)
+        // console.log('agent data', data)
         let token = data.token;
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwtDecode(token)));
@@ -49,7 +49,7 @@ export function login(data) {
     })
     .error( (error) => {
       localStorage.setItem('error', error.statusText)
-      console.log("this is the error -->", error)
+      // console.log("this is the error -->", error)
     })
   }
 }
@@ -59,11 +59,11 @@ export function login_employer(data) {
   return dispatch => {
     return $.post('https://apex-database.herokuapp.com/api/users/employers/login', data)
     .done( (data)=> {
-      console.log('agent data', data.agent)
+      // console.log('agent data', data.agent)
       let token = data.token;
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
-      
+
       let user = data.agent;
       let id = user.id;
       let type = 'employer';
@@ -77,7 +77,7 @@ export function login_employer(data) {
     })
     .error( (error) => {
       localStorage.setItem('error', error.statusText)
-      console.log("this is the error -->", error)
+      // console.log("this is the error -->", error)
     })
   }
 }

@@ -15,24 +15,6 @@ import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './actions/authActions';
 
 import createRoutes from 'routes/index'
-// import Immutable from 'immutable'
-// import _ from 'lodash'
-
-
-
-
-// let reduxState = {}
-// if (window.__REDUX_STATE__) {
-//   try {
-//     let plain = JSON.parse(unescape(__REDUX_STATE__))
-//     _.each(plain, (val, key)=> {
-//       reduxState[key] = Immutable.fromJS(val)
-//     })
-//   } catch (e) {
-//   }
-// }
-
-// const store = configureStore(reduxState)
 
 const store = createStore(
   rootReducer,

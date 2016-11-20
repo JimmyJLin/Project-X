@@ -43,12 +43,18 @@ $lines-to-show: 5;
     width: 135px;
   }
 
-  .ui.button.small.solid{
-    margin-top: 5px;
-    bottom: 5%;
-    left: 5%;
-    position: absolute;
+  .ui.equal.width.grid{
+    padding-left: 3%;
+    padding-right: 11%;
+    padding-bottom: 4%;
   }
+
+  // .ui.button.small.solid{
+  //   margin-top: 5px;
+  //   bottom: 5%;
+  //   left: 5%;
+  //   position: absolute;
+  // }
 
   #apply_button{
     left: 20%;
@@ -64,6 +70,9 @@ $lines-to-show: 5;
 
   h1, h3{
     text-align: center;
+  }
+  h3{
+    padding-bottom: 3%;
   }
   padding-top: 90px;
 

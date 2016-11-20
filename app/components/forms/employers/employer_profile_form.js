@@ -230,7 +230,7 @@ componentDidMount(){
 
 
         <h1>List Your Company Profile Today</h1>
-        <h4>its free.  Only pay when you post.</h4>
+        <h4>AtlasCV is currently <span>free</span> for Employers, let us match your next hire!</h4>
 
         <form className="ui form employer_profile_form"
         onLoad = {this.componentDidMount}

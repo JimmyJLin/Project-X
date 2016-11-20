@@ -208,11 +208,15 @@ class Post_job extends Component {
                 <select name="education" id="" className="ui fluid dropdown" value={this.state.education}
                 onChange={e => this.onEducationChange(e.target.value)}>
                   <option value="">Please Select</option>
-                  <option value="High School / GED">High School / GED</option>
+                  <option value="Current Student">Current Student</option>
+                  <option value="High School/GED">High School/GED</option>
                   <option value="Associate Degree">Associate Degree</option>
-                  <option value="Bachelor Degree">Bachelor Degree</option>
-                  <option value="Master Degree">Master Degree</option>
-                  <option value="Phd">Phd</option>
+                  <option value="Bachelors Degree">Bachelors Degree</option>
+                  <option value="JD Degree">JD Degree</option>
+                  <option value="Masters Degree">Masters Degree</option>
+                  <option value="MBA Degree">MBA Degree</option>
+                  <option value="MSF">MSF</option>
+                  <option value="Ph.D/Doctorate">Ph.D/Doctorate</option>
                 </select>
               </div>
             </div>

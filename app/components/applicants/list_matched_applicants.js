@@ -337,7 +337,7 @@ class List_matched_applicants extends Component {
           break;
       }
 
-      console.log("schoolList", schoolList)
+      // console.log("schoolList", schoolList)
       // rendering each work history
       var workArry = applicant.work_history
       let work;
@@ -383,12 +383,20 @@ class List_matched_applicants extends Component {
           break;
       }
 
+      let applicant_profile_img;
+      console.log("applicant_profile_img", applicant.profile_image)
+      if(applicant.profile_image == "" || applicant.profile_image == null ||  applicant.profile_image == 'null') {
+        applicant_profile_img = <img className="left floated tiny ui image" src={'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image} alt="profile pic"/>
+      } else {
+        applicant_profile_img = <img className="left floated tiny ui image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
+      }
+
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
       // console.log("image url  .... ", url)
       const link = `/Matched_applicant/` + applicant.ui
-      return <Link to={link} className="card list" key={applicant.ui} >
+      return <Link to={link} className="card list" key={applicant.ui} target="_blank">
               <div className="content">
-                <img className="left floated tiny ui image" src={url} alt="profile pic"/>
+                {applicant_profile_img}
                 <div className="header">
                   <br/>
                   {applicant.name} {applicant.last_name}
@@ -409,7 +417,14 @@ class List_matched_applicants extends Component {
               </div>
               <br/>
               <br/>
-              <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
+              <div className="ui equal width grid">
+                <div className="column">
+                  <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
+                </div>
+                <div className="column">
+                  <button href={ `/Matched_applicant/` + applicant.ui} target="_blank" className="ui button blue small solid">View Profile</button>
+                </div>
+              </div>
             </Link>
 
     })

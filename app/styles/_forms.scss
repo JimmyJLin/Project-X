@@ -100,6 +100,9 @@ $job_primary_background_color: #f2f2f2;
 
   h1, h4, p{
     text-align: center;
+    span{
+      font-style: italic;
+    }
   }
 
   .ui.stacked.segment{
