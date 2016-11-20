@@ -2,6 +2,23 @@ $(function(){
   console.log('script file loaded')
 
 
+  // Append to add school & work
+  $('#add_School').on("click", function(){
+    // on click change Add to Add (Click Again to add additional)
+    if(!$(this).hasClass('selected')){
+      $(this).addClass('selected').after("<p id='addition_texts'>(Click again to add additional)</p>")
+    } else {
+    }
+  })
+
+  $('#add_work').on("click", function(){
+    // on click change Add to Add (Click Again to add additional)
+    if(!$(this).hasClass('selected')){
+      $(this).addClass('selected').after("<p id='addition_texts'>(Click again to add additional)</p>")
+    } else {
+    }
+  })
+
   // Reset Filter
   $('#reset_button').on('click', function(){
     $(".ui.fluid.dropdown").dropdown("clear")
@@ -9,7 +26,7 @@ $(function(){
   })
 
 
-  // Reset Applicant Form
+  // Reset Dropdown
   $('#add_additional').on('click', function(){
     console.log("clicked")
     $(".ui.dropdown.education").dropdown("clear")

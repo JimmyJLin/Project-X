@@ -76,7 +76,6 @@ class Applicant_profile_form extends Component {
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
       certifications: this.state.certifications,
-      resume_pdf: this.state.resume_pdf,
       desired_location: this.state.desired_location,
       languages_spoken: this.state.languages_spoken,
       educationArry: this.state.educationArry,
@@ -204,7 +203,13 @@ class Applicant_profile_form extends Component {
     console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
     console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    if(applicantProfileData.work_historyArry.length == 0 || applicantProfileData.educationArry.length == 0){
+      console.log("no history provided")
+      alert("Either no Education History or Work History Information Providded, Please add additional information")
+    } else {
+      console.log("YESSSSSSSSSSSSSS")
+      postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    }
 
     // window.location.assign('/Applicant_skill_form')
 
@@ -433,7 +438,7 @@ class Applicant_profile_form extends Component {
     // console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
-      school = <div>No Education Added</div>
+      school = <div>No Education Added - <span id="red_text">Please provide at least one Education History</span></div>
     } else {
       school = schoolData.map((el)=>{
         console.log("index of", schoolData.indexOf(el))
@@ -444,7 +449,7 @@ class Applicant_profile_form extends Component {
     let workData = this.state.work_historyArry
     let work;
     if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
-      work = <div>No Work Experience Added</div>
+      work = <div>No Work Experience Added - <span id="red_text">Please provide at least one Work History</span></div>
     } else {
       work = workData.map((el)=>{
         return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
@@ -467,7 +472,7 @@ class Applicant_profile_form extends Component {
         <div id="applicant_profile_form">
           <br/>
           <br/>
-          <h1> Tell Us About Yourself, and We'll Tell YOu Who's Looking to Hire You</h1>
+          <h1> Tell Us About Yourself, and We'll Tell You Who's Looking to Hire You</h1>
 
           <form className="ui form applicant_profile_form" onSubmit={this.handleSubmit.bind(this)}>
 
@@ -489,7 +494,7 @@ class Applicant_profile_form extends Component {
 
             <div className="field">
               <div className="label">Short Summary</div>
-              <textarea name="summary" value={this.state.summary} onChange={e => this.onSummaryChange(e.target.value)}></textarea>
+              <textarea name="summary" value={this.state.summary} placeholder="This is your personal Bio. It will serve as a brief cover letter to distinguish you from other applicants. Let employers know what makes you unique." onChange={e => this.onSummaryChange(e.target.value)}></textarea>
             </div>
 
             <div className="two fields">
@@ -721,7 +726,7 @@ class Applicant_profile_form extends Component {
                     </div>
                   </div>
                   <div id="add_additional">
-                    <p onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add Additional</p>
+                    <p id="add_School" onClick={ this.handleAddEducation.bind(this)}><i className="icon plus"></i>Add</p>
                   </div>
                   <br/>
                   {school}
@@ -755,7 +760,7 @@ class Applicant_profile_form extends Component {
 
                   </div>
                   <div id="add_additional">
-                    <p onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add Additional</p>
+                    <p id="add_work" onClick={ this.handleAddJobExperience.bind(this)}><i className="icon plus"></i>Add</p>
                   </div>
                   <br/>
                   {work}

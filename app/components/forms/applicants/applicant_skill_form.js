@@ -40,7 +40,7 @@ class Applicant_skill_form extends Component {
       tax_software: '',
       it: '',
       data_entry: '',
-      financial_statement: '',
+      financial_statement_analysis_analysis: '',
       financial_planning: '',
       debt_consolidation: '',
       sales: '',
@@ -107,7 +107,7 @@ class Applicant_skill_form extends Component {
       tax_software: this.state.tax_software,
       it: this.state.it,
       data_entry: this.state.data_entry,
-      financial_statement: this.state.financial_statement,
+      financial_statement_analysis: this.state.financial_statement_analysis,
       financial_planning: this.state.financial_planning,
       debt_consolidation: this.state.debt_consolidation,
       sales: this.state.sales,
@@ -870,28 +870,28 @@ class Applicant_skill_form extends Component {
 
 
   // Taxes functions
-  handleFinancialStatementEntryChange(e){
+  handleFinancialStatementAnalysisEntryChange(e){
     e.preventDefault();
 
       this.setState({
-        financial_statement: "0-2 years Entry Level"
+        financial_statement_analysis: "0-2 years Entry Level"
       });
 
   }
 
-  handleFinancialStatementMidChange(e){
+  handleFinancialStatementAnalysisEntryChange(e){
     e.preventDefault();
 
     this.setState({
-      financial_statement: "2-5 years Mid Level"
+      financial_statement_analysis: "2-5 years Mid Level"
     });
   }
 
-  handleFinancialStatementHighChange(e){
+  handleFinancialStatementAnalysisEntryChange(e){
     e.preventDefault();
 
     this.setState({
-      financial_statement: "5+ years High Level"
+      financial_statement_analysis: "5+ years High Level"
     });
   }
 
@@ -1598,12 +1598,12 @@ class Applicant_skill_form extends Component {
                 {/* Financial Statement */}
                 <div className="ui dropdown item">
                   <span>Financial Statement</span>
-                  {this.state.financial_statement}
+                  {this.state.financial_statement_analysis}
                   <i className="dropdown icon"></i>
-                  <div className="menu" name="financial_statement">
-                    <option className="item" name="entry" onClick={this.handleFinancialStatementEntryChange.bind(this)}> 0-2 years Entry Level</option>
-                    <option className="item" name="mid" onClick={this.handleFinancialStatementMidChange.bind(this)}> 2-5 years Mid Level</option>
-                    <option className="item" name="high" onClick={ this.handleFinancialStatementHighChange.bind(this)}> 5+ years High Level</option>
+                  <div className="menu" name="financial_statement_analysis">
+                    <option className="item" name="entry" onClick={this.handleFinancialStatementAnalysisEntryChange.bind(this)}> 0-2 years Entry Level</option>
+                    <option className="item" name="mid" onClick={this.handleFinancialStatementAnalysisEntryChange.bind(this)}> 2-5 years Mid Level</option>
+                    <option className="item" name="high" onClick={ this.handleFinancialStatementAnalysisEntryChange.bind(this)}> 5+ years High Level</option>
                   </div>
                 </div>
 
