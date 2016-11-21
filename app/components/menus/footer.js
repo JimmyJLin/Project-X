@@ -7,7 +7,7 @@ export default class Footer extends Component {
     return(
 
       <div id="footer">
-        <img className="ui centered rounded small image" src="images/company_logo/apex_logo.png" alt="Company Logo"/>
+        <img className="ui centered rounded small image" src="https://apex-database.herokuapp.com/images/company_logo/atlascv_logo_rectangle_clear.png" alt="Company Logo"/>
 
         <div className="ui grid stackable top">
           <div className="eleven wide column">

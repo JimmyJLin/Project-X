@@ -216,7 +216,7 @@ class Applicant_profile extends Component {
           {/* Header */}
           <div className="ui stackable grid">
             <div className="four wide column">
-              <div className="ui center aligned basic segment">
+              <div className="ui center aligned basic segment profile">
 
                 {profile_image}
 
@@ -367,8 +367,9 @@ class Applicant_profile extends Component {
             </div>*/}
             <div className="column">
               <h4>Resume</h4>
-              <div className="ui center aligned basic segment">
-                <a href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
+              <div className="ui center aligned basic segment download">
+                <p>click below to download the most updated resume.</p>
+                <button href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</button>
               </div>
             </div>
             <div className="column">

@@ -19,7 +19,7 @@ $primary_text_color: white;
 
 #logo{
   margin-left: 25px;
-
+  padding-top: 10px;
 }
 
 #loginForm{
@@ -39,7 +39,7 @@ $primary_text_color: white;
 }
 
 #main_display_image img{
-  margin-top: 6.5%;
+  margin-top: 4.2%;
   width: 102%;
   height: 675px;
 }
@@ -94,6 +94,11 @@ $primary_text_color: white;
   width: 102%;
   background-color: $footer_primary_background_color;
   height: auto;
+
+  .ui.centered.rounded.small.image{
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
 
   .ui.grid.top{
     padding-top: 25px;

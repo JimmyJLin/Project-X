@@ -126,7 +126,7 @@ class ApplicantLoginForm extends React.Component {
         />
         </div>
         {authEror}
-        <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login-X
+        <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login
         </button>
       </form>
     );

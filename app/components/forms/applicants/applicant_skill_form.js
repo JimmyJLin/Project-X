@@ -1597,7 +1597,7 @@ class Applicant_skill_form extends Component {
 
                 {/* Financial Statement */}
                 <div className="ui dropdown item">
-                  <span>Financial Statement</span>
+                  <span>Financial Statement Analysis</span>
                   {this.state.financial_statement_analysis}
                   <i className="dropdown icon"></i>
                   <div className="menu" name="financial_statement_analysis">

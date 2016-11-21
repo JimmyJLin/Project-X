@@ -60,7 +60,7 @@ class MainMenu extends Component {
 
   render(){
       const { isAuthenticated } = this.props.auth;
-      const logoimg = 'images/company_logo/apex_logo.png'
+      const logoimg = "https://apex-database.herokuapp.com/images/company_logo/atlascv_logo_rectangle_clear.png"
 
       const userLinks = (
         <div id="menu_top" className="ui top fixed main two item clear menu">

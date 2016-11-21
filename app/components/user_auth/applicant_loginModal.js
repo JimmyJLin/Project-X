@@ -135,7 +135,7 @@ class Applicant_loginModal extends React.Component {
               />
               </div>
               {authEror}
-              <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login...
+              <button id="applicant_login_submit_button" className="ui button small" disabled={isLoading}>Login
               </button>
             </form>
           <br/>

@@ -502,7 +502,7 @@ class Applicant_profile_form extends Component {
               <div className="field">
                 {/* Interested in Jobs in */}
                 <div>
-                  <label>Interested In Working</label>
+                  <label>Desired Locations(s)</label>
                   <select multiple="true" name="desired_location" className="ui fluid normal dropdown"
                   value={this.state.desired_locationArry}
                   onChange={e => this.onLocationChange(e.target.value)}>
@@ -610,7 +610,7 @@ class Applicant_profile_form extends Component {
 
                 {/* Additional Language Spoken */}
                 <div>
-                  <label name="languages_spoken">Languages Spoken</label>
+                  <label name="languages_spoken">Additional Languages Spoken</label>
                   <select multiple="true" name="languages_spoken" className="ui fluid normal dropdown"
                   value={this.state.languages_spokenArry}
                   onChange={e => this.onLanguageChange(e.target.value)}>
@@ -831,7 +831,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      alert("Applicant Profile Created, Please press OK to continue")
+      // alert("Applicant Profile Created, Please press OK to continue")
 
       window.location.assign('/Applicant_skill_form')
 

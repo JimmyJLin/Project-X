@@ -233,6 +233,17 @@ class List_matched_applicants extends Component {
     }
     // spinner ends
 
+    let handleRedirect = function(e){
+      e.preventDefault();
+      console.log(e.target.value)
+      let applicant_id = e.target.value
+      // window.open(`https://apex-database.herokuapp.com/Matched_applicant/${applicant_id}`)
+      window.open(`http://localhost:3000/Matched_applicant/${applicant_id}`)
+
+      // browserHistory.push('/applicant_profile_form'); // redirects to profile
+
+    }
+
     let change = function(e){
       e.preventDefault();
       console.log(e.target.value)
@@ -422,7 +433,7 @@ class List_matched_applicants extends Component {
                   <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
                 </div>
                 <div className="column">
-                  <button href={ `/Matched_applicant/` + applicant.ui} target="_blank" className="ui button blue small solid">View Profile</button>
+                  <button value={applicant.ui} onClick={handleRedirect} className="ui button blue small solid">View Profile</button>
                 </div>
               </div>
             </Link>

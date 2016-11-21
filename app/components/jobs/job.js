@@ -48,7 +48,7 @@ class Job extends Component {
     })
 
     // get # of Matched Applicants
-    $.get('https://apex-database.herokuapp.com/api/jobs/').done( (data)=>{
+    $.get('https://apex-database.herokuapp.com/api/applicants/').done( (data)=>{
       this.state.job_applicants = data
       this.setState({
         job_applicants: this.state.job_applicants
