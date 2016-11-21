@@ -41,35 +41,31 @@ class List_match extends Component {
     }
 
 
-    console.log("hello from list_matched_applicants componentDidMount")
+    // get all matched Applicants data
     let applicant_id = this.props.params.id
     let url = "https://apex-database.herokuapp.com/api/jobs/active"
-    // get all matched Applicants data
     $.get(url).done( (data)=>{
       this.state.jobs = data
-      console.log("Applicant Data:", data)
+      // console.log("Applicant Data:", data)
       this.state.isLoading = true
 
       this.setState({
         jobs: this.state.jobs,
         isLoading: true
       })
-
-      console.log('line 52 after initial set', this.state.jobs)
-
+      // console.log('line 52 after initial set', this.state.jobs)
     })
+
   }
 
   //{***** On Change Functions *******}
   onFilterChange(name, val){
-
-    console.log('name', 'val', name,val )
-
+    // console.log('name', 'val', name,val )
     this.setState({ [name]: val});
     // console.log(this.state.experience_level)
-    console.log("onFilterChange Clicked", name, val)
+    // console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
-      this.UpdateTheFilter(name, val);
+    this.UpdateTheFilter(name, val);
   }
 
 
@@ -81,41 +77,34 @@ class List_match extends Component {
          this.state.filtered_jobs[name] = this.state.jobs;
        } else {
           filteredArr  = this.state.jobs.filter( (obj) =>{
-            console.log('this is my line72', obj[name], val)
-                         return obj[name] == val })
-
+            // console.log('this is my line72', obj[name], val)
+            return obj[name] == val })
           this.state.filtered_jobs[name] = filteredArr
      }
   }
 
 
   updateTheFinalList(){
-
     var ffinal = [];
-
     var jobstate = this.state.jobs;
-
     var finalList = this.state.filtered_jobs;
-
-    console.log('finalList line 143', finalList)
+    // console.log('finalList line 143', finalList)
     var valuessoffiltered_jobs = Object.values(finalList);
-
     var selectedIds= []; //=> [[],[]]
-
     for (var i = 0; i <valuessoffiltered_jobs.length; i++ ){
       var arr = [];
       valuessoffiltered_jobs[i].map((el)=>{ arr.push(el.id) })
       selectedIds.push(arr)
     }
-   console.log('+++++++++', selectedIds.map( (el)=>{
-     return el
-    }))
+  //  console.log('+++++++++', selectedIds.map( (el)=>{
+  //    return el
+  //   }))
 
-
+    // switch case for intersections
     var intersectionIds;
     switch ( selectedIds.length) {
     case 0:
-      console.log('there is no intersection')
+      // console.log('there is no intersection')
       break;
     case 1:
       intersectionIds = _.intersection( jobstate.map((el)=>{ return el.id}), selectedIds[0] );
@@ -130,19 +119,17 @@ class List_match extends Component {
     break ;
     }
 
-    console.log('intersectionIds', intersectionIds)
+    // console.log('intersectionIds', intersectionIds)
 
-      for ( var i in intersectionIds ){
-          jobstate.forEach( (obj)=>{
-            if ( obj.id == intersectionIds[i] ) {
-                ffinal.push(obj) }
-              })
-                // console.log(final)
-          }
-          final = ffinal;
+    for ( var i in intersectionIds ){
+      jobstate.forEach( (obj)=>{
+        if ( obj.id == intersectionIds[i] ) {
+            ffinal.push(obj) }
+          })
+    }
+    final = ffinal;
 
   }
-
 
 
   componentWillUpdate(){
@@ -168,9 +155,10 @@ class List_match extends Component {
     }
     // spinner ends
 
+    // function to apply job
     let change = function(e){
       e.preventDefault();
-      console.log(e.target.value)
+      // console.log(e.target.value)
 
       let applicant_id = localStorage.id
       let current_job_id = e.target.value
@@ -181,8 +169,8 @@ class List_match extends Component {
           status: 'applied'
         }
 
-      console.log("applicationData", applicationData)
-      console.log("e-target className", e.target.className)
+      // console.log("applicationData", applicationData)
+      // console.log("e-target className", e.target.className)
 
       $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
         .done((data) => {
@@ -200,27 +188,24 @@ class List_match extends Component {
     }
 
     var jobArray;
-    // console.log('this is my final', final)
-      if (final.length == 0 ){
-        jobArray = this.state.jobs
-        // console.log("YESSSSSS -----", jobArray)
-      } else {
-        jobArray = final
-        // console.log("NOOOOOOO ----", jobArray)
-      }
+    if (final.length == 0 ){
+      jobArray = this.state.jobs
+    } else {
+      jobArray = final
+    }
 
-    // const jobs = this.state.jobs
+    // map through JobArray and assign each applicants
     const applicants = jobArray.map(function(applicant){
-      // rendering location
+
+      // rendering each location
       var location;
       if(applicant.location == "" || applicant.location == null){
         location = <div></div>
       } else {
         location = <div className="ui list">
-                  <div className="item">{applicant.location}</div>
-                </div>
+                    <div className="item">{applicant.location}</div>
+                  </div>
       }
-
 
       // rendering each school
       var educationRequirement;
@@ -228,8 +213,8 @@ class List_match extends Component {
         educationRequirement = <div></div>
       } else {
         educationRequirement = <div className="ui list">
-                  <div className="item">{applicant.education_level}</div>
-                </div>
+                                <div className="item">{applicant.education_level}</div>
+                              </div>
       }
 
       // rendering each description
@@ -238,13 +223,12 @@ class List_match extends Component {
         description = <div></div>
       } else {
         description = <div className="ui list">
-                  <div className="item ellipsis">{applicant.description}</div>
-                </div>
+                        <div className="item ellipsis">{applicant.description}</div>
+                      </div>
       }
 
-
+      // rendering each card based applicant data
       const url = 'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image
-      // console.log("image url  .... ", url)
       const link = `/list_matched/job/` + applicant.id
       return <Link to={link} className="card list" key={applicant.id} >
               <div className="content">
@@ -266,7 +250,7 @@ class List_match extends Component {
               </div>
               <br/>
               <br/>
-              <button id={"job"+applicant.id} value={applicant.id} className="ui button small solid" onClick={change}><i className="icon send"></i>Quick Apply</button>
+              <button id={"job"+applicant.id} value={applicant.id} className="ui button small solid quick_apply" onClick={change}><i className="icon send"></i>Quick Apply</button>
             </Link>
 
     })
@@ -285,7 +269,7 @@ class List_match extends Component {
 
 
                 {/* Industry rience */}
-                <div>
+                <div className="filter_div">
                   <label name="industry">Industry</label>
                   <select name="industry" className="ui fluid normal dropdown"
                   value={this.state.industry}
@@ -299,7 +283,7 @@ class List_match extends Component {
                 </div>
 
                 {/* Years of Experience */}
-                <div>
+                <div className="filter_div">
                   <label name="experience_level">Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
@@ -312,7 +296,7 @@ class List_match extends Component {
                 </div>
 
                 {/* Education */}
-                <div>
+                <div className="filter_div">
                   <label name="education_level">Education Level</label>
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>

@@ -426,8 +426,6 @@ class List_matched_applicants extends Component {
                   {certifications[0]}
                 </div>
               </div>
-              <br/>
-              <br/>
               <div className="ui equal width grid">
                 <div className="column">
                   <button href="mailto:emailaddress@gmail.com?Subject=Hello%20again" target="_top" id={"job"+applicant.user_id} value={applicant.user_id} className="ui button blue small solid" onClick={change}><i className="icon mail"></i>Contact</button>
@@ -452,7 +450,7 @@ class List_matched_applicants extends Component {
               <div className="field">
 
                 {/* Industry rience */}
-                <div>
+                <div className="filter_div">
                   <label name="certifications">Industry</label>
                   <select name="desired_industry" className="ui fluid normal dropdown"
                   value={this.state.industry}
@@ -466,7 +464,7 @@ class List_matched_applicants extends Component {
                 </div>
 
                 {/* Years of Experience */}
-                <div>
+                <div className="filter_div">
                   <label name="experience_level">Work Experience (Full Employment)</label>
                   <select name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
@@ -479,7 +477,7 @@ class List_matched_applicants extends Component {
                 </div>
 
                 {/* Education */}
-                <div>
+                <div className="filter_div">
                   <label name="education_level">Education Level</label>
                   <select name="education_level" id="" className="ui fluid dropdown" value={this.state.education_level}
                   onChange={e => this.onFilterChange(e.target.name, e.target.value)}>
@@ -498,7 +496,7 @@ class List_matched_applicants extends Component {
                 </div>
 
                 {/* Skills */}
-                <div>
+                <div className="filter_div">
                   <label name="job_skills">Experiences</label>
                   <select name="job_skills" className="ui fluid  dropdown"
                   value={this.state.job_skills}
@@ -530,7 +528,7 @@ class List_matched_applicants extends Component {
                 </div>
 
                 {/* Experiences */}
-                <div>
+                <div className="filter_div">
                   <label name="job_experiences">Skills</label>
                   <select name="job_experiences" className="ui fluid  dropdown"
                     value={this.state.job_experiences}

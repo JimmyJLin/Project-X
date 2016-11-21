@@ -34,21 +34,20 @@ class Applicant_profile extends Component {
 
     // spinner
 
-    const user_id = localStorage.id
 
     if(localStorage.getItem('isLoaded') == 'yes'){
       localStorage.setItem('isLoaded', 'no');
     }
 
-   // this is where you'll get the data from the 'db'
+   // get applicant profile data
+   const user_id = localStorage.id
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
    $.get(url).done( (data)=>{
-     console.log("applicantProfile data: ", data)
+    //  console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
       console.log("this.state.applicantProfile", this.state.applicantProfile)
       if(data.desired_industry == null || data.desired_industry == ""){
-        // browserHistory.push('/applicant_profile_form'); // redirects to profile
         window.location.assign('/applicant_profile_form')
       } else {
         this.state.desired_industry = data.desired_industry
@@ -76,8 +75,7 @@ class Applicant_profile extends Component {
     })
 
 
-    // get skill & industry data for profile based on user_id
-
+    // get skill data
     const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + user_id
     $.get(skills_url).done( (data)=>{
       // console.log("skill data: ", data)
@@ -90,6 +88,7 @@ class Applicant_profile extends Component {
 
      })
 
+     //  get experience data
      const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + user_id
      $.get(industries_url).done( (data)=>{
       //  console.log("industries data: ", data)
@@ -107,12 +106,12 @@ class Applicant_profile extends Component {
 
 
 
-
+  // functiont o reset Spinner
   resetSpinner(){
-    console.log("Running resetSpinner")
+    // console.log("Running resetSpinner")
 
     if(this.state.isLoading == false){
-      console.log("inside conidtioning state of resetSpinner")
+      // console.log("inside conidtioning state of resetSpinner")
       this.state.isLoading = true
       this.setState({isLoading: true})
     }
@@ -123,7 +122,7 @@ class Applicant_profile extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -131,19 +130,17 @@ class Applicant_profile extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner starts
 
+    // render school data
     let splittedSchoolData = [];
-    let splittedWorkHistory = [];
-
     this.state.school_data.map(function(school){
       let split = school.split(",")
       splittedSchoolData.push(split)
     })
-
     let school_data = splittedSchoolData.map(function(el){
       return <div key="school_data_1">
               <h2>{el[0]}</h2>
@@ -151,7 +148,6 @@ class Applicant_profile extends Component {
               <br/>
             </div>
     })
-
     let education_data = splittedSchoolData.map(function(el){
       return <div key={el[0]+el[1]+el[2]} className="ui label details">
               <p>{el[1]} - {el[2]}</p>
@@ -159,11 +155,12 @@ class Applicant_profile extends Component {
             </div>
     })
 
+    // render work_history
+    let splittedWorkHistory = [];
     this.state.work_history.map(function(work){
       let split = work.split(",")
       splittedWorkHistory.push(split)
     })
-
     let work_data = splittedWorkHistory.map(function(el){
       return <div key={el[0]+el[1]+el[2]+el[3]} className="ui label details">
               <p>{el[0]} - {el[1]}</p>
@@ -171,17 +168,18 @@ class Applicant_profile extends Component {
             </div>
     })
 
+    // render locations
     const desired_location = this.state.desired_location.map(function(location){
       return <div key={location} className="ui label details">{location}</div>
     });
 
-
+    // render languages_spoken
     const languages_spoken_ = this.state.languages_spoken.map(function(language){
       return <div key={language} className="ui label details">{language}</div>
     });
 
+    // render profile image
     let profile_image;
-
     if(this.state.applicantProfile.profile_image == "" || this.state.applicantProfile.profile_image == null){
       // console.log("no image")
       profile_image = <img className="ui medium circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
@@ -190,6 +188,7 @@ class Applicant_profile extends Component {
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
     }
 
+    // render skills data
     const skills_state = this.state.job_skills
     // console.log("skills_state", skills_state)
     let skills = skills_state.map(function(skill){
@@ -197,6 +196,7 @@ class Applicant_profile extends Component {
       return <div className="ui label details" key={skill.id}>{skill.skill_name}</div>
     })
 
+    // render industry data
     const industries_state = this.state.job_industries
     // console.log("industries_state", industries_state)
     let industries = industries_state.map(function(industry){
@@ -204,7 +204,18 @@ class Applicant_profile extends Component {
       return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
     })
 
+
+    // render resume data
     let resume_pdf = this.state.applicantProfile.resume_pdf
+    let resume;
+    if(this.state.applicantProfile.resume_pdf == "" || this.state.applicantProfile.resume_pdf == "" ) {
+      resume = <div>Please update profile with a new resume</div>
+    } else {
+      resume = <div className="ui center aligned basic segment download">
+        <p>click below to download the most updated resume.</p>
+        <button href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</button>
+      </div>
+    }
 
     return(
         <div id="applicant_profile">
@@ -367,10 +378,8 @@ class Applicant_profile extends Component {
             </div>*/}
             <div className="column">
               <h4>Resume</h4>
-              <div className="ui center aligned basic segment download">
-                <p>click below to download the most updated resume.</p>
-                <button href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</button>
-              </div>
+              {resume}
+
             </div>
             <div className="column">
               <h4> Languages </h4>

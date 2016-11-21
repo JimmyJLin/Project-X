@@ -27,8 +27,12 @@ $lines-to-show: 5;
 
 
   // Filter By
-  .ui.center.aligned.raised.segment{
+  .ui.center.aligned.basic.segment{
     margin-left: 5%;
+
+    .filter_div{
+      padding-bottom: 15px;
+    }
   }
 
   // Detail Jov View header
@@ -49,12 +53,12 @@ $lines-to-show: 5;
     padding-bottom: 4%;
   }
 
-  // .ui.button.small.solid{
-  //   margin-top: 5px;
-  //   bottom: 5%;
-  //   left: 5%;
-  //   position: absolute;
-  // }
+  .ui.button.small.solid.quick_apply{
+    margin-top: 5px;
+    bottom: 5%;
+    left: 5%;
+    position: absolute;
+  }
 
   #apply_button{
     left: 20%;

@@ -63,10 +63,9 @@ class Applicant_profile_form extends Component {
 
   }
 
+  // function to submit all profile data
   handleSubmit(e) {
     e.preventDefault();
-    console.log("submit clicked")
-
 
     let applicantProfileData = {
       user_id: this.props.auth.user.id,
@@ -93,15 +92,14 @@ class Applicant_profile_form extends Component {
       resume_files: this.state.resume_files
     }
 
-    console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages, ApplicantProfilePdf)
+    // console.log("handleSubmit - Applicant Profile Data: ", applicantProfileData, ApplicantProfileImages, ApplicantProfilePdf)
 
 
     //****************
-
+    // concatonate all the multi-select work_historyArr into consumable data for backend
     var work_historyArr =  applicantProfileData.work_historyArry   // => ["English", "Turkish"]
     // console.log("work_historyArry", work_historyArry)
     var final_work_histories = "{";
-
     work_historyArr.forEach(function(el){
        if( el === work_historyArr[work_historyArr.length -1]) {
          final_work_histories = final_work_histories + "\"" + el + '\"}';
@@ -109,20 +107,17 @@ class Applicant_profile_form extends Component {
          final_work_histories = final_work_histories + "\"" + el + '\",';
        }
        applicantProfileData.work_historyArry = final_work_histories;
-       console.log("line 92 final_work_histories", final_work_histories)
-       console.log("line 93 applicantProfileData.work_historyArr", applicantProfileData.work_historyArry)
-
+      //  console.log("line 92 final_work_histories", final_work_histories)
+      //  console.log("line 93 applicantProfileData.work_historyArr", applicantProfileData.work_historyArry)
     })
 
     //****************
 
 
     //****************
-
+    // concatonate all the multi-select educationArr into consumable data for backend
     var educationArr =  applicantProfileData.educationArry   // => ["English", "Turkish"]
-    console.log("educationArr", educationArr)
     var final_educations = "{";
-
     educationArr.forEach(function(el){
        if( el === educationArr[educationArr.length -1]) {
          final_educations = final_educations + "\"" + el + '\"}';
@@ -130,18 +125,15 @@ class Applicant_profile_form extends Component {
          final_educations = final_educations + "\"" + el + '\",';
        }
        applicantProfileData.educationArry = final_educations;
-       console.log("line 113 final_educations", final_educations)
-       console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
-
+      //  console.log("line 113 final_educations", final_educations)
+      //  console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
     })
-
     //****************
 
     //****************
-
+    // concatonate all the multi-select langArr into consumable data for backend
     var langArr =  applicantProfileData.languages_spoken   // => ["English", "Turkish"]
     var final_languages = "{";
-
     langArr.forEach(function(el){
        if( el === langArr[langArr.length -1]) {
          final_languages = final_languages + "\"" + el + '\"}';
@@ -149,16 +141,13 @@ class Applicant_profile_form extends Component {
          final_languages = final_languages + "\"" + el + '\",';
        }
        applicantProfileData.languages_spoken = final_languages;
-       console.log("final_languages", final_languages)
     })
-
     //****************
 
     //****************
-
+    // concatonate all the multi-select expArr into consumable data for backend
     var expArr =  applicantProfileData.companyArry   // => ["comp.", "cpmp"]
     var final_expArr = "{";
-
     expArr.forEach(function(el){
        if( el === expArr[langArr.length -1]) {
          final_expArr = final_expArr + "\"" + el + '\"}';
@@ -166,48 +155,50 @@ class Applicant_profile_form extends Component {
          final_expArr = final_expArr + "\"" + el + '\",';
        }
        applicantProfileData.companyArry = final_expArr;
-       console.log("final_expArr", final_expArr)
+      //  console.log("final_expArr", final_expArr)
     })
-
-    //****************
-
-        var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
-        var final_cert = "{";
-
-        certArr.forEach(function(el){
-           if( el === certArr[certArr.length-1]) {
-             final_cert = final_cert + "\"" + el + '\"}';
-           } else {
-             final_cert = final_cert + "\"" + el + '\",';
-           }
-           applicantProfileData.certifications = final_cert;
-           console.log("certifications", final_cert)
-        })
-
     // ***********
 
-      var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
-      var final_desired_location = "{";
+    //****************
+    // concatonate all the multi-select certArr into consumable data for backend
+    var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
+    var final_cert = "{";
+    certArr.forEach(function(el){
+       if( el === certArr[certArr.length-1]) {
+         final_cert = final_cert + "\"" + el + '\"}';
+       } else {
+         final_cert = final_cert + "\"" + el + '\",';
+       }
+       applicantProfileData.certifications = final_cert;
+      //  console.log("certifications", final_cert)
+    })
+    // ***********
 
-      desired_locationArr.forEach(function(el){
-         if( el === desired_locationArr[desired_locationArr.length-1] ) {
-           final_desired_location = final_desired_location + "\"" + el + '\"}';
-         } else {
-           final_desired_location = final_desired_location + "\"" + el + '\",';
-         }
-         applicantProfileData.desired_location = final_desired_location;
-         console.log("locations", final_desired_location)
-      })
+    // ***********
+    // concatonate all the multi-select desired_locationArr into consumable data for backend
+    var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
+    var final_desired_location = "{";
+    desired_locationArr.forEach(function(el){
+       if( el === desired_locationArr[desired_locationArr.length-1] ) {
+         final_desired_location = final_desired_location + "\"" + el + '\"}';
+       } else {
+         final_desired_location = final_desired_location + "\"" + el + '\",';
+       }
+       applicantProfileData.desired_location = final_desired_location;
+      //  console.log("locations", final_desired_location)
+    })
+    // ***********
 
-    console.log("Line 105 - applicantProfileData", applicantProfileData)
-    console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
-    console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
+    // console.log("Line 105 - applicantProfileData", applicantProfileData)
+    // console.log("Line 105 - ApplicantProfileImages", ApplicantProfileImages)
+    // console.log("Line 105 - ApplicantProfilePdf", ApplicantProfilePdf)
 
+    // conditioning statement to alert if no education or work history is being enter, post data only if data exisit
     if(applicantProfileData.work_historyArry.length == 0 || applicantProfileData.educationArry.length == 0){
-      console.log("no history provided")
+      // console.log("no history provided")
       alert("Either no Education History or Work History Information Providded, Please add additional information")
     } else {
-      console.log("YESSSSSSSSSSSSSS")
+      // console.log("YESSSSSSSSSSSSSS")
       postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
     }
 
@@ -216,9 +207,9 @@ class Applicant_profile_form extends Component {
 
   }
 
+  // function to add Education History
   handleAddEducation(e){
     e.preventDefault();
-    console.log("Add Additional Education clicked")
 
     let educationData = [
       this.state.education_level,
@@ -226,7 +217,6 @@ class Applicant_profile_form extends Component {
       this.state.year
     ]
     schoolData.push(educationData)
-    console.log("schoolData", schoolData)
 
     this.setState({
       educationArry: schoolData,
@@ -237,41 +227,32 @@ class Applicant_profile_form extends Component {
 
   }
 
+  // function to Delete Education History
   handleDeleteSchool(e){
     e.preventDefault();
-    console.log("delete school icon clicked")
     let schoolId = e.target.value
-
     let newSchoolData = schoolData
-
-    console.log("schoolId selected for splice", schoolId)
-
-    console.log("schoolData before splice", newSchoolData)
-
+    // console.log("schoolId selected for splice", schoolId)
+    // console.log("schoolData before splice", newSchoolData)
     newSchoolData.splice(schoolId, 1)
-    console.log("schoolData", schoolData)
-
+    // console.log("schoolData", schoolData)
     this.setState({
       educationArry: newSchoolData
     })
-    console.log("schoolData after splice", newSchoolData)
-
+    // console.log("schoolData after splice", newSchoolData)
   }
 
-
+  // function to Add Work History
   handleAddJobExperience(e){
     e.preventDefault();
-    console.log("Add Additional Job Experiences clicked")
-
     let jobData = [
       this.state.company_name,
       this.state.job_title,
       this.state.start_from,
       this.state.to
     ]
-
     companyData.push(jobData)
-    console.log("companyData", companyData)
+    // console.log("companyData", companyData)
 
     this.setState({
       work_historyArry: companyData,
@@ -280,135 +261,143 @@ class Applicant_profile_form extends Component {
       start_from: '',
       to: ''
     });
-
     // console.log("work_historyArry", work_historyArry)
   }
 
+  // function to Delte Work History
   handleDeleteWork(e){
     e.preventDefault();
-    console.log("delete work icon clicked")
     let workId = e.target.value
-
     let newWorkData = companyData
-
-    console.log("workId selected for splice", workId)
-
-    console.log("workData before splice", newWorkData)
-
+    // console.log("workId selected for splice", workId)
+    // console.log("workData before splice", newWorkData)
     newWorkData.splice(workId, 1)
-    console.log("workData", companyData)
-
+    // console.log("workData", companyData)
     this.setState({
       work_historyArry: newWorkData
     })
-    console.log("newWorkData after splice", newWorkData)
-
+    // console.log("newWorkData after splice", newWorkData)
   }
 
+  // function to handle Profile Image change
   onProfileImageChange(profile_image){
     this.setState({profile_image})
   }
 
+  // function to handle desired location change and push each changes to a new array
   onLocationChange(desired_locationArry){
     locationState.push(desired_locationArry)
     this.setState({desired_location: locationState})
   }
-
+  // function to handle desired industry change
   onDesiredIndustryChange(desired_industry){
     this.setState({desired_industry});
   }
 
+  // function to handle zipcode change
   onZipcodeChange(zipcode){
     this.setState({zipcode});
   }
 
+  // function to handle phone number change
   onPhoneNumberChange(phone_number){
     this.setState({phone_number});
   }
 
+  // function to handle job type change
   onJobTypeChange(job_type){
     this.setState({job_type});
   }
 
+  // function to handle industry experience level change
   onIndustryExpLevelChange(experience_level){
     this.setState({experience_level});
   }
 
+  // function to handle certifications change
   onCertificationChange(certificationsArry){
     certificateState.push(certificationsArry)
     this.setState({certifications: certificateState})
   }
 
+  // function to handle language change & push each changes to new array
   onLanguageChange(languages_spokenArry){
     languageState.push(languages_spokenArry)
     this.setState({languages_spoken: languageState})
   }
 
+  // function to handle education change
   onEducationLevelChange(education_level){
     this.setState({education_level});
   }
 
+  // function to handle school change
   onSchoolChange(school_name){
     this.setState({school_name});
   }
 
+
+  // function to handle school year change
   onSchoolYearChange(year){
     this.setState({year});
   }
 
+  // function to handle company name change
   onCompanyNameChange(company_name){
     this.setState({company_name});
   }
 
+  // function to handle job title change
   onJobTitleChange(job_title){
     this.setState({job_title});
   }
 
+  // function to handle start date change
   onStartFromChange(start_from){
     this.setState({start_from});
   }
 
+  // function to handle end date change
   onToChange(to){
     this.setState({to});
   }
 
+  // function to handle resume change
   onresume_pdfChange(resume_pdf){
     this.setState({resume_pdf})
   }
 
+  // function to handle summary change
   onSummaryChange(summary){
     this.setState({summary})
   }
 
 
-
+  // DropZone - onDrop function to capture the profile image data
   onDrop(acceptedFiles){
     // console.log("acceptedFiles", acceptedFiles)
-
     this.setState({
       profile_files: acceptedFiles,
       profile_image:acceptedFiles[0].id
     });
-
     //x console.log("onDrop this.state.profile_files", this.state.profile_files)
     $('#eventDropZone').hide()
   }
 
+  // DropZone - onDrop function to capture the resume pdf file
   onResumeDrop(acceptedResumeFiles){
-    console.log("acceptedResumeFiles -->", acceptedResumeFiles)
+    // console.log("acceptedResumeFiles -->", acceptedResumeFiles)
     this.setState({
       resume_files: acceptedResumeFiles,
       resume_image: acceptedResumeFiles[0].id
     });
-
-    console.log("resume_files", this.state.resume_files)
-    console.log("resume_image", this.state.resume_image)
-
+    // console.log("resume_files", this.state.resume_files)
+    // console.log("resume_image", this.state.resume_image)
     $('#eventDropZone').hide()
 
   }
 
-
+  // function to open up dropzone
   openDropzone(){
     e.preventDefault();
     console.log("openDropzone")

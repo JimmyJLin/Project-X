@@ -182,7 +182,9 @@ class Employer_profile extends Component {
                         </div>
     } else {
       industry = <div className="ui label details">
-                  Hiring Dept Email:
+                  Industry:
+                  <br/>
+                  <br/>
                   <div className="detail">{this.state.company_industry}</div>
                 </div>
     }
@@ -200,7 +202,11 @@ class Employer_profile extends Component {
     } else {
       hiringEmail = <div className="ui label details">
                       Hiring Dept Email:
-                      <div className="detail">{this.state.company_email}</div>
+                      <br/>
+                      <br/>
+                      <div className="detail">
+                        <a href={"mailto:" + this.state.company_email} target="_blank" >{this.state.company_email}</a>
+                      </div>
                     </div>
     }
 
@@ -247,7 +253,7 @@ class Employer_profile extends Component {
           {/* Profile Header */}
           <div className="ui stackable grid">
             <div className="four wide column">
-              <div className="ui center aligned basic segment">
+              <div className="ui center aligned basic segment company_logo">
                 {profile_image}
               </div>
             </div>
@@ -307,6 +313,8 @@ class Employer_profile extends Component {
                     <div className="content">
                       <div className="ui label details">
                         Company Website:
+                        <br/>
+                        <br/>
                         <div className="detail"><Link to={this.state.company_website} target="_blank">{this.state.company_website}</Link></div>
                       </div>
                     </div>
@@ -325,6 +333,8 @@ class Employer_profile extends Component {
                     <div className="content">
                       <div className="ui label details">
                         Address:
+                        <br/>
+                        <br/>
                         <div className="detail">
                         {this.state.company_address}
                         <br/>

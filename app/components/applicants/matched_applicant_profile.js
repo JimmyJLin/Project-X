@@ -30,12 +30,11 @@ class Matched_applicant_profile extends Component {
       localStorage.setItem('isLoaded', 'no');
     }
 
+    // get applicant profile data
     let applicant_id = this.props.params.id
     const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + applicant_id
 
-   // this is where you'll get the data from the 'db'
    $.get(url).done( (data)=>{
-     console.log("applicantProfile data: ", data)
      this.state.applicantProfile = data
      this.state.desired_industry = data.desired_industry
      this.state.desired_location = data.desired_location
@@ -57,10 +56,10 @@ class Matched_applicant_profile extends Component {
         isLoadindg: true
 
       })
-      console.log(this.state.applicantProfile)
 
     })
 
+    // get skill data
     const skills_url = 'https://apex-database.herokuapp.com/api/applicants/new_skillslevels/' + applicant_id
     $.get(skills_url).done( (data)=>{
       // console.log("skill data: ", data)
@@ -73,6 +72,7 @@ class Matched_applicant_profile extends Component {
 
      })
 
+    //  get experience data
      const industries_url = 'https://apex-database.herokuapp.com/api/applicants/new_industrylevels/' + applicant_id
      $.get(industries_url).done( (data)=>{
       //  console.log("industries data: ", data)
@@ -93,7 +93,7 @@ class Matched_applicant_profile extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -101,19 +101,17 @@ class Matched_applicant_profile extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
 
+    // render school data
     let splittedSchoolData = [];
-    let splittedWorkHistory = [];
-
     this.state.school_data.map(function(school){
       let split = school.split(",")
       splittedSchoolData.push(split)
     })
-
     let school_data = splittedSchoolData.map(function(el){
       return <div key="school_data_1">
               <h2>{el[0]}</h2>
@@ -121,7 +119,6 @@ class Matched_applicant_profile extends Component {
               <br/>
             </div>
     })
-
     let education_data = splittedSchoolData.map(function(el){
       return <div key={el[0]+el[1]+el[2]} className="ui label details">
               <p>{el[1]} - {el[2]}</p>
@@ -129,11 +126,12 @@ class Matched_applicant_profile extends Component {
             </div>
     })
 
+    // render work_history
+    let splittedWorkHistory = [];
     this.state.work_history.map(function(work){
       let split = work.split(",")
       splittedWorkHistory.push(split)
     })
-
     let work_data = splittedWorkHistory.map(function(el){
       return <div key={el[0]+el[1]+el[2]+el[3]} className="ui label details">
               <p>{el[0]} - {el[1]}</p>
@@ -141,17 +139,18 @@ class Matched_applicant_profile extends Component {
             </div>
     })
 
+    // render locations
     const desired_location = this.state.desired_location.map(function(location){
       return <div key={location} className="ui label details">{location}</div>
     });
 
-
+    // render languages_spoken
     const languages_spoken_ = this.state.languages_spoken.map(function(language){
       return <div key={language} className="ui label details">{language}</div>
     });
 
+    // render profile image
     let profile_image;
-
     if(this.state.applicantProfile.profile_image == ""){
       // console.log("no image")
       profile_image = <img className="ui small circular center image" src="images/img_placeholders/150x150.jpg" alt="Profile Picture"/>
@@ -160,6 +159,7 @@ class Matched_applicant_profile extends Component {
       profile_image = <img className="ui small circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.applicantProfile.profile_image} alt="Profile Picture"/>
     }
 
+    // render skills data
     const skills_state = this.state.job_skills
     // console.log("skills_state", skills_state)
     let skills = skills_state.map(function(skill){
@@ -167,6 +167,7 @@ class Matched_applicant_profile extends Component {
       return <div className="ui label details" key={skill.id}>{skill.skill_name}</div>
     })
 
+    // render industry data
     const industries_state = this.state.job_industries
     // console.log("industries_state", industries_state)
     let industries = industries_state.map(function(industry){
@@ -174,7 +175,18 @@ class Matched_applicant_profile extends Component {
       return <div className="ui label details" key={industry.id}>{industry.industry_name}</div>
     })
 
+
+    // render resume data
     let resume_pdf = this.state.applicantProfile.resume_pdf
+    let resume;
+    if(this.state.applicantProfile.resume_pdf == "" || this.state.applicantProfile.resume_pdf == "" ) {
+      resume = <div>Please update profile with a new resume</div>
+    } else {
+      resume = <div className="ui center aligned basic segment download">
+        <p>click below to download the most updated resume.</p>
+        <button href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</button>
+      </div>
+    }
 
     return(
         <div id="applicant_profile">
@@ -186,7 +198,7 @@ class Matched_applicant_profile extends Component {
           {/* Header */}
           <div className="ui stackable grid">
             <div className="four wide column">
-              <div className="ui center aligned basic segment">
+              <div className="ui center aligned basic segment profile">
 
                 {profile_image}
 
@@ -323,9 +335,7 @@ class Matched_applicant_profile extends Component {
             </div>
             <div className="column">
               <h4>Resume</h4>
-              <div className="ui center aligned basic segment">
-                <a href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
-              </div>
+              {resume}
             </div>
             <div className="column">
               <h4> Languages </h4>

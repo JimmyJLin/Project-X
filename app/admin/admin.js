@@ -66,7 +66,7 @@ class Admin extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -74,7 +74,7 @@ class Admin extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
