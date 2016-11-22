@@ -213,7 +213,7 @@ class Applicant_profile extends Component {
     } else {
       resume = <div className="ui center aligned basic segment download">
         <p>click below to download the most updated resume.</p>
-        <button href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</button>
+        <a href={`https://apex-database.herokuapp.com/images/applicant_profile_resume/${resume_pdf}`} className="item ui button solid" target="_blank"><i className="icon download large blue" target="_blank"></i>Download Resume</a>
       </div>
     }
 

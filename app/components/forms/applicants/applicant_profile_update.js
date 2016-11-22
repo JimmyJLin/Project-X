@@ -92,9 +92,9 @@ class Applicant_profile_update extends Component {
         this.state.experience_level = data.experience_level
         this.state.desired_locationArry = data.desired_location
         this.state.certificationsArry = data.certifications
-        this.state.diryEducationArry = data.school
+        this.state.educationArry = data.school
         this.state.education_level = data.education_level
-        this.state.dirtyWork_history = data.work_history
+        this.state.work_historyArry = data.work_history
         this.state.languages_spokenArry = data.languages_spoken
         this.state.isLoading = true
         localStorage.setItem('isAuthen', 'yes');
@@ -110,8 +110,8 @@ class Applicant_profile_update extends Component {
           experience_level: this.state.experience_level,
           desired_locationArry: this.state.desired_locationArry,
           certificationsArry: this.state.certificationsArry,
-          diryEducationArry: this.state.diryEducationArry,
-          dirtyWork_history: this.state.dirtyWork_history,
+          educationArry: this.state.educationArry,
+          work_historyArry: this.state.work_historyArry,
           languages_spokenArry: this.state.languages_spokenArry,
           isLoading: true
         })
@@ -161,11 +161,11 @@ class Applicant_profile_update extends Component {
       phone_number: this.state.phone_number,
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
-      certifications: this.state.certifications,
-      desired_location: this.state.desired_location,
-      languages_spoken: this.state.languages_spoken,
+      certifications: this.state.certificationsArry,
+      desired_location: this.state.desired_locationArry,
+      languages_spoken: this.state.languages_spokenArry,
       educationArry: this.state.educationArry,
-      companyArry: this.state.companyArry,
+      companyArry: this.state.work_historyArry,
       work_historyArry: this.state.work_historyArry,
       summary: this.state.summary
     }
@@ -294,7 +294,7 @@ class Applicant_profile_update extends Component {
     console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
 
 
-    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -549,11 +549,12 @@ class Applicant_profile_update extends Component {
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
     }
 
-    let resumeUploaded;
-    if (this.state.profile_files.length == 0 ){
-      resumeUploaded = <div></div>
-    } else {
-      resumeUploaded = <div>{this.state.profile_files.length} files uploaded</div>
+    let resumeUpload;
+    console.log("this.state.resume_files", this.state.resume_files.length)
+    if (this.state.resume_files.length == 0){
+      resumeUpload = <div></div>
+    } else if (this.state.resume_files.length > 0) {
+      resumeUpload = <dive>{this.state.resume_files.length} files pending to upload</dive>
     }
 
     const { currentValue, currentValues } = this.state;
@@ -867,7 +868,7 @@ class Applicant_profile_update extends Component {
                 <div>
                   <Dropzone className="ui segment" type="file" accept="application/pdf" onDrop={this.onResumeDrop.bind(this)} id="eventDropZoneResume">
                     <div className="ui fluid button" >Upload Resume</div>
-                    {resumeUploaded}
+                    {resumeUpload}
                   </Dropzone>
                 </div>
 
@@ -924,7 +925,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       PostPdf( data.id, ApplicantProfilePdf )
 
-      alert("Applicant Profile Created, Please press OK to continue")
+      // alert("Applicant Profile Created, Please press OK to continue")
 
       window.location.assign('/applicant_profile')
 

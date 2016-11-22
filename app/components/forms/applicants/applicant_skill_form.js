@@ -156,7 +156,7 @@ class Applicant_skill_form extends Component {
 
 
   redirect(){
-    alert("Applicant Experiences & Skills Added, Please press OK to continue")
+    // alert("Applicant Experiences & Skills Added, Please press OK to continue")
     browserHistory.push('/applicant_profile')
   }
 
