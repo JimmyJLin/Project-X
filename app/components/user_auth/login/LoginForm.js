@@ -28,10 +28,11 @@ class LoginForm extends React.Component {
     return isValid;
   }
 
+  // function to handle login form
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      console.log('login this.state', this.state)
+      // console.log('login this.state', this.state)
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state).then(
         (res) => this.context.router.push('/'),

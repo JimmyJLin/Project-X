@@ -45,7 +45,7 @@ class Archived_jobs extends Component {
      window.onbeforeunload = function () {
        window.scrollTo(0, 0);
      }
-     
+
   }
 
 
@@ -54,7 +54,7 @@ class Archived_jobs extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -62,15 +62,14 @@ class Archived_jobs extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
 
+    // map out jobData and reder each elements
     const jobData = this.state.job_data
-
     const jobs = jobData.map(function(job){
-
       return <Link to={`jobs/job_details/${job.id}`} className="card" key={job.id} >
               <div className="content">
                 <div className="header">{job.title}</div>
@@ -81,7 +80,7 @@ class Archived_jobs extends Component {
 
     })
 
-    console.log("jobData from state", jobData)
+    // console.log("jobData from state", jobData)
 
     return(
       <div id="list_jobs">

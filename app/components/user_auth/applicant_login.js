@@ -37,10 +37,11 @@ class ApplicantLoginForm extends React.Component {
     localStorage.setItem('error', "");
   }
 
+  // handle submit login function
   onSubmit(e) {
-    console.log('login this.state before validate', this.state)
+    // console.log('login this.state before validate', this.state)
       e.preventDefault();
-      // this.setState({ errors: false, isLoading: false });
+      // handle login authentication and redirect to profile if authenticted
       this.props.login(this.state).then(
         (res) => this.context.router.push('/applicant_profile'),
         (err) => this.setState({errors: true, isLoading: false }),
@@ -52,12 +53,12 @@ class ApplicantLoginForm extends React.Component {
 
       function modalPopup(){
         if(localStorage.error == "Unauthorized" && localStorage.isAuthen == "no"){
-          console.log("show")
+          // console.log("show")
           $('.ui.small.modal.applicant.login').modal('show')
         }
 
         if(localStorage.type == "employer") {
-          console.log("hide")
+          // console.log("hide")
           $('.ui.small.modal.applicant.login').modal('hide')
         }
 
@@ -66,17 +67,20 @@ class ApplicantLoginForm extends React.Component {
 
   }
 
-    onChange(e) {
-      this.setState({ [e.target.name]: e.target.value });
-    }
+  // handle state change based on target name and value
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-    hideModal(e){
-      $('.ui.small.modal.applicant.login').modal('hide')
-    }
+  // hide modal
+  hideModal(e){
+    $('.ui.small.modal.applicant.login').modal('hide')
+  }
 
-    showModal(e){
-      $('.ui.small.modal.applicant.login').modal('show')
-    }
+  // show modal
+  showModal(e){
+    $('.ui.small.modal.applicant.login').modal('show')
+  }
 
 
   render() {
@@ -91,8 +95,8 @@ class ApplicantLoginForm extends React.Component {
 
     }
 
-    console.log("errors before submit -->", this.state.errors)
-    console.log("authenticated before submit --->", this.state.authenticated)
+    // console.log("errors before submit -->", this.state.errors)
+    // console.log("authenticated before submit --->", this.state.authenticated)
 
     return (
 

@@ -23,19 +23,6 @@ class List_match extends Component {
 
   componentDidMount() {
 
-    // if(localStorage.getItem('isLoaded') == 'yes'){
-    //   localStorage.setItem('isLoaded', 'yes');
-    //   window.location.reload(true)
-    //   localStorage.setItem('isLoaded', 'yes');
-    //
-    // }
-    //
-    // window.setInterval(changeLoaded, 500)
-    //
-    // function changeLoaded(){
-    //   localStorage.setItem('isLoaded', 'no');
-    // }
-
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
@@ -142,7 +129,7 @@ class List_match extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -150,7 +137,7 @@ class List_match extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends

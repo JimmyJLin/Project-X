@@ -86,12 +86,12 @@ componentDidMount(){
 
 }
 
-
+  // Post employer profile to backend
   handleSubmit(e) {
     e.preventDefault();
-    console.log("submit clicked")
+    // console.log("submit clicked")
     const employer_id = localStorage.id
-    console.log("employer_id: ", employer_id)
+    // console.log("employer_id: ", employer_id)
     let employerProfileData = {
       id: employer_id,
       company_name: this.state.company_name,
@@ -114,7 +114,7 @@ componentDidMount(){
 
     }
 
-    console.log(employerProfileData)
+    // console.log(employerProfileData)
 
     postOneEmployer(employerProfileData, employerProfileImage)
 
@@ -139,6 +139,7 @@ componentDidMount(){
 
   }
 
+  // following are onchange functions to handle state change
   onChange(e) {
     var stateName = e.target.name;
     var value = e.target.value;
@@ -199,22 +200,22 @@ componentDidMount(){
   }
 
 
-
+  // handle capturing company logo
   onDrop(acceptedFiles){
-    console.log("acceptedFiles", acceptedFiles)
+    // console.log("acceptedFiles", acceptedFiles)
 
     this.setState({
       company_files: acceptedFiles
     });
 
-    console.log("onDrop this.state.company_files", this.state.company_files)
+    // console.log("onDrop this.state.company_files", this.state.company_files)
     $('#eventDropZone').hide()
   }
 
   render(){
     // console.log("render this.state.files", this.state.company_files)
+    // functiont to set initial logo image if company logo does not exist
     let company_logo;
-
     if(this.state.company_logo == "" || this.state.company_logo == null){
       // console.log("no image")
       company_logo = <img className="ui medium circular center image" src="images/img_placeholders/user_img.png" alt="Company Picture"/>
@@ -225,6 +226,7 @@ componentDidMount(){
 
     const { isAuthenticated } = this.props.auth;
 
+    // rendering the entire employer application form.
     const employer_form = (
         <div id="employer_profile_form" className="top">
 
@@ -347,6 +349,8 @@ componentDidMount(){
         </div>
 
     )
+
+    // error message if user is not signed in before creating employer profile
     const error = (
       <div id="error_page" className="field">
         <br/><br/><br/><br/><br/>
@@ -369,36 +373,37 @@ componentDidMount(){
 
 
 
-
+// Function to post employer profile and profile image.
 function postOneEmployer(employerProfileData, employerProfileImage) {
   // const company_image_logo = employerProfileData.company_files
   // console.log('company_image_logo', company_image_logo)
   // console.log('employerProfileData', employerProfileData)
 
   // console.log("this.state.company_files", this.state.company_files)
-  console.log("employerProfileData", employerProfileData)
+  // console.log("employerProfileData", employerProfileData)
   $.post('https://apex-database.herokuapp.com/api/employers/new', employerProfileData)
     .done((data) => {
-      console.log("data.id", data.id)
-      console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
+      // console.log("data.id", data.id)
+      // console.log('Employer Profile Data Posted to postOneEmployer - returned data waiting for upload: ', data)
       postEmployerImage(data.id, employerProfileImage)
 
       browserHistory.push('/employer_profile');
 
     })
     .error((error) => {
-      console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);
+      // console.error('Employer Profile Data Failed to Post to postOneEmployer - returned data: ', error);
     })
 }
 
+// function to post employer image
 function postEmployerImage( id, imgObj) {
 
   $.post('https://apex-database.herokuapp.com/api/employers/'+id, {processData: false}, imgObj)
 
   let req = request.post('https://apex-database.herokuapp.com/api/employers/upload_image');
   imgObj.company_files.forEach((file) => {
-    console.log(req)
-    console.log("hello from inside forEach()", file)
+    // console.log(req)
+    // console.log("hello from inside forEach()", file)
     req.attach(file.name, file);
     req.field('id', id)
   })

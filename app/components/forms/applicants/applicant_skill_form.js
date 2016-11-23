@@ -76,6 +76,7 @@ class Applicant_skill_form extends Component {
     }
   }
 
+  // handle posting skill / experiences
   handleSubmitData(e){
     e.preventDefault();
     let user_id = localStorage.id
@@ -135,16 +136,17 @@ class Applicant_skill_form extends Component {
       user_id : this.props.auth.user.id,
     }
 
+    // function to post each key value pairs of skills & experiences to backend database
     for (var i = 0; i< keys.length; i++){
       if ( data[keys[i] ] !== '' && i <20 ){
        industrieslevel.industry_name = keys[i];
        industrieslevel.level = data[keys[i]];
-          console.log("data to submit", industrieslevel)
+          // console.log("data to submit", industrieslevel)
           postIndustryLevels(industrieslevel)
       } else if ( data[keys[i] ] !== '' && i >= 20 ){
        skillslevel.skill_name = keys[i];
        skillslevel.level = data[keys[i]];
-          console.log("data to submit", skillslevel)
+          // console.log("data to submit", skillslevel)
           postSkillsLevels(skillslevel)
 
       };
@@ -1782,14 +1784,16 @@ class Applicant_skill_form extends Component {
 
 }
 
+// function to post Experience Data
 function postIndustryLevels(data){
-  console.log('posted data postIndustryLevels', data)
+  // console.log('posted data postIndustryLevels', data)
 
   $.post('https://apex-database.herokuapp.com/api/applicants/new_industrylevels', data)
 }
 
+// function to post Skills Data
 function postSkillsLevels(data){
-  console.log('posted data postSkillsLevels', data)
+  // console.log('posted data postSkillsLevels', data)
 
   $.post('https://apex-database.herokuapp.com/api/applicants/new_skillslevels', data)
 

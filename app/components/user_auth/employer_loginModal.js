@@ -36,8 +36,9 @@ class Employment_loginModal extends React.Component {
     localStorage.setItem('error', "");
   }
 
+  // handle employer login modal
   onSubmit(e) {
-    console.log('login this.state before validate', this.state)
+    // console.log('login this.state before validate', this.state)
       e.preventDefault();
 
       // this.setState({ errors: false, isLoading: false });
@@ -85,14 +86,15 @@ class Employment_loginModal extends React.Component {
 
     let authEror;
 
+    // handing authentication message
     if(this.state.errors == true){
       authEror = <div id="login_error_texts">Sorry, either your email or password was incorrect. Please double-check your email or password.</div>
     } else {
 
     }
 
-    console.log("errors before submit -->", this.state.errors)
-    console.log("authenticated before submit --->", this.state.authenticated)
+    // console.log("errors before submit -->", this.state.errors)
+    // console.log("authenticated before submit --->", this.state.authenticated)
 
     return (
     <div>

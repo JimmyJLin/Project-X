@@ -40,10 +40,9 @@ class List_matched_applicants_multi extends Component {
 
     }
 
-    console.log("hello from List_matched_applicants_multi componentDidMount")
+    // get all matched Applicants data
     let applicant_id = this.props.params.id
     let url = "https://apex-database.herokuapp.com/api/applicants/"
-    // get all matched Applicants data
     $.get(url).done( (data)=>{
       this.state.job_applicants = data
       console.log("Applicant Data:", data)
@@ -81,7 +80,7 @@ class List_matched_applicants_multi extends Component {
     // job_skills are the selected skills.
     this.setState({job_skills: jobSkillsState})
 
-    console.log(" line 214 this.state.job_skills -->", this.state.job_skills)
+    // console.log(" line 214 this.state.job_skills -->", this.state.job_skills)
     // console.log("onJobSkillsChange Clicked", this.state.job_skills)
     this.UpdateTheFilterForSkillsSelections( this.state.job_skills )
   }
@@ -95,7 +94,7 @@ class List_matched_applicants_multi extends Component {
   }
 
     this.setState({job_experiences: jobExperienceState})
-    console.log("onExperienceChange Clicked", this.state.job_experiences)
+    // console.log("onExperienceChange Clicked", this.state.job_experiences)
 
     this.UpdateTheFilterForExperienceSelections( this.state.job_experiences )
   }
@@ -142,13 +141,7 @@ class List_matched_applicants_multi extends Component {
  }
 
  UpdateTheFilterForSkillsSelections(array){
-   console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
-
-
-    // if (array.length == 0){
-    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
-    //  }
-
+  //  console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
 
     array.forEach( (skill)=>{
       var tempArr;
@@ -170,7 +163,7 @@ class List_matched_applicants_multi extends Component {
 
                      return obj.skillMatching == true
                    })
-          console.log('160', tempArr)
+          // console.log('160', tempArr)
           if(tempArr.length !== 0) {
           this.state.selectedSkillsFromFilter['sk_'+ skill ] = tempArr;
         }
@@ -178,19 +171,13 @@ class List_matched_applicants_multi extends Component {
 
  })
 
- console.log('line 178',  this.state.selectedSkillsFromFilter)
+ // console.log('line 178',  this.state.selectedSkillsFromFilter)
  }
 
 
 
  UpdateTheFilterForExperienceSelections(array){
    console.log('140 this is the sent array', array)   // ["Institutional Securities", "Asset Management"]
-
-
-    // if (array.length == 0){
-    //    this.state.filteredApplicants['job_skills'] = this.state.job_applicants;
-    //  }
-
 
     array.forEach( (exp)=>{
       var tempArr;
@@ -212,7 +199,7 @@ class List_matched_applicants_multi extends Component {
 
                      return obj.expMatching == true
                    })
-          console.log('160', tempArr)
+          // console.log('160', tempArr)
 
           if(tempArr.length !== 0) {
           this.state.selectedExperiencesFromFilter['ex_'+ exp] = tempArr;
@@ -221,29 +208,10 @@ class List_matched_applicants_multi extends Component {
 
  })
 
- console.log('line 178',  this.state.selectedExperiencesFromFilter)
+ // console.log('line 178',  this.state.selectedExperiencesFromFilter)
  }
 
 
-
-
-
- // UpdateTheFilterForArray( name , array){
- //
- //      this.state.filteredApplicants[name] =  array
- //    }
-
-//  UpdateTheFilter(name, val){
-//    var filteredArr;
-//      if (val == 'all'){
-//        this.state.filteredApplicants[name] = this.state.job_applicants;
-//      } else {
-//         filteredArr  = this.state.job_applicants.filter( (obj) =>{
-//                        return obj[name] == val })
-//                        console.log('this is my filtered Array', filteredArr)
-//        this.state.filteredApplicants[name] = filteredArr
-//    }
-// }
 
 updatetheJobSkillsFinal(){
   var JobSkills_all = Object.values(this.state.selectedSkillsFromFilter);
@@ -255,10 +223,10 @@ updatetheJobSkillsFinal(){
     JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
     selectedIdsForSkills.push(arr)
   }
-  console.log('this is the final skills', selectedIdsForSkills)
+  // console.log('this is the final skills', selectedIdsForSkills)
 
   var finalSkills = _.flatten(selectedIdsForSkills);
-  console.log('this is the final skills', finalSkills)
+  // console.log('this is the final skills', finalSkills)
 
   this.state.selectedskillsIds = finalSkills;
 
@@ -275,10 +243,10 @@ updatetheJobSkillsFinal(){
      JobSkills_all[i].map((el)=>{ arr.push(el.ui) })
      selectedIdsForExperiences.push(arr)
    }
-   console.log('this is the final Experiences', selectedIdsForExperiences)
+  //  console.log('this is the final Experiences', selectedIdsForExperiences)
 
    var finalExp = _.flatten(selectedIdsForExperiences);
-   console.log('this is the final Experiences', finalExp)
+  //  console.log('this is the final Experiences', finalExp)
 
    this.state.selectedExperiencesIds = finalExp;
 
@@ -300,7 +268,7 @@ updatetheJobSkillsFinal(){
       valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
       selectedIds.push(arr)
     }
-   console.log('+++++++++', selectedIds.map( (el)=>{
+  //  console.log('+++++++++', selectedIds.map( (el)=>{
      return el
     }))
 
@@ -311,12 +279,12 @@ updatetheJobSkillsFinal(){
     if (this.state.selectedExperiencesIds.length !== 0 ) {
       selectedIds.push(this.state.selectedExperiencesIds)
     }
-    console.log('this is the final selectidIDS to intersect', selectedIds)
+    // console.log('this is the final selectidIDS to intersect', selectedIds)
 
     var intersectionIds;
     switch ( selectedIds.length) {
     case 0:
-      console.log('there is no intersection')
+      // console.log('there is no intersection')
       break;
     case 1:
       intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0] );
@@ -340,7 +308,7 @@ updatetheJobSkillsFinal(){
     break ;
     }
 
-    console.log('intersectionIds', intersectionIds)
+    // console.log('intersectionIds', intersectionIds)
 
       for ( var i in intersectionIds ){
           jobsState.forEach( (obj)=>{
@@ -350,10 +318,6 @@ updatetheJobSkillsFinal(){
                 // console.log(final)
           }
           final = ffinal;
-    // console.log('this is the final', final, ffinal)
-    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.ui})}))
-    //
-    // console.log('this state filteredApplicants', finalList,keysoffilteredApplicants, intersectionIds ,areIDs)
 
   }
 
@@ -366,19 +330,12 @@ updatetheJobSkillsFinal(){
   }
 
 
-  // onIndustryExperienceChange(industry_experience){
-  //   jobExperienceState.push(industry_experience)
-  //   this.setState({industry_experience: jobExperienceState})
-  //   // console.log("onIndustryExperienceChange Clicked")
-  //
-  // }
-
-
   render(){
 
+    // function to change the button after clicked
     let change = function(e){
       e.preventDefault();
-      console.log(e.target.value)
+      // console.log(e.target.value)
 
       let applicant_id = localStorage.id
       let current_job_id = e.target.value
@@ -389,17 +346,8 @@ updatetheJobSkillsFinal(){
         status: 'applied'
       }
 
-      console.log("applicationData", applicationData)
-      console.log("e-target className", e.target.className)
-
-      // $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
-      //   .done((data) => {
-      //     console.log('succesfully applied for a job')
-      //
-      //   })
-      //   .error((error) => {
-      //     console.log('unable to apply for a job', error)
-      //   })
+      // console.log("applicationData", applicationData)
+      // console.log("e-target className", e.target.className)
 
        var buttonChange = document.getElementById(`job${current_job_id}`)
 
@@ -409,6 +357,7 @@ updatetheJobSkillsFinal(){
 
     }
 
+    // render each JobArray
     var jobArray;
     // console.log('this is my final', final)
       if (final.length == 0 ){
@@ -420,9 +369,9 @@ updatetheJobSkillsFinal(){
       }
 
     // const job_applicants = this.state.job_applicants
+    // rendering each certifications
     const applicants = jobArray.map(function(applicant){
 
-      // rendering each certifications
       var certificationArry = applicant.certifications
       let certifications;
       if (applicant.certifications == "" || applicant.certifications == null){
@@ -497,32 +446,6 @@ updatetheJobSkillsFinal(){
             </Link>
 
     })
-
-    // <div className="card">
-    //
-    //   <div className="content">
-    //     <img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg" />
-    //     <div className="header">
-    //       Elliot Fu
-    //     </div>
-    //     <div className="meta">
-    //       Friends of Veronika
-    //     </div>
-    //     <div className="description">
-    //       Elliot requested permission to view your contact details
-    //     </div>
-    //   </div>
-    //
-    //   <div class="extra content">
-    //     <div class="ui two buttons">
-    //       <div class="ui basic green button">Approve</div>
-    //       <div class="ui basic red button">Decline</div>
-    //     </div>
-    //   </div>
-    //
-    // </div>
-
-    // console.log("job_applicants from state", job_applicants)
 
     return(
       <div id="list_jobs">

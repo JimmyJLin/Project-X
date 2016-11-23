@@ -34,7 +34,7 @@ class List_matched_applicants extends Component {
 
     }
 
-    console.log("hello from list_matched_applicants componentDidMount")
+    // console.log("hello from list_matched_applicants componentDidMount")
     let applicant_id = this.props.params.id
     let url = "https://apex-database.herokuapp.com/api/applicants/"
     // get all matched Applicants data
@@ -55,10 +55,10 @@ class List_matched_applicants extends Component {
 //{***** On Change Functions *******}
   onFilterChange(name, val){
 
-    console.log('name', 'val', name,val )
+    // console.log('name', 'val', name,val )
     this.setState({ [name]: val});
     // console.log(this.state.experience_level)
-    console.log("onFilterChange Clicked", name, val)
+    // console.log("onFilterChange Clicked", name, val)
     //  this.updateTheList()
     if (name == 'education_level' || name == 'job_experiences' || name == 'job_skills'){
       this.UpdateTheFilterForArrays(name, val);
@@ -77,7 +77,7 @@ class List_matched_applicants extends Component {
        } else {
           filteredArr  = this.state.job_applicants.filter( (obj) =>{
                          return obj[name] == val })
-                         console.log('this is my filtered Array', filteredArr)
+                        //  console.log('this is my filtered Array', filteredArr)
          this.state.filteredApplicants[name] = filteredArr
      }
   }
@@ -108,7 +108,7 @@ class List_matched_applicants extends Component {
 
                          obj.Matching = false;
                          for (var m in obj.industries){
-                           console.log('job_experiences', obj.industries[m], val )
+                          //  console.log('job_experiences', obj.industries[m], val )
                            if( obj.industries[m], val.includes(val)){
                              obj.Matching = true;
                              break;
@@ -121,7 +121,7 @@ class List_matched_applicants extends Component {
           filteredArr  = this.state.job_applicants.filter( (obj) =>{
                          obj.Matching = false;
                          for (var s in obj.skills){
-                           console.log('job_experiences', obj.skills[s], val )
+                          //  console.log('job_experiences', obj.skills[s], val )
                            if( obj.skills[s].includes(val)){
                              obj.Matching = true;
                              break;
@@ -131,14 +131,14 @@ class List_matched_applicants extends Component {
                        })
           break;
           default:
-          console.log('none')
+          // console.log('none')
           break;
         }
-                     console.log('Line 89 this is my filtered Array', filteredArr)
+                    //  console.log('Line 89 this is my filtered Array', filteredArr)
 
-                     if (filteredArr.length > 0){
-                       this.state.filteredApplicants[name] = filteredArr
-                     }
+       if (filteredArr.length > 0){
+         this.state.filteredApplicants[name] = filteredArr
+       }
   }
 }
 
@@ -159,15 +159,15 @@ class List_matched_applicants extends Component {
       valuessoffilteredApplicants[i].map((el)=>{ arr.push(el.ui) })
       selectedIds.push(arr)
     }
-   console.log('+++++++++', selectedIds.map( (el)=>{
-     return el
-    }))
+  //  console.log('+++++++++', selectedIds.map( (el)=>{
+  //    return el
+  //   }))
 
 
     var intersectionIds;
     switch ( selectedIds.length) {
     case 0:
-      console.log('there is no intersection')
+      // console.log('there is no intersection')
       break;
     case 1:
       intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), selectedIds[0] );
@@ -191,7 +191,7 @@ class List_matched_applicants extends Component {
     break ;
     }
 
-    console.log('intersectionIds', intersectionIds)
+    // console.log('intersectionIds', intersectionIds)
 
       for ( var i in intersectionIds ){
           jobsState.forEach( (obj)=>{
@@ -201,10 +201,6 @@ class List_matched_applicants extends Component {
                 // console.log(final)
           }
           final = ffinal;
-    // console.log('this is the final', final, ffinal)
-    // var intersectionIds = _.intersection( jobsState.map((el)=>{ return el.ui}), keysoffilteredApplicants.forEach((arr)=> { arr.map((el)=>{ return el.ui})}))
-    //
-    // console.log('this state filteredApplicants', finalList,keysoffilteredApplicants, intersectionIds ,areIDs)
 
   }
 
@@ -220,7 +216,7 @@ class List_matched_applicants extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -228,25 +224,25 @@ class List_matched_applicants extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
 
+    // function to redirect to new tab/window
     let handleRedirect = function(e){
       e.preventDefault();
-      console.log(e.target.value)
+      // console.log(e.target.value)
       let applicant_id = e.target.value
-      // window.open(`https://apex-database.herokuapp.com/Matched_applicant/${applicant_id}`)
       window.open(`http://localhost:3000/Matched_applicant/${applicant_id}`)
 
-      // browserHistory.push('/applicant_profile_form'); // redirects to profile
 
     }
 
+    // function to change the button looks based on click event
     let change = function(e){
       e.preventDefault();
-      console.log(e.target.value)
+      // console.log(e.target.value)
 
       let applicant_id = localStorage.id
       let current_job_id = e.target.value
@@ -257,8 +253,8 @@ class List_matched_applicants extends Component {
         status: 'applied'
       }
 
-      console.log("applicationData", applicationData)
-      console.log("e-target className", e.target.className)
+      // console.log("applicationData", applicationData)
+      // console.log("e-target className", e.target.className)
 
       // $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       //   .done((data) => {
@@ -395,7 +391,7 @@ class List_matched_applicants extends Component {
       }
 
       let applicant_profile_img;
-      console.log("applicant_profile_img", applicant.profile_image)
+      // console.log("applicant_profile_img", applicant.profile_image)
       if(applicant.profile_image == "" || applicant.profile_image == null ||  applicant.profile_image == 'null') {
         applicant_profile_img = <img className="left floated tiny ui image" src={'https://apex-database.herokuapp.com/images/applicant_profile_img/' + applicant.profile_image} alt="profile pic"/>
       } else {

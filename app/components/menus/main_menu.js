@@ -29,23 +29,25 @@ class MainMenu extends Component {
   }
 
   componentDidMount(){
+
+    // display different top menu bar depends on user type: Applicant or Employer
     localStorage.setItem('key', key)
     let key = "helloooooooo"
 
     let applicant_type = localStorage.type
 
     if (applicant_type == "applicant") {
-      console.log("applicant")
+      // console.log("applicant")
       this.setState({
         routePath: "/applicant_profile"
       })
     } else if (applicant_type == "employer") {
-      console.log("employer")
+      // console.log("employer")
       this.setState({
         routePath: "/employer_profile"
       })
     } else {
-      console.log("/")
+      // console.log("/")
       this.setState({
         routePath: "/"
       })
@@ -62,6 +64,7 @@ class MainMenu extends Component {
       const { isAuthenticated } = this.props.auth;
       const logoimg = "https://apex-database.herokuapp.com/images/company_logo/atlascv_logo_rectangle_clear.png"
 
+      // rendering logged in top menu if the user is logged authenticated
       const userLinks = (
         <div id="menu_top" className="ui top fixed main two item clear menu">
           <div id="logo">
@@ -78,6 +81,7 @@ class MainMenu extends Component {
       );
 
 
+      // rendering logged in top menu if the user is NOT logged authenticated
 
       const guestLinks = (
       <div id="menu_top" className="ui top fixed main three item clear menu">

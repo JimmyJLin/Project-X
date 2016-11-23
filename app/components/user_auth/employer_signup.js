@@ -43,11 +43,12 @@ class EmployerSignupForm extends React.Component {
     localStorage.setItem('error', "");
     localStorage.setItem('loadingModal', "no");
 
-    console.log("Modal loading ---------", this.state.loadingModal)
+    // console.log("Modal loading ---------", this.state.loadingModal)
     // localStorage.setItem('type', "none");
 
+    // check if current user is employer
     if(localStorage.type == "employer"){
-      console.log("YESSSSSSSS from inside componentDidMount")
+      // console.log("YESSSSSSSS from inside componentDidMount")
       this.state.loadingModal = false
       this.setState({
         loadingModal: false
@@ -74,12 +75,13 @@ class EmployerSignupForm extends React.Component {
     return isValid;
   }
 
+  // function to check if user exists
   checkUserExists(e) {
     const field = e.target.name;
     const val = e.target.value;
     if (val !== '') {
       this.props.isEmployerUserExists(val).then(res => {
-        console.log('this is coming from isuserexist', res)
+        // console.log('this is coming from isuserexist', res)
         let errors = this.state.errors;
         let invalid;
         let loadingModal = this.state.loadingModal;
@@ -97,25 +99,19 @@ class EmployerSignupForm extends React.Component {
     }
   }
 
-  changeLoadingModalState(){
-    console.log("changeLoadingModalState ------", this.state.loadingModal)
-    this.state.loadingModal = false
-    this.setState({
-      loadingModal: false
-    })
-  }
-
+  // function to handle submit
   onSubmit(e) {
     e.preventDefault();
-      console.log('captures state on submit', this.state)
+      // console.log('captures state on submit', this.state)
 
       this.setState({ errorsState: false, isLoading: false, loadingModal: true });
 
-      console.log("After submit loadingModal state ----", this.state.loadingModal)
+      // console.log("After submit loadingModal state ----", this.state.loadingModal)
 
+      // employer signup post
       this.props.employerSignupRequest(this.state).then(
         () => {
-          console.log('you signed up correctly', this.state)
+          // console.log('you signed up correctly', this.state)
 
           this.setState({
             loadingModal: false
@@ -131,9 +127,9 @@ class EmployerSignupForm extends React.Component {
     // this.hideModal()
     window.setTimeout(modalPopup, 33000)
 
-
+    // function to handle modalPopup
     function modalPopup(){
-      console.log("-------- Running setTimeout ----------")
+      // console.log("-------- Running setTimeout ----------")
       if(localStorage.error == "error" && localStorage.isAuthen == "no" && localStorage.type == "none"){
 
         $('.ui.small.modal.employer.signup').modal('show')
@@ -145,12 +141,7 @@ class EmployerSignupForm extends React.Component {
       }
 
       if(localStorage.type == "employer") {
-        console.log("hide")
-        //
-        // this.state.loadingModal = false
-        // this.setState({
-        //   loadingModal: false
-        // })
+        // console.log("hide")
 
         $('.ui.small.modal.employer.signup').modal('hide')
 
@@ -170,6 +161,7 @@ render() {
 
     let authEror;
 
+    // handling authentication error message
     if(this.state.errorsState == true){
       console.log("ERROR")
       authEror = <div id="login_error_texts">Sorry, either your email or password was invalid. Please double-check your email or password.</div>
@@ -179,7 +171,7 @@ render() {
     // spinner starts
     let spinner
     if (this.state.loadingModal == true) {
-      console.log("Spinner this.state.loadingModal -----", this.state.loadingModal)
+      // console.log("Spinner this.state.loadingModal -----", this.state.loadingModal)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -187,7 +179,7 @@ render() {
                 </div>
 
     } else {
-      console.log("Spinner this.state.loadingModal", this.state.loadingModal)
+      // console.log("Spinner this.state.loadingModal", this.state.loadingModal)
       spinner = <div></div>
     }
     // spinner starts
@@ -195,7 +187,7 @@ render() {
   return (
 
           <form id="employer_signup_form" onSubmit={this.onSubmit} className="ui form">
-          
+
           {/* Spinner Starts */}
             {spinner}
           {/* Spinner Ends */}

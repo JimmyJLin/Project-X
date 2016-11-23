@@ -16,11 +16,11 @@ class List_applicants_applied extends Component {
 
   componentWillMount() {
     let job_id = this.props.params.job_id
-    console.log("line 17", job_id)
+    // console.log("line 17", job_id)
     // get # of Applied Applicants for current job
     $.get(`https://apex-database.herokuapp.com/api/jobs/application/${job_id}`)
       .done((data)=>{
-        console.log("line 22 Job Applicant Data", data)
+        // console.log("line 22 Job Applicant Data", data)
 
         this.state.job_applicants = data
         this.state.isLoading = true
@@ -39,7 +39,7 @@ class List_applicants_applied extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -47,7 +47,7 @@ class List_applicants_applied extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
@@ -55,7 +55,7 @@ class List_applicants_applied extends Component {
     const job_applicants = this.state.job_applicants
     const applicants = job_applicants.map(function(applicant){
       const url = '/'+ applicant.profile_image
-      console.log("image url ", url)
+      // console.log("image url ", url)
       const link = `/Matched_applicant/` + applicant.applicant_id
       return <Link to={link} className="card" key={applicant.applicant_id} >
               <div className="content">
@@ -66,7 +66,7 @@ class List_applicants_applied extends Component {
 
     })
 
-    console.log("job_applicants from state", job_applicants)
+    // console.log("job_applicants from state", job_applicants)
 
     return(
       <div id="list_jobs">

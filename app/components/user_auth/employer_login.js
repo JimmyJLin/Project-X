@@ -36,11 +36,12 @@ class EmploymentLoginForm extends React.Component {
     localStorage.setItem('error', "");
   }
 
+  // function to handle empoyer login
   onSubmit(e) {
     e.preventDefault();
-    console.log('login this.state vefore validate', this.state)
+    // console.log('login this.state vefore validate', this.state)
 
-      console.log('login this.state', this.state)
+      // console.log('login this.state', this.state)
       this.setState({ errors: false, isLoading: true });
       this.props.login_employer(this.state).then(
         (res) => this.context.router.push('/employer_profile'),
@@ -51,6 +52,7 @@ class EmploymentLoginForm extends React.Component {
 
       window.setTimeout(modalPopup, 500)
 
+      // function to change modalpopup
       function modalPopup(){
 
         if(localStorage.error == "Unauthorized" && localStorage.isAuthen == "no"){
@@ -80,8 +82,9 @@ class EmploymentLoginForm extends React.Component {
     const { isAuthenticated } = this.props.auth;
     let authEror;
 
+    // handling authentication error message
     if(this.state.errors == true){
-      console.log("ERROR")
+      // console.log("ERROR")
       authEror = <div id="login_error_texts">Sorry, either your email or password was incorrect. Please double-check your email or password.</div>
     } else {
 

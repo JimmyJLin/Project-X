@@ -58,11 +58,16 @@ class Applicant_profile_update extends Component {
   }
 
   componentDidMount(){
-    // localStorage.setItem('key', "key");
+
+    if(localStorage.getItem('isLoaded') !== 'yes'){
+      localStorage.setItem('isLoaded', 'yes');
+      window.location.reload(true)
+    }
+
+    // window.setInterval(changeLoaded, 5000)
     //
-    // if(localStorage.getItem('isLoaded') !== 'yes'){
-    //   localStorage.setItem('isLoaded', 'yes');
-    //   window.location.reload(true)
+    // function changeLoaded(){
+    //   localStorage.setItem('isLoaded', 'no');
     // }
 
     const user_id = localStorage.id
@@ -90,7 +95,6 @@ class Applicant_profile_update extends Component {
         this.state.job_type = data.job_type
         this.state.desired_industry = data.desired_industry
         this.state.experience_level = data.experience_level
-        this.state.desired_locationArry = data.desired_location
         this.state.certificationsArry = data.certifications
         this.state.educationArry = data.school
         this.state.education_level = data.education_level
@@ -98,7 +102,8 @@ class Applicant_profile_update extends Component {
         this.state.languages_spokenArry = data.languages_spoken
         this.state.isLoading = true
         localStorage.setItem('isAuthen', 'yes');
-
+        locationState = data.desired_location
+        console.log("locationState from onload", locationState)
         this.setState({
           applicantProfile: this.state.applicantProfile,
           profile_image: this.state.profile_image,
@@ -108,7 +113,6 @@ class Applicant_profile_update extends Component {
           job_type: this.state.job_type,
           desired_industry: this.state.desired_industry,
           experience_level: this.state.experience_level,
-          desired_locationArry: this.state.desired_locationArry,
           certificationsArry: this.state.certificationsArry,
           educationArry: this.state.educationArry,
           work_historyArry: this.state.work_historyArry,
@@ -150,6 +154,7 @@ class Applicant_profile_update extends Component {
     //  console.log("educationArry", this.state.educationArry)
   }
 
+
   handleSubmit(e) {
     e.preventDefault();
     console.log("submit clicked")
@@ -162,10 +167,9 @@ class Applicant_profile_update extends Component {
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
       certifications: this.state.certificationsArry,
-      desired_location: this.state.desired_locationArry,
+      desired_location: locationState,
       languages_spoken: this.state.languages_spokenArry,
       educationArry: this.state.educationArry,
-      companyArry: this.state.work_historyArry,
       work_historyArry: this.state.work_historyArry,
       summary: this.state.summary
     }
@@ -243,18 +247,18 @@ class Applicant_profile_update extends Component {
 
     //****************
 
-    var expArr =  applicantProfileData.companyArry   // => ["comp.", "cpmp"]
-    var final_expArr = "{";
-
-    expArr.forEach(function(el){
-       if( el === expArr[langArr.length -1]) {
-         final_expArr = final_expArr + "\"" + el + '\"}';
-       } else {
-         final_expArr = final_expArr + "\"" + el + '\",';
-       }
-       applicantProfileData.companyArry = final_expArr;
-       console.log("final_expArr", final_expArr)
-    })
+    // var expArr =  applicantProfileData.companyArry   // => ["comp.", "cpmp"]
+    // var final_expArr = "{";
+    //
+    // expArr.forEach(function(el){
+    //    if( el === expArr[langArr.length -1]) {
+    //      final_expArr = final_expArr + "\"" + el + '\"}';
+    //    } else {
+    //      final_expArr = final_expArr + "\"" + el + '\",';
+    //    }
+    //    applicantProfileData.companyArry = final_expArr;
+    //    console.log("final_expArr", final_expArr)
+    // })
 
     //****************
 
@@ -294,7 +298,7 @@ class Applicant_profile_update extends Component {
     console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
 
 
-    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -395,7 +399,9 @@ class Applicant_profile_update extends Component {
   }
 
   onLocationChange(desired_locationArry){
+    console.log("desired_locationArry-----", desired_locationArry)
     locationState.push(desired_locationArry)
+    console.log("locationState ------", locationState)
     this.setState({desired_location: locationState})
   }
 
@@ -557,6 +563,18 @@ class Applicant_profile_update extends Component {
       resumeUpload = <dive>{this.state.resume_files.length} files pending to upload</dive>
     }
 
+    // work = workData.map((el)=>{
+    //   return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
+    // })
+
+    let currentLocation;
+    if (locationState.length == 0){
+      currentLocation = <div></div>
+    } else {
+      console.log("locationState----", locationState)
+      currentLocation = locationState
+      console.log("currentLocation ----", currentLocation)
+    }
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;

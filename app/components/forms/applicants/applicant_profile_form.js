@@ -410,7 +410,7 @@ class Applicant_profile_form extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -418,11 +418,12 @@ class Applicant_profile_form extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner starts
 
+    // rendering school/Education Data
     let schoolData = this.state.educationArry
     // console.log("line 424 schoolData", schoolData)
     let school;
@@ -435,6 +436,7 @@ class Applicant_profile_form extends Component {
       })
     }
 
+    // rendering work/experience data
     let workData = this.state.work_historyArry
     let work;
     if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
@@ -445,8 +447,9 @@ class Applicant_profile_form extends Component {
       })
     }
 
+    // rendering message if resume exisits
     let resumeUpload;
-    console.log("this.state.resume_files", this.state.resume_files.length)
+    // console.log("this.state.resume_files", this.state.resume_files.length)
     if (this.state.resume_files.length == 0){
       resumeUpload = <div></div>
     } else if (this.state.resume_files.length > 0) {
@@ -807,20 +810,22 @@ class Applicant_profile_form extends Component {
         )}
 }
 
+// function to post applicant profile data, profile image and resume file
 function postOneApplicant(applicantProfileData, ApplicantProfileImages, ApplicantProfilePdf){
 
-  console.log('postOneApplicant Function data: ', applicantProfileData)
+  // console.log('postOneApplicant Function data: ', applicantProfileData)
 
+  // Post applicant profile data to database
   $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
     .done((data) => {
-      console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
+      // console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
 
+      // set time delays to post Image function
       window.setTimeout(PostImage, 2000)
-
-      window.setTimeout(PostPdf, 3000)
-
       PostImage( data.id, ApplicantProfileImages  );
 
+      // set time delays to post Resume function
+      window.setTimeout(PostPdf, 3000)
       PostPdf( data.id, ApplicantProfilePdf )
 
       // alert("Applicant Profile Created, Please press OK to continue")
@@ -837,14 +842,15 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
 }
 
+// function to post resume file to backend
 function PostPdf(id, pdfObj){
-  console.log('PostPDFfired')
+  // console.log('PostPDFfired')
   $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, pdfObj)
 
   let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_pdf');
   pdfObj.resume_files.forEach((file) => {
     // console.log(req)
-    console.log("hello from inside upload pdf forEach()", file)
+    // console.log("hello from inside upload pdf forEach()", file)
     req.attach(file.name, file);
     req.field('id', id)
     req.end(function(err, res){
@@ -857,14 +863,15 @@ function PostPdf(id, pdfObj){
   })
 }
 
+// function to post profile image to backend
 function PostImage(id, imgObj){
-  console.log('PostImagefired')
+  // console.log('PostImagefired')
   $.post('https://apex-database.herokuapp.com/api/applicants/'+ id, {processData: false}, imgObj)
 
   let req = request.post('https://apex-database.herokuapp.com/api/applicants/upload_image');
   imgObj.profile_files.forEach((file) => {
     // console.log(req)
-    console.log("hello from inside upload_image forEach()", file)
+    // console.log("hello from inside upload_image forEach()", file)
     req.attach(file.name, file);
     req.field('id', id)
     req.end(function(err, res){

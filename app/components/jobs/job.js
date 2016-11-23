@@ -21,7 +21,7 @@ class Job extends Component {
   }
 
   componentDidMount() {
-    console.log("hello from componentDidMount")
+    // console.log("hello from componentDidMount")
     let job_id = this.props.params.id
 
     window.setInterval(changeLoaded, 500)
@@ -59,20 +59,20 @@ class Job extends Component {
     // get # of Applied Applicants for current job
     $.get(`https://apex-database.herokuapp.com/api/jobs/application/${job_id}`)
       .done((data)=>{
-        console.log("Job Applicant Data", data)
+        // console.log("Job Applicant Data", data)
         this.state.applicants_applied = data
         this.state.applicants_applied_id = data[0].job_id
         this.setState({
           applicants_applied: this.state.applicants_applied,
           applicants_applied_id: this.state.applicants_applied_id
         })
-        console.log("this.state.applicants_applied", this.state.applicants_applied)
+        // console.log("this.state.applicants_applied", this.state.applicants_applied)
       })
 
 
   }
 
-
+  // function to change job status to archive
   handleJobStatusChangeToArchive(e) {
     e.preventDefault();
 
@@ -82,38 +82,39 @@ class Job extends Component {
 
     $.post(`https://apex-database.herokuapp.com/api/jobs/archived/update/${job_id}`)
     .done((data) => {
-        console.log('success updating job status', data)
+        // console.log('success updating job status', data)
         browserHistory.push('/list_match');
 
         // window.location.replace('/employer_profile');
       })
       .error((error) => {
-        console.error('Posting JobStatus failed', error);
+        // console.error('Posting JobStatus failed', error);
 
       })
 
   }
 
-  handleJobStatusChangeToActive(e) {
-    e.preventDefault();
+  // handleJobStatusChangeToActive(e) {
+  //   e.preventDefault();
+  //
+  //   // console.log("Re-Post Button Clicked, captured id is: ", this.props.params.id)
+  //
+  //   let job_id = this.props.params.id
+  //
+  //   $.post(`https://apex-database.herokuapp.com/api/jobs/active/update/${job_id}`)
+  //   .done((data) => {
+  //       // console.log('success updating job status', data)
+  //       browserHistory.push('/employer_profile');
+  //       // window.location.replace('/employer_profile'); // redirects to profile
+  //     })
+  //     .error((error) => {
+  //       // console.error('Posting JobStatus failed', error);
+  //
+  //     })
+  //
+  // }
 
-    // console.log("Re-Post Button Clicked, captured id is: ", this.props.params.id)
-
-    let job_id = this.props.params.id
-
-    $.post(`https://apex-database.herokuapp.com/api/jobs/active/update/${job_id}`)
-    .done((data) => {
-        console.log('success updating job status', data)
-        browserHistory.push('/employer_profile');
-        // window.location.replace('/employer_profile'); // redirects to profile
-      })
-      .error((error) => {
-        console.error('Posting JobStatus failed', error);
-
-      })
-
-  }
-
+  // function to handle applying for a specific job
   handleApplyJobChange(e){
     e.preventDefault();
     let applicant_id = localStorage.id
@@ -127,12 +128,12 @@ class Job extends Component {
 
     $.post('https://apex-database.herokuapp.com/api/jobs/application', applicationData)
       .done((data) => {
-        console.log('succesfully applied for a job')
+        // console.log('succesfully applied for a job')
         browserHistory.push('/applicant_profile');
 
       })
       .error((error) => {
-        console.log('unable to apply for a job', error)
+        // console.log('unable to apply for a job', error)
       })
 
       var buttonChange = document.getElementById("apply_button")
@@ -147,7 +148,7 @@ class Job extends Component {
     // spinner starts
     let spinner
     if (this.state.isLoading == false) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div className="ui segment">
                   <div id="spinner" className="ui active dimmer">
                     <div className="ui massive text loader"> Loading ...</div>
@@ -155,12 +156,15 @@ class Job extends Component {
                 </div>
 
     } else if (this.state.isLoading == true) {
-      console.log("this.state.isLoading", this.state.isLoading)
+      // console.log("this.state.isLoading", this.state.isLoading)
       spinner = <div></div>
     }
     // spinner ends
 
+    // rendering each element of the job Data
     const jobData = this.state.job_data.map(function(job){
+
+      // rendering message if salary data exists
       let salary;
       if (job.salary == "" || job.salary == null){
         salary = "N/A"
@@ -168,6 +172,7 @@ class Job extends Component {
         salary = job.salary
       }
 
+      // rendering message if starting date data exisits
       let startingDate;
       if (job.starting_date == "" || job.starting_date == null){
         startingDate = "N/A"
@@ -223,7 +228,7 @@ class Job extends Component {
     })
 
 
-
+    // rendering Archive & Re-Post button based on if the user if is Employer or not
     let jobStatus;
     const status = this.state.job_status
     // console.log("line 149 job status:", status)
@@ -245,9 +250,10 @@ class Job extends Component {
 
     }
 
+    // rendering applicant data based on if user is applicant or not
     let applicantView;
     let jobApplicant_id = this.state.applicants_applied_id
-    console.log("jobApplicant_id", jobApplicant_id)
+    // console.log("jobApplicant_id", jobApplicant_id)
     if (this.state.job_status == 'active' && localStorage.type == "employer"){
       applicantView = <div className="ui segment match">
                         <h3>Applicants: </h3>

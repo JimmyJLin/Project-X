@@ -20,10 +20,12 @@ class SignupForm extends React.Component {
     this.checkUserExists = this.checkUserExists.bind(this);
   }
 
+  // set set change based on target name and value
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  // check if user is validated
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -34,6 +36,7 @@ class SignupForm extends React.Component {
     return isValid;
   }
 
+  // check if user exists
   checkUserExists(e) {
     const field = e.target.name;
     const val = e.target.value;
@@ -53,14 +56,15 @@ class SignupForm extends React.Component {
     }
   }
 
+  // handle submit function
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state)
+    // console.log(this.state)
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state).then(
         () => {
-          console.log('you signed up correctly', this.state)
+          // console.log('you signed up correctly', this.state)
           this.props.addFlashMessage({
             type: 'success',
             text: 'You signed up successfully. Welcome!'

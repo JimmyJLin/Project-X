@@ -43,11 +43,12 @@ class Post_job extends Component {
 
   }
 
+  // post handle submit job to backend
   handleSubmit(e) {
     e.preventDefault();
-    console.log("submit clicked")
+    // console.log("submit clicked")
     const employer_id = localStorage.id
-    console.log("employer_id", employer_id)
+    // console.log("employer_id", employer_id)
     let jobData = {
       employer_id: employer_id,
       title: this.state.job_title,
@@ -62,7 +63,7 @@ class Post_job extends Component {
       status:'active'
     }
 
-    console.log('job posted with: ', jobData)
+    // console.log('job posted with: ', jobData)
     postJob(jobData)
 
 
@@ -80,6 +81,7 @@ class Post_job extends Component {
     })
   }
 
+  // the following functions handle state change for all the inputs
   onJobTitleChange(job_title){
     this.setState({job_title});
   }
@@ -239,15 +241,16 @@ class Post_job extends Component {
 
 }
 
+// function to post job to database
 function postJob(jobData){
-  console.log('post job data is fired with data', jobData)
+  // console.log('post job data is fired with data', jobData)
   $.post('https://apex-database.herokuapp.com/api/jobs/new', jobData)
     .done((data) => {
-      console.log('success', data)
+      // console.log('success', data)
       browserHistory.push('/list_jobs'); // redirects to profile
     })
     .error((error) => {
-      console.error('Posting action is failed', error);
+      // console.error('Posting action is failed', error);
     })
 }
 

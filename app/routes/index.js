@@ -40,12 +40,12 @@ import Archived_jobs from 'components/jobs/archived_jobs';
 import Job from 'components/jobs/job';
 
 // applicant / employer matching
-import List_match from 'components/applicants/list_match';
-import List_matched_applicants from 'components/applicants/list_matched_applicants';
-import Matched_applicant from 'components/applicants/matched_applicant_profile';
-import List_matched_employers from 'components/applicants/list_matched_employers';
-import Matched_employer from 'components/applicants/matched_employer_profile';
-import List_applicants_applied from 'components/applicants/list_applicants_applied'
+import List_match from 'components/match/list_match';
+import List_matched_applicants from 'components/match/list_matched_applicants';
+import Matched_applicant from 'components/match/matched_applicant_profile';
+import List_matched_employers from 'components/match/list_matched_employers';
+import Matched_employer from 'components/match/matched_employer_profile';
+import List_applicants_applied from 'components/match/list_applicants_applied'
 
 
 ErrorPage
