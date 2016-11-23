@@ -1,6 +1,42 @@
 ## README FOR ATLAS-CV
 #### IMPORTANT INFORMATION
 
+#### Heroku Setup
+  * In Access - add Heroku user-email address to allow access to Heorku Account
+
+  ```
+  // run the following commands
+
+  $ git init
+
+  $ heroku git:remote -a atlas-cv
+  ```
+
+#### Heroku Deployment
+
+  ```
+  $ git add .
+
+  $ git commit -m "some message"
+
+  $ git push heroku master
+
+  ```
+
+#### Front-End
+  * Hosted at Heroku (Root path) - https://atlas-cv.herokuapp.com
+  * ReactJS with NodeJS, Webpack & Redux
+
+#### Back-end
+  * Hosted at Heroku (Root path) - https://atlas-cv-database.herokuapp.com/
+  * PostgreSQL Database
+##### Common paths to database
+###### Notes: Root path + the following
+  * List all Applicants with all the Profile Details - https://atlas-cv-database.herokuapp.com/api/applicants/
+  * List all Employers with all the Company Details - https://atlas-cv-database.herokuapp.com/api/employers/
+  * List all Jobs with all the Job Details - https://atlas-cv-database.herokuapp.com/api/jobs/
+
+
 #### Installation
   * NodeJS - please ensure [NodeJS](https://nodejs.org/en/) is installed on your system
 
@@ -8,17 +44,17 @@
   //navigate to root directory
 
   // npm install all app dependencies
-  npm install
+  $ npm install
 
   // to start the dev build
-  npm run start
+  $ npm run start
 
   // default port localhost:3000
 
   // In the web browser, to go localhost:3000
 
   // Create .gitignore inside root directory
-  touch .gitignore
+  $ touch .gitignore
 
     // add the following in the .gitignore file
       *.swp
@@ -73,7 +109,14 @@
   |   |   |-  Views
   |   |   |   |-  index.ejs                       // contains the HTML for the entire app
   |   |-  store                                   // do NOT touch - handling redux
-  |   |-  styles
+  |   |-  styles                                  // contains all the stylings for the app in SASS
+  |   |   |- responsive                           // contains styling for all the various smart devices, tablets
+  |   |   |- _card_view.scss                      // contains styling sheet for all cards (list_jobs & job_details) for both applicant & employers
+  |   |   |- _detailView.scss                     // contains styling for some job_details
+  |   |   |- _forms.scss                          // contains styling sheet for all forms for both applicant & employers
+  |   |   |- _intro.scss                          // contains styling sheet for the index page (main landing page, header, footer, terms_and_condition, social medias, mail_chimp)
+  |   |   |- _profiles.scss                       // contains styling sheet for both applicant and employer profiles
+  |   |   |- main.scss                            // main SASS styling sheet for all other sheets to import to
   |   |-  utils                                   // do NOT touch - helper functions
   |   |-  app.js                                  // do NOT touch - root app
   |   |-  rootReducer.js                          // do NOT touch - part of redux
