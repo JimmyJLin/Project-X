@@ -1065,8 +1065,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
       // PostPdf( data.id, ApplicantProfilePdf )
 
       // alert("Applicant Profile Created, Please press OK to continue")
-
-      window.location.assign('/applicant_profile')
+      window.setTimeout(delayedRedirect(), 4000)
 
     })
     .error((error) => {
@@ -1075,6 +1074,12 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
       alert("Applicant Profile Update Failed ...")
 
     })
+
+}
+
+function delayedRedirect(){
+  // console.log("delayedRedirect")
+  window.location.assign('/applicant_profile')
 
 }
 

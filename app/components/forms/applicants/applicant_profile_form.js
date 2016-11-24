@@ -830,7 +830,7 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
       // alert("Applicant Profile Created, Please press OK to continue")
 
-      window.location.assign('/Applicant_skill_form')
+      window.setTimeout(delayedRedirect(), 4000)
 
     })
     .error((error) => {
@@ -839,6 +839,12 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
       alert("Applicant Profile Update Failed ...")
       // console.error('Applicant Profile Data Failed to Post to postOneApplicant - returned data: ', error);
     })
+
+}
+
+function delayedRedirect(){
+  // console.log("delayedRedirect")
+  window.location.assign('/applicant_profile')
 
 }
 
