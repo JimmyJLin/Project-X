@@ -39,6 +39,12 @@ $job_primary_background_color: #f2f2f2;
 
 #employer_profile_form, #applicant_profile_form, #applicant_profile_form, #applicant_profile_update{
 
+  #label{
+    font-weight: bold;
+    font-size: 1.15em;
+    padding-bottom: 5px;
+  }
+
   .icon.minus.circle:hover{
     cursor: pointer;
   }
@@ -72,6 +78,7 @@ $job_primary_background_color: #f2f2f2;
     }
   }
 
+
   .field{
     .ui.segment{
       width: 100%;
@@ -80,13 +87,16 @@ $job_primary_background_color: #f2f2f2;
     p{
       cursor: pointer;
     }
+
     #red_text{
       color: red;
     }
+
     #addition_texts{
       text-align: center;
       font-size: .85em;
     }
+
   }
 
   .profile-pic {

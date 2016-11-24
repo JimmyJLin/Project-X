@@ -20,17 +20,17 @@ $(function(){
   })
 
   // Reset Filter
-  $('#reset_button').on('click', function(){
-    $(".ui.fluid.dropdown").dropdown("clear")
-
-  })
+  // $('#reset_button').on('click', function(){
+  //   $(".ui.fluid.dropdown").dropdown("clear")
+  //
+  // })
 
 
   // Reset Dropdown
-  $('#add_additional').on('click', function(){
-    console.log("clicked")
-    $(".ui.dropdown.education").dropdown("clear")
-  })
+  // $('#add_additional').on('click', function(){
+  //   console.log("clicked")
+  //   $(".ui.dropdown.education").dropdown("clear")
+  // })
 
 
   // Checkbox toggle

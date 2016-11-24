@@ -59,16 +59,6 @@ class Applicant_profile_update extends Component {
 
   componentDidMount(){
 
-    if(localStorage.getItem('isLoaded') !== 'yes'){
-      localStorage.setItem('isLoaded', 'yes');
-      window.location.reload(true)
-    }
-
-    // window.setInterval(changeLoaded, 5000)
-    //
-    // function changeLoaded(){
-    //   localStorage.setItem('isLoaded', 'no');
-    // }
 
     const user_id = localStorage.id
 
@@ -80,13 +70,12 @@ class Applicant_profile_update extends Component {
       console.log("applicantProfile data: ", data)
       // console.log("school data from backend ---", data.school)
       if(data.desired_industry == null || data.desired_industry == ""){
-        console.log("no existing profile")
+        // console.log("no existing profile")
         this.state.isLoading = true
         this.setState({
           isLoading: true
         })
       } else {
-        console.log("existing profile")
         this.state.applicantProfile = data;
         this.state.profile_image = data.profile_image
         this.state.summary = data.summary
@@ -95,15 +84,44 @@ class Applicant_profile_update extends Component {
         this.state.job_type = data.job_type
         this.state.desired_industry = data.desired_industry
         this.state.experience_level = data.experience_level
-        this.state.certificationsArry = data.certifications
         this.state.educationArry = data.school
         this.state.education_level = data.education_level
         this.state.work_historyArry = data.work_history
-        this.state.languages_spokenArry = data.languages_spoken
         this.state.isLoading = true
+        this.state.user_id = data.user_id
         localStorage.setItem('isAuthen', 'yes');
-        locationState = data.desired_location
-        console.log("locationState from onload", locationState)
+
+        if (data.certifications == null){
+          certificateState = []
+        } else {
+          certificateState = data.certifications
+        }
+
+        if (data.desired_location == null){
+          locationState = []
+        } else {
+          locationState = data.desired_location
+        }
+
+        if (data.school == null){
+          schoolData = []
+        } else {
+          schoolData = data.school
+        }
+
+        if (data.languages_spoken == null){
+          languageState = []
+        } else {
+          languageState = data.languages_spoken
+        }
+
+        if (data.work_history == null){
+          companyData = []
+        } else {
+          companyData = data.work_history
+        }
+
+
         this.setState({
           applicantProfile: this.state.applicantProfile,
           profile_image: this.state.profile_image,
@@ -113,10 +131,9 @@ class Applicant_profile_update extends Component {
           job_type: this.state.job_type,
           desired_industry: this.state.desired_industry,
           experience_level: this.state.experience_level,
-          certificationsArry: this.state.certificationsArry,
           educationArry: this.state.educationArry,
           work_historyArry: this.state.work_historyArry,
-          languages_spokenArry: this.state.languages_spokenArry,
+          user_id: this.state.user_id,
           isLoading: true
         })
 
@@ -160,15 +177,15 @@ class Applicant_profile_update extends Component {
     console.log("submit clicked")
 
     let applicantProfileData = {
-      user_id: this.props.auth.user.id,
+      id: this.state.user_id,
       desired_industry: this.state.desired_industry,
       zipcode: this.state.zipcode,
       phone_number: this.state.phone_number,
       job_type: this.state.job_type,
       experience_level: this.state.experience_level,
-      certifications: this.state.certificationsArry,
+      certifications: certificateState,
       desired_location: locationState,
-      languages_spoken: this.state.languages_spokenArry,
+      languages_spoken: languageState,
       educationArry: this.state.educationArry,
       work_historyArry: this.state.work_historyArry,
       summary: this.state.summary
@@ -199,8 +216,8 @@ class Applicant_profile_update extends Component {
          final_work_histories = final_work_histories + "\"" + el + '\",';
        }
        applicantProfileData.work_historyArry = final_work_histories;
-       console.log("line 92 final_work_histories", final_work_histories)
-       console.log("line 93 applicantProfileData.work_historyArr", applicantProfileData.work_historyArry)
+      //  console.log("line 92 final_work_histories", final_work_histories)
+      //  console.log("line 93 applicantProfileData.work_historyArr", applicantProfileData.work_historyArry)
 
     })
 
@@ -210,7 +227,7 @@ class Applicant_profile_update extends Component {
     //****************
 
     var educationArr =  applicantProfileData.educationArry   // => ["English", "Turkish"]
-    console.log("educationArr", educationArr)
+    // console.log("educationArr", educationArr)
     var final_educations = "{";
 
     educationArr.forEach(function(el){
@@ -220,8 +237,8 @@ class Applicant_profile_update extends Component {
          final_educations = final_educations + "\"" + el + '\",';
        }
        applicantProfileData.educationArry = final_educations;
-       console.log("line 113 final_educations", final_educations)
-       console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
+      //  console.log("line 113 final_educations", final_educations)
+      //  console.log("line 114 applicantProfileData.educationArry", applicantProfileData.educationArry)
 
     })
 
@@ -230,7 +247,7 @@ class Applicant_profile_update extends Component {
     //****************
 
     var langArr =  applicantProfileData.languages_spoken   // => ["English", "Turkish"]
-    console.log("line 223 - applicantProfileData.languages_spoken", applicantProfileData.languages_spoken)
+    // console.log("line 223 - applicantProfileData.languages_spoken", applicantProfileData.languages_spoken)
     var final_languages = "{";
 
     langArr.forEach(function(el){
@@ -240,7 +257,7 @@ class Applicant_profile_update extends Component {
          final_languages = final_languages + "\"" + el + '\",';
        }
        applicantProfileData.languages_spoken = final_languages;
-       console.log("final_languages", final_languages)
+      //  console.log("final_languages", final_languages)
     })
 
     //****************
@@ -263,7 +280,7 @@ class Applicant_profile_update extends Component {
     //****************
 
     var certArr =  applicantProfileData.certifications   // => ["English", "Turkish"]
-    console.log("line 255 - applicantProfileData.certifications", applicantProfileData.certifications)
+    // console.log("line 255 - applicantProfileData.certifications", applicantProfileData.certifications)
     var final_cert = "{";
 
     certArr.forEach(function(el){
@@ -273,7 +290,7 @@ class Applicant_profile_update extends Component {
          final_cert = final_cert + "\"" + el + '\",';
        }
        applicantProfileData.certifications = final_cert;
-       console.log("certifications", final_cert)
+      //  console.log("certifications", final_cert)
     })
 
     // ***********
@@ -281,7 +298,7 @@ class Applicant_profile_update extends Component {
 
     var desired_locationArr =  applicantProfileData.desired_location   // => ["English", "Turkish"]
     var final_desired_location = "{";
-    console.log("line 272 - applicantProfileData.desired_location", applicantProfileData.desired_location)
+    // console.log("line 272 - applicantProfileData.desired_location", applicantProfileData.desired_location)
 
     desired_locationArr.forEach(function(el){
        if( el === desired_locationArr[desired_locationArr.length-1] ) {
@@ -290,15 +307,15 @@ class Applicant_profile_update extends Component {
          final_desired_location = final_desired_location + "\"" + el + '\",';
        }
        applicantProfileData.desired_location = final_desired_location;
-       console.log("locations", final_desired_location)
+      //  console.log("locations", final_desired_location)
     })
 
-    console.log("Line 285 - applicantProfileData", applicantProfileData)
-    console.log("Line 286 - ApplicantProfileImages", ApplicantProfileImages)
-    console.log("Line 287 - ApplicantProfilePdf", ApplicantProfilePdf)
+    console.log("Line 286 - applicantProfileData", applicantProfileData)
+    console.log("Line 287 - ApplicantProfileImages", ApplicantProfileImages)
+    console.log("Line 288 - ApplicantProfilePdf", ApplicantProfilePdf)
 
 
-    // postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
+    postOneApplicant(applicantProfileData , ApplicantProfileImages, ApplicantProfilePdf);
 
 
     // window.location.assign('/Applicant_skill_form')
@@ -310,11 +327,14 @@ class Applicant_profile_update extends Component {
     e.preventDefault();
     console.log("Add Additional Education clicked")
 
-    let educationData = [
-      this.state.education_level,
-      this.state.school_name,
-      this.state.year
-    ]
+    // let educationData = [
+    //   this.state.education_level,
+    //   this.state.school_name,
+    //   this.state.year
+    // ]
+    let educationData = this.state.education_level + "," + this.state.school_name + "," + this.state.year
+    console.log("educationData ----", educationData)
+
     schoolData.push(educationData)
     console.log("schoolData", schoolData)
 
@@ -350,17 +370,17 @@ class Applicant_profile_update extends Component {
 
   handleAddJobExperience(e){
     e.preventDefault();
-    // console.log("Add Additional Job Experiences clicked")
+    console.log("Add Additional Job Experiences clicked")
 
-    let jobData = [
-      this.state.company_name,
-      this.state.job_title,
-      this.state.start_from,
-      this.state.to
-    ]
-
+    // let jobData = [
+    //   this.state.company_name,
+    //   this.state.job_title,
+    //   this.state.start_from,
+    //   this.state.to
+    // ]
+    let jobData = this.state.company_name + "," + this.state.job_title + "," + this.state.start_from + "," + this.state.to
     companyData.push(jobData)
-    // console.log("companyData", companyData)
+    console.log("companyData", companyData)
 
     this.setState({
       work_historyArry: companyData,
@@ -394,14 +414,63 @@ class Applicant_profile_update extends Component {
 
   }
 
+
+  handleDeleteLocation(e){
+    e.preventDefault();
+
+    let locationId = e.target.value
+
+    let newLocationData = locationState
+
+    newLocationData.splice(locationId, 1)
+
+    this.setState({
+      desired_location: newLocationData
+    })
+
+  }
+
+
+  handleDeleteCertification(e){
+    e.preventDefault();
+
+    // console.log("delete certifications icon clicked")
+    let locationId = e.target.value
+
+    let newCertificationData = certificateState
+
+    newCertificationData.splice(locationId, 1)
+
+    this.setState({
+      certifications: newCertificationData
+    })
+
+  }
+
+
+  handleDeleteLanguages(e){
+    e.preventDefault();
+
+    let locationId = e.target.value
+
+    let newLanguageData = languageState
+
+    newLanguageData.splice(locationId, 1)
+
+    this.setState({
+      languages_spoken: newLanguageData
+    })
+
+  }
+
   onProfileImageChange(profile_image){
     this.setState({profile_image})
   }
 
   onLocationChange(desired_locationArry){
-    console.log("desired_locationArry-----", desired_locationArry)
+    // console.log("desired_locationArry-----", desired_locationArry)
     locationState.push(desired_locationArry)
-    console.log("locationState ------", locationState)
+    // console.log("locationState ------", locationState)
     this.setState({desired_location: locationState})
   }
 
@@ -437,6 +506,7 @@ class Applicant_profile_update extends Component {
 
   onEducationLevelChange(education_level){
     this.setState({education_level});
+    console.log("this.state.education_level", this.state.education_level)
   }
 
   onSchoolChange(school_name){
@@ -486,14 +556,14 @@ class Applicant_profile_update extends Component {
   }
 
   onResumeDrop(acceptedResumeFiles){
-    console.log("acceptedResumeFiles -->", acceptedResumeFiles)
+    // console.log("acceptedResumeFiles -->", acceptedResumeFiles)
     this.setState({
       resume_files: acceptedResumeFiles,
       resume_image: acceptedResumeFiles[0].id
     });
 
-    console.log("resume_files", this.state.resume_files)
-    console.log("resume_image", this.state.resume_image)
+    // console.log("resume_files", this.state.resume_files)
+    // console.log("resume_image", this.state.resume_image)
 
     $('#eventDropZone').hide()
 
@@ -502,7 +572,7 @@ class Applicant_profile_update extends Component {
 
   openDropzone(){
     e.preventDefault();
-    console.log("openDropzone")
+    // console.log("openDropzone")
     this.dropzone.open();
   }
 
@@ -524,8 +594,8 @@ class Applicant_profile_update extends Component {
     }
     // spinner starts
 
+    // render school hisotry if eist if not render default message
     let schoolData = this.state.educationArry
-    // console.log("line 424 schoolData", schoolData)
     let school;
     if (this.state.educationArry == "" || this.state.educationArry == null){
       school = <div>No Education Added</div>
@@ -535,18 +605,19 @@ class Applicant_profile_update extends Component {
       })
     }
 
+    // render work hisotry if eist if not render default message
     let workData = this.state.work_historyArry
     let work;
     if (this.state.work_historyArry == "" || this.state.work_historyArry == null){
       work = <div>No Work Experience Added</div>
     } else {
       work = workData.map((el)=>{
-        return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
+        return <div id={"work"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
       })
     }
 
+    // render profile image if exisit if not render default image
     let profile_image;
-
     if(this.state.profile_image == "" || this.state.profile_image == null){
       // console.log("no image")
       profile_image = <img className="ui circular center image" src="images/img_placeholders/user_img.png" alt="Profile Picture"/>
@@ -555,26 +626,52 @@ class Applicant_profile_update extends Component {
       profile_image = <img className="ui medium circular image" src={  'https://apex-database.herokuapp.com/images/applicant_profile_img/' + this.state.profile_image} alt="Profile Picture"/>
     }
 
+    // rendering message if resume exists
     let resumeUpload;
-    console.log("this.state.resume_files", this.state.resume_files.length)
     if (this.state.resume_files.length == 0){
       resumeUpload = <div></div>
     } else if (this.state.resume_files.length > 0) {
       resumeUpload = <dive>{this.state.resume_files.length} files pending to upload</dive>
     }
 
-    // work = workData.map((el)=>{
-    //   return <div id={"school"+workData.indexOf(el)} key={el}>{el[0]} - {el[1]} <button value={workData.indexOf(el)} className="circular ui icon button" onClick={ this.handleDeleteWork.bind(this)}> - </button></div>
-    // })
-
-    let currentLocation;
+    // rendering returned intested in working data
+    let currentLocation = this.state.desired_location
     if (locationState.length == 0){
       currentLocation = <div></div>
     } else {
-      console.log("locationState----", locationState)
-      currentLocation = locationState
-      console.log("currentLocation ----", currentLocation)
+      locationState.map((el)=>{
+        currentLocation = locationState.map((el)=>{
+          return <div id={"location"+locationState.indexOf(el)} key={el}>{el}<button value={locationState.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteLocation.bind(this)}> - </button></div>
+        })
+      })
     }
+
+    // rendering returned certifications data
+    let currentCertifications = this.state.certificationsArry
+    // console.log("currentCertifications ----- line 614", currentCertifications)
+    if (certificateState.length == 0){
+      currentCertifications = <div></div>
+    } else {
+      // console.log("certificateState inside render function -----", certificateState)
+      currentCertifications = certificateState.map((el)=>{
+        // console.log("line 620 el -----", el)
+        return <div id={"certifications"+certificateState.indexOf(el)} key={el +certificateState.indexOf(el) }>{el}<button value={certificateState.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteCertification.bind(this)}> - </button></div>
+      })
+    }
+
+    // rendering returned languages_spoken data
+    let currentLanguages = this.state.languages_spokenArry
+    // console.log("currentLanguages ----- line 614", currentLanguages)
+    if (languageState.length == 0){
+      currentLanguages = <div></div>
+    } else {
+      // console.log("currentLanguages inside render function -----", currentLanguages)
+      currentLanguages = languageState.map((el)=>{
+        // console.log("line 620 el -----", el)
+        return <div id={"languages"+languageState.indexOf(el)} key={el +languageState.indexOf(el) }>{el}<button value={languageState.indexOf(el)} className="circular ui icon button" onClick={this.handleDeleteLanguages.bind(this)}> - </button></div>
+      })
+    }
+
     const { currentValue, currentValues } = this.state;
 
     const { isAuthenticated } = this.props.auth;
@@ -582,12 +679,9 @@ class Applicant_profile_update extends Component {
 
     const applicantForm = (
         <div id="applicant_profile_update">
-
-
           <br/>
           <br/>
           <h1> Tell Us About Yourself, and We'll Tell You Whos Looking to Hire You</h1>
-
           <form className="ui form applicant_profile_update" onSubmit={this.handleSubmit.bind(this)}>
 
             <div className="three fields">
@@ -607,7 +701,7 @@ class Applicant_profile_update extends Component {
             <div className="ui divider"></div>
 
             <div className="field">
-              <div className="label">Short Summary</div>
+              <div id="label" className="label">Short Summary</div>
               <textarea name="summary" value={this.state.summary} onChange={e => this.onSummaryChange(e.target.value)}></textarea>
             </div>
 
@@ -615,31 +709,40 @@ class Applicant_profile_update extends Component {
               {/* Left Field */}
               <div className="field">
                 {/* Interested in Jobs in */}
-                <div>
-                  <label>Interested In Working</label>
-                  <select id="desired_location" multiple="true" name="desired_location" className="ui fluid normal dropdown"
-                  value={this.state.desired_locationArry}
-                  onChange={e => this.onLocationChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="New York">Greater New York City</option>
-                    <option value="Nassau County">Nassau County</option>
-                    <option value="Suffolk County">Suffolk County</option>
-                    <option value="Brooklyn">Brooklyn</option>
-                    <option value="Queens">Queens</option>
-                    <option value="Manhattan">Manhattan</option>
-                    <option value="Staten Island">Staten Island</option>
-                    <option value="Jersey City">Jersey City</option>
-                    <option value="Rye">Rye</option>
-                    <option value="Westchester">Westchester</option>
-                    <option value="Albany">Albany</option>
-                  </select>
+                <div className="ui segment">
+                  <label id="label">Interested In Working</label>
+                  <div className="two fields">
+                    <div className="field">
+                      <span>currently selected:</span>
+                      {currentLocation}
+                    </div>
+                    <div className="field">
+                      <span>To add more please select from below: </span>
+                      <select id="desired_location" multiple="true" name="desired_location" className="ui fluid normal dropdown"
+                      value={this.state.desired_locationArry}
+                      onChange={e => this.onLocationChange(e.target.value)}>
+                      <option value="">Please Select</option>
+                      <option value="New York">Greater New York City</option>
+                      <option value="Nassau County">Nassau County</option>
+                      <option value="Suffolk County">Suffolk County</option>
+                      <option value="Brooklyn">Brooklyn</option>
+                      <option value="Queens">Queens</option>
+                      <option value="Manhattan">Manhattan</option>
+                      <option value="Staten Island">Staten Island</option>
+                      <option value="Jersey City">Jersey City</option>
+                      <option value="Rye">Rye</option>
+                      <option value="Westchester">Westchester</option>
+                      <option value="Albany">Albany</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <br/>
 
                 {/* Desired Location */}
-                <div>
-                  <label>Desired Industry</label>
+                <div className="ui segment">
+                  <label id="label">Desired Industry</label>
                   <div className="menu"></div>
                   <select id="desired_industry" name="desired_industry" className="ui fluid dropdown" value={this.state.desired_industry}
                   onChange={e => this.onDesiredIndustryChange(e.target.value)}>
@@ -653,24 +756,24 @@ class Applicant_profile_update extends Component {
                 <br/>
 
                 {/* Current Zip Code */}
-                <div>
-                  <label>Current Zip Code</label>
+                <div className="ui segment">
+                  <label id="label">Current Zip Code</label>
                   <input name="zipcode" value={this.state.zipcode} type="text" placeholder="zipcode" onChange={e => this.onZipcodeChange(e.target.value)}/>
                 </div>
 
                 <br/>
 
                 {/* Phone Number */}
-                <div>
-                  <label>Phone Number</label>
+                <div className="ui segment">
+                  <label id="label">Phone Number</label>
                   <input name="phone_number" value={this.state.phone_number} type="text" placeholder="phone number" onChange={e => this.onPhoneNumberChange(e.target.value)}/>
                 </div>
 
                 <br/>
 
                 {/* Job Type */}
-                <div>
-                  <label name="job_type">Job Type</label>
+                <div className="ui segment">
+                  <label id="label" name="job_type">Job Type</label>
                   <select id="job_type" name="job_type" id="" className="ui fluid dropdown" value={this.state.job_type} onChange={e => this.onJobTypeChange(e.target.value)}>
                     <option value="">Please Select</option>
                     <option value="Intern">Intern</option>
@@ -683,8 +786,8 @@ class Applicant_profile_update extends Component {
                 <br/>
 
                 {/* Industry Work Experience */}
-                <div>
-                  <label name="experience_level">Industry Work Experience (Full Employment)</label>
+                <div className="ui segment">
+                  <label id="label" name="experience_level">Industry Work Experience (Full Employment)</label>
                   <select id="experience_level" name="experience_level" id="" className="ui fluid dropdown" value={this.state.experience_level}
                   onChange={e => this.onIndustryExpLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
@@ -697,53 +800,71 @@ class Applicant_profile_update extends Component {
                 <br/>
 
                 {/* Certification Held */}
-                <div>
-                  <label name="certifications">Relevant certifications</label>
-                  <select multiple="true" name="certifications" className="ui fluid normal dropdown"
-                  value={this.state.certificationsArry}
-                  onChange={e => this.onCertificationChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
-                    <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
-                    <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
-                    <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
-                    <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
-                    <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
-                    <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
-                    <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
-                    <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
-                    <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
-                    <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
-                    <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
-                    <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
-                    <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
-                    <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
-                    <option value="Series 7">Series 7</option>
-                    <option value="Series 63">Series 63</option>
-                    <option value="Series 66">Series 66</option>
-                  </select>
+                <div className="ui segment">
+                  <label id="label" name="certifications">Relevant certifications</label>
+                  <div className="two fields">
+                    <div className="field">
+                      <span>currently selected:</span>
+                      {currentCertifications}
+                    </div>
+                    <div className="field">
+                      <select multiple="true" name="certifications" className="ui fluid normal dropdown"
+                      value={this.state.certificationsArry}
+                      onChange={e => this.onCertificationChange(e.target.value)}>
+                        <option value="">Please Select</option>
+                        <option value="Certified Financial Planner (CFP)">Certified Financial Planner (CFP)</option>
+                        <option value="Chartered Financial Analysts (CFA)">Chartered Financial Analysts (CFA)</option>
+                        <option value="Certified Fund Specialists (CFS)">Certified Fund Specialists (CFS)</option>
+                        <option value="Chartered Financial Consultant (ChFC)">Chartered Financial Consultant (ChFC)</option>
+                        <option value="Chartered Investment Counselor (CIC)">Chartered Investment Counselor (CIC)</option>
+                        <option value="Certified Investment Management Analysts (CIMA)">Certified Investment Management Analysts (CIMA)</option>
+                        <option value="Chartered Market Technician (CMT)">Chartered Market Technician (CMT)</option>
+                        <option value="Personal Financial Specialist (PFS)">Personal Financial Specialist (PFS)</option>
+                        <option value="Certified Public Accountant (CPA)">Certified Public Accountant (CPA)</option>
+                        <option value="Certified Management Accountant (CMA)">Certified Management Accountant (CMA)</option>
+                        <option value="Certified in Financial Management (CFM)">Certified in Financial Management (CFM)</option>
+                        <option value="Certified Internal Auditor (CIA)">Certified Internal Auditor (CIA)</option>
+                        <option value="Certification in Control Self Assessment (CCSA)">Certification in Control Self Assessment (CCSA)</option>
+                        <option value="Certified Information Systems Auditor (CISA)">Certified Information Systems Auditor (CISA)</option>
+                        <option value="Certified Fraud Examiner (CFE)">Certified Fraud Examiner (CFE)</option>
+                        <option value="Series 7">Series 7</option>
+                        <option value="Series 63">Series 63</option>
+                        <option value="Series 66">Series 66</option>
+                      </select>
+                    </div>
+                  </div>
+
                 </div>
 
                 <br/>
 
                 {/* Additional Language Spoken */}
-                <div>
-                  <label name="languages_spoken">Languages Spoken</label>
-                  <select multiple="true" name="languages_spoken" className="ui fluid normal dropdown"
-                  value={this.state.languages_spokenArry}
-                  onChange={e => this.onLanguageChange(e.target.value)}>
-                    <option value="">Please Select</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="German">German</option>
-                    <option value="French">French</option>
-                    <option value="Italian">Italian</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Russian">Russian</option>
-                    <option value="Hindi">Hindi</option>
-                    <option value="Portuguese">Portuguese</option>
-                    <option value="Japanese">Japanese</option>
-                  </select>
+                <div className="ui segment">
+                  <label id="label" name="languages_spoken">Languages Spoken</label>
+                  <div className="two fields">
+                    <div className="field">
+                      <span>currently selected:</span>
+                      {currentLanguages}
+                    </div>
+                    <div className="field">
+                    <select multiple="true" name="languages_spoken" className="ui fluid normal dropdown"
+                    value={this.state.languages_spokenArry}
+                    onChange={e => this.onLanguageChange(e.target.value)}>
+                      <option value="">Please Select</option>
+                      <option value="Spanish">Spanish</option>
+                      <option value="German">German</option>
+                      <option value="French">French</option>
+                      <option value="Italian">Italian</option>
+                      <option value="Chinese">Chinese</option>
+                      <option value="Arabic">Arabic</option>
+                      <option value="Russian">Russian</option>
+                      <option value="Hindi">Hindi</option>
+                      <option value="Portuguese">Portuguese</option>
+                      <option value="Japanese">Japanese</option>
+                    </select>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
@@ -753,7 +874,7 @@ class Applicant_profile_update extends Component {
 
                 {/* Education Level */}
                 <div className="ui segment">
-                  <label name="education_level">Education Level</label>
+                  <label id="label" name="education_level">Education Level</label>
                   <select name="education_level" id="" className="ui fluid dropdown education" value={this.state.education_level}
                   onChange={e => this.onEducationLevelChange(e.target.value)}>
                     <option value="">Please Select</option>
@@ -772,11 +893,11 @@ class Applicant_profile_update extends Component {
                   {/* School & Year */}
                   <div className="two fields">
                     <div className="field">
-                      <label name="school_name">School</label>
+                      <label id="label" name="school_name">School</label>
                       <input name="school_name" value={this.state.school_name} type="text" placeholder="school" onChange={e => this.onSchoolChange(e.target.value)}/>
                     </div>
                     <div className="field">
-                      <label name="Year">Graduation Year</label>
+                      <label id="label" name="Year">Graduation Year</label>
                       <select name="year" id="" className="ui fluid dropdown" value={this.state.year} onChange={e => this.onSchoolYearChange(e.target.value)}>
                         <option value="">Please Select</option>
                         <option value="2020">2020</option>
@@ -856,22 +977,22 @@ class Applicant_profile_update extends Component {
                 <div className="ui segment">
                   <div className="two fields">
                     <div className="field">
-                      <label name="Company Name">Company Name</label>
+                      <label id="label" name="Company Name">Company Name</label>
                       <input name="Company_name" value={this.state.company_name} type="text" placeholder="Company Name" onChange={e => this.onCompanyNameChange(e.target.value)}/>
                       <br/>
                     </div>
                     <div className="field">
-                      <label name="job_title">Job Title</label>
+                      <label id="label" name="job_title">Job Title</label>
                       <input name="job_title" value={this.state.job_title} type="text" placeholder="title"onChange={e => this.onJobTitleChange(e.target.value)}/>
                     </div>
                   </div>
                     <div className="two fields">
                     <div className="field">
-                      <label name="start_from">From</label>
+                      <label id="label" name="start_from">From</label>
                       <input name="start_from" value={this.state.start_from} type="date" placeholder="From"onChange={e => this.onStartFromChange(e.target.value)}/>
                     </div>
                     <div className="field">
-                      <label name="to">To</label>
+                      <label id="label" name="to">To</label>
                       <input name="to" value={this.state.to} type="date" placeholder="From"onChange={e => this.onToChange(e.target.value)}/>
                     </div>
 
@@ -931,17 +1052,17 @@ function postOneApplicant(applicantProfileData, ApplicantProfileImages, Applican
 
   console.log('postOneApplicant Function data: ', applicantProfileData)
 
-  $.post('https://apex-database.herokuapp.com/api/applicants/new', applicantProfileData)
+  $.post('https://apex-database.herokuapp.com/api/applicants/update', applicantProfileData)
     .done((data) => {
       console.log('Applicant Profile Data Posted to postOneApplicant - returned data: ', data)
+      //
+      window.setTimeout(PostImage(data.id, ApplicantProfileImages), 1000)
 
-      window.setTimeout(PostImage, 2000)
+      window.setTimeout(PostPdf(data.id, ApplicantProfilePdf ), 3000)
 
-      window.setTimeout(PostPdf, 3000)
+      // PostImage( data.id, ApplicantProfileImages  );
 
-      PostImage( data.id, ApplicantProfileImages  );
-
-      PostPdf( data.id, ApplicantProfilePdf )
+      // PostPdf( data.id, ApplicantProfilePdf )
 
       // alert("Applicant Profile Created, Please press OK to continue")
 

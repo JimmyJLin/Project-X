@@ -43,22 +43,45 @@ class Applicant_profile extends Component {
    const user_id = localStorage.id
    const url = 'https://apex-database.herokuapp.com/api/applicants/profile/' + user_id
    $.get(url).done( (data)=>{
-    //  console.log("applicantProfile data: ", data)
+     console.log("applicantProfile data: ", data)
 
       this.state.applicantProfile = data;
       // console.log("this.state.applicantProfile", this.state.applicantProfile)
       if(data.desired_industry == null || data.desired_industry == ""){
         window.location.assign('/applicant_profile_form')
       } else {
-        this.state.desired_industry = data.desired_industry
-        this.state.desired_location = data.desired_location
-        this.state.education_level = data.education_level
-        this.state.certifications = data.certifications
-        this.state.school_data = data.school
-        this.state.work_history = data.work_history
-        this.state.languages_spoken = data.languages_spoken
         this.state.isLoading = true
         localStorage.setItem('isAuthen', 'yes');
+
+        if (data.certifications == null){
+          this.state.certifications = []
+        } else {
+          this.state.certifications = data.certifications
+        }
+
+        if (data.desired_location == null){
+          this.state.desired_location = []
+        } else {
+          this.state.desired_location = data.desired_location
+        }
+
+        if (data.school == null){
+          this.state.school_data = []
+        } else {
+          this.state.school_data = data.school
+        }
+
+        if (data.languages_spoken == null){
+          this.state.languages_spoken = []
+        } else {
+          this.state.languages_spoken = data.languages_spoken
+        }
+
+        if (data.work_history == null){
+          this.state.work_history = []
+        } else {
+          this.state.work_history = data.work_history
+        }
 
         this.setState({
           applicantProfile: this.state.applicantProfile,
